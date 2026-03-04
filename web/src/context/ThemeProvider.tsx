@@ -4,10 +4,16 @@ import { Theme, ThemeContext } from './ThemeContext';
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(() => {
-    // Check local storage or system preference
+    // 1. Check local storage
     const saved = localStorage.getItem('theme') as Theme;
     if (saved) return saved;
-    // Default to dark as per user request ("Night Mode by Default")
+
+    // 2. Check system preference
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      return 'light';
+    }
+
+    // 3. Default to dark
     return 'dark';
   });
 
