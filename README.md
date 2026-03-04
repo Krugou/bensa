@@ -1,56 +1,112 @@
-# Bensa - Fuel Price Tracker
+# ⛽ Bensa - Real-Time Fuel Tracker
 
-Real-time fuel price tracking PWA for Finland. Find the cheapest gas stations near you with aurora-style heatmap visualization and price drop alerts.
+A modern, high-contrast fuel price tracker for Finland (PK-Seutu). Built with React 19, Vite, and Firebase, featuring a neobrutalist aesthetic, wacky animations, and a background scraper bot.
 
-## 📂 Project Structure
+![Bensa Build Status](https://github.com/Krugou/bensa/actions/workflows/pipeline.yml/badge.svg)
 
-- `web/`: React + Vite PWA application
-- `bot/`: Gas price scraper (Node.js + Puppeteer)
-- `.github/workflows/`: CI/CD pipelines
+## 🌟 Features
 
-## 🌐 Web Application
+- **Real-Time Prices**: Live scraping of fuel prices from the Helsinki Metropolitan area.
+- **Station Heatmap**: Visual interactive map using Leaflet to find the cheapest fuel nearby.
+- **Price Gauge**: Quick visual overview of current price levels (Cheapest vs. Average).
+- **Price History**: Historical trends visualized with Recharts.
+- **PWA Ready**: Install as a mobile app with offline support.
+- **Price Drop Alerts**: Background notifications when fuel prices drop significantly.
+- **Bilingual**: Fully localized in Finnish 🇫🇮 and English 🇬🇧.
+- **Neobrutalist UI**: High-contrast, bold borders, and wacky animations.
+
+## 🏗️ Project Structure
+
+The project is managed as an NPM Workspace:
+
+- `web/`: The Frontend React application (Vite + TailwindCSS + Firebase).
+- `bot/`: The Scraping Bot (Puppeteer + Firebase Admin + Geocoding).
+- `devtools/`: Helper scripts for maintenance.
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v18+)
-- npm
 
-### Setup
+- Node.js (v20+)
+- Firebase Account
+- Google Maps / Nominatim API access (Geocoding)
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Krugou/bensa.git
+   cd bensa
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Environment Variables
+
+The project requires the following environment variables. Create a `.env` file in the root or set them in your CI environment.
+
+#### Web Application (`web/`)
+
+Prefix variables with `VITE_` for client-side access:
+
+- `VITE_FIREBASE_API_KEY`: Your Firebase API Key.
+- `VITE_FIREBASE_AUTH_DOMAIN`: Firebase Auth Domain.
+- `VITE_FIREBASE_PROJECT_ID`: Firebase Project ID.
+- `VITE_FIREBASE_STORAGE_BUCKET`: Firebase Storage Bucket.
+- `VITE_FIREBASE_MESSAGING_SENDER_ID`: Firebase Messaging Sender ID.
+- `VITE_FIREBASE_APP_ID`: Firebase App ID.
+- `VITE_FIREBASE_MEASUREMENT_ID`: Firebase Measurement ID.
+
+#### Bot / Scraper (`bot/`)
+
+- `FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA`: (Secret) The full JSON string of your Firebase Service Account key.
+- `FIREBASE_PROJECT_ID`: (Optional if in SA) Your Firebase Project ID.
+
+## 🤖 Scraping Bot
+
+The bot runs on a schedule (GitHub Actions) or manually:
+
 ```bash
-npm install
+npm run start:bot
 ```
 
-### Development
+**Workflow:**
+
+1. **Scrape**: Uses Puppeteer to fetch prices from fuel comparison sites.
+2. **Geocode**: Uses OpenStreetMap Nominatim to find GPS coordinates for new stations.
+3. **Store**: Updates Firestore `stations` and adds a record to `price_history`.
+4. **Sync**: Generates a local `prices.json` for fallback offline access.
+
+## 💻 Development
+
+### Running the Web App
+
 ```bash
 npm run dev:web
 ```
-Runs at `http://localhost:3005`.
 
-### Testing
-- **Unit Tests**: `cd web && npm test` (Vitest)
+### Running the Bot
 
-### Features
-- **Price Gauge**: Large animated gauge showing current average fuel price
-- **Heatmap**: Leaflet map with color-coded glow markers (green=cheap, red=expensive)
-- **Station List**: Sortable by price or distance
-- **Fuel Types**: Toggle between 95, 98, and Diesel
-- **Dark Mode**: Sleek dark-first UI inspired by aurora apps
-- **PWA**: Installable, offline-capable, push notifications for price drops
-- **i18n**: English (EN) and Finnish (FI)
-
-## 🤖 Scraper Bot
-
-### Setup
 ```bash
-cd bot
-npm install
+npm run dev:bot
 ```
 
-### Running
-- **Development**: `npm run dev`
-- **Production**: `npm run build && npm start`
+### Build
 
-## 🚀 CI/CD
+```bash
+npm run build
+```
 
-GitHub Actions:
-- Lint, test, and build the web app
-- Schedule scraper runs every 4 hours
+## 🎨 Design Principles
+
+- **Contrast**: Pure black text (`#000000`) on slate backgrounds for maximum readability.
+- **Neobrutalism**: Bold borders, shadows, and distinct "glass-card" elements.
+- **Animation**: Wacky, slightly chaotic animations (wiggle, glow-breathe, price-pulse) to give the app personality.
+
+## 📜 License
+
+ISC License. See [LICENSE](LICENSE) for details.

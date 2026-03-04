@@ -8,12 +8,15 @@ import puppeteer from 'puppeteer';
 config();
 
 // Initialize Firebase Admin
-if (process.env['FIREBASE_SERVICE_ACCOUNT']) {
+const saVar = process.env['FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA'] ?? process.env['FIREBASE_SERVICE_ACCOUNT'];
+const projectVar = process.env['VITE_FIREBASE_PROJECT_ID'] ?? process.env['FIREBASE_PROJECT_ID'];
+
+if (saVar) {
   try {
-    const saJson = JSON.parse(process.env['FIREBASE_SERVICE_ACCOUNT']) as ServiceAccount & {
+    const saJson = JSON.parse(saVar) as ServiceAccount & {
       project_id?: string;
     };
-    const projectId = saJson.projectId ?? saJson.project_id ?? process.env['FIREBASE_PROJECT_ID'];
+    const projectId = saJson.projectId ?? saJson.project_id ?? projectVar;
 
     admin.initializeApp({
       credential: admin.credential.cert(saJson),
@@ -25,11 +28,10 @@ if (process.env['FIREBASE_SERVICE_ACCOUNT']) {
     admin.initializeApp();
   }
 } else {
-  const projectId = process.env['FIREBASE_PROJECT_ID'];
   admin.initializeApp({
-    projectId: projectId,
+    projectId: projectVar,
   });
-  console.log(`🔥 Firebase Admin initialized via default credentials. Project: ${projectId ?? 'detected'}`);
+  console.log(`🔥 Firebase Admin initialized via default credentials. Project: ${projectVar ?? 'detected'}`);
 }
 
 const db = admin.firestore();
