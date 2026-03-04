@@ -1,7 +1,12 @@
+import { mkdirSync, writeFileSync } from 'fs';
+import { dirname, resolve } from 'path';
+
 import admin, { ServiceAccount } from 'firebase-admin';
-import { writeFileSync } from 'fs';
-import { resolve } from 'path';
+import { config } from 'dotenv';
 import puppeteer from 'puppeteer';
+
+// Load environment variables
+config();
 
 // Initialize Firebase Admin
 if (process.env['FIREBASE_SERVICE_ACCOUNT']) {
@@ -9,6 +14,7 @@ if (process.env['FIREBASE_SERVICE_ACCOUNT']) {
     const serviceAccount = JSON.parse(process.env['FIREBASE_SERVICE_ACCOUNT']) as ServiceAccount;
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
+      projectId: serviceAccount.projectId,
     });
     console.log('🔥 Firebase Admin initialized via env variable');
   } catch (err) {
@@ -320,6 +326,8 @@ async function main(): Promise<void> {
         'api',
         'prices.json',
       );
+      // Ensure directory exists
+      mkdirSync(dirname(outputPath), { recursive: true });
       writeFileSync(outputPath, JSON.stringify(output, null, 2), 'utf-8');
       console.log(`📁 Written to local JSON: ${outputPath}`);
     } catch (err) {
