@@ -28,10 +28,11 @@ if (saVar) {
     admin.initializeApp();
   }
 } else {
+  const projectId = projectVar;
   admin.initializeApp({
-    projectId: projectVar,
+    projectId: projectId,
   });
-  console.log(`🔥 Firebase Admin initialized via default credentials. Project: ${projectVar ?? 'detected'}`);
+  console.log(`🔥 Firebase Admin initialized via default credentials. Project: ${projectId ?? 'detected'}`);
 }
 
 const db = admin.firestore();
@@ -226,8 +227,27 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
 
 /**
  * Maps the scraped stations and adds real GPS coordinates.
+ * Uses Firestore as a cache to avoid redundant geocoding.
  */
 async function processStationsWithGeocoding(scrapedStations: GasStation[]): Promise<GasStation[]> {
+  console.log('🔎 Loading existing stations from Firestore for coordinate cache...');
+  const cache: Record<string, { lat: number; lon: number }> = {};
+
+  try {
+    const snapshot = await db.collection('stations').get();
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data['lat'] && data['lon']) {
+        // Use name + city as a key for robust matching
+        const key = `${String(data['name'])}-${String(data['city'])}`.toLowerCase();
+        cache[key] = { lat: Number(data['lat']), lon: Number(data['lon']) };
+      }
+    });
+    console.log(`✅ Cached coordinates for ${Object.keys(cache).length} stations.`);
+  } catch (err) {
+    console.warn('⚠️ Could not load cache from Firestore, will geocode everything:', err);
+  }
+
   const processed: GasStation[] = [];
   console.log(
     `🌍 Starting geocoding for ${scrapedStations.length} stations... this will take a moment (1 req/sec limit).`,
@@ -235,25 +255,30 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
 
   for (let i = 0; i < scrapedStations.length; i++) {
     const station = scrapedStations[i];
+    const cacheKey = `${station.name}-${station.city}`.toLowerCase();
 
-    // Provide user feedback about the cleaning process
-    const rawAddress = station.address;
-    console.log(`[${i + 1}/${scrapedStations.length}] Geocoding: ${rawAddress}, ${station.city}`);
-    const coords = await geocodeAddress(rawAddress, station.city);
-
-    if (coords) {
-      station.lat = coords.lat;
-      station.lon = coords.lon;
+    if (cache[cacheKey]) {
+      station.lat = cache[cacheKey].lat;
+      station.lon = cache[cacheKey].lon;
+      console.log(`[${i + 1}/${scrapedStations.length}] ♻️  Using cached coords for: ${station.name}`);
     } else {
-      console.log(
-        `   ⚠️ Could not find coordinates for ${station.address}, falling back to defaults.`,
-      );
+      const rawAddress = station.address;
+      console.log(`[${i + 1}/${scrapedStations.length}] 🛰️  Geocoding: ${rawAddress}, ${station.city}`);
+      const coords = await geocodeAddress(rawAddress, station.city);
+
+      if (coords) {
+        station.lat = coords.lat;
+        station.lon = coords.lon;
+      } else {
+        console.log(
+          `   ⚠️ Could not find coordinates for ${station.address}, falling back to defaults.`,
+        );
+      }
+      // Strict delay to respect Nominatim TOS when actually geocoding
+      await delay(1200);
     }
 
     processed.push(station);
-
-    // Strict delay to respect Nominatim TOS
-    await delay(1200);
   }
 
   return processed;
