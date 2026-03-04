@@ -67,7 +67,7 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     dedupe: ['react', 'react-dom'],
   },
-  base: mode === 'development' ? '/' : '/bensa/',
+  base: process.env.VITE_BASE_PATH ?? '/',
   server: {
     port: 3005,
   },

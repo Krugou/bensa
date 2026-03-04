@@ -1,8 +1,7 @@
+import { config } from 'dotenv';
+import admin, { ServiceAccount } from 'firebase-admin';
 import { mkdirSync, writeFileSync } from 'fs';
 import { dirname, resolve } from 'path';
-
-import admin, { ServiceAccount } from 'firebase-admin';
-import { config } from 'dotenv';
 import puppeteer from 'puppeteer';
 
 // Load environment variables
@@ -14,13 +13,13 @@ if (process.env['FIREBASE_SERVICE_ACCOUNT']) {
     const saJson = JSON.parse(process.env['FIREBASE_SERVICE_ACCOUNT']) as ServiceAccount & {
       project_id?: string;
     };
-    const projectId = saJson.projectId || saJson.project_id || process.env['FIREBASE_PROJECT_ID'];
+    const projectId = saJson.projectId ?? saJson.project_id ?? process.env['FIREBASE_PROJECT_ID'];
 
     admin.initializeApp({
       credential: admin.credential.cert(saJson),
       projectId: projectId,
     });
-    console.log(`🔥 Firebase Admin initialized for project: ${projectId || 'unknown'}`);
+    console.log(`🔥 Firebase Admin initialized for project: ${projectId ?? 'unknown'}`);
   } catch (err) {
     console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT:', err);
     admin.initializeApp();
@@ -30,7 +29,7 @@ if (process.env['FIREBASE_SERVICE_ACCOUNT']) {
   admin.initializeApp({
     projectId: projectId,
   });
-  console.log(`🔥 Firebase Admin initialized via default credentials. Project: ${projectId || 'detected'}`);
+  console.log(`🔥 Firebase Admin initialized via default credentials. Project: ${projectId ?? 'detected'}`);
 }
 
 const db = admin.firestore();

@@ -6,6 +6,11 @@ import { NetworkFirst } from 'workbox-strategies';
 
 declare let self: ServiceWorkerGlobalScope;
 
+/**
+ * Bensa Service Worker
+ * Handles caching and background price-drop notifications.
+ */
+
 // Workbox precaching
 precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
@@ -23,8 +28,9 @@ registerRoute(
   ),
 );
 
-// Price data URL (relative to base)
-const PRICE_DATA_PATH = '/bensa/api/prices.json';
+// Dynamic base path from Vite
+const BASE_URL = import.meta.env.BASE_URL;
+const PRICE_DATA_PATH = `${BASE_URL}api/prices.json`.replace(/\/+/g, '/');
 
 // Price threshold for alerts (EUR per liter)
 const PRICE_ALERT_THRESHOLD = 1.75;
@@ -86,14 +92,15 @@ async function checkPriceDrop(): Promise<{
  */
 async function showPriceNotification(stationName: string, price: number): Promise<void> {
   const title = `⛽ Price Drop: ${price.toFixed(3)} €/L`;
+  const iconUrl = `${BASE_URL}pwa-192x192.png`.replace(/\/+/g, '/');
 
   await self.registration.showNotification(title, {
     body: `${stationName} has 95E10 below ${PRICE_ALERT_THRESHOLD.toFixed(2)} €/L. Fill up now!`,
-    icon: '/bensa/pwa-192x192.png',
-    badge: '/bensa/pwa-192x192.png',
+    icon: iconUrl,
+    badge: iconUrl,
     tag: 'price-alert',
     data: {
-      url: '/bensa/',
+      url: BASE_URL,
     },
   });
 }
@@ -102,12 +109,12 @@ async function showPriceNotification(stationName: string, price: number): Promis
 self.addEventListener('notificationclick', (event: NotificationEvent) => {
   event.notification.close();
 
-  const urlToOpen = (event.notification.data as { url?: string } | null)?.url ?? '/bensa/';
+  const urlToOpen = (event.notification.data as { url?: string } | null)?.url ?? BASE_URL;
 
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
       for (const client of clientList) {
-        if (client.url.includes('bensa') && 'focus' in client) {
+        if (client.url.includes(BASE_URL) && 'focus' in client) {
           return client.focus();
         }
       }
@@ -155,4 +162,4 @@ self.addEventListener('message', (event: ExtendableMessageEvent) => {
   }
 });
 
-console.log('[SW] Bensa service worker loaded with price-drop notifications');
+console.log(`[SW] Bensa service worker loaded (Base: ${BASE_URL})`);
