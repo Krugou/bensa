@@ -1,6 +1,8 @@
 name: ⛽ Bensa Price Scraper
 
 on:
+  push:
+    branches: [main]
   schedule:
     - cron: '0 */4 * * *' # Run every 4 hours
   workflow_dispatch: # Allow manual trigger
@@ -30,6 +32,9 @@ jobs:
 
       - name: Run Scraper
         run: npm run start:bot
+        env:
+          FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
 
       - name: Commit and push updated prices
         if: success()
