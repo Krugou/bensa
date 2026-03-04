@@ -129,12 +129,16 @@ const AppContent = () => {
   // Find nearest cheap option
   const nearestCheapStation = useMemo(() => {
     if (sortedStations.length === 0) return null;
-    // Find all stations within 2 cents of the absolute minimum
+
+    // Find all stations within 2 cents of the absolute minimum AND within 50km
     const cheapOptions = sortedStations.filter((s) => {
       const p = s.prices.find((fp) => fp.type === fuelType)?.price;
-      return p && p <= stats.min + 0.02;
+      const isCheapEnough = p && p <= stats.min + 0.02;
+      const isCloseEnough = (s.distance ?? 0) <= 50;
+      return isCheapEnough && isCloseEnough;
     });
-    // Return the closest one among the cheap options
+
+    // Return the closest one among the practical cheap options
     return [...cheapOptions].sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0))[0] || null;
   }, [sortedStations, stats.min, fuelType]);
 
