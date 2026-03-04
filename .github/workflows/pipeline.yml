@@ -123,6 +123,12 @@ jobs:
       - name: Tuning the Engine (Build Bot)
         run: npm run build -w bensa-bot
 
+      - name: Fuel Connectivity Test (Fetch from Firestore)
+        run: node bot/dist/test-connection.js
+        env:
+          FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+
       - name: Maintenance Log
         if: success()
         run: |
