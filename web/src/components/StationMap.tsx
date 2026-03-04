@@ -1,7 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 
 import L from 'leaflet';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CircleMarker, MapContainer, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
 
@@ -20,13 +20,40 @@ interface StationMapProps {
 }
 
 /**
- * Component to set map view when user location changes
+ * Component to set map view and handle auto-fitting when location or stations change
  */
-const MapUpdater = ({ lat, lon }: { lat: number; lon: number }) => {
+const MapUpdater = ({
+  lat,
+  lon,
+  stations,
+}: {
+  lat: number;
+  lon: number;
+  stations: GasStation[];
+}) => {
   const map = useMap();
-  useMemo(() => {
-    map.setView([lat, lon], map.getZoom());
-  }, [map, lat, lon]);
+
+  useEffect(() => {
+    if (stations.length > 0) {
+      // Find the 5 nearest stations to the user to determine bounds
+      const nearest = [...stations]
+        .sort((a, b) => (a.distance ?? 999) - (b.distance ?? 999))
+        .slice(0, 5);
+
+      const bounds = L.latLngBounds([lat, lon] as L.LatLngExpression);
+      nearest.forEach((s) => bounds.extend([s.lat, s.lon] as L.LatLngExpression));
+
+      // Fit map to show user and the nearest cheap options
+      map.fitBounds(bounds, {
+        padding: [50, 50],
+        maxZoom: 13, // Don't zoom in TOO much
+        animate: true,
+      });
+    } else {
+      map.setView([lat, lon] as L.LatLngExpression, 11);
+    }
+  }, [map, lat, lon, stations]);
+
   return null;
 };
 
@@ -75,14 +102,14 @@ export const StationMap = ({
     >
       <MapContainer
         center={[userLat, userLon] as L.LatLngExpression}
-        zoom={7}
+        zoom={11}
         className="w-full h-[400px] md:h-[500px]"
         zoomControl={true}
         attributionControl={true}
       >
         <TileLayer attribution='&copy; <a href="https://carto.com/">CARTO</a>' url={tileUrl} />
 
-        <MapUpdater lat={userLat} lon={userLon} />
+        <MapUpdater lat={userLat} lon={userLon} stations={stations} />
 
         {/* User location marker */}
         <CircleMarker
