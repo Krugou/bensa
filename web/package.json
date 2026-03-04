@@ -7,7 +7,7 @@
     "dev": "vite --port 3005",
     "dev:advanced": "vite --host --port 3005 --open --cors",
     "start": "vite preview --port 3005",
-    "test": "vitest --passWithNoTests",
+    "test": "vitest --run --passWithNoTests",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

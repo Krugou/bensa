@@ -27,7 +27,7 @@
       "npm run lint:fix -w bensa-web",
       "npm run format -w bensa-web",
       "node -e \"require('child_process').execSync('npx tsc -p web/tsconfig.json --noEmit', {stdio: 'inherit'})\"",
-      "node -e \"require('child_process').execSync('npm test -w bensa-web -- --run', {stdio: 'inherit'})\""
+      "node -e \"require('child_process').execSync('npm test -w bensa-web', {stdio: 'inherit'})\""
     ],
     "bot/**/*.ts": [
       "node -e \"require('child_process').execSync('npx tsc -p bot/tsconfig.json --noEmit', {stdio: 'inherit'})\""
