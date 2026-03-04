@@ -1,5 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 
+import { collection, getDocs, limit, orderBy, query, Timestamp } from 'firebase/firestore';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
@@ -16,6 +17,7 @@ import { PriceGauge } from './components/PriceGauge';
 import { PriceHistoryChart } from './components/PriceHistoryChart';
 import { StationList } from './components/StationList';
 import { StationMap } from './components/StationMap';
+import { db } from './firebase';
 import { usePriceAlert } from './hooks/usePriceAlert';
 import { useTitleFlasher } from './hooks/useTitleFlasher';
 import { DEFAULT_LOCATION, getCurrentPosition } from './services/locationService';
@@ -34,6 +36,7 @@ const AppContent = () => {
   const [loading, setLoading] = useState(true);
   const [userLat, setUserLat] = useState(DEFAULT_LOCATION.lat);
   const [userLon, setUserLon] = useState(DEFAULT_LOCATION.lon);
+  const [lastScraped, setLastScraped] = useState<string | null>(null);
 
   // Sync i18n with URL slug
   useEffect(() => {
@@ -55,6 +58,22 @@ const AppContent = () => {
     const data = await fetchPrices();
     if (data.length > 0) {
       setStations(data);
+    }
+
+    // Fetch last scraper run from Firestore
+    try {
+      const runsCol = collection(db, 'scraper_runs');
+      const q = query(runsCol, orderBy('timestamp', 'desc'), limit(1));
+      const snapshot = await getDocs(q);
+      if (!snapshot.empty) {
+        const runData = snapshot.docs[0].data();
+        const ts = runData['timestamp'] as Timestamp | undefined;
+        if (ts) {
+          setLastScraped(ts.toDate().toLocaleString('fi-FI', { timeZone: 'Europe/Helsinki' }));
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to fetch last scraper run:', e);
     }
 
     if (isInitial && !import.meta.env.DEV) {
@@ -196,6 +215,11 @@ const AppContent = () => {
           <p title={`${t('common.build_time', 'Build')}: ${__BUILD_TIME__}`}>
             {t('footer.copyright', '© {{year}} Bensa', { year: new Date().getFullYear() })}
           </p>
+          {lastScraped && (
+            <p className="mt-2 text-[10px] opacity-60">
+              {t('footer.last_updated', 'Last updated')}: {lastScraped}
+            </p>
+          )}
         </footer>
       </div>
 
