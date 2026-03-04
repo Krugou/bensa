@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/Krugou/bensa/compare/v1.0.2...v1.0.3) (2026-03-04)
+
+### Bug Fixes
+
+- **bot:** improve environment variable support and update README ([69a4169](https://github.com/Krugou/bensa/commit/69a416911b381061684c2c59302893fba03d9362))
+
 ## [1.0.2](https://github.com/Krugou/bensa/compare/v1.0.1...v1.0.2) (2026-03-04)
 
 ### Bug Fixes
