@@ -9,16 +9,21 @@ export const LoadingFuel = () => {
       <div className="relative">
         <div className="text-6xl animate-glow-breathe">⛽</div>
         <div
-          className="absolute inset-0 w-full h-full rounded-full blur-[40px] opacity-30"
+          className="absolute inset-0 w-full h-full rounded-full blur-2xl opacity-30"
           style={{ background: 'radial-gradient(circle, #00ff88, transparent)' }}
         />
       </div>
 
       {/* Loading text */}
-      <div className="space-y-2 text-center">
-        <p className="text-white/60 font-mono text-sm animate-pulse">
-          {t('loading.text', 'Fetching fuel prices...')}
-        </p>
+      <div className="space-y-4 text-center">
+        <div className="space-y-2">
+          <p className="text-white/80 font-mono text-sm tracking-widest uppercase animate-pulse">
+            {t('loading.text', 'Fetching fuel prices...')}
+          </p>
+          <p className="text-fuel-yellow max-w-xs mx-auto font-mono text-xs italic bg-bensa-violet/20 px-3 py-2 rounded-lg border border-bensa-violet/30 shadow-[0_0_15px_rgba(180,100,255,0.2)]">
+            {t('loading.funny', 'this might work if not then no more free plan then')} 😅
+          </p>
+        </div>
         <div className="flex justify-center gap-1">
           {[0, 1, 2].map((i) => (
             <div

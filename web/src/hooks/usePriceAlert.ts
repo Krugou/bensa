@@ -30,8 +30,8 @@ export function usePriceAlert(
       if (prevMinRef.current === null || currentMin < prevMinRef.current) {
         setIsAlert(true);
         // Reset alert after 10 seconds
-        const timer = setTimeout(() => setIsAlert(false), 10000);
-        return () => clearTimeout(timer);
+        const timer = setTimeout(() => { setIsAlert(false); }, 10000);
+        return () => { clearTimeout(timer); };
       }
     } else {
       setIsAlert(false);

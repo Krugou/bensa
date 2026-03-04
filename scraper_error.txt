@@ -1,0 +1,26 @@
+
+> bensa-bot@1.0.0 scrape
+> tsx src/index.ts
+
+Ôø¢ Bensa Scraper starting...
+­ƒôí Launching browser...
+­ƒîÉ Navigating to fuel comparison site...
+­ƒôè Extracting data...
+ÔØî Scraping failed: Error [ReferenceError]: __name is not defined
+pptr:evaluate;scrapeGasPrices%20(file%3A%2F%2F%2FC%3A%2FUsers%2Fmoxch%2FDocuments%2FGitHub%2Fbensa%2Fbot%2Fsrc%2Findex.ts%3A1%3A692):1:795
+    at evaluate (evaluate at scrapeGasPrices (file:///C:/Users/moxch/Documents/GitHub/bensa/bot/src/index.ts:1:692), <anonymous>:0:794)
+    at evaluate (evaluate at scrapeGasPrices (file:///C:/Users/moxch/Documents/GitHub/bensa/bot/src/index.ts:1:692), <anonymous>:0:117)
+    at ExecutionContext.#evaluate (C:\Users\moxch\Documents\GitHub\bensa\node_modules\puppeteer-core\src\cdp\ExecutionContext.ts:456:13)
+    at async ExecutionContext.evaluate (C:\Users\moxch\Documents\GitHub\bensa\node_modules\puppeteer-core\src\cdp\ExecutionContext.ts:293:12)
+    at async IsolatedWorld.evaluate (C:\Users\moxch\Documents\GitHub\bensa\node_modules\puppeteer-core\src\cdp\IsolatedWorld.ts:196:12)
+    at async CdpFrame.evaluate (C:\Users\moxch\Documents\GitHub\bensa\node_modules\puppeteer-core\src\api\Frame.ts:488:12)
+    at async CdpPage.evaluate (C:\Users\moxch\Documents\GitHub\bensa\node_modules\puppeteer-core\src\api\Page.ts:2362:12)
+    at async scrapeGasPrices (C:\Users\moxch\Documents\GitHub\bensa\bot\src\index.ts:49:20)
+    at async main (C:\Users\moxch\Documents\GitHub\bensa\bot\src\index.ts:136:22)
+npm error Lifecycle script `scrape` failed with error:
+npm error code 1
+npm error path C:\Users\moxch\Documents\GitHub\bensa\bot
+npm error workspace bensa-bot@1.0.0
+npm error location C:\Users\moxch\Documents\GitHub\bensa\bot
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c tsx src/index.ts

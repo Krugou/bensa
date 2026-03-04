@@ -2,7 +2,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast,ToastContainer } from 'react-toastify';
 
 import { CollapsibleSection } from './components/CollapsibleSection';
 import { FuelTypeSelector } from './components/FuelTypeSelector';
@@ -37,17 +37,26 @@ const AppContent = () => {
   useTitleFlasher(isPriceAlert, [t('common.price_drop', '💰 Price Drop!')]);
 
   // Load prices
-  const loadPrices = useCallback(async () => {
+  const loadPrices = useCallback(async (isInitial = false) => {
+    const startTime = Date.now();
     const data = await fetchPrices();
     if (data.length > 0) {
       setStations(data);
     }
+
+    if (isInitial) {
+      const elapsed = Date.now() - startTime;
+      if (elapsed < 3000) {
+        await new Promise((resolve) => setTimeout(resolve, 3000 - elapsed));
+      }
+    }
+
     setLoading(false);
   }, []);
 
   // Initial load + geolocation
   useEffect(() => {
-    loadPrices();
+    loadPrices(true);
 
     // Try to get user location
     getCurrentPosition()
@@ -61,7 +70,7 @@ const AppContent = () => {
 
     // Refresh prices every 5 minutes
     const interval = setInterval(loadPrices, 300000);
-    return () => clearInterval(interval);
+    return () => { clearInterval(interval); };
   }, [loadPrices]);
 
   // Notify on price alerts
@@ -92,13 +101,13 @@ const AppContent = () => {
     <div className="min-h-screen bg-[#060610] text-white/90 font-sans flex flex-col items-center transition-colors duration-500">
       {/* Ambient background glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-fuel-green/[0.02] rounded-full blur-[150px] animate-glow-breathe" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-fuel-green/2 rounded-full blur-[150px] animate-glow-breathe" />
         <div
-          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-bensa-violet/[0.02] rounded-full blur-[150px] animate-glow-breathe"
+          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-bensa-violet/2 rounded-full blur-[150px] animate-glow-breathe"
           style={{ animationDelay: '2s' }}
         />
         <div
-          className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-fuel-yellow/[0.015] rounded-full blur-[120px] animate-glow-breathe"
+          className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-fuel-yellow/1.5 rounded-full blur-[120px] animate-glow-breathe"
           style={{ animationDelay: '3.5s' }}
         />
       </div>
