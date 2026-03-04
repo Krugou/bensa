@@ -107,6 +107,16 @@ npm run build
 - **Neobrutalism**: Bold borders, shadows, and distinct "glass-card" elements.
 - **Animation**: Wacky, slightly chaotic animations (wiggle, glow-breathe, price-pulse) to give the app personality.
 
+## 🛠️ Troubleshooting
+
+### Deployment Errors (403 Forbidden)
+
+If GitHub Actions fail during the `Deploying-Firestore` step with a `403` error related to `serviceusage`, you must grant the following roles to your Service Account in the [Google Cloud IAM Console](https://console.cloud.google.com/iam-admin/iam):
+
+1. **Service Usage Consumer**
+2. **Firebase Rules Admin**
+3. **Cloud Datastore Index Admin**
+
 ## 📜 License
 
 ISC License. See [LICENSE](LICENSE) for details.
