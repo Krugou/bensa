@@ -1,13 +1,14 @@
 import 'react-toastify/dist/ReactToastify.css';
 
 import { collection, getDocs, limit, orderBy, query, Timestamp } from 'firebase/firestore';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 import { AdminDashboard } from './components/AdminDashboard';
 import { CollapsibleSection } from './components/CollapsibleSection';
+import { DirectionsModal } from './components/DirectionsModal';
 import { FuelTypeSelector } from './components/FuelTypeSelector';
 import { Header } from './components/Header';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
@@ -37,6 +38,7 @@ const AppContent = () => {
   const [userLat, setUserLat] = useState(DEFAULT_LOCATION.lat);
   const [userLon, setUserLon] = useState(DEFAULT_LOCATION.lon);
   const [lastScraped, setLastScraped] = useState<string | null>(null);
+  const [isQuickNavOpen, setIsQuickNavOpen] = useState(false);
 
   // Sync i18n with URL slug
   useEffect(() => {
@@ -117,8 +119,34 @@ const AppContent = () => {
   }, [isPriceAlert, t]);
 
   // Compute sorted stations and stats
-  const sortedStations = sortByPrice(getNearbyStations(stations, userLat, userLon), fuelType);
-  const stats = getPriceStats(stations, fuelType);
+  const sortedStations = useMemo(
+    () => sortByPrice(getNearbyStations(stations, userLat, userLon), fuelType),
+    [stations, userLat, userLon, fuelType],
+  );
+  const stats = useMemo(() => getPriceStats(stations, fuelType), [stations, fuelType]);
+
+  // Find nearest cheap option
+  const nearestCheapStation = useMemo(() => {
+    if (sortedStations.length === 0) return null;
+    // Find all stations within 2 cents of the absolute minimum
+    const cheapOptions = sortedStations.filter((s) => {
+      const p = s.prices.find((fp) => fp.type === fuelType)?.price;
+      return p && p <= stats.min + 0.02;
+    });
+    // Return the closest one among the cheap options
+    return [...cheapOptions].sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0))[0] || null;
+  }, [sortedStations, stats.min, fuelType]);
+
+  const scrollToStation = (id: string) => {
+    const element = document.getElementById(`station-${id}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      element.classList.add('animate-pulse-intense');
+      setTimeout(() => {
+        element.classList.remove('animate-pulse-intense');
+      }, 3000);
+    }
+  };
 
   if (loading) {
     return (
@@ -160,6 +188,30 @@ const AppContent = () => {
             fuelTypeLabel={getFuelTypeLabel(fuelType)}
           />
           <FuelTypeSelector selected={fuelType} onChange={setFuelType} />
+
+          {/* Quick Actions */}
+          <div className="flex flex-wrap justify-center gap-3 mt-2">
+            <button
+              onClick={() => {
+                if (nearestCheapStation) scrollToStation(nearestCheapStation.id);
+              }}
+              disabled={!nearestCheapStation}
+              className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-fuel-green/50 text-sm font-bold transition-all duration-300 flex items-center gap-2 group disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            >
+              <span className="group-hover:scale-120 transition-transform">🎯</span>
+              {t('actions.show_nearest_cheap', 'Show Nearest Cheap')}
+            </button>
+            <button
+              onClick={() => {
+                if (nearestCheapStation) setIsQuickNavOpen(true);
+              }}
+              disabled={!nearestCheapStation}
+              className="px-5 py-2.5 rounded-xl bg-fuel-green/10 border border-fuel-green/30 hover:bg-fuel-green/20 hover:border-fuel-green/60 text-fuel-green text-sm font-bold transition-all duration-300 flex items-center gap-2 group disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            >
+              <span className="group-hover:translate-x-1 transition-transform">🚀</span>
+              {t('actions.nav_nearest_cheap', 'Navigate to Best Value')}
+            </button>
+          </div>
         </section>
 
         {/* Map Section */}
@@ -228,6 +280,18 @@ const AppContent = () => {
         theme="dark"
         aria-label={t('common.notifications', 'Notifications')}
       />
+
+      {nearestCheapStation && (
+        <DirectionsModal
+          isOpen={isQuickNavOpen}
+          onClose={() => {
+            setIsQuickNavOpen(false);
+          }}
+          lat={nearestCheapStation.lat}
+          lon={nearestCheapStation.lon}
+          stationName={nearestCheapStation.name}
+        />
+      )}
     </div>
   );
 };
