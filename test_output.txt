@@ -1,0 +1,1096 @@
+
+> bensa-web@1.0.0 test
+> vitest --passWithNoTests
+
+
+[1m[44m DEV [49m[22m [34mv4.0.18 [39m[90mC:/Users/moxch/Documents/GitHub/bensa/web[39m
+
+ [32mÔ£ô[39m src/__tests__/services/priceService.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/stationService.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/utils/priceUtils.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 11[2mms[22m[39m
+[31m     [31m├ù[31m renders loading text[39m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders fuel pump emoji[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the loading container ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders all three fuel type buttons[39m[32m 7[2mms[22m[39m
+[31m     [31m├ù[31m calls onChange when a fuel type is clicked[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct container ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Header.test.tsx [2m([22m[2m5 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[32m 11[2mms[22m[39m
+[31m     [31m├ù[31m renders the app title[39m[32m 7[2mms[22m[39m
+[31m     [31m├ù[31m renders the subtitle[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders a header element[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has proper heading hierarchy with h1[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel pump emoji[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m6 tests[22m[2m | [22m[31m6 failed[39m[2m)[22m[32m 13[2mms[22m[39m
+[31m     [31m├ù[31m renders the station name[39m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders the station address and city[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel price[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the distance[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the rank badge[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct card ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m7 tests[22m[2m | [22m[31m7 failed[39m[2m)[22m[32m 13[2mms[22m[39m
+[31m     [31m├ù[31m renders the average price[39m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel type label[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders min and max prices[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the Ôé¼/L unit[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the gauge container ID[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m shows cheap level for low prices[39m[32m 0[2mms[22m[39m
+[31m     [31m├ù[31m shows expensive level for high prices[39m[32m 0[2mms[22m[39m
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ» Failed Tests 24 ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > renders all three fuel type buttons
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > calls onChange when a fuel type is clicked
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > has the correct container ID
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the app title
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the subtitle
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders a header element
+ FAIL  src/__tests__/components/Header.test.tsx > Header > has proper heading hierarchy with h1
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the fuel pump emoji
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > renders loading text
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > renders fuel pump emoji
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > has the loading container ID
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the average price
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the fuel type label
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders min and max prices
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the Ôé¼/L unit
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > has the gauge container ID
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > shows cheap level for low prices
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > shows expensive level for high prices
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the station name
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the station address and city
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the fuel price
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the distance
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the rank badge
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > has the correct card ID
+Error: Objects are not valid as a React child (found: object with keys {$$typeof, type, key, props, _owner, _store}). If you meant to render a collection of children, use an array instead.
+ ÔØ» throwOnInvalidObjectType ../node_modules/react-dom/cjs/react-dom.development.js:13123:9
+ ÔØ» reconcileChildFibers ../node_modules/react-dom/cjs/react-dom.development.js:14064:7
+ ÔØ» reconcileChildren ../node_modules/react-dom/cjs/react-dom.development.js:19193:28
+ ÔØ» updateHostRoot ../node_modules/react-dom/cjs/react-dom.development.js:19912:5
+ ÔØ» beginWork ../node_modules/react-dom/cjs/react-dom.development.js:21654:14
+ ÔØ» HTMLUnknownElement.callCallback ../node_modules/react-dom/cjs/react-dom.development.js:4164:14
+ ÔØ» HTMLUnknownElement.#callDispatchEventListeners ../node_modules/happy-dom/lib/event/EventTarget.js:241:34
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:104:41
+ ÔØ» HTMLUnknownElement.#goThroughDispatchEventPhases ../node_modules/happy-dom/lib/event/EventTarget.js:164:38
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:100:47
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/24]ÔÄ»
+
+
+[2m Test Files [22m [1m[31m5 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (8)[39m
+[2m      Tests [22m [1m[31m24 failed[39m[22m[2m | [22m[1m[32m26 passed[39m[22m[90m (50)[39m
+[2m   Start at [22m 19:12:52
+[2m   Duration [22m 893ms[2m (transform 380ms, setup 1.05s, import 972ms, tests 69ms, environment 3.24s)[22m
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+c[3J[1m[44m RERUN [49m[22m [34m[2msrc/__tests__/components/LoadingFuel.test.tsx [22m[34mx1 [34m[39m
+
+ [31mÔØ»[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m6 tests[22m[2m | [22m[31m6 failed[39m[2m)[22m[32m 13[2mms[22m[39m
+[31m     [31m├ù[31m renders the station name[39m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders the station address and city[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel price[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the distance[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the rank badge[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct card ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Header.test.tsx [2m([22m[2m5 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[32m 11[2mms[22m[39m
+[31m     [31m├ù[31m renders the app title[39m[32m 7[2mms[22m[39m
+[31m     [31m├ù[31m renders the subtitle[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders a header element[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has proper heading hierarchy with h1[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel pump emoji[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m7 tests[22m[2m | [22m[31m7 failed[39m[2m)[22m[32m 13[2mms[22m[39m
+[31m     [31m├ù[31m renders the average price[39m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel type label[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders min and max prices[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the Ôé¼/L unit[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the gauge container ID[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m shows cheap level for low prices[39m[32m 0[2mms[22m[39m
+[31m     [31m├ù[31m shows expensive level for high prices[39m[32m 0[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders all three fuel type buttons[39m[32m 7[2mms[22m[39m
+[31m     [31m├ù[31m calls onChange when a fuel type is clicked[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct container ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders loading text[39m[32m 6[2mms[22m[39m
+[31m     [31m├ù[31m renders fuel pump emoji[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the loading container ID[39m[32m 1[2mms[22m[39m
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ» Failed Tests 3 ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > renders loading text
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > renders fuel pump emoji
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > has the loading container ID
+Error: Objects are not valid as a React child (found: object with keys {$$typeof, type, key, props, _owner, _store}). If you meant to render a collection of children, use an array instead.
+ ÔØ» throwOnInvalidObjectType ../node_modules/react-dom/cjs/react-dom.development.js:13123:9
+ ÔØ» reconcileChildFibers ../node_modules/react-dom/cjs/react-dom.development.js:14064:7
+ ÔØ» reconcileChildren ../node_modules/react-dom/cjs/react-dom.development.js:19193:28
+ ÔØ» updateHostRoot ../node_modules/react-dom/cjs/react-dom.development.js:19912:5
+ ÔØ» beginWork ../node_modules/react-dom/cjs/react-dom.development.js:21654:14
+ ÔØ» HTMLUnknownElement.callCallback ../node_modules/react-dom/cjs/react-dom.development.js:4164:14
+ ÔØ» HTMLUnknownElement.#callDispatchEventListeners ../node_modules/happy-dom/lib/event/EventTarget.js:241:34
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:104:41
+ ÔØ» HTMLUnknownElement.#goThroughDispatchEventPhases ../node_modules/happy-dom/lib/event/EventTarget.js:164:38
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:100:47
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/3]ÔÄ»
+
+
+[2m Test Files [22m [1m[31m5 failed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[31m24 failed[39m[22m[90m (24)[39m
+[2m   Start at [22m 19:13:51
+[2m   Duration [22m 189ms
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+c[3J[1m[44m RERUN [49m[22m [34m[2msrc/__tests__/components/Minimal.test.tsx [22m[34mx1 [34m[39m
+
+ [31mÔØ»[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m6 tests[22m[2m | [22m[31m6 failed[39m[2m)[22m[32m 13[2mms[22m[39m
+[31m     [31m├ù[31m renders the station name[39m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders the station address and city[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel price[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the distance[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the rank badge[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct card ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Header.test.tsx [2m([22m[2m5 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[32m 11[2mms[22m[39m
+[31m     [31m├ù[31m renders the app title[39m[32m 7[2mms[22m[39m
+[31m     [31m├ù[31m renders the subtitle[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders a header element[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has proper heading hierarchy with h1[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel pump emoji[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m7 tests[22m[2m | [22m[31m7 failed[39m[2m)[22m[32m 13[2mms[22m[39m
+[31m     [31m├ù[31m renders the average price[39m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel type label[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders min and max prices[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the Ôé¼/L unit[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the gauge container ID[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m shows cheap level for low prices[39m[32m 0[2mms[22m[39m
+[31m     [31m├ù[31m shows expensive level for high prices[39m[32m 0[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders loading text[39m[32m 6[2mms[22m[39m
+[31m     [31m├ù[31m renders fuel pump emoji[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the loading container ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders all three fuel type buttons[39m[32m 7[2mms[22m[39m
+[31m     [31m├ù[31m calls onChange when a fuel type is clicked[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct container ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Minimal.test.tsx [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 7[2mms[22m[39m
+[31m     [31m├ù[31m renders a simple div[39m[32m 6[2mms[22m[39m
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ» Failed Tests 1 ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+
+ FAIL  src/__tests__/components/Minimal.test.tsx > Minimal > renders a simple div
+Error: Objects are not valid as a React child (found: object with keys {$$typeof, type, key, props, _owner, _store}). If you meant to render a collection of children, use an array instead.
+ ÔØ» throwOnInvalidObjectType ../node_modules/react-dom/cjs/react-dom.development.js:13123:9
+ ÔØ» reconcileChildFibers ../node_modules/react-dom/cjs/react-dom.development.js:14064:7
+ ÔØ» reconcileChildren ../node_modules/react-dom/cjs/react-dom.development.js:19193:28
+ ÔØ» updateHostRoot ../node_modules/react-dom/cjs/react-dom.development.js:19912:5
+ ÔØ» beginWork ../node_modules/react-dom/cjs/react-dom.development.js:21654:14
+ ÔØ» HTMLUnknownElement.callCallback ../node_modules/react-dom/cjs/react-dom.development.js:4164:14
+ ÔØ» HTMLUnknownElement.#callDispatchEventListeners ../node_modules/happy-dom/lib/event/EventTarget.js:241:34
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:104:41
+ ÔØ» HTMLUnknownElement.#goThroughDispatchEventPhases ../node_modules/happy-dom/lib/event/EventTarget.js:164:38
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:100:47
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/1]ÔÄ»
+
+
+[2m Test Files [22m [1m[31m6 failed[39m[22m[90m (6)[39m
+[2m      Tests [22m [1m[31m25 failed[39m[22m[90m (25)[39m
+[2m   Start at [22m 19:14:25
+[2m   Duration [22m 176ms
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+c[3J[1m[44m RERUN [49m[22m [34m[2msrc/__tests__/components/Minimal.test.tsx [22m[34mx2 [34m[39m
+
+ [31mÔØ»[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m6 tests[22m[2m | [22m[31m6 failed[39m[2m)[22m[32m 13[2mms[22m[39m
+[31m     [31m├ù[31m renders the station name[39m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders the station address and city[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel price[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the distance[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the rank badge[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct card ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Header.test.tsx [2m([22m[2m5 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[32m 11[2mms[22m[39m
+[31m     [31m├ù[31m renders the app title[39m[32m 7[2mms[22m[39m
+[31m     [31m├ù[31m renders the subtitle[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders a header element[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has proper heading hierarchy with h1[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel pump emoji[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m7 tests[22m[2m | [22m[31m7 failed[39m[2m)[22m[32m 13[2mms[22m[39m
+[31m     [31m├ù[31m renders the average price[39m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel type label[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders min and max prices[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the Ôé¼/L unit[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the gauge container ID[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m shows cheap level for low prices[39m[32m 0[2mms[22m[39m
+[31m     [31m├ù[31m shows expensive level for high prices[39m[32m 0[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders loading text[39m[32m 6[2mms[22m[39m
+[31m     [31m├ù[31m renders fuel pump emoji[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the loading container ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders all three fuel type buttons[39m[32m 7[2mms[22m[39m
+[31m     [31m├ù[31m calls onChange when a fuel type is clicked[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct container ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Minimal.test.tsx [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 7[2mms[22m[39m
+[31m     [31m├ù[31m renders a simple div[39m[32m 6[2mms[22m[39m
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ» Failed Tests 1 ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+
+ FAIL  src/__tests__/components/Minimal.test.tsx > Minimal > renders a simple div
+Error: Objects are not valid as a React child (found: object with keys {$$typeof, type, key, props, _owner, _store}). If you meant to render a collection of children, use an array instead.
+ ÔØ» throwOnInvalidObjectType ../node_modules/react-dom/cjs/react-dom.development.js:13123:9
+ ÔØ» reconcileChildFibers ../node_modules/react-dom/cjs/react-dom.development.js:14064:7
+ ÔØ» reconcileChildren ../node_modules/react-dom/cjs/react-dom.development.js:19193:28
+ ÔØ» updateHostRoot ../node_modules/react-dom/cjs/react-dom.development.js:19912:5
+ ÔØ» beginWork ../node_modules/react-dom/cjs/react-dom.development.js:21654:14
+ ÔØ» HTMLUnknownElement.callCallback ../node_modules/react-dom/cjs/react-dom.development.js:4164:14
+ ÔØ» HTMLUnknownElement.#callDispatchEventListeners ../node_modules/happy-dom/lib/event/EventTarget.js:241:34
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:104:41
+ ÔØ» HTMLUnknownElement.#goThroughDispatchEventPhases ../node_modules/happy-dom/lib/event/EventTarget.js:164:38
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:100:47
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/1]ÔÄ»
+
+
+[2m Test Files [22m [1m[31m6 failed[39m[22m[90m (6)[39m
+[2m      Tests [22m [1m[31m25 failed[39m[22m[90m (25)[39m
+[2m   Start at [22m 19:14:26
+[2m   Duration [22m 181ms
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+[1m[35m
+Restarting due to config changes...[39m[22m
+
+[1m[44m DEV [49m[22m [34mv4.0.18 [39m[90mC:/Users/moxch/Documents/GitHub/bensa/web[39m
+
+ [32mÔ£ô[39m src/__tests__/services/stationService.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/utils/priceUtils.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m6 tests[22m[2m | [22m[31m6 failed[39m[2m)[22m[32m 16[2mms[22m[39m
+[31m     [31m├ù[31m renders the station name[39m[32m 9[2mms[22m[39m
+[31m     [31m├ù[31m renders the station address and city[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel price[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the distance[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the rank badge[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct card ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m7 tests[22m[2m | [22m[31m7 failed[39m[2m)[22m[32m 18[2mms[22m[39m
+[31m     [31m├ù[31m renders the average price[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel type label[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders min and max prices[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the Ôé¼/L unit[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the gauge container ID[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m shows cheap level for low prices[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m shows expensive level for high prices[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 14[2mms[22m[39m
+[31m     [31m├ù[31m renders loading text[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders fuel pump emoji[39m[32m 2[2mms[22m[39m
+[31m     [31m├ù[31m has the loading container ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Header.test.tsx [2m([22m[2m5 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[32m 16[2mms[22m[39m
+[31m     [31m├ù[31m renders the app title[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders the subtitle[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders a header element[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has proper heading hierarchy with h1[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel pump emoji[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 16[2mms[22m[39m
+[31m     [31m├ù[31m renders all three fuel type buttons[39m[32m 11[2mms[22m[39m
+[31m     [31m├ù[31m calls onChange when a fuel type is clicked[39m[32m 2[2mms[22m[39m
+[31m     [31m├ù[31m has the correct container ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Minimal.test.tsx [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 15[2mms[22m[39m
+[31m     [31m├ù[31m renders a simple div[39m[32m 13[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/priceService.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ» Failed Tests 25 ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > renders all three fuel type buttons
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > calls onChange when a fuel type is clicked
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > has the correct container ID
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the app title
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the subtitle
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders a header element
+ FAIL  src/__tests__/components/Header.test.tsx > Header > has proper heading hierarchy with h1
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the fuel pump emoji
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > renders loading text
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > renders fuel pump emoji
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > has the loading container ID
+ FAIL  src/__tests__/components/Minimal.test.tsx > Minimal > renders a simple div
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the average price
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the fuel type label
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders min and max prices
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the Ôé¼/L unit
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > has the gauge container ID
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > shows cheap level for low prices
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > shows expensive level for high prices
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the station name
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the station address and city
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the fuel price
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the distance
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the rank badge
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > has the correct card ID
+Error: Objects are not valid as a React child (found: object with keys {$$typeof, type, key, props, _owner, _store}). If you meant to render a collection of children, use an array instead.
+ ÔØ» throwOnInvalidObjectType ../node_modules/react-dom/cjs/react-dom.development.js:13123:9
+ ÔØ» reconcileChildFibers ../node_modules/react-dom/cjs/react-dom.development.js:14064:7
+ ÔØ» reconcileChildren ../node_modules/react-dom/cjs/react-dom.development.js:19193:28
+ ÔØ» updateHostRoot ../node_modules/react-dom/cjs/react-dom.development.js:19912:5
+ ÔØ» beginWork ../node_modules/react-dom/cjs/react-dom.development.js:21654:14
+ ÔØ» HTMLUnknownElement.callCallback ../node_modules/react-dom/cjs/react-dom.development.js:4164:14
+ ÔØ» HTMLUnknownElement.#callDispatchEventListeners ../node_modules/happy-dom/lib/event/EventTarget.js:241:34
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:104:41
+ ÔØ» HTMLUnknownElement.#goThroughDispatchEventPhases ../node_modules/happy-dom/lib/event/EventTarget.js:164:38
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:100:47
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/25]ÔÄ»
+
+
+[2m Test Files [22m [1m[31m6 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[31m25 failed[39m[22m[2m | [22m[1m[32m26 passed[39m[22m[90m (51)[39m
+[2m   Start at [22m 19:14:49
+[2m   Duration [22m 2.20s[2m (transform 703ms, setup 1.73s, import 2.08s, tests 107ms, environment 7.07s)[22m
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+[1m[35m
+Restarting due to config changes...[39m[22m
+
+[1m[44m DEV [49m[22m [34mv4.0.18 [39m[90mC:/Users/moxch/Documents/GitHub/bensa/web[39m
+
+ [32mÔ£ô[39m src/__tests__/services/stationService.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/utils/priceUtils.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m7 tests[22m[2m | [22m[31m7 failed[39m[2m)[22m[32m 17[2mms[22m[39m
+[31m     [31m├ù[31m renders the average price[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel type label[39m[32m 2[2mms[22m[39m
+[31m     [31m├ù[31m renders min and max prices[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the Ôé¼/L unit[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the gauge container ID[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m shows cheap level for low prices[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m shows expensive level for high prices[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Header.test.tsx [2m([22m[2m5 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[32m 16[2mms[22m[39m
+[31m     [31m├ù[31m renders the app title[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders the subtitle[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders a header element[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has proper heading hierarchy with h1[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel pump emoji[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m6 tests[22m[2m | [22m[31m6 failed[39m[2m)[22m[32m 16[2mms[22m[39m
+[31m     [31m├ù[31m renders the station name[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders the station address and city[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel price[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the distance[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the rank badge[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct card ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 14[2mms[22m[39m
+[31m     [31m├ù[31m renders loading text[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders fuel pump emoji[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the loading container ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Minimal.test.tsx [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 12[2mms[22m[39m
+[31m     [31m├ù[31m renders a simple div[39m[32m 11[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders all three fuel type buttons[39m[32m 7[2mms[22m[39m
+[31m     [31m├ù[31m calls onChange when a fuel type is clicked[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct container ID[39m[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/priceService.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ» Failed Tests 25 ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > renders all three fuel type buttons
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > calls onChange when a fuel type is clicked
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > has the correct container ID
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the app title
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the subtitle
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders a header element
+ FAIL  src/__tests__/components/Header.test.tsx > Header > has proper heading hierarchy with h1
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the fuel pump emoji
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > renders loading text
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > renders fuel pump emoji
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > has the loading container ID
+ FAIL  src/__tests__/components/Minimal.test.tsx > Minimal > renders a simple div
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the average price
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the fuel type label
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders min and max prices
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the Ôé¼/L unit
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > has the gauge container ID
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > shows cheap level for low prices
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > shows expensive level for high prices
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the station name
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the station address and city
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the fuel price
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the distance
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the rank badge
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > has the correct card ID
+Error: Objects are not valid as a React child (found: object with keys {$$typeof, type, key, props, _owner, _store}). If you meant to render a collection of children, use an array instead.
+ ÔØ» throwOnInvalidObjectType ../node_modules/react-dom/cjs/react-dom.development.js:13123:9
+ ÔØ» reconcileChildFibers ../node_modules/react-dom/cjs/react-dom.development.js:14064:7
+ ÔØ» reconcileChildren ../node_modules/react-dom/cjs/react-dom.development.js:19193:28
+ ÔØ» updateHostRoot ../node_modules/react-dom/cjs/react-dom.development.js:19912:5
+ ÔØ» beginWork ../node_modules/react-dom/cjs/react-dom.development.js:21654:14
+ ÔØ» HTMLUnknownElement.callCallback ../node_modules/react-dom/cjs/react-dom.development.js:4164:14
+ ÔØ» HTMLUnknownElement.#callDispatchEventListeners ../node_modules/happy-dom/lib/event/EventTarget.js:241:34
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:104:41
+ ÔØ» HTMLUnknownElement.#goThroughDispatchEventPhases ../node_modules/happy-dom/lib/event/EventTarget.js:164:38
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:100:47
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/25]ÔÄ»
+
+
+[2m Test Files [22m [1m[31m6 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[31m25 failed[39m[22m[2m | [22m[1m[32m26 passed[39m[22m[90m (51)[39m
+[2m   Start at [22m 19:15:34
+[2m   Duration [22m 1.80s[2m (transform 285ms, setup 1.37s, import 1.88s, tests 97ms, environment 5.51s)[22m
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+[1m[35m
+Restarting due to config changes...[39m[22m
+
+[1m[44m DEV [49m[22m [34mv4.0.18 [39m[90mC:/Users/moxch/Documents/GitHub/bensa/web[39m
+
+ [32mÔ£ô[39m src/__tests__/utils/priceUtils.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/stationService.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m6 tests[22m[2m | [22m[31m6 failed[39m[2m)[22m[32m 16[2mms[22m[39m
+[31m     [31m├ù[31m renders the station name[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders the station address and city[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel price[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the distance[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the rank badge[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct card ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Header.test.tsx [2m([22m[2m5 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[32m 16[2mms[22m[39m
+[31m     [31m├ù[31m renders the app title[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders the subtitle[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders a header element[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has proper heading hierarchy with h1[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel pump emoji[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m7 tests[22m[2m | [22m[31m7 failed[39m[2m)[22m[32m 16[2mms[22m[39m
+[31m     [31m├ù[31m renders the average price[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel type label[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders min and max prices[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the Ôé¼/L unit[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the gauge container ID[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m shows cheap level for low prices[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m shows expensive level for high prices[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 14[2mms[22m[39m
+[31m     [31m├ù[31m renders loading text[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders fuel pump emoji[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the loading container ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Minimal.test.tsx [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 12[2mms[22m[39m
+[31m     [31m├ù[31m renders a simple div[39m[32m 10[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 15[2mms[22m[39m
+[31m     [31m├ù[31m renders all three fuel type buttons[39m[32m 11[2mms[22m[39m
+[31m     [31m├ù[31m calls onChange when a fuel type is clicked[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct container ID[39m[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/priceService.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ» Failed Tests 25 ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > renders all three fuel type buttons
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > calls onChange when a fuel type is clicked
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > has the correct container ID
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the app title
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the subtitle
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders a header element
+ FAIL  src/__tests__/components/Header.test.tsx > Header > has proper heading hierarchy with h1
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the fuel pump emoji
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > renders loading text
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > renders fuel pump emoji
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > has the loading container ID
+ FAIL  src/__tests__/components/Minimal.test.tsx > Minimal > renders a simple div
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the average price
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the fuel type label
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders min and max prices
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the Ôé¼/L unit
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > has the gauge container ID
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > shows cheap level for low prices
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > shows expensive level for high prices
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the station name
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the station address and city
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the fuel price
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the distance
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the rank badge
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > has the correct card ID
+Error: Objects are not valid as a React child (found: object with keys {$$typeof, type, key, props, _owner, _store}). If you meant to render a collection of children, use an array instead.
+ ÔØ» throwOnInvalidObjectType ../node_modules/react-dom/cjs/react-dom.development.js:13123:9
+ ÔØ» reconcileChildFibers ../node_modules/react-dom/cjs/react-dom.development.js:14064:7
+ ÔØ» reconcileChildren ../node_modules/react-dom/cjs/react-dom.development.js:19193:28
+ ÔØ» updateHostRoot ../node_modules/react-dom/cjs/react-dom.development.js:19912:5
+ ÔØ» beginWork ../node_modules/react-dom/cjs/react-dom.development.js:21654:14
+ ÔØ» HTMLUnknownElement.callCallback ../node_modules/react-dom/cjs/react-dom.development.js:4164:14
+ ÔØ» HTMLUnknownElement.#callDispatchEventListeners ../node_modules/happy-dom/lib/event/EventTarget.js:241:34
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:104:41
+ ÔØ» HTMLUnknownElement.#goThroughDispatchEventPhases ../node_modules/happy-dom/lib/event/EventTarget.js:164:38
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:100:47
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/25]ÔÄ»
+
+
+[2m Test Files [22m [1m[31m6 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[31m25 failed[39m[22m[2m | [22m[1m[32m26 passed[39m[22m[90m (51)[39m
+[2m   Start at [22m 19:16:02
+[2m   Duration [22m 1.97s[2m (transform 280ms, setup 1.46s, import 1.89s, tests 101ms, environment 6.25s)[22m
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+[1m[35m
+Restarting due to config changes...[39m[22m
+
+[1m[44m DEV [49m[22m [34mv4.0.18 [39m[90mC:/Users/moxch/Documents/GitHub/bensa/web[39m
+
+ [32mÔ£ô[39m src/__tests__/services/stationService.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/utils/priceUtils.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m7 tests[22m[2m | [22m[31m7 failed[39m[2m)[22m[32m 18[2mms[22m[39m
+[31m     [31m├ù[31m renders the average price[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel type label[39m[32m 2[2mms[22m[39m
+[31m     [31m├ù[31m renders min and max prices[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the Ôé¼/L unit[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the gauge container ID[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m shows cheap level for low prices[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m shows expensive level for high prices[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 14[2mms[22m[39m
+[31m     [31m├ù[31m renders all three fuel type buttons[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m calls onChange when a fuel type is clicked[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct container ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Header.test.tsx [2m([22m[2m5 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[32m 16[2mms[22m[39m
+[31m     [31m├ù[31m renders the app title[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders the subtitle[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders a header element[39m[32m 2[2mms[22m[39m
+[31m     [31m├ù[31m has proper heading hierarchy with h1[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel pump emoji[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m6 tests[22m[2m | [22m[31m6 failed[39m[2m)[22m[32m 17[2mms[22m[39m
+[31m     [31m├ù[31m renders the station name[39m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders the station address and city[39m[32m 2[2mms[22m[39m
+[31m     [31m├ù[31m renders the fuel price[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the distance[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m renders the rank badge[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the correct card ID[39m[32m 1[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Minimal.test.tsx [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 10[2mms[22m[39m
+[31m     [31m├ù[31m renders a simple div[39m[32m 9[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 11[2mms[22m[39m
+[31m     [31m├ù[31m renders loading text[39m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m renders fuel pump emoji[39m[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m has the loading container ID[39m[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/priceService.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ» Failed Tests 25 ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > renders all three fuel type buttons
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > calls onChange when a fuel type is clicked
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx > FuelTypeSelector > has the correct container ID
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the app title
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the subtitle
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders a header element
+ FAIL  src/__tests__/components/Header.test.tsx > Header > has proper heading hierarchy with h1
+ FAIL  src/__tests__/components/Header.test.tsx > Header > renders the fuel pump emoji
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > renders loading text
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > renders fuel pump emoji
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx > LoadingFuel > has the loading container ID
+ FAIL  src/__tests__/components/Minimal.test.tsx > Minimal > renders a simple div
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the average price
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the fuel type label
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders min and max prices
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > renders the Ôé¼/L unit
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > has the gauge container ID
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > shows cheap level for low prices
+ FAIL  src/__tests__/components/PriceGauge.test.tsx > PriceGauge > shows expensive level for high prices
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the station name
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the station address and city
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the fuel price
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the distance
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > renders the rank badge
+ FAIL  src/__tests__/components/StationCard.test.tsx > StationCard > has the correct card ID
+Error: Objects are not valid as a React child (found: object with keys {$$typeof, type, key, props, _owner, _store}). If you meant to render a collection of children, use an array instead.
+ ÔØ» throwOnInvalidObjectType ../node_modules/react-dom/cjs/react-dom.development.js:13123:9
+ ÔØ» reconcileChildFibers ../node_modules/react-dom/cjs/react-dom.development.js:14064:7
+ ÔØ» reconcileChildren ../node_modules/react-dom/cjs/react-dom.development.js:19193:28
+ ÔØ» updateHostRoot ../node_modules/react-dom/cjs/react-dom.development.js:19912:5
+ ÔØ» beginWork ../node_modules/react-dom/cjs/react-dom.development.js:21654:14
+ ÔØ» HTMLUnknownElement.callCallback ../node_modules/react-dom/cjs/react-dom.development.js:4164:14
+ ÔØ» HTMLUnknownElement.#callDispatchEventListeners ../node_modules/happy-dom/lib/event/EventTarget.js:241:34
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:104:41
+ ÔØ» HTMLUnknownElement.#goThroughDispatchEventPhases ../node_modules/happy-dom/lib/event/EventTarget.js:164:38
+ ÔØ» HTMLUnknownElement.dispatchEvent ../node_modules/happy-dom/lib/event/EventTarget.js:100:47
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/25]ÔÄ»
+
+
+[2m Test Files [22m [1m[31m6 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[31m25 failed[39m[22m[2m | [22m[1m[32m26 passed[39m[22m[90m (51)[39m
+[2m   Start at [22m 19:16:17
+[2m   Duration [22m 1.62s[2m (transform 225ms, setup 0ms, import 2.00s, tests 96ms, environment 5.49s)[22m
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+[1m[35m
+Restarting due to config changes...[39m[22m
+
+[1m[44m DEV [49m[22m [34mv4.0.18 [39m[90mC:/Users/moxch/Documents/GitHub/bensa/web[39m
+
+ [31mÔØ»[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/Header.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [32mÔ£ô[39m src/__tests__/services/stationService.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [31mÔØ»[39m src/__tests__/components/Minimal.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [32mÔ£ô[39m src/__tests__/utils/priceUtils.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/priceService.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ» Failed Suites 6 ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx [ src/__tests__/components/FuelTypeSelector.test.tsx ]
+Error: Failed to resolve import "react" from "src/__tests__/components/FuelTypeSelector.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/FuelTypeSelector.test.tsx:2:18
+  1  |  import { fireEvent, render, screen } from "@testing-library/react";
+  2  |  import React from "react";
+     |                     ^
+  3  |  import { describe, expect, it, vi } from "vitest";
+  4  |  import { FuelTypeSelector } from "../../components/FuelTypeSelector";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/6]ÔÄ»
+
+ FAIL  src/__tests__/components/Header.test.tsx [ src/__tests__/components/Header.test.tsx ]
+Error: Failed to resolve import "react" from "src/__tests__/components/Header.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/Header.test.tsx:2:18
+  1  |  import { render, screen } from "@testing-library/react";
+  2  |  import React from "react";
+     |                     ^
+  3  |  import { describe, expect, it } from "vitest";
+  4  |  import { Header } from "../../components/Header";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[2/6]ÔÄ»
+
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx [ src/__tests__/components/LoadingFuel.test.tsx ]
+Error: Failed to resolve import "react/jsx-dev-runtime" from "src/__tests__/components/LoadingFuel.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/LoadingFuel.test.tsx:8:11
+  1  |  import { jsxDEV } from "react/jsx-dev-runtime";
+     |                          ^
+  2  |  import { render, screen } from "@testing-library/react";
+  3  |  import { describe, expect, it } from "vitest";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[3/6]ÔÄ»
+
+ FAIL  src/__tests__/components/Minimal.test.tsx [ src/__tests__/components/Minimal.test.tsx ]
+Error: Failed to resolve import "react/jsx-dev-runtime" from "src/__tests__/components/Minimal.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/Minimal.test.tsx:6:11
+  1  |  import { jsxDEV } from "react/jsx-dev-runtime";
+     |                          ^
+  2  |  import { render } from "@testing-library/react";
+  3  |  import { describe, it } from "vitest";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[4/6]ÔÄ»
+
+ FAIL  src/__tests__/components/PriceGauge.test.tsx [ src/__tests__/components/PriceGauge.test.tsx ]
+Error: Failed to resolve import "react" from "src/__tests__/components/PriceGauge.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/PriceGauge.test.tsx:2:18
+  1  |  import { render, screen } from "@testing-library/react";
+  2  |  import React from "react";
+     |                     ^
+  3  |  import { describe, expect, it } from "vitest";
+  4  |  import { PriceGauge } from "../../components/PriceGauge";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[5/6]ÔÄ»
+
+ FAIL  src/__tests__/components/StationCard.test.tsx [ src/__tests__/components/StationCard.test.tsx ]
+Error: Failed to resolve import "react" from "src/__tests__/components/StationCard.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/StationCard.test.tsx:2:18
+  1  |  import { render, screen } from "@testing-library/react";
+  2  |  import React from "react";
+     |                     ^
+  3  |  import { describe, expect, it } from "vitest";
+  4  |  import { StationCard } from "../../components/StationCard";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[6/6]ÔÄ»
+
+
+[2m Test Files [22m [1m[31m6 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[32m26 passed[39m[22m[90m (26)[39m
+[2m   Start at [22m 19:18:45
+[2m   Duration [22m 1.68s[2m (transform 116ms, setup 1.44s, import 94ms, tests 11ms, environment 5.96s)[22m
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+[1m[35m
+Restarting due to config changes...[39m[22m
+
+[1m[44m DEV [49m[22m [34mv4.0.18 [39m[90mC:/Users/moxch/Documents/GitHub/bensa/web[39m
+
+ [31mÔØ»[39m src/__tests__/components/Header.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/Minimal.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [32mÔ£ô[39m src/__tests__/utils/priceUtils.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/stationService.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/priceService.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ» Failed Suites 6 ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx [ src/__tests__/components/FuelTypeSelector.test.tsx ]
+Error: Failed to resolve import "react" from "src/__tests__/components/FuelTypeSelector.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/FuelTypeSelector.test.tsx:2:18
+  1  |  import { fireEvent, render, screen } from "@testing-library/react";
+  2  |  import React from "react";
+     |                     ^
+  3  |  import { describe, expect, it, vi } from "vitest";
+  4  |  import { FuelTypeSelector } from "../../components/FuelTypeSelector";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/6]ÔÄ»
+
+ FAIL  src/__tests__/components/Header.test.tsx [ src/__tests__/components/Header.test.tsx ]
+Error: Failed to resolve import "react" from "src/__tests__/components/Header.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/Header.test.tsx:2:18
+  1  |  import { render, screen } from "@testing-library/react";
+  2  |  import React from "react";
+     |                     ^
+  3  |  import { describe, expect, it } from "vitest";
+  4  |  import { Header } from "../../components/Header";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[2/6]ÔÄ»
+
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx [ src/__tests__/components/LoadingFuel.test.tsx ]
+Error: Failed to resolve import "react/jsx-dev-runtime" from "src/__tests__/components/LoadingFuel.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/LoadingFuel.test.tsx:8:11
+  1  |  import { jsxDEV } from "react/jsx-dev-runtime";
+     |                          ^
+  2  |  import { render, screen } from "@testing-library/react";
+  3  |  import { describe, expect, it } from "vitest";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[3/6]ÔÄ»
+
+ FAIL  src/__tests__/components/Minimal.test.tsx [ src/__tests__/components/Minimal.test.tsx ]
+Error: Failed to resolve import "react/jsx-dev-runtime" from "src/__tests__/components/Minimal.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/Minimal.test.tsx:6:11
+  1  |  import { jsxDEV } from "react/jsx-dev-runtime";
+     |                          ^
+  2  |  import { render } from "@testing-library/react";
+  3  |  import { describe, it } from "vitest";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[4/6]ÔÄ»
+
+ FAIL  src/__tests__/components/PriceGauge.test.tsx [ src/__tests__/components/PriceGauge.test.tsx ]
+Error: Failed to resolve import "react" from "src/__tests__/components/PriceGauge.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/PriceGauge.test.tsx:2:18
+  1  |  import { render, screen } from "@testing-library/react";
+  2  |  import React from "react";
+     |                     ^
+  3  |  import { describe, expect, it } from "vitest";
+  4  |  import { PriceGauge } from "../../components/PriceGauge";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[5/6]ÔÄ»
+
+ FAIL  src/__tests__/components/StationCard.test.tsx [ src/__tests__/components/StationCard.test.tsx ]
+Error: Failed to resolve import "react" from "src/__tests__/components/StationCard.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/StationCard.test.tsx:2:18
+  1  |  import { render, screen } from "@testing-library/react";
+  2  |  import React from "react";
+     |                     ^
+  3  |  import { describe, expect, it } from "vitest";
+  4  |  import { StationCard } from "../../components/StationCard";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[6/6]ÔÄ»
+
+
+[2m Test Files [22m [1m[31m6 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[32m26 passed[39m[22m[90m (26)[39m
+[2m   Start at [22m 19:19:15
+[2m   Duration [22m 2.27s[2m (transform 90ms, setup 1.52s, import 76ms, tests 14ms, environment 8.51s)[22m
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+[1m[35m
+Restarting due to config changes...[39m[22m
+
+[1m[44m DEV [49m[22m [34mv4.0.18 [39m[90mC:/Users/moxch/Documents/GitHub/bensa/web[39m
+
+ [31mÔØ»[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/Header.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/Minimal.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [31mÔØ»[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+ [32mÔ£ô[39m src/__tests__/utils/priceUtils.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/stationService.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/priceService.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ» Failed Suites 6 ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx [ src/__tests__/components/FuelTypeSelector.test.tsx ]
+Error: Failed to resolve import "react" from "src/__tests__/components/FuelTypeSelector.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/FuelTypeSelector.test.tsx:2:18
+  1  |  import { fireEvent, render, screen } from "@testing-library/react";
+  2  |  import React from "react";
+     |                     ^
+  3  |  import { describe, expect, it, vi } from "vitest";
+  4  |  import { FuelTypeSelector } from "../../components/FuelTypeSelector";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/6]ÔÄ»
+
+ FAIL  src/__tests__/components/Header.test.tsx [ src/__tests__/components/Header.test.tsx ]
+Error: Failed to resolve import "react" from "src/__tests__/components/Header.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/Header.test.tsx:2:18
+  1  |  import { render, screen } from "@testing-library/react";
+  2  |  import React from "react";
+     |                     ^
+  3  |  import { describe, expect, it } from "vitest";
+  4  |  import { Header } from "../../components/Header";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[2/6]ÔÄ»
+
+ FAIL  src/__tests__/components/LoadingFuel.test.tsx [ src/__tests__/components/LoadingFuel.test.tsx ]
+Error: Failed to resolve import "react/jsx-dev-runtime" from "src/__tests__/components/LoadingFuel.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/LoadingFuel.test.tsx:8:11
+  1  |  import { jsxDEV } from "react/jsx-dev-runtime";
+     |                          ^
+  2  |  import { render, screen } from "@testing-library/react";
+  3  |  import { describe, expect, it } from "vitest";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[3/6]ÔÄ»
+
+ FAIL  src/__tests__/components/Minimal.test.tsx [ src/__tests__/components/Minimal.test.tsx ]
+Error: Failed to resolve import "react/jsx-dev-runtime" from "src/__tests__/components/Minimal.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/Minimal.test.tsx:6:11
+  1  |  import { jsxDEV } from "react/jsx-dev-runtime";
+     |                          ^
+  2  |  import { render } from "@testing-library/react";
+  3  |  import { describe, it } from "vitest";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[4/6]ÔÄ»
+
+ FAIL  src/__tests__/components/PriceGauge.test.tsx [ src/__tests__/components/PriceGauge.test.tsx ]
+Error: Failed to resolve import "react" from "src/__tests__/components/PriceGauge.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/PriceGauge.test.tsx:2:18
+  1  |  import { render, screen } from "@testing-library/react";
+  2  |  import React from "react";
+     |                     ^
+  3  |  import { describe, expect, it } from "vitest";
+  4  |  import { PriceGauge } from "../../components/PriceGauge";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[5/6]ÔÄ»
+
+ FAIL  src/__tests__/components/StationCard.test.tsx [ src/__tests__/components/StationCard.test.tsx ]
+Error: Failed to resolve import "react" from "src/__tests__/components/StationCard.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/moxch/Documents/GitHub/bensa/web/src/__tests__/components/StationCard.test.tsx:2:18
+  1  |  import { render, screen } from "@testing-library/react";
+  2  |  import React from "react";
+     |                     ^
+  3  |  import { describe, expect, it } from "vitest";
+  4  |  import { StationCard } from "../../components/StationCard";
+ ÔØ» TransformPluginContext._formatLog ../node_modules/vite/dist/node/chunks/config.js:28999:43
+ ÔØ» TransformPluginContext.error ../node_modules/vite/dist/node/chunks/config.js:28996:14
+ ÔØ» normalizeUrl ../node_modules/vite/dist/node/chunks/config.js:27119:18
+ ÔØ» ../node_modules/vite/dist/node/chunks/config.js:27177:32
+ ÔØ» TransformPluginContext.transform ../node_modules/vite/dist/node/chunks/config.js:27145:4
+ ÔØ» EnvironmentPluginContainer.transform ../node_modules/vite/dist/node/chunks/config.js:28797:14
+ ÔØ» loadAndTransform ../node_modules/vite/dist/node/chunks/config.js:22670:26
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[6/6]ÔÄ»
+
+
+[2m Test Files [22m [1m[31m6 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[32m26 passed[39m[22m[90m (26)[39m
+[2m   Start at [22m 19:19:54
+[2m   Duration [22m 2.56s[2m (transform 260ms, setup 1.64s, import 106ms, tests 11ms, environment 10.85s)[22m
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+c[3J[1m[44m RERUN [49m[22m [34m[2mpackage.json [22m[39m
+
+ [32mÔ£ô[39m src/__tests__/services/stationService.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/utils/priceUtils.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/components/Minimal.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 146[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/components/Header.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 237[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[32m 59[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/priceService.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m9 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[32m51 passed[39m[22m[90m (51)[39m
+[2m   Start at [22m 19:21:48
+[2m   Duration [22m 3.61s
+
+[1m[42m PASS [49m[22m [32mWaiting for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+c[3J[1m[44m RERUN [49m[22m [34m[2mpackage.json [22m[39m
+
+ [32mÔ£ô[39m src/__tests__/services/stationService.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/utils/priceUtils.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/components/Minimal.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/components/LoadingFuel.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 117[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/components/StationCard.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[32m 66[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/components/PriceGauge.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[32m 69[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/components/Header.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 166[2mms[22m[39m
+ [32mÔ£ô[39m src/__tests__/services/priceService.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m9 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[32m51 passed[39m[22m[90m (51)[39m
+[2m   Start at [22m 19:24:16
+[2m   Duration [22m 3.98s
+
+[1m[42m PASS [49m[22m [32mWaiting for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+c[3J[1m[44m RERUN [49m[22m [34m[2msrc/components/FuelTypeSelector.tsx [22m[34mx3 [34m[39m
+
+[1m[35m
+Restarting due to config changes...[39m[22m
+ [31mÔØ»[39m src/__tests__/components/FuelTypeSelector.test.tsx [2m([22m[2m0 test[22m[2m)[22m
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ» Failed Suites 1 ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+
+ FAIL  src/__tests__/components/FuelTypeSelector.test.tsx [ src/__tests__/components/FuelTypeSelector.test.tsx ]
+Error: The server is being restarted or closed. Request is outdated
+ ÔØ» throwClosedServerError ../node_modules/vite/dist/node/chunks/config.js:28559:32
+ ÔØ» EnvironmentPluginContainer.resolveId ../node_modules/vite/dist/node/chunks/config.js:28691:65
+
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/1]ÔÄ»
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [2mno tests[22m
+[2m   Start at [22m 19:24:24
+[2m   Duration [22m 0ms
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
+
+[1m[44m DEV [49m[22m [34mv4.0.18 [39m[90mC:/Users/moxch/Documents/GitHub/bensa/web[39m
+
