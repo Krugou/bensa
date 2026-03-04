@@ -16,6 +16,7 @@ export const useGeolocation = () => {
   });
 
   const requestLocation = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!navigator.geolocation) {
       Analytics.trackLocationRequest(false);
       setState((prev) => ({

@@ -7,7 +7,7 @@ export const LanguageSwitcher = () => {
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'fi' : 'en';
-    i18n.changeLanguage(newLang);
+    void i18n.changeLanguage(newLang);
     Analytics.trackLanguageChange(newLang);
   };
 

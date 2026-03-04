@@ -18,7 +18,9 @@ export const NotificationPermission = () => {
 
       if (result === 'granted') {
         // Register periodic background sync if available
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         const registration = await navigator.serviceWorker?.ready;
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (registration && 'periodicSync' in registration) {
           try {
             await (
@@ -89,7 +91,9 @@ export const NotificationPermission = () => {
             )}
           </p>
           <button
-            onClick={requestPermission}
+            onClick={() => {
+              void requestPermission();
+            }}
             disabled={loading}
             className="mt-3 px-5 py-2 bg-fuel-green/20 border border-fuel-green/40 rounded-lg text-fuel-green text-sm font-semibold hover:bg-fuel-green/30 transition-all duration-300 cursor-pointer disabled:opacity-50 animate-bounce-wacky"
           >

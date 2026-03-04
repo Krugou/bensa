@@ -13,6 +13,7 @@ export interface UserLocation {
  */
 export function getCurrentPosition(): Promise<UserLocation> {
   return new Promise((resolve, reject) => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!navigator.geolocation) {
       reject(new Error('Geolocation not supported'));
       return;
@@ -27,13 +28,7 @@ export function getCurrentPosition(): Promise<UserLocation> {
         });
       },
       (error) => {
-        const message =
-          error instanceof Error
-            ? error.message
-            : error && typeof error === 'object' && 'message' in error
-              ? String((error as { message: unknown }).message)
-              : String(error);
-        reject(new Error(message));
+        reject(new Error(error.message));
       },
       {
         enableHighAccuracy: true,

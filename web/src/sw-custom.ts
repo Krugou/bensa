@@ -29,6 +29,20 @@ const PRICE_DATA_PATH = '/bensa/api/prices.json';
 // Price threshold for alerts (EUR per liter)
 const PRICE_ALERT_THRESHOLD = 1.75;
 
+interface FuelPrice {
+  type: string;
+  price: number;
+}
+
+interface Station {
+  name: string;
+  prices: FuelPrice[];
+}
+
+interface PriceData {
+  stations?: Station[];
+}
+
 /**
  * Check if any station has prices below the alert threshold
  */
@@ -41,8 +55,8 @@ async function checkPriceDrop(): Promise<{
     const response = await fetch(`${PRICE_DATA_PATH}?t=${Date.now()}`);
     if (!response.ok) return { hasDrop: false, cheapestPrice: 0, stationName: '' };
 
-    const data = await response.json();
-    const stations = data.stations || [];
+    const data = (await response.json()) as PriceData;
+    const stations = data.stations ?? [];
 
     let cheapestPrice = Infinity;
     let stationName = '';

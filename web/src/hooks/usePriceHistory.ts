@@ -26,10 +26,6 @@ export function usePriceHistory(days = 14): {
     setLoading(true);
     try {
       // Query the price_history collection
-      // Note: This fetches global average or just latest entries.
-      // For a true "average price over time" chart, we might need a more complex query
-      // or a separate collection for daily averages.
-      // For now, we'll fetch the last N entries to show some data.
       const historyCol = collection(db, 'price_history');
       const q = query(
         historyCol,
@@ -42,24 +38,26 @@ export function usePriceHistory(days = 14): {
       // Group by date and calculate averages
       const dailyData: Record<
         string,
-        {
-          sum95: number;
-          count95: number;
-          sum98: number;
-          count98: number;
-          sumDiesel: number;
-          countDiesel: number;
-        }
+        | {
+            sum95: number;
+            count95: number;
+            sum98: number;
+            count98: number;
+            sumDiesel: number;
+            countDiesel: number;
+          }
+        | undefined
       > = {};
 
       snapshot.docs.forEach((doc) => {
         const data = doc.data();
-        const ts = data.timestamp as Timestamp;
+        const ts = data['timestamp'] as Timestamp | undefined;
         if (!ts) return;
 
         const dateStr = ts.toDate().toISOString().split('T')[0];
-        if (!dailyData[dateStr]) {
-          dailyData[dateStr] = {
+        let dayStats = dailyData[dateStr];
+        if (!dayStats) {
+          dayStats = {
             sum95: 0,
             count95: 0,
             sum98: 0,
@@ -67,24 +65,28 @@ export function usePriceHistory(days = 14): {
             sumDiesel: 0,
             countDiesel: 0,
           };
+          dailyData[dateStr] = dayStats;
         }
 
-        const prices = data.prices as { type: string; price: number }[];
+        const prices = data['prices'] as { type: string; price: number }[] | undefined;
+        if (!prices) return;
+
         prices.forEach((p) => {
           if (p.type === '95') {
-            dailyData[dateStr].sum95 += p.price;
-            dailyData[dateStr].count95++;
+            dayStats.sum95 += p.price;
+            dayStats.count95++;
           } else if (p.type === '98') {
-            dailyData[dateStr].sum98 += p.price;
-            dailyData[dateStr].count98++;
+            dayStats.sum98 += p.price;
+            dayStats.count98++;
           } else if (p.type === 'diesel') {
-            dailyData[dateStr].sumDiesel += p.price;
-            dailyData[dateStr].countDiesel++;
+            dayStats.sumDiesel += p.price;
+            dayStats.countDiesel++;
           }
         });
       });
 
       const points: PriceHistoryPoint[] = Object.entries(dailyData)
+        .filter((entry): entry is [string, NonNullable<(typeof dailyData)[string]>] => !!entry[1])
         .map(([date, stats]) => ({
           date,
           price95: stats.count95 > 0 ? Math.round((stats.sum95 / stats.count95) * 1000) / 1000 : 0,
@@ -108,5 +110,11 @@ export function usePriceHistory(days = 14): {
     void fetchHistory();
   }, [fetchHistory]);
 
-  return { history, loading, refresh: fetchHistory };
+  return {
+    history,
+    loading,
+    refresh: () => {
+      void fetchHistory();
+    },
+  };
 }

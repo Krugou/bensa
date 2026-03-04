@@ -5,10 +5,11 @@ import { Theme, ThemeContext } from './ThemeContext';
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     // 1. Check local storage
-    const saved = localStorage.getItem('theme') as Theme;
+    const saved = localStorage.getItem('theme') as Theme | null;
     if (saved) return saved;
 
     // 2. Check system preference
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
       return 'light';
     }

@@ -60,7 +60,7 @@ const AppContent = () => {
 
   // Initial load + geolocation
   useEffect(() => {
-    loadPrices(true);
+    void loadPrices(true);
 
     // Try to get user location
     getCurrentPosition()
@@ -73,7 +73,9 @@ const AppContent = () => {
       });
 
     // Refresh prices every 5 minutes
-    const interval = setInterval(loadPrices, 300000);
+    const interval = setInterval(() => {
+      void loadPrices();
+    }, 300000);
     return () => {
       clearInterval(interval);
     };
@@ -94,14 +96,14 @@ const AppContent = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-[#060610]">
+      <div className="min-h-screen bg-slate-100 dark:bg-[#020617]">
         <LoadingFuel />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#060610] text-slate-900 dark:text-white/90 font-sans flex flex-col items-center transition-colors duration-500">
+    <div className="min-h-screen bg-slate-100 dark:bg-[#020617] text-slate-900 dark:text-slate-200 font-sans flex flex-col items-center transition-colors duration-500">
       {/* Ambient background glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-fuel-green/5 dark:bg-fuel-green/2 rounded-full blur-[150px] animate-glow-breathe" />

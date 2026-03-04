@@ -27,7 +27,7 @@ export function getNearbyStations(
       ...station,
       distance: calculateDistance(userLat, userLon, station.lat, station.lon),
     }))
-    .sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0));
+    .sort((a, b) => a.distance - b.distance);
 }
 
 /**

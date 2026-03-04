@@ -1,14 +1,14 @@
+import admin, { ServiceAccount } from 'firebase-admin';
 import { writeFileSync } from 'fs';
 import { resolve } from 'path';
 import puppeteer from 'puppeteer';
-import admin from 'firebase-admin';
 
 // Initialize Firebase Admin
-if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+if (process.env['FIREBASE_SERVICE_ACCOUNT']) {
   try {
-    const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+    const serviceAccount = JSON.parse(process.env['FIREBASE_SERVICE_ACCOUNT']) as ServiceAccount;
     admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount)
+      credential: admin.credential.cert(serviceAccount),
     });
     console.log('🔥 Firebase Admin initialized via env variable');
   } catch (err) {
@@ -47,13 +47,16 @@ interface PriceData {
 /**
  * Helper to pause execution
  */
-const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 /**
  * Helper to fetch GPS coordinates using OpenStreetMap's Nominatim API.
  * Nominatim requires a user-agent and specifies a strict 1 request/second limit.
  */
-async function geocodeAddress(address: string, city: string): Promise<{ lat: number; lon: number } | null> {
+async function geocodeAddress(
+  address: string,
+  city: string,
+): Promise<{ lat: number; lon: number } | null> {
   // Clean address noise (parenthesis, highways, Kehä)
   let cleanStreet = address
     .replace(/\([^)]+\)/g, '')
@@ -61,13 +64,15 @@ async function geocodeAddress(address: string, city: string): Promise<{ lat: num
     .replace(/Kehä\s*(I|II|III|\d+)/gi, '');
 
   // Attempt to extract the street name and number specifically
-  const streetMatch = cleanStreet.match(/[A-Za-zäöåÄÖÅ-]+(?:tie|katu|kuja|väylä|kaari|polku|rinne|ranta|raitti|aukio|kallio|mäki|puisto|piha|portti|ahde|lehto|niitty|metsä|kuusi|männistö|kylä|lahti|niemi|luoma|saari|notko|penger)\s+\d+[a-zA-Z]?/i);
+  const streetRegex =
+    /[A-Za-zäöåÄÖÅ-]+(?:tie|katu|kuja|väylä|kaari|polku|rinne|ranta|raitti|aukio|kallio|mäki|puisto|piha|portti|ahde|lehto|niitty|metsä|kuusi|männistö|kylä|lahti|niemi|luoma|saari|notko|penger)\s+\d+[a-zA-Z]?/i;
+  const streetMatch = streetRegex.exec(cleanStreet);
 
   if (streetMatch) {
     cleanStreet = streetMatch[0].trim();
   } else {
     const parts = cleanStreet.split(',');
-    cleanStreet = (parts.find(p => /\d/.test(p)) || parts[0]).trim();
+    cleanStreet = (parts.find((p) => /\d/.test(p)) ?? parts[0]).trim();
   }
 
   const query = encodeURIComponent(`${cleanStreet}, ${city}, Finland`);
@@ -77,7 +82,7 @@ async function geocodeAddress(address: string, city: string): Promise<{ lat: num
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'BensaTrackerBot/1.0 (BensaTracker PWA)',
-      }
+      },
     });
 
     if (!response.ok) {
@@ -85,11 +90,11 @@ async function geocodeAddress(address: string, city: string): Promise<{ lat: num
       return null;
     }
 
-    const data = await response.json();
-    if (data && data.length > 0) {
+    const data = (await response.json()) as { lat: string; lon: string }[];
+    if (data.length > 0) {
       return {
         lat: parseFloat(data[0].lat),
-        lon: parseFloat(data[0].lon)
+        lon: parseFloat(data[0].lon),
       };
     }
   } catch (err) {
@@ -107,7 +112,7 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
   const browser = await puppeteer.launch({
     headless: true,
     // Add these args if running inside a constrained environment like GitHub Actions
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
   const page = await browser.newPage();
@@ -133,7 +138,7 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
       if (cells.length === 1 && cells[0].colSpan === 5) {
         const boldTag = cells[0].querySelector('b');
         if (boldTag) {
-          currentCity = boldTag.textContent?.trim() ?? currentCity;
+          currentCity = boldTag.textContent ? boldTag.textContent.trim() : currentCity;
         }
         return;
       }
@@ -142,7 +147,8 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
       if (
         cells.length === 5 &&
         !cells[0].classList.contains('Keskihinnat') &&
-        cells[0].textContent?.trim() !== ''
+        cells[0].textContent &&
+        cells[0].textContent.trim() !== ''
       ) {
         // Clean up the station name by removing the map link <a> tag
         const stationCell = cells[0].cloneNode(true) as HTMLElement;
@@ -150,13 +156,16 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
         let mapId = '';
         if (aTag) {
           // Optionally extract map ID from href if you want to fetch coords later
-          const href = aTag.getAttribute('href') || '';
-          const match = href.match(/id=(\d+)/);
-          if (match) mapId = match[1];
+          const href = aTag.getAttribute('href');
+          if (href) {
+            const idRegex = /id=(\d+)/;
+            const match = idRegex.exec(href);
+            if (match) mapId = match[1];
+          }
           stationCell.removeChild(aTag);
         }
 
-        const rawName = stationCell.textContent?.trim() ?? 'Unknown Station';
+        const rawName = stationCell.textContent ? stationCell.textContent.trim() : 'Unknown Station';
 
         // Very basic heuristic for brand: first word before a comma or space
         const brand = rawName.split(/[\s,]+/)[0];
@@ -164,7 +173,7 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
         // Parse prices safely
         const parsePrice = (cell: Element): number => {
           // Remove asterisks (used for E99+) and trim spaces
-          const text = cell.textContent?.replace(/\*/g, '').trim() ?? '';
+          const text = cell.textContent ? cell.textContent.replace(/\*/g, '').trim() : '';
           return text === '-' || text === '' ? 0 : parseFloat(text);
         };
 
@@ -206,7 +215,9 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
  */
 async function processStationsWithGeocoding(scrapedStations: GasStation[]): Promise<GasStation[]> {
   const processed: GasStation[] = [];
-  console.log(`🌍 Starting geocoding for ${scrapedStations.length} stations... this will take a moment (1 req/sec limit).`);
+  console.log(
+    `🌍 Starting geocoding for ${scrapedStations.length} stations... this will take a moment (1 req/sec limit).`,
+  );
 
   for (let i = 0; i < scrapedStations.length; i++) {
     const station = scrapedStations[i];
@@ -220,7 +231,9 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
       station.lat = coords.lat;
       station.lon = coords.lon;
     } else {
-      console.log(`   ⚠️ Could not find coordinates for ${station.address}, falling back to defaults.`);
+      console.log(
+        `   ⚠️ Could not find coordinates for ${station.address}, falling back to defaults.`,
+      );
     }
 
     processed.push(station);
@@ -238,22 +251,26 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
  */
 async function saveToFirestore(stations: GasStation[]): Promise<void> {
   console.log(`🔥 Saving ${stations.length} stations to Firestore (with history)...`);
-  
+
   const batchSize = 400; // Reduced batch size to account for dual writes
   const timestamp = admin.firestore.FieldValue.serverTimestamp();
-  
+
   for (let i = 0; i < stations.length; i += batchSize) {
     const batch = db.batch();
     const currentBatch = stations.slice(i, i + batchSize);
-    
-    currentBatch.forEach(station => {
+
+    currentBatch.forEach((station) => {
       // 1. Update latest station data
       const stationRef = db.collection('stations').doc(station.id);
-      batch.set(stationRef, {
-        ...station,
-        lastUpdated: timestamp,
-        updatedAtStr: new Date().toISOString() // Keep string for easier debug
-      }, { merge: true });
+      batch.set(
+        stationRef,
+        {
+          ...station,
+          lastUpdated: timestamp,
+          updatedAtStr: new Date().toISOString(), // Keep string for easier debug
+        },
+        { merge: true },
+      );
 
       // 2. Add to price history
       // We create a unique ID for each history entry: stationId_timestamp
@@ -265,10 +282,10 @@ async function saveToFirestore(stations: GasStation[]): Promise<void> {
         city: station.city,
         brand: station.brand,
         prices: station.prices,
-        timestamp: timestamp
+        timestamp: timestamp,
       });
     });
-    
+
     await batch.commit();
     console.log(`   ✅ Committed batch ${Math.floor(i / batchSize) + 1}`);
   }
@@ -294,7 +311,15 @@ async function main(): Promise<void> {
     };
 
     try {
-      const outputPath = resolve(import.meta.dirname, '..', '..', 'web', 'public', 'api', 'prices.json');
+      const outputPath = resolve(
+        import.meta.dirname,
+        '..',
+        '..',
+        'web',
+        'public',
+        'api',
+        'prices.json',
+      );
       writeFileSync(outputPath, JSON.stringify(output, null, 2), 'utf-8');
       console.log(`📁 Written to local JSON: ${outputPath}`);
     } catch (err) {
@@ -311,4 +336,4 @@ async function main(): Promise<void> {
   }
 }
 
-main();
+void main();

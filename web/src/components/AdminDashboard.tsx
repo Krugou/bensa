@@ -77,7 +77,12 @@ export const AdminDashboard = () => {
             Administrator
           </h1>
 
-          <form onSubmit={handleEmailAuth} className="space-y-4">
+          <form
+            onSubmit={(e) => {
+              void handleEmailAuth(e);
+            }}
+            className="space-y-4"
+          >
             <div>
               <label
                 htmlFor="admin-email"
@@ -139,7 +144,9 @@ export const AdminDashboard = () => {
           </div>
 
           <button
-            onClick={handleGoogleLogin}
+            onClick={() => {
+              void handleGoogleLogin();
+            }}
             className="w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium py-3 rounded-xl transition-all flex items-center justify-center gap-3"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -165,7 +172,7 @@ export const AdminDashboard = () => {
 
           <button
             onClick={() => {
-              navigate('/');
+              void navigate('/');
             }}
             className="mt-8 text-white/40 hover:text-white transition-colors w-full text-center text-sm"
           >
@@ -191,13 +198,17 @@ export const AdminDashboard = () => {
 
           <div className="flex items-center gap-4">
             <button
-              onClick={() => navigate('/')}
+              onClick={() => {
+                void navigate('/');
+              }}
               className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium"
             >
               View Site
             </button>
             <button
-              onClick={handleLogout}
+              onClick={() => {
+                void handleLogout();
+              }}
               className="px-4 py-2 rounded-xl bg-fuel-red/20 hover:bg-fuel-red/40 text-fuel-red border border-fuel-red/30 transition-colors text-sm font-medium"
             >
               Sign Out

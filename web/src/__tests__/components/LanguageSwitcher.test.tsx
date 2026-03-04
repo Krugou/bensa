@@ -24,8 +24,7 @@ describe('LanguageSwitcher', () => {
 
   it('should display Finnish label when language is English', () => {
     const { i18n } = useTranslation();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (i18n as any).language = 'en';
+    (i18n as { language: string }).language = 'en';
 
     render(<LanguageSwitcher />);
 
@@ -34,8 +33,7 @@ describe('LanguageSwitcher', () => {
 
   it('should display English label when language is Finnish', () => {
     const { i18n } = useTranslation();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (i18n as any).language = 'fi';
+    (i18n as { language: string }).language = 'fi';
 
     render(<LanguageSwitcher />);
 

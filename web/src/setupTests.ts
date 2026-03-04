@@ -26,9 +26,9 @@ vi.mock('react-i18next', async () => {
           result = defaultValueOrOptions;
         } else if (
           typeof defaultValueOrOptions === 'object' &&
-          defaultValueOrOptions?.defaultValue != null
+          defaultValueOrOptions['defaultValue'] != null
         ) {
-          result = defaultValueOrOptions.defaultValue as string;
+          result = defaultValueOrOptions['defaultValue'] as string;
         }
 
         // Handle interpolation like {{count}} or {{year}}
@@ -117,8 +117,35 @@ const localStorageMock = (() => {
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
+// ─── Mock matchMedia ─────────────────────────────────────────────────────────
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation((query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(), // Deprecated
+    removeListener: vi.fn(), // Deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+});
+
+// ─── Mock Geolocation ───────────────────────────────────────────────────────
+const mockGeolocation = {
+  getCurrentPosition: vi.fn(),
+  watchPosition: vi.fn(),
+  clearWatch: vi.fn(),
+};
+Object.defineProperty(navigator, 'geolocation', {
+  value: mockGeolocation,
+  configurable: true,
+});
+
 // ─── Reset mocks between tests ───────────────────────────────────────────────
 beforeEach(() => {
   vi.clearAllMocks();
   localStorageMock.clear();
+  mockGeolocation.getCurrentPosition.mockReset();
 });

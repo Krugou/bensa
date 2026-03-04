@@ -15,33 +15,35 @@ export function usePriceAlert(
   const prevMinRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (stations.length === 0) return;
+    if (stations.length === 0) return undefined;
 
     const prices = stations
       .map((s) => s.prices.find((p) => p.type === fuelType)?.price)
       .filter((p): p is number => p !== undefined);
 
-    if (prices.length === 0) return;
+    if (prices.length === 0) return undefined;
 
     const currentMin = Math.min(...prices);
+    let timer: ReturnType<typeof setTimeout> | undefined;
 
     // Alert if price drops below threshold OR drops from previous check
     if (currentMin < threshold) {
       if (prevMinRef.current === null || currentMin < prevMinRef.current) {
         setIsAlert(true);
         // Reset alert after 10 seconds
-        const timer = setTimeout(() => {
+        timer = setTimeout(() => {
           setIsAlert(false);
         }, 10000);
-        return () => {
-          clearTimeout(timer);
-        };
       }
     } else {
       setIsAlert(false);
     }
 
     prevMinRef.current = currentMin;
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, [stations, fuelType, threshold]);
 
   return isAlert;
