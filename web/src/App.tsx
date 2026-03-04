@@ -103,7 +103,7 @@ const AppContent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 dark:bg-[#020617] text-slate-900 dark:text-slate-200 font-sans flex flex-col items-center transition-colors duration-500">
+    <div className="min-h-screen bg-slate-100 dark:bg-[#020617] text-black dark:text-slate-200 font-sans flex flex-col items-center transition-colors duration-500">
       {/* Ambient background glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-fuel-green/5 dark:bg-fuel-green/2 rounded-full blur-[150px] animate-glow-breathe" />
@@ -186,7 +186,7 @@ const AppContent = () => {
         </CollapsibleSection>
 
         {/* Footer */}
-        <footer className="text-center py-12 text-slate-400 dark:text-white/20 font-mono text-xs uppercase tracking-widest">
+        <footer className="text-center py-12 text-slate-600 dark:text-white/20 font-mono text-xs uppercase tracking-widest">
           <p title={`${t('common.build_time', 'Build')}: ${__BUILD_TIME__}`}>
             {t('footer.copyright', '© {{year}} Bensa', { year: new Date().getFullYear() })}
           </p>
