@@ -52,12 +52,25 @@ interface GasStation {
   lat: number;
   lon: number;
   prices: FuelPrice[];
+  sourceUrl?: string;
 }
 
 interface PriceData {
   lastUpdated: string;
   stations: GasStation[];
 }
+
+const TARGET_URLS = [
+  'https://polttoaine.net/index.php?t=PK-Seutu',
+  'https://polttoaine.net/index.php?cmd=20kalleinta',
+  'https://polttoaine.net/index.php?cmd=20halvinta',
+  'https://polttoaine.net/index.php?t=Seina_joen_seutu',
+  'https://polttoaine.net/index.php?t=Porin_seutu',
+  'https://polttoaine.net/index.php?t=Jyva_skyla_n_seutu',
+  'https://polttoaine.net/index.php?t=Oulun_seutu',
+  'https://polttoaine.net/index.php?t=Tampereen_seutu',
+  'https://polttoaine.net/index.php?t=Turun_seutu',
+];
 
 /**
  * Helper to pause execution
@@ -66,19 +79,16 @@ const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 /**
  * Helper to fetch GPS coordinates using OpenStreetMap's Nominatim API.
- * Nominatim requires a user-agent and specifies a strict 1 request/second limit.
  */
 async function geocodeAddress(
   address: string,
   city: string,
 ): Promise<{ lat: number; lon: number } | null> {
-  // Clean address noise (parenthesis, highways, Kehä)
   let cleanStreet = address
     .replace(/\([^)]+\)/g, '')
     .replace(/110-tie/gi, '')
     .replace(/Kehä\s*(I|II|III|\d+)/gi, '');
 
-  // Attempt to extract the street name and number specifically
   const streetRegex =
     /[A-Za-zäöåÄÖÅ-]+(?:tie|katu|kuja|väylä|kaari|polku|rinne|ranta|raitti|aukio|kallio|mäki|puisto|piha|portti|ahde|lehto|niitty|metsä|kuusi|männistö|kylä|lahti|niemi|luoma|saari|notko|penger)\s+\d+[a-zA-Z]?/i;
   const streetMatch = streetRegex.exec(cleanStreet);
@@ -100,13 +110,10 @@ async function geocodeAddress(
       },
     });
 
-    if (!response.ok) {
-      console.warn(`[Geocode API Error] ${response.status} for ${address}, ${city}`);
-      return null;
-    }
+    if (!response.ok) return null;
 
     const data = (await response.json()) as { lat: string; lon: string }[];
-    if (data.length > 0) {
+    if (data && data.length > 0) {
       return {
         lat: parseFloat(data[0].lat),
         lon: parseFloat(data[0].lon),
@@ -120,109 +127,121 @@ async function geocodeAddress(
 }
 
 /**
- * Scrapes gas prices from polttoaine.net PK-Seutu page.
+ * Scrapes gas prices from polttoaine.net multiple pages.
  */
 async function scrapeGasPrices(): Promise<GasStation[]> {
   console.log('📡 Launching browser...');
   const browser = await puppeteer.launch({
     headless: true,
-    // Add these args if running inside a constrained environment like GitHub Actions
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
-  const page = await browser.newPage();
+  const allStationsMap = new Map<string, GasStation>();
 
-  console.log('🌐 Navigating to fuel comparison site...');
-  await page.goto('https://polttoaine.net/index.php?t=PK-Seutu', {
-    waitUntil: 'domcontentloaded',
-  });
+  for (const url of TARGET_URLS) {
+    console.log(`🌐 Navigating to ${url}...`);
+    const page = await browser.newPage();
+    try {
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+      await page.waitForSelector('#Hinnat table', { timeout: 10000 }).catch(() => null);
 
-  // Wait for the table to appear
-  await page.waitForSelector('#Hinnat table');
+      const stations = await page.evaluate((sourceUrl) => {
+        const rows = document.querySelectorAll('#Hinnat table tbody tr');
+        const results: GasStation[] = [];
+        let currentCity = 'Unknown';
 
-  console.log('📊 Extracting data...');
-  const stations = await page.evaluate(() => {
-    const rows = document.querySelectorAll('#Hinnat table tbody tr');
-    const results: GasStation[] = [];
-    let currentCity = 'Unknown';
+        rows.forEach((row, index) => {
+          const cells = row.querySelectorAll('td');
 
-    rows.forEach((row, index) => {
-      const cells = row.querySelectorAll('td');
-
-      // 1. Check if this is a city header row (e.g., <b>Espoo</b>)
-      if (cells.length === 1 && cells[0].colSpan === 5) {
-        const boldTag = cells[0].querySelector('b');
-        if (boldTag) {
-          currentCity = boldTag.textContent ? boldTag.textContent.trim() : currentCity;
-        }
-        return;
-      }
-
-      // 2. Process data rows (must have 5 columns, ignore "Keskihinnat" averages)
-      if (
-        cells.length === 5 &&
-        !cells[0].classList.contains('Keskihinnat') &&
-        cells[0].textContent &&
-        cells[0].textContent.trim() !== ''
-      ) {
-        // Clean up the station name by removing the map link <a> tag
-        const stationCell = cells[0].cloneNode(true) as HTMLElement;
-        const aTag = stationCell.querySelector('a');
-        let mapId = '';
-        if (aTag) {
-          // Optionally extract map ID from href if you want to fetch coords later
-          const href = aTag.getAttribute('href');
-          if (href) {
-            const idRegex = /id=(\d+)/;
-            const match = idRegex.exec(href);
-            if (match) mapId = match[1];
+          if (cells.length === 1 && cells[0].colSpan === 5) {
+            const boldTag = cells[0].querySelector('b');
+            if (boldTag) {
+              currentCity = boldTag.textContent ? boldTag.textContent.trim() : currentCity;
+            }
+            return;
           }
-          stationCell.removeChild(aTag);
-        }
 
-        const rawName = stationCell.textContent ? stationCell.textContent.trim() : 'Unknown Station';
+          if (
+            cells.length === 5 &&
+            !cells[0].classList.contains('Keskihinnat') &&
+            cells[0].textContent &&
+            cells[0].textContent.trim() !== ''
+          ) {
+            const stationCell = cells[0].cloneNode(true) as HTMLElement;
+            const aTag = stationCell.querySelector('a');
+            let mapId = '';
+            if (aTag) {
+              const href = aTag.getAttribute('href');
+              if (href) {
+                const match = /id=(\d+)/.exec(href);
+                if (match) mapId = match[1];
+              }
+              stationCell.removeChild(aTag);
+            }
 
-        // Very basic heuristic for brand: first word before a comma or space
-        const brand = rawName.split(/[\s,]+/)[0];
+            const rawName = stationCell.textContent ? stationCell.textContent.trim() : 'Unknown Station';
+            const brand = rawName.split(/[\s,]+/)[0];
 
-        // Parse prices safely
-        const parsePrice = (cell: Element): number => {
-          // Remove asterisks (used for E99+) and trim spaces
-          const text = cell.textContent ? cell.textContent.replace(/\*/g, '').trim() : '';
-          return text === '-' || text === '' ? 0 : parseFloat(text);
-        };
+            const parsePrice = (cell: Element): number => {
+              const text = cell.textContent ? cell.textContent.replace(/\*/g, '').trim() : '';
+              return text === '-' || text === '' ? 0 : parseFloat(text.replace(',', '.'));
+            };
 
-        const price95 = parsePrice(cells[2]);
-        const price98 = parsePrice(cells[3]);
-        const diesel = parsePrice(cells[4]);
+            const prices: FuelPrice[] = [];
+            const now = new Date().toISOString();
+            const price95 = parsePrice(cells[2]);
+            const price98 = parsePrice(cells[3]);
+            const diesel = parsePrice(cells[4]);
 
-        const prices: FuelPrice[] = [];
-        const now = new Date().toISOString();
+            if (price95 > 0) prices.push({ type: '95', price: price95, updatedAt: now });
+            if (price98 > 0) prices.push({ type: '98', price: price98, updatedAt: now });
+            if (diesel > 0) prices.push({ type: 'diesel', price: diesel, updatedAt: now });
 
-        if (price95 > 0) prices.push({ type: '95', price: price95, updatedAt: now });
-        if (price98 > 0) prices.push({ type: '98', price: price98, updatedAt: now });
-        if (diesel > 0) prices.push({ type: 'diesel', price: diesel, updatedAt: now });
+            if (prices.length > 0) {
+              results.push({
+                id: mapId ? `station-${mapId}` : `station-${index}-${currentCity}`,
+                name: rawName,
+                brand: brand,
+                address: rawName,
+                city: currentCity,
+                lat: 0,
+                lon: 0,
+                prices: prices,
+                sourceUrl: sourceUrl,
+              });
+            }
+          }
+        });
+        return results;
+      }, url);
 
-        if (prices.length > 0) {
-          results.push({
-            id: mapId ? `station-${mapId}` : `station-${index}`,
-            name: rawName,
-            brand: brand,
-            address: rawName, // The site bundles address into the name string
-            city: currentCity,
-            lat: 0, // Requires additional scraping of the map pages
-            lon: 0, // Requires additional scraping of the map pages
-            prices: prices,
+      stations.forEach((s) => {
+        if (!allStationsMap.has(s.id)) {
+          allStationsMap.set(s.id, s);
+        } else {
+          // Merge prices if we found the same station on multiple pages
+          const existing = allStationsMap.get(s.id)!;
+          s.prices.forEach(newPrice => {
+            const pIdx = existing.prices.findIndex(p => p.type === newPrice.type);
+            if (pIdx === -1) {
+              existing.prices.push(newPrice);
+            } else if (new Date(newPrice.updatedAt) > new Date(existing.prices[pIdx].updatedAt)) {
+              existing.prices[pIdx] = newPrice;
+            }
           });
         }
-      }
-    });
-
-    return results;
-  });
+      });
+    } catch (err) {
+      console.error(`❌ Failed to scrape ${url}:`, err);
+    } finally {
+      await page.close();
+    }
+    // Small delay between pages
+    await delay(1000);
+  }
 
   await browser.close();
-  return stations;
+  return Array.from(allStationsMap.values());
 }
 
 /**
@@ -238,7 +257,6 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
     snapshot.forEach((doc) => {
       const data = doc.data();
       if (data['lat'] && data['lon']) {
-        // Use name + city as a key for robust matching
         const key = `${String(data['name']).trim()}-${String(data['city']).trim()}`.toLowerCase();
         cache[key] = { lat: Number(data['lat']), lon: Number(data['lon']) };
       }
@@ -250,7 +268,7 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
 
   const processed: GasStation[] = [];
   console.log(
-    `🌍 Starting geocoding for ${scrapedStations.length} stations... this will take a moment (1 req/sec limit).`,
+    `🌍 Processing ${scrapedStations.length} stations...`,
   );
 
   for (let i = 0; i < scrapedStations.length; i++) {
@@ -260,7 +278,6 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
     if (cache[cacheKey]) {
       station.lat = cache[cacheKey].lat;
       station.lon = cache[cacheKey].lon;
-      console.log(`[${i + 1}/${scrapedStations.length}] ♻️  Using cached coords for: ${station.name}`);
     } else {
       const rawAddress = station.address;
       console.log(`[${i + 1}/${scrapedStations.length}] 🛰️  Geocoding: ${rawAddress}, ${station.city}`);
@@ -269,12 +286,9 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
       if (coords) {
         station.lat = coords.lat;
         station.lon = coords.lon;
-      } else {
-        console.log(
-          `   ⚠️ Could not find coordinates for ${station.address}, falling back to defaults.`,
-        );
+        // Update cache so we don't geocode same station if it appears multiple times in this run
+        cache[cacheKey] = coords;
       }
-      // Strict delay to respect Nominatim TOS when actually geocoding
       await delay(1200);
     }
 
@@ -286,12 +300,11 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
 
 /**
  * Saves station data to Firestore.
- * Updates current state in 'stations' and adds historical entries to 'price_history'.
  */
 async function saveToFirestore(stations: GasStation[]): Promise<void> {
   console.log(`🔥 Saving ${stations.length} stations to Firestore (with history)...`);
 
-  const batchSize = 400; // Reduced batch size to account for dual writes
+  const batchSize = 400;
   const timestamp = admin.firestore.FieldValue.serverTimestamp();
 
   for (let i = 0; i < stations.length; i += batchSize) {
@@ -299,21 +312,17 @@ async function saveToFirestore(stations: GasStation[]): Promise<void> {
     const currentBatch = stations.slice(i, i + batchSize);
 
     currentBatch.forEach((station) => {
-      // 1. Update latest station data
       const stationRef = db.collection('stations').doc(station.id);
       batch.set(
         stationRef,
         {
           ...station,
           lastUpdated: timestamp,
-          updatedAtStr: new Date().toISOString(), // Keep string for easier debug
+          updatedAtStr: new Date().toISOString(),
         },
         { merge: true },
       );
 
-      // 2. Add to price history
-      // We create a unique ID for each history entry: stationId_timestamp
-      // Actually, it's better to let Firestore auto-generate IDs for history
       const historyRef = db.collection('price_history').doc();
       batch.set(historyRef, {
         stationId: station.id,
@@ -322,6 +331,7 @@ async function saveToFirestore(stations: GasStation[]): Promise<void> {
         brand: station.brand,
         prices: station.prices,
         timestamp: timestamp,
+        sourceUrl: station.sourceUrl,
       });
     });
 
@@ -338,28 +348,17 @@ async function main(): Promise<void> {
 
   try {
     const scrapedStations = await scrapeGasPrices();
-    console.log(`✅ Scraped ${scrapedStations.length} stations`);
+    console.log(`✅ Scraped total ${scrapedStations.length} unique stations`);
 
-    // Enhance with Geocoding
     const finalStations = await processStationsWithGeocoding(scrapedStations);
 
-    // 1. Save to local JSON (backward compatibility / debug)
     const output: PriceData = {
       lastUpdated: new Date().toISOString(),
       stations: finalStations,
     };
 
     try {
-      const outputPath = resolve(
-        import.meta.dirname,
-        '..',
-        '..',
-        'web',
-        'public',
-        'api',
-        'prices.json',
-      );
-      // Ensure directory exists
+      const outputPath = resolve(import.meta.dirname, '..', '..', 'web', 'public', 'api', 'prices.json');
       mkdirSync(dirname(outputPath), { recursive: true });
       writeFileSync(outputPath, JSON.stringify(output, null, 2), 'utf-8');
       console.log(`📁 Written to local JSON: ${outputPath}`);
@@ -367,10 +366,8 @@ async function main(): Promise<void> {
       console.warn('⚠️ Could not write to local JSON:', err);
     }
 
-    // 2. Save to Firestore
     await saveToFirestore(finalStations);
 
-    // 3. Record the run timestamp
     await db.collection('scraper_runs').add({
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
       stationCount: finalStations.length,

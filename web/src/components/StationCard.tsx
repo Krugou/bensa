@@ -88,11 +88,40 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
       {/* Price display */}
       <div className="mt-4 flex items-end justify-between">
         <div>
-          <span
-            className={`text-2xl md:text-3xl font-extrabold font-mono ${levelColorClass} transition-colors duration-300`}
-          >
-            {formatPrice(price)}
-          </span>
+          <div className="flex items-center gap-2">
+            <span
+              className={`text-2xl md:text-3xl font-extrabold font-mono ${levelColorClass} transition-colors duration-300`}
+            >
+              {formatPrice(price)}
+            </span>
+            {station.sourceUrl && (
+              <a
+                href={station.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/20 hover:text-white/60 transition-colors p-1"
+                title={t('station.source_link', 'View data source')}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            )}
+          </div>
           <span className="text-xs text-white/30 ml-1">€/L</span>
         </div>
 

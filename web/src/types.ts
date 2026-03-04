@@ -18,6 +18,7 @@ export interface GasStation {
   lon: number;
   prices: FuelPrice[];
   distance?: number; // km from user, computed client-side
+  sourceUrl?: string;
 }
 
 export interface PriceStats {
