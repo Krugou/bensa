@@ -1,4 +1,7 @@
+import { collection, getDocs, limit, orderBy, query, Timestamp } from 'firebase/firestore';
 import { useCallback, useEffect, useState } from 'react';
+
+import { db } from '../firebase';
 
 interface PriceHistoryPoint {
   date: string;
@@ -9,7 +12,7 @@ interface PriceHistoryPoint {
 
 /**
  * Generates and manages price history data for the chart.
- * In production, this would fetch from an API. For now, generates mock trend data.
+ * Fetches from Firestore price_history collection.
  */
 export function usePriceHistory(days = 14): {
   history: PriceHistoryPoint[];
@@ -19,45 +22,91 @@ export function usePriceHistory(days = 14): {
   const [history, setHistory] = useState<PriceHistoryPoint[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const generateHistory = useCallback(() => {
+  const fetchHistory = useCallback(async () => {
     setLoading(true);
-    const data: PriceHistoryPoint[] = [];
-    const now = new Date();
+    try {
+      // Query the price_history collection
+      // Note: This fetches global average or just latest entries.
+      // For a true "average price over time" chart, we might need a more complex query
+      // or a separate collection for daily averages.
+      // For now, we'll fetch the last N entries to show some data.
+      const historyCol = collection(db, 'price_history');
+      const q = query(
+        historyCol,
+        orderBy('timestamp', 'desc'),
+        limit(days * 10), // Fetch enough to cover many stations
+      );
 
-    // Base prices with realistic fluctuation
-    let base95 = 1.78;
-    let base98 = 1.88;
-    let baseDiesel = 1.68;
+      const snapshot = await getDocs(q);
 
-    for (let i = days - 1; i >= 0; i--) {
-      const date = new Date(now);
-      date.setDate(date.getDate() - i);
+      // Group by date and calculate averages
+      const dailyData: Record<
+        string,
+        {
+          sum95: number;
+          count95: number;
+          sum98: number;
+          count98: number;
+          sumDiesel: number;
+          countDiesel: number;
+        }
+      > = {};
 
-      // Add slight daily variation
-      base95 += (Math.random() - 0.48) * 0.02;
-      base98 += (Math.random() - 0.48) * 0.02;
-      baseDiesel += (Math.random() - 0.48) * 0.02;
+      snapshot.docs.forEach((doc) => {
+        const data = doc.data();
+        const ts = data.timestamp as Timestamp;
+        if (!ts) return;
 
-      // Clamp to realistic range
-      base95 = Math.max(1.65, Math.min(1.95, base95));
-      base98 = Math.max(1.75, Math.min(2.05, base98));
-      baseDiesel = Math.max(1.55, Math.min(1.85, baseDiesel));
+        const dateStr = ts.toDate().toISOString().split('T')[0];
+        if (!dailyData[dateStr]) {
+          dailyData[dateStr] = {
+            sum95: 0,
+            count95: 0,
+            sum98: 0,
+            count98: 0,
+            sumDiesel: 0,
+            countDiesel: 0,
+          };
+        }
 
-      data.push({
-        date: date.toISOString().split('T')[0],
-        price95: Math.round(base95 * 1000) / 1000,
-        price98: Math.round(base98 * 1000) / 1000,
-        diesel: Math.round(baseDiesel * 1000) / 1000,
+        const prices = data.prices as { type: string; price: number }[];
+        prices.forEach((p) => {
+          if (p.type === '95') {
+            dailyData[dateStr].sum95 += p.price;
+            dailyData[dateStr].count95++;
+          } else if (p.type === '98') {
+            dailyData[dateStr].sum98 += p.price;
+            dailyData[dateStr].count98++;
+          } else if (p.type === 'diesel') {
+            dailyData[dateStr].sumDiesel += p.price;
+            dailyData[dateStr].countDiesel++;
+          }
+        });
       });
-    }
 
-    setHistory(data);
-    setLoading(false);
+      const points: PriceHistoryPoint[] = Object.entries(dailyData)
+        .map(([date, stats]) => ({
+          date,
+          price95: stats.count95 > 0 ? Math.round((stats.sum95 / stats.count95) * 1000) / 1000 : 0,
+          price98: stats.count98 > 0 ? Math.round((stats.sum98 / stats.count98) * 1000) / 1000 : 0,
+          diesel:
+            stats.countDiesel > 0
+              ? Math.round((stats.sumDiesel / stats.countDiesel) * 1000) / 1000
+              : 0,
+        }))
+        .sort((a, b) => a.date.localeCompare(b.date));
+
+      setHistory(points);
+    } catch (error) {
+      console.error('[usePriceHistory] Failed to fetch history:', error);
+    } finally {
+      setLoading(false);
+    }
   }, [days]);
 
   useEffect(() => {
-    generateHistory();
-  }, [generateHistory]);
+    void fetchHistory();
+  }, [fetchHistory]);
 
-  return { history, loading, refresh: generateHistory };
+  return { history, loading, refresh: fetchHistory };
 }

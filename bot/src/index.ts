@@ -234,21 +234,39 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
 
 /**
  * Saves station data to Firestore.
+ * Updates current state in 'stations' and adds historical entries to 'price_history'.
  */
 async function saveToFirestore(stations: GasStation[]): Promise<void> {
-  console.log(`🔥 Saving ${stations.length} stations to Firestore...`);
+  console.log(`🔥 Saving ${stations.length} stations to Firestore (with history)...`);
   
-  const batchSize = 500;
+  const batchSize = 400; // Reduced batch size to account for dual writes
+  const timestamp = admin.firestore.FieldValue.serverTimestamp();
+  
   for (let i = 0; i < stations.length; i += batchSize) {
     const batch = db.batch();
     const currentBatch = stations.slice(i, i + batchSize);
     
     currentBatch.forEach(station => {
+      // 1. Update latest station data
       const stationRef = db.collection('stations').doc(station.id);
       batch.set(stationRef, {
         ...station,
-        lastUpdated: new Date().toISOString()
+        lastUpdated: timestamp,
+        updatedAtStr: new Date().toISOString() // Keep string for easier debug
       }, { merge: true });
+
+      // 2. Add to price history
+      // We create a unique ID for each history entry: stationId_timestamp
+      // Actually, it's better to let Firestore auto-generate IDs for history
+      const historyRef = db.collection('price_history').doc();
+      batch.set(historyRef, {
+        stationId: station.id,
+        stationName: station.name,
+        city: station.city,
+        brand: station.brand,
+        prices: station.prices,
+        timestamp: timestamp
+      });
     });
     
     await batch.commit();
