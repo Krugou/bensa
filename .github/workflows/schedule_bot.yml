@@ -18,6 +18,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Fuel Quality Check (Validate Secrets)
+        run: |
+          echo "🔎 Verifying required configuration for bot..."
+          MISSING=0
+
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA" ]; then
+            echo "❌ Error: FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA is missing!"
+            MISSING=$((MISSING + 1))
+          fi
+
+          if [ -z "$VITE_FIREBASE_PROJECT_ID" ]; then
+            echo "❌ Error: VITE_FIREBASE_PROJECT_ID is missing!"
+            MISSING=$((MISSING + 1))
+          fi
+
+          if [ $MISSING -gt 0 ]; then
+            echo "🛑 Bot cannot start without proper credentials."
+            exit 1
+          fi
+          echo "🚀 Bot is gassed up and ready to go!"
+        env:
+          FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:

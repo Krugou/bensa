@@ -24,6 +24,46 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: Fuel Quality Check (Validate Secrets)
+        run: |
+          echo "🔎 Verifying required configuration..."
+          MISSING=0
+
+          declare -a SECRETS=(
+            "VITE_FIREBASE_API_KEY"
+            "VITE_FIREBASE_AUTH_DOMAIN"
+            "VITE_FIREBASE_PROJECT_ID"
+            "VITE_FIREBASE_STORAGE_BUCKET"
+            "VITE_FIREBASE_MESSAGING_SENDER_ID"
+            "VITE_FIREBASE_APP_ID"
+            "VITE_FIREBASE_MEASUREMENT_ID"
+            "FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA"
+          )
+
+          for secret in "${SECRETS[@]}"; do
+            if [ -z "${!secret}" ]; then
+              echo "❌ Error: Secret '$secret' is missing or empty!"
+              MISSING=$((MISSING + 1))
+            else
+              echo "✅ Secret '$secret' is present."
+            fi
+          done
+
+          if [ $MISSING -gt 0 ]; then
+            echo "🛑 Found $MISSING missing secrets. Please check your GitHub Repository Secrets."
+            exit 1
+          fi
+          echo "🚀 All systems go! Configuration is valid."
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
+          FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}
+
       - name: Preparing the Station (Node.js)
         uses: actions/setup-node@v6
         with:
