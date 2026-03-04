@@ -1,12 +1,14 @@
 import 'leaflet/dist/leaflet.css';
 
 import L from 'leaflet';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from 'react-leaflet';
+import { CircleMarker, MapContainer, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
 
 import { FuelType, GasStation } from '../types';
+import { Analytics } from '../utils/analytics';
 import { formatPrice, getPriceLevel, getPriceLevelColor } from '../utils/priceUtils';
+import { DirectionsModal } from './DirectionsModal';
 
 interface StationMapProps {
   stations: GasStation[];
@@ -37,6 +39,7 @@ export const StationMap = ({
   userLon = 24.9384,
 }: StationMapProps) => {
   const { t } = useTranslation();
+  const [selectedStation, setSelectedStation] = useState<GasStation | null>(null);
 
   const getMarkerProps = useCallback(
     (station: GasStation) => {
@@ -57,11 +60,19 @@ export const StationMap = ({
     [fuelType, min, max],
   );
 
+  const handleDirectionsClick = (station: GasStation) => {
+    setSelectedStation(station);
+    Analytics.trackButtonClick('directions_open_map');
+  };
+
   // Dark tile layer for the aurora aesthetic
   const tileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
 
   return (
-    <div className="relative rounded-xl overflow-hidden border border-white/[0.06]" id="station-map">
+    <div
+      className="relative rounded-xl overflow-hidden border border-white/[0.06]"
+      id="station-map"
+    >
       <MapContainer
         center={[userLat, userLon] as L.LatLngExpression}
         zoom={7}
@@ -69,10 +80,7 @@ export const StationMap = ({
         zoomControl={true}
         attributionControl={true}
       >
-        <TileLayer
-          attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-          url={tileUrl}
-        />
+        <TileLayer attribution='&copy; <a href="https://carto.com/">CARTO</a>' url={tileUrl} />
 
         <MapUpdater lat={userLat} lon={userLon} />
 
@@ -88,7 +96,9 @@ export const StationMap = ({
           }}
         >
           <Popup>
-            <span className="text-sm font-semibold">{t('map.your_location', '📍 Your Location')}</span>
+            <span className="text-sm font-semibold">
+              {t('map.your_location', '📍 Your Location')}
+            </span>
           </Popup>
         </CircleMarker>
 
@@ -108,24 +118,79 @@ export const StationMap = ({
               }}
               className={isCheap ? 'animate-marker-pulse' : ''}
             >
-              <Popup>
-                <div className="text-sm min-w-[160px]">
-                  <p className="font-bold text-base">{station.name}</p>
-                  <p className="text-gray-500 text-xs">{station.address}, {station.city}</p>
-                  <p className="mt-2 text-lg font-mono font-bold" style={{ color }}>
-                    {formatPrice(price)} €/L
+              <Tooltip
+                direction="top"
+                offset={[0, -radius]}
+                opacity={0.9}
+                className="bg-black/80 border-none text-white font-mono font-bold text-xs rounded-md shadow-lg"
+              >
+                {formatPrice(price)}
+              </Tooltip>
+
+              <Popup className="station-popup">
+                <div className="text-sm min-w-[180px] p-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs px-1.5 py-0.5 rounded bg-white/10 text-white/60 font-mono">
+                      {station.brand}
+                    </span>
+                    {isCheap && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-fuel-green/20 text-fuel-green font-bold uppercase tracking-tight animate-pulse">
+                        {t('common.cheap', 'Cheap')}
+                      </span>
+                    )}
+                  </div>
+                  <p className="font-bold text-base leading-tight text-white mb-0.5">
+                    {station.name}
                   </p>
-                  {station.distance && (
-                    <p className="text-xs text-gray-400 mt-1">
-                      📍 {station.distance} km
-                    </p>
-                  )}
+                  <p className="text-white/40 text-[11px] font-mono">
+                    {station.address}, {station.city}
+                  </p>
+
+                  <div className="mt-3 pt-2 border-t border-white/10 flex items-end justify-between">
+                    <div>
+                      <p className="text-[10px] uppercase text-white/30 font-bold tracking-widest mb-0.5">
+                        Price
+                      </p>
+                      <p className="text-xl font-mono font-black" style={{ color }}>
+                        {formatPrice(price)}
+                        <span className="text-xs ml-0.5 opacity-60">€/L</span>
+                      </p>
+                    </div>
+                    {station.distance && (
+                      <p className="text-[11px] font-mono text-white/40 mb-1">
+                        📍 {station.distance} km
+                      </p>
+                    )}
+                  </div>
+                  <div className="mt-2 text-right">
+                    <button
+                      onClick={() => {
+                        handleDirectionsClick(station);
+                      }}
+                      className="text-[10px] font-bold uppercase tracking-widest text-bensa-teal hover:text-white transition-colors cursor-pointer focus:outline-none"
+                    >
+                      {t('station.directions')} →
+                    </button>
+                  </div>
                 </div>
               </Popup>
             </CircleMarker>
           );
         })}
       </MapContainer>
+
+      {/* Directions Modal */}
+      {selectedStation && (
+        <DirectionsModal
+          isOpen={!!selectedStation}
+          onClose={() => {
+            setSelectedStation(null);
+          }}
+          lat={selectedStation.lat}
+          lon={selectedStation.lon}
+          stationName={selectedStation.name}
+        />
+      )}
 
       {/* Legend overlay */}
       <div className="absolute bottom-4 left-4 glass-card px-3 py-2 flex items-center gap-3 text-[10px] font-mono text-white/60 z-[1000]">

@@ -27,7 +27,13 @@ export function getCurrentPosition(): Promise<UserLocation> {
         });
       },
       (error) => {
-        reject(error);
+        const message =
+          error instanceof Error
+            ? error.message
+            : error && typeof error === 'object' && 'message' in error
+              ? String((error as { message: unknown }).message)
+              : String(error);
+        reject(new Error(message));
       },
       {
         enableHighAccuracy: true,

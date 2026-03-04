@@ -48,7 +48,14 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
           VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
-      - name: Pumping the Gas (Upload Artifact)
+
+      - name: Storing the Fuel (Upload Generic Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: './web/dist'
+
+      - name: Pumping the Gas (Upload Pages Artifact)
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4
         with:
@@ -82,6 +89,29 @@ jobs:
           echo "## 🤖 Scraper Ready for Action" >> $GITHUB_STEP_SUMMARY
           echo "Bot compiled and ready to crunch gas prices. 🧠⚡" >> $GITHUB_STEP_SUMMARY
 
+  deploying-to-firebase:
+    name: 🔥 Deploying-to-Firebase
+    needs: checking-the-pumps
+    if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+
+      - name: Receiving the Fuel
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: './web/dist'
+
+      - name: Ignite the Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}
+          projectId: krugou-bensa
+          channelId: live
+
   deploying-to-pages:
     name: 🚀 Deploying-to-Pages
     needs: checking-the-pumps
@@ -103,7 +133,7 @@ jobs:
 
   semantic-release:
     name: 📢 Semantic-Release
-    needs: [checking-the-pumps, building-the-scraper, deploying-to-pages]
+    needs: [checking-the-pumps, building-the-scraper, deploying-to-firebase]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:

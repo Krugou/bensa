@@ -1,7 +1,15 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { FuelType, GasStation } from '../types';
-import { formatPrice, getPriceLevel, getPriceLevelClass, getPriceLevelColor } from '../utils/priceUtils';
+import { Analytics } from '../utils/analytics';
+import {
+  formatPrice,
+  getPriceLevel,
+  getPriceLevelClass,
+  getPriceLevelColor,
+} from '../utils/priceUtils';
+import { DirectionsModal } from './DirectionsModal';
 
 interface StationCardProps {
   station: GasStation;
@@ -13,6 +21,7 @@ interface StationCardProps {
 
 export const StationCard = ({ station, fuelType, min, max, rank }: StationCardProps) => {
   const { t } = useTranslation();
+  const [isDirectionsOpen, setIsDirectionsOpen] = useState(false);
   const fuelPrice = station.prices.find((p) => p.type === fuelType);
   const price = fuelPrice?.price ?? 0;
   const level = getPriceLevel(price, min, max);
@@ -20,9 +29,14 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
   const levelColor = getPriceLevelColor(level);
   const isCheap = level === 'cheap';
 
+  const handleDirectionsClick = () => {
+    setIsDirectionsOpen(true);
+    Analytics.trackButtonClick('directions_open_card');
+  };
+
   return (
     <div
-      className={`glass-card p-4 relative overflow-hidden ${isCheap ? 'animate-price-pulse' : ''}`}
+      className={`glass-card p-4 relative overflow-hidden flex flex-col ${isCheap ? 'animate-price-pulse' : ''}`}
       id={`station-${station.id}`}
       style={{
         borderColor: isCheap ? `${levelColor}40` : undefined,
@@ -76,6 +90,8 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
         )}
       </div>
 
+      <div className="flex-1" />
+
       {/* All fuel types row */}
       <div className="mt-3 pt-3 border-t border-white/[0.06] flex justify-between text-[10px] font-mono text-white/35">
         {station.prices.map((fp) => (
@@ -84,6 +100,26 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
           </span>
         ))}
       </div>
+
+      <div className="mt-3 flex gap-2">
+        <button
+          onClick={handleDirectionsClick}
+          className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 text-center text-[10px] font-bold uppercase tracking-wider text-white/60 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none"
+        >
+          📍 {t('station.directions')}
+        </button>
+      </div>
+
+      {/* Directions Modal */}
+      <DirectionsModal
+        isOpen={isDirectionsOpen}
+        onClose={() => {
+          setIsDirectionsOpen(false);
+        }}
+        lat={station.lat}
+        lon={station.lon}
+        stationName={station.name}
+      />
 
       {/* Last updated */}
       {fuelPrice?.updatedAt && (

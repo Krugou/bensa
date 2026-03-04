@@ -3,28 +3,44 @@ import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
 // ─── Mock react-i18next ───────────────────────────────────────────────────────
+const mockChangeLanguage = vi.fn().mockResolvedValue(undefined);
+const mockI18n = {
+  language: 'en',
+  changeLanguage: mockChangeLanguage,
+};
+
 vi.mock('react-i18next', async () => {
   const React = await import('react');
   return {
     useTranslation: () => ({
-      t: (key: string, optsOrDefault?: string | Record<string, unknown>) => {
-        if (typeof optsOrDefault === 'string') return optsOrDefault;
-        if (typeof optsOrDefault === 'object' && optsOrDefault?.defaultValue != null)
-          return optsOrDefault.defaultValue as string;
+      t: (
+        key: string,
+        defaultValueOrOptions?: string | Record<string, unknown>,
+        options?: Record<string, unknown>,
+      ) => {
+        let result = key;
+        const finalOptions =
+          typeof defaultValueOrOptions === 'object' ? defaultValueOrOptions : options;
+
+        if (typeof defaultValueOrOptions === 'string') {
+          result = defaultValueOrOptions;
+        } else if (
+          typeof defaultValueOrOptions === 'object' &&
+          defaultValueOrOptions?.defaultValue != null
+        ) {
+          result = defaultValueOrOptions.defaultValue as string;
+        }
+
         // Handle interpolation like {{count}} or {{year}}
-        if (typeof optsOrDefault === 'object' && optsOrDefault) {
-          let result = key;
-          for (const [k, v] of Object.entries(optsOrDefault)) {
+        if (finalOptions && typeof finalOptions === 'object') {
+          for (const [k, v] of Object.entries(finalOptions)) {
             result = result.replace(`{{${k}}}`, String(v));
           }
-          return result;
         }
-        return key;
+
+        return result;
       },
-      i18n: {
-        language: 'en',
-        changeLanguage: vi.fn().mockResolvedValue(undefined),
-      },
+      i18n: mockI18n,
     }),
     Trans: ({ children }: { children: React.ReactNode }) =>
       React.createElement(React.Fragment, null, children),

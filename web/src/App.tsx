@@ -2,8 +2,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toast,ToastContainer } from 'react-toastify';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
+import { AdminDashboard } from './components/AdminDashboard';
 import { CollapsibleSection } from './components/CollapsibleSection';
 import { FuelTypeSelector } from './components/FuelTypeSelector';
 import { Header } from './components/Header';
@@ -17,6 +19,7 @@ import { StationMap } from './components/StationMap';
 import { ThemeToggle } from './components/ThemeToggle';
 import { ThemeProvider } from './context/ThemeProvider';
 import { usePriceAlert } from './hooks/usePriceAlert';
+import { useTheme } from './hooks/useTheme';
 import { useTitleFlasher } from './hooks/useTitleFlasher';
 import { DEFAULT_LOCATION, getCurrentPosition } from './services/locationService';
 import { fetchPrices, getPriceStats } from './services/priceService';
@@ -26,6 +29,7 @@ import { getFuelTypeLabel } from './utils/priceUtils';
 
 const AppContent = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
   const [stations, setStations] = useState<GasStation[]>([]);
   const [fuelType, setFuelType] = useState<FuelType>('95');
   const [loading, setLoading] = useState(true);
@@ -44,7 +48,7 @@ const AppContent = () => {
       setStations(data);
     }
 
-    if (isInitial) {
+    if (isInitial && !import.meta.env.DEV) {
       const elapsed = Date.now() - startTime;
       if (elapsed < 3000) {
         await new Promise((resolve) => setTimeout(resolve, 3000 - elapsed));
@@ -70,7 +74,9 @@ const AppContent = () => {
 
     // Refresh prices every 5 minutes
     const interval = setInterval(loadPrices, 300000);
-    return () => { clearInterval(interval); };
+    return () => {
+      clearInterval(interval);
+    };
   }, [loadPrices]);
 
   // Notify on price alerts
@@ -83,31 +89,28 @@ const AppContent = () => {
   }, [isPriceAlert, t]);
 
   // Compute sorted stations and stats
-  const sortedStations = sortByPrice(
-    getNearbyStations(stations, userLat, userLon),
-    fuelType,
-  );
+  const sortedStations = sortByPrice(getNearbyStations(stations, userLat, userLon), fuelType);
   const stats = getPriceStats(stations, fuelType);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#060610]">
+      <div className="min-h-screen bg-slate-50 dark:bg-[#060610]">
         <LoadingFuel />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#060610] text-white/90 font-sans flex flex-col items-center transition-colors duration-500">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#060610] text-slate-900 dark:text-white/90 font-sans flex flex-col items-center transition-colors duration-500">
       {/* Ambient background glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-fuel-green/2 rounded-full blur-[150px] animate-glow-breathe" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-fuel-green/5 dark:bg-fuel-green/2 rounded-full blur-[150px] animate-glow-breathe" />
         <div
-          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-bensa-violet/2 rounded-full blur-[150px] animate-glow-breathe"
+          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-bensa-violet/5 dark:bg-bensa-violet/2 rounded-full blur-[150px] animate-glow-breathe"
           style={{ animationDelay: '2s' }}
         />
         <div
-          className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-fuel-yellow/1.5 rounded-full blur-[120px] animate-glow-breathe"
+          className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-fuel-yellow/5 dark:bg-fuel-yellow/1.5 rounded-full blur-[120px] animate-glow-breathe"
           style={{ animationDelay: '3.5s' }}
         />
       </div>
@@ -181,14 +184,18 @@ const AppContent = () => {
         </CollapsibleSection>
 
         {/* Footer */}
-        <footer className="text-center py-12 text-white/20 font-mono text-xs uppercase tracking-widest">
+        <footer className="text-center py-12 text-slate-400 dark:text-white/20 font-mono text-xs uppercase tracking-widest">
           <p title={`${t('common.build_time', 'Build')}: ${__BUILD_TIME__}`}>
             {t('footer.copyright', '© {{year}} Bensa', { year: new Date().getFullYear() })}
           </p>
         </footer>
       </div>
 
-      <ToastContainer position="top-right" theme="dark" aria-label={t('common.notifications', 'Notifications')} />
+      <ToastContainer
+        position="top-right"
+        theme={theme}
+        aria-label={t('common.notifications', 'Notifications')}
+      />
     </div>
   );
 };
@@ -196,7 +203,12 @@ const AppContent = () => {
 const App = () => {
   return (
     <ThemeProvider>
-      <AppContent />
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
+        <Routes>
+          <Route path="/" element={<AppContent />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   );
 };

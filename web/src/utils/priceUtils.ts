@@ -90,6 +90,13 @@ export function getFuelTypeEmoji(fuelType: FuelType): string {
 }
 
 /**
+ * Get the Google Maps directions URL for a station
+ */
+export function getDirectionsUrl(lat: number, lon: number): string {
+  return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
+}
+
+/**
  * Interpolate color between green/yellow/red based on normalized value (0 = cheap, 1 = expensive)
  */
 export function interpolatePriceColor(normalizedPrice: number): string {

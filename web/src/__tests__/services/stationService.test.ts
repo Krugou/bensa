@@ -4,6 +4,7 @@ import {
   calculateDistance,
   filterByFuelType,
   getNearbyStations,
+  getUniqueCities,
   sortByPrice,
 } from '../../services/stationService';
 import { GasStation } from '../../types';
@@ -18,8 +19,8 @@ const mockStations: GasStation[] = [
     lat: 61.5,
     lon: 23.7,
     prices: [
-      { type: '95', price: 1.80, updatedAt: '' },
-      { type: 'diesel', price: 1.70, updatedAt: '' },
+      { type: '95', price: 1.8, updatedAt: '' },
+      { type: 'diesel', price: 1.7, updatedAt: '' },
     ],
   },
   {
@@ -44,7 +45,7 @@ describe('stationService', () => {
     });
 
     it('returns correct distance between Helsinki and Tampere', () => {
-      const d = calculateDistance(60.17, 24.94, 61.50, 23.79);
+      const d = calculateDistance(60.17, 24.94, 61.5, 23.79);
       expect(d).toBeGreaterThan(140);
       expect(d).toBeLessThan(170);
     });
@@ -81,6 +82,22 @@ describe('stationService', () => {
     it('returns all stations that have the fuel type', () => {
       const filtered = filterByFuelType(mockStations, '95');
       expect(filtered).toHaveLength(2);
+    });
+  });
+
+  describe('getUniqueCities', () => {
+    it('returns sorted unique cities', () => {
+      const stations: GasStation[] = [
+        ...mockStations,
+        { ...mockStations[0], id: '3', city: 'Helsinki' },
+        { ...mockStations[0], id: '4', city: 'Espoo' },
+      ];
+      const cities = getUniqueCities(stations);
+      expect(cities).toEqual(['Espoo', 'Helsinki', 'Tampere']);
+    });
+
+    it('returns empty array for empty stations', () => {
+      expect(getUniqueCities([])).toEqual([]);
     });
   });
 });

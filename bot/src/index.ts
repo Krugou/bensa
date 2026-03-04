@@ -25,6 +25,61 @@ interface PriceData {
 }
 
 /**
+ * Helper to pause execution
+ */
+const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
+/**
+ * Helper to fetch GPS coordinates using OpenStreetMap's Nominatim API.
+ * Nominatim requires a user-agent and specifies a strict 1 request/second limit.
+ */
+async function geocodeAddress(address: string, city: string): Promise<{ lat: number; lon: number } | null> {
+  // Clean address noise (parenthesis, highways, Kehä)
+  let cleanStreet = address
+    .replace(/\([^)]+\)/g, '')
+    .replace(/110-tie/gi, '')
+    .replace(/Kehä\s*(I|II|III|\d+)/gi, '');
+
+  // Attempt to extract the street name and number specifically
+  const streetMatch = cleanStreet.match(/[A-Za-zäöåÄÖÅ-]+(?:tie|katu|kuja|väylä|kaari|polku|rinne|ranta|raitti|aukio|kallio|mäki|puisto|piha|portti|ahde|lehto|niitty|metsä|kuusi|männistö|kylä|lahti|niemi|luoma|saari|notko|penger)\s+\d+[a-zA-Z]?/i);
+
+  if (streetMatch) {
+    cleanStreet = streetMatch[0].trim();
+  } else {
+    const parts = cleanStreet.split(',');
+    cleanStreet = (parts.find(p => /\d/.test(p)) || parts[0]).trim();
+  }
+
+  const query = encodeURIComponent(`${cleanStreet}, ${city}, Finland`);
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=1`;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'BensaTrackerBot/1.0 (BensaTracker PWA)',
+      }
+    });
+
+    if (!response.ok) {
+      console.warn(`[Geocode API Error] ${response.status} for ${address}, ${city}`);
+      return null;
+    }
+
+    const data = await response.json();
+    if (data && data.length > 0) {
+      return {
+        lat: parseFloat(data[0].lat),
+        lon: parseFloat(data[0].lon)
+      };
+    }
+  } catch (err) {
+    console.error(`[Geocode Error] for ${address}, ${city}:`, err);
+  }
+
+  return null;
+}
+
+/**
  * Scrapes gas prices from polttoaine.net PK-Seutu page.
  */
 async function scrapeGasPrices(): Promise<GasStation[]> {
@@ -127,18 +182,52 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
 }
 
 /**
+ * Maps the scraped stations and adds real GPS coordinates.
+ */
+async function processStationsWithGeocoding(scrapedStations: GasStation[]): Promise<GasStation[]> {
+  const processed: GasStation[] = [];
+  console.log(`🌍 Starting geocoding for ${scrapedStations.length} stations... this will take a moment (1 req/sec limit).`);
+
+  for (let i = 0; i < scrapedStations.length; i++) {
+    const station = scrapedStations[i];
+
+    // Provide user feedback about the cleaning process
+    const rawAddress = station.address;
+    console.log(`[${i + 1}/${scrapedStations.length}] Geocoding: ${rawAddress}, ${station.city}`);
+    const coords = await geocodeAddress(rawAddress, station.city);
+
+    if (coords) {
+      station.lat = coords.lat;
+      station.lon = coords.lon;
+    } else {
+      console.log(`   ⚠️ Could not find coordinates for ${station.address}, falling back to defaults.`);
+    }
+
+    processed.push(station);
+
+    // Strict delay to respect Nominatim TOS
+    await delay(1200);
+  }
+
+  return processed;
+}
+
+/**
  * Main entry point
  */
 async function main(): Promise<void> {
   console.log('⛽ Bensa Scraper starting...');
 
   try {
-    const stations = await scrapeGasPrices();
-    console.log(`✅ Scraped ${stations.length} stations`);
+    const scrapedStations = await scrapeGasPrices();
+    console.log(`✅ Scraped ${scrapedStations.length} stations`);
+
+    // Enhance with Geocoding
+    const finalStations = await processStationsWithGeocoding(scrapedStations);
 
     const output: PriceData = {
       lastUpdated: new Date().toISOString(),
-      stations,
+      stations: finalStations,
     };
 
     // Make sure your destination folder exists before writing!
