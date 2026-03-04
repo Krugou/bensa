@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/Krugou/bensa/compare/v1.0.0...v1.0.1) (2026-03-04)
+
+### Bug Fixes
+
+- **bot:** ensure api directory exists and explicitly set projectId ([cd162d6](https://github.com/Krugou/bensa/commit/cd162d68247065fe3da03c6103bf4fcff34e4272))
+- **bot:** improve projectId detection for Firestore initialization ([de0c258](https://github.com/Krugou/bensa/commit/de0c258b01a5b4207dc81f5d483b575c419d0674))
+
 # 1.0.0 (2026-03-04)
 
 ### Bug Fixes
