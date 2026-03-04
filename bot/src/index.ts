@@ -1,6 +1,26 @@
 import { writeFileSync } from 'fs';
 import { resolve } from 'path';
 import puppeteer from 'puppeteer';
+import admin from 'firebase-admin';
+
+// Initialize Firebase Admin
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  try {
+    const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount)
+    });
+    console.log('🔥 Firebase Admin initialized via env variable');
+  } catch (err) {
+    console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT:', err);
+    admin.initializeApp();
+  }
+} else {
+  admin.initializeApp();
+  console.log('🔥 Firebase Admin initialized via default credentials');
+}
+
+const db = admin.firestore();
 
 interface FuelPrice {
   type: '95' | '98' | 'diesel';
@@ -213,6 +233,30 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
 }
 
 /**
+ * Saves station data to Firestore.
+ */
+async function saveToFirestore(stations: GasStation[]): Promise<void> {
+  console.log(`🔥 Saving ${stations.length} stations to Firestore...`);
+  
+  const batchSize = 500;
+  for (let i = 0; i < stations.length; i += batchSize) {
+    const batch = db.batch();
+    const currentBatch = stations.slice(i, i + batchSize);
+    
+    currentBatch.forEach(station => {
+      const stationRef = db.collection('stations').doc(station.id);
+      batch.set(stationRef, {
+        ...station,
+        lastUpdated: new Date().toISOString()
+      }, { merge: true });
+    });
+    
+    await batch.commit();
+    console.log(`   ✅ Committed batch ${Math.floor(i / batchSize) + 1}`);
+  }
+}
+
+/**
  * Main entry point
  */
 async function main(): Promise<void> {
@@ -225,15 +269,22 @@ async function main(): Promise<void> {
     // Enhance with Geocoding
     const finalStations = await processStationsWithGeocoding(scrapedStations);
 
+    // 1. Save to local JSON (backward compatibility / debug)
     const output: PriceData = {
       lastUpdated: new Date().toISOString(),
       stations: finalStations,
     };
 
-    // Make sure your destination folder exists before writing!
-    const outputPath = resolve(import.meta.dirname, '..', '..', 'web', 'public', 'api', 'prices.json');
-    writeFileSync(outputPath, JSON.stringify(output, null, 2), 'utf-8');
-    console.log(`📁 Written to: ${outputPath}`);
+    try {
+      const outputPath = resolve(import.meta.dirname, '..', '..', 'web', 'public', 'api', 'prices.json');
+      writeFileSync(outputPath, JSON.stringify(output, null, 2), 'utf-8');
+      console.log(`📁 Written to local JSON: ${outputPath}`);
+    } catch (err) {
+      console.warn('⚠️ Could not write to local JSON:', err);
+    }
+
+    // 2. Save to Firestore
+    await saveToFirestore(finalStations);
 
     console.log('🎉 Done!');
   } catch (error) {

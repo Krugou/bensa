@@ -1,23 +1,23 @@
+import { collection, getDocs } from 'firebase/firestore';
+
+import { db } from '../firebase';
 import { FuelType, GasStation, PriceStats } from '../types';
 
-interface PriceApiResponse {
-  lastUpdated: string;
-  stations: GasStation[];
-}
-
-const BASE_URL = import.meta.env.BASE_URL || '/';
-
 /**
- * Fetch all gas station prices from the API
+ * Fetch all gas station prices from Firestore
  */
 export async function fetchPrices(): Promise<GasStation[]> {
   try {
-    const response = await fetch(`${BASE_URL}api/prices.json?t=${Date.now()}`);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data: PriceApiResponse = await response.json();
-    return data.stations;
+    const stationsCol = collection(db, 'stations');
+    const stationSnapshot = await getDocs(stationsCol);
+    const stationList = stationSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as GasStation[];
+
+    return stationList;
   } catch (error) {
-    console.error('[PriceService] Failed to fetch prices:', error);
+    console.error('[PriceService] Failed to fetch prices from Firestore:', error);
     return [];
   }
 }
