@@ -239,7 +239,7 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
       const data = doc.data();
       if (data['lat'] && data['lon']) {
         // Use name + city as a key for robust matching
-        const key = `${String(data['name'])}-${String(data['city'])}`.toLowerCase();
+        const key = `${String(data['name']).trim()}-${String(data['city']).trim()}`.toLowerCase();
         cache[key] = { lat: Number(data['lat']), lon: Number(data['lon']) };
       }
     });
@@ -255,7 +255,7 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
 
   for (let i = 0; i < scrapedStations.length; i++) {
     const station = scrapedStations[i];
-    const cacheKey = `${station.name}-${station.city}`.toLowerCase();
+    const cacheKey = `${station.name.trim()}-${station.city.trim()}`.toLowerCase();
 
     if (cache[cacheKey]) {
       station.lat = cache[cacheKey].lat;

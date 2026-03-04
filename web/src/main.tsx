@@ -14,9 +14,10 @@ console.warn(
 );
 
 // Environment identification
+const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
 if (window.location.hostname.includes('github.io')) {
   console.log(
-    '%c 🚀 GITHUB PAGES VERSION ',
+    `%c 🚀 GITHUB PAGES VERSION (${projectId}) `,
     'background: #24292e; color: #fff; font-weight: bold; padding: 2px 4px; border-radius: 2px;',
   );
 } else if (
@@ -24,12 +25,12 @@ if (window.location.hostname.includes('github.io')) {
   window.location.hostname.includes('firebaseapp.com')
 ) {
   console.log(
-    '%c 🔥 FIREBASE HOSTING VERSION ',
+    `%c 🔥 FIREBASE HOSTING VERSION (${projectId}) `,
     'background: #ffca28; color: #000; font-weight: bold; padding: 2px 4px; border-radius: 2px;',
   );
 } else {
   console.log(
-    '%c 💻 LOCAL DEVELOPMENT ',
+    `%c 💻 LOCAL DEVELOPMENT (${projectId}) `,
     'background: #333; color: #fff; font-weight: bold; padding: 2px 4px; border-radius: 2px;',
   );
 }

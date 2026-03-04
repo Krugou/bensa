@@ -2,18 +2,18 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow public read access to stations and price history
-    match /stations/{station} {
+    // Allow public read access to all gas stations and their history
+    match /stations/{stationId} {
       allow read: if true;
-      allow write: if false; // Bot uses Admin SDK which bypasses rules
+      allow write: if false; 
     }
     
-    match /price_history/{history} {
+    match /price_history/{historyId} {
       allow read: if true;
       allow write: if false;
     }
 
-    // Default deny for everything else
+    // Default deny for all other collections
     match /{document=**} {
       allow read, write: if false;
     }
