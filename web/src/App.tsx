@@ -8,6 +8,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 import { AdminDashboard } from './components/AdminDashboard';
 import { CollapsibleSection } from './components/CollapsibleSection';
+import { CookieConsent } from './components/CookieConsent';
 import { DirectionsModal } from './components/DirectionsModal';
 import { FuelTypeSelector } from './components/FuelTypeSelector';
 import { Header } from './components/Header';
@@ -292,6 +293,8 @@ const AppContent = () => {
           stationName={nearestCheapStation.name}
         />
       )}
+
+      <CookieConsent />
     </div>
   );
 };

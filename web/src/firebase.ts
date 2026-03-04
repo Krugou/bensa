@@ -1,4 +1,4 @@
-import { getAnalytics } from 'firebase/analytics';
+import { getAnalytics, setAnalyticsCollectionEnabled } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
 import { EmailAuthProvider, getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
@@ -19,10 +19,24 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
 let analytics: ReturnType<typeof getAnalytics> | null = null;
-try {
-  analytics = getAnalytics(app);
-} catch (e) {
-  console.warn('Firebase Analytics initialization failed:', e);
+
+/**
+ * Initialize analytics only if user has consented
+ */
+export const initAnalytics = (hasConsented: boolean) => {
+  try {
+    analytics ??= getAnalytics(app);
+    setAnalyticsCollectionEnabled(analytics, hasConsented);
+    console.log(`📊 Analytics collection ${hasConsented ? 'enabled' : 'disabled'}`);
+  } catch (e) {
+    console.warn('Firebase Analytics initialization failed:', e);
+  }
+};
+
+// Check for existing consent on load
+const savedConsent = localStorage.getItem('cookie_consent');
+if (savedConsent === 'true') {
+  initAnalytics(true);
 }
 
 export { analytics, app, auth, db, EmailAuthProvider, googleProvider };
