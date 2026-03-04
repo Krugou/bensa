@@ -120,19 +120,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
-      - name: Preparing the Station (Node.js)
-        uses: actions/setup-node@v6
-        with:
-          node-version: '22'
-      - name: Installing Firebase CLI
-        run: npm install -g firebase-tools
       - name: Deploy Firestore Rules
-        run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}' > service-account.json
-          export GOOGLE_APPLICATION_CREDENTIALS=service-account.json
-          firebase deploy --only firestore:rules --project ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only firestore:rules
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}
+          PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
 
   deploying-to-pages:
     name: 🚀 Deploying-to-Pages
