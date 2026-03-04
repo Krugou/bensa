@@ -11,19 +11,26 @@ config();
 // Initialize Firebase Admin
 if (process.env['FIREBASE_SERVICE_ACCOUNT']) {
   try {
-    const serviceAccount = JSON.parse(process.env['FIREBASE_SERVICE_ACCOUNT']) as ServiceAccount;
+    const saJson = JSON.parse(process.env['FIREBASE_SERVICE_ACCOUNT']) as ServiceAccount & {
+      project_id?: string;
+    };
+    const projectId = saJson.projectId || saJson.project_id || process.env['FIREBASE_PROJECT_ID'];
+
     admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      projectId: serviceAccount.projectId,
+      credential: admin.credential.cert(saJson),
+      projectId: projectId,
     });
-    console.log('🔥 Firebase Admin initialized via env variable');
+    console.log(`🔥 Firebase Admin initialized for project: ${projectId || 'unknown'}`);
   } catch (err) {
     console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT:', err);
     admin.initializeApp();
   }
 } else {
-  admin.initializeApp();
-  console.log('🔥 Firebase Admin initialized via default credentials');
+  const projectId = process.env['FIREBASE_PROJECT_ID'];
+  admin.initializeApp({
+    projectId: projectId,
+  });
+  console.log(`🔥 Firebase Admin initialized via default credentials. Project: ${projectId || 'detected'}`);
 }
 
 const db = admin.firestore();
