@@ -370,6 +370,13 @@ async function main(): Promise<void> {
     // 2. Save to Firestore
     await saveToFirestore(finalStations);
 
+    // 3. Record the run timestamp
+    await db.collection('scraper_runs').add({
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+      stationCount: finalStations.length,
+      status: 'success',
+    });
+
     console.log('🎉 Done!');
   } catch (error) {
     console.error('❌ Scraping failed:', error);
