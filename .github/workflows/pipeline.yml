@@ -1,4 +1,4 @@
-name: 🌌 Aurora Factory
+name: ⛽ Bensa Factory
 
 on:
   push:
@@ -19,26 +19,26 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  staring-at-the-stars:
-    name: 🔭 Staring-at-the-Stars
+  checking-the-pumps:
+    name: ⛽ Checking-the-Pumps
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Preparing the Observatory (Node.js)
+      - name: Preparing the Station (Node.js)
         uses: actions/setup-node@v6
         with:
           node-version: '22'
           cache: 'npm'
           cache-dependency-path: package-lock.json
-      - name: Refueling the Telescope (Dependencies)
+      - name: Filling the Tanks (Dependencies)
         run: npm ci
-      - name: Polishing the Lens (Lint Web)
-        run: npm run lint -w aurorawatcher-web --if-present
-        # continue-on-error: true
-      # - name: Checking the Focus (Test Web)
-      # run: npm run test -w aurorawatcher-web --if-present
-      - name: Capturing the Aurora (Build Web)
-        run: npm run build -w aurorawatcher-web
+      - name: Cleaning the Pumps (Lint Web)
+        run: npm run lint -w bensa-web --if-present
+        continue-on-error: true
+      - name: Testing the Meters (Test Web)
+        run: npm run test -w bensa-web -- --run
+      - name: Processing the Fuel (Build Web)
+        run: npm run build -w bensa-web
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
@@ -48,83 +48,83 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
           VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
-      - name: Bottling the Lights (Upload Artifact)
+      - name: Pumping the Gas (Upload Artifact)
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4
         with:
           path: './web/dist'
 
-      - name: Post-Observation Report
+      - name: Maintenance Report
         if: success()
         run: |
-          echo "## ✅ Observation Successful" >> $GITHUB_STEP_SUMMARY
-          echo "The stars aligned. Everything is shiny and chrome! 🧹✨" >> $GITHUB_STEP_SUMMARY
+          echo "## ✅ Inspection Successful" >> $GITHUB_STEP_SUMMARY
+          echo "The tanks are full and the pumps are working! ⛽✨" >> $GITHUB_STEP_SUMMARY
 
-  polishing-the-robot:
-    name: 🤖 Polishing-the-Robot
+  building-the-scraper:
+    name: 🤖 Building-the-Scraper
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Preparing the Robot Lab
+      - name: Preparing the Garage
         uses: actions/setup-node@v6
         with:
           node-version: '22'
           cache: 'npm'
           cache-dependency-path: package-lock.json
-      - name: Refueling the Robot
+      - name: Gassing up the Bot
         run: npm ci
-      - name: Training the AI (Build Bot)
-        run: npm run build -w aurorawatcher-bot
+      - name: Tuning the Engine (Build Bot)
+        run: npm run build -w bensa-bot
 
       - name: Maintenance Log
         if: success()
         run: |
-          echo "## 🤖 Robot Ready for Action" >> $GITHUB_STEP_SUMMARY
-          echo "Bot compiled and ready to crunch space dust. 🧠⚡" >> $GITHUB_STEP_SUMMARY
+          echo "## 🤖 Scraper Ready for Action" >> $GITHUB_STEP_SUMMARY
+          echo "Bot compiled and ready to crunch gas prices. 🧠⚡" >> $GITHUB_STEP_SUMMARY
 
-  beaming-to-satellites:
-    name: 🚀 Beaming-to-Satellites
-    needs: staring-at-the-stars
+  deploying-to-pages:
+    name: 🚀 Deploying-to-Pages
+    needs: checking-the-pumps
     if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Warp Drive to GitHub Pages
+      - name: Driving to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Transmission Manifest
+      - name: Deployment Manifest
         if: success()
         run: |
-          echo "## 🚀 Transmission Complete" >> $GITHUB_STEP_SUMMARY
-          echo "The web app has reached orbit! [View Site](${{ steps.deployment.outputs.page_url }}) 🌍" >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 Deployment Complete" >> $GITHUB_STEP_SUMMARY
+          echo "The web app is live! [View Site](${{ steps.deployment.outputs.page_url }}) 🌍" >> $GITHUB_STEP_SUMMARY
 
-  universal-broadcast:
-    name: 📢 Universal-Broadcast
-    needs: [staring-at-the-stars, polishing-the-robot, beaming-to-satellites]
+  semantic-release:
+    name: 📢 Semantic-Release
+    needs: [checking-the-pumps, building-the-scraper, deploying-to-pages]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Retrieving Master Copies
+      - name: Checkout Repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - name: Preparing the Press Room
+      - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '22'
           cache: 'npm'
-      - name: Hiring Reporters
+      - name: Install Dependencies
         run: npm ci
-      - name: Breaking News (Release)
+      - name: Publish Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
 
-      - name: Galaxy News Network
+      - name: Release Network
         if: success()
         run: |
-          echo "## 🎉 Broadcast Received" >> $GITHUB_STEP_SUMMARY
-          echo "A new version has been released to the citizens of the galaxy. 🐙📦" >> $GITHUB_STEP_SUMMARY
+          echo "## 🎉 Release Published" >> $GITHUB_STEP_SUMMARY
+          echo "A new version has been released to GitHub. ⛽📦" >> $GITHUB_STEP_SUMMARY

@@ -1,23 +1,20 @@
-name: 🕵️ Night Watchman
+name: ⛽ Bensa Price Scraper
 
 on:
   schedule:
-    - cron: '*/15 * * * *' # Run every 15 minutes
+    - cron: '0 */4 * * *' # Run every 4 hours
   workflow_dispatch: # Allow manual trigger
 
 permissions:
   contents: write
 
 jobs:
-  patrolling-the-sky:
-    name: 🔭 Patrolling-the-Sky
+  scraping-prices:
+    name: 💸 Scraping-Prices
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
-      - name: 'Status: Code Snatch'
-        run: echo "Code grabbed! The bot is waking up from its 15-minute nap. 😴☕"
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -25,29 +22,19 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
-      - name: 'Status: Brain Check'
-        run: echo "Node.js is ready. Brain cells are firing. ⚡👀"
-
       - name: Install dependencies
-        run: |
-          npm ci
-          echo "Dependencies installed. The bot is eating its digital breakfast. 🥐📦"
+        run: npm ci
 
-      - name: Build
-        run: |
-          npm run build:bot
-          echo "Bot built! It's now smart enough to avoid walking into walls. 🧱🧠"
+      - name: Build Bot
+        run: npm run build:bot
 
-      - name: Run Aurora Watcher
-        env:
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-          RUN_ONCE: 'true'
-        run: |
-          npm run start:bot
-          echo "Bot is back in the field! Hunting for lights like a cat chasing a laser. 🔦🐈"
+      - name: Run Scraper
+        run: npm run start:bot
 
-      - name: Commit and push images
+      - name: Commit and push updated prices
         if: success()
         run: |
-          chmod +x scripts/save_images.sh
-          ./scripts/save_images.sh
+          git config --global user.name "Bensa Bot"
+          git config --global user.email "bot@bensa.fi"
+          git add web/public/api/prices.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): sync latest gas prices [skip ci]" && git push)
