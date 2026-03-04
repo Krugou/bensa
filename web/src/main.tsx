@@ -35,6 +35,26 @@ if (window.location.hostname.includes('github.io')) {
   );
 }
 
+// Env variable check
+console.groupCollapsed('🔒 Environment Configuration Status');
+const requiredEnvs = [
+  'VITE_FIREBASE_API_KEY',
+  'VITE_FIREBASE_AUTH_DOMAIN',
+  'VITE_FIREBASE_PROJECT_ID',
+  'VITE_FIREBASE_STORAGE_BUCKET',
+  'VITE_FIREBASE_MESSAGING_SENDER_ID',
+  'VITE_FIREBASE_APP_ID',
+  'VITE_FIREBASE_MEASUREMENT_ID',
+];
+
+requiredEnvs.forEach((env) => {
+  const value = (import.meta.env as Record<string, string | undefined>)[env];
+  const isSet = !!value && value !== '';
+  const statusStyle = isSet ? 'color: #00ff88;' : 'color: #ff4444; font-weight: bold;';
+  console.log(`%c${env}: ${isSet ? '✅ OK' : '❌ MISSING'}`, statusStyle);
+});
+console.groupEnd();
+
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error('Failed to find the root element');
 

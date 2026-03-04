@@ -8,6 +8,7 @@ import puppeteer from 'puppeteer';
 config();
 
 // Initialize Firebase Admin
+const saVarName = process.env['FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA'] ? 'FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA' : 'FIREBASE_SERVICE_ACCOUNT';
 const saVar = process.env['FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA'] ?? process.env['FIREBASE_SERVICE_ACCOUNT'];
 const projectVar = process.env['VITE_FIREBASE_PROJECT_ID'] ?? process.env['FIREBASE_PROJECT_ID'];
 
@@ -22,17 +23,16 @@ if (saVar) {
       credential: admin.credential.cert(saJson),
       projectId: projectId,
     });
-    console.log(`🔥 Firebase Admin initialized for project: ${projectId ?? 'unknown'}`);
+    console.log(`🔥 Firebase Admin initialized using ${saVarName} for project: ${projectId ?? 'unknown'}`);
   } catch (err) {
-    console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT:', err);
+    console.error(`❌ Failed to parse ${saVarName}:`, err);
     admin.initializeApp();
   }
 } else {
-  const projectId = projectVar;
+  console.log(`⚠️ No service account variable found. Using default credentials and project: ${projectVar ?? 'detected'}`);
   admin.initializeApp({
-    projectId: projectId,
+    projectId: projectVar,
   });
-  console.log(`🔥 Firebase Admin initialized via default credentials. Project: ${projectId ?? 'detected'}`);
 }
 
 const db = admin.firestore();
