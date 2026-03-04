@@ -91,7 +91,7 @@ export const NotificationPermission = () => {
           <button
             onClick={requestPermission}
             disabled={loading}
-            className="mt-3 px-5 py-2 bg-fuel-green/20 border border-fuel-green/40 rounded-lg text-fuel-green text-sm font-semibold hover:bg-fuel-green/30 transition-all duration-300 cursor-pointer disabled:opacity-50"
+            className="mt-3 px-5 py-2 bg-fuel-green/20 border border-fuel-green/40 rounded-lg text-fuel-green text-sm font-semibold hover:bg-fuel-green/30 transition-all duration-300 cursor-pointer disabled:opacity-50 animate-bounce-wacky"
           >
             {loading
               ? t('notifications.loading', 'Requesting...')

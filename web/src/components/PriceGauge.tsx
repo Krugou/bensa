@@ -33,7 +33,10 @@ export const PriceGauge = ({ average, min, max, fuelTypeLabel }: PriceGaugeProps
   const offset = circumference * (1 - normalized);
 
   return (
-    <div className="flex flex-col items-center gap-4 animate-fade-in" id="price-gauge">
+    <div
+      className="flex flex-col items-center gap-4 animate-fade-in animate-float"
+      id="price-gauge"
+    >
       {/* Fuel type badge */}
       <div className="font-mono text-xs uppercase tracking-widest text-white/50 bg-white/[0.04] px-4 py-1.5 rounded-full border border-white/[0.08]">
         {fuelTypeLabel}
@@ -104,7 +107,7 @@ export const PriceGauge = ({ average, min, max, fuelTypeLabel }: PriceGaugeProps
       <div
         className={`text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full border ${
           level === 'cheap'
-            ? 'text-fuel-green border-fuel-green/30 bg-fuel-green/[0.08]'
+            ? 'text-fuel-green border-fuel-green/30 bg-fuel-green/[0.08] animate-wiggle'
             : level === 'mid'
               ? 'text-fuel-yellow border-fuel-yellow/30 bg-fuel-yellow/[0.08]'
               : 'text-fuel-red border-fuel-red/30 bg-fuel-red/[0.08]'

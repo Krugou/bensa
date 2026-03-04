@@ -28,6 +28,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
   const levelColorClass = getPriceLevelClass(level);
   const levelColor = getPriceLevelColor(level);
   const isCheap = level === 'cheap';
+  const isDirtCheap = price <= min + (max - min) * 0.05;
 
   const handleDirectionsClick = () => {
     setIsDirectionsOpen(true);
@@ -36,10 +37,11 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
 
   return (
     <div
-      className={`glass-card p-4 relative overflow-hidden flex flex-col ${isCheap ? 'animate-price-pulse' : ''}`}
+      className={`glass-card p-4 relative overflow-hidden flex flex-col hover:animate-wiggle ${isDirtCheap ? 'animate-pulse-intense' : isCheap ? 'animate-price-pulse' : ''}`}
       id={`station-${station.id}`}
       style={{
-        borderColor: isCheap ? `${levelColor}40` : undefined,
+        borderColor: isDirtCheap ? '#00ff88' : isCheap ? `${levelColor}40` : undefined,
+        boxShadow: isDirtCheap ? '0 0 30px rgba(0, 255, 136, 0.4)' : undefined,
       }}
     >
       {/* Rank badge */}

@@ -7,7 +7,7 @@ export const Header = () => {
     <header className="text-center py-8 md:py-12 animate-fade-in">
       {/* Logo & Brand */}
       <div className="flex items-center justify-center gap-3 mb-4">
-        <span className="text-4xl md:text-5xl">⛽</span>
+        <span className="text-4xl md:text-5xl animate-spin-slow">⛽</span>
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter bg-gradient-to-r from-fuel-green via-fuel-yellow to-fuel-red bg-clip-text text-transparent">
           {t('app.title', 'Bensa')}
         </h1>
