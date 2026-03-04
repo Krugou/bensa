@@ -4,7 +4,10 @@ export const LoadingFuel = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6 animate-fade-in" id="loading">
+    <div
+      className="flex flex-col items-center justify-center min-h-[60vh] gap-6 animate-fade-in"
+      id="loading"
+    >
       {/* Animated fuel pump icon */}
       <div className="relative">
         <div className="text-6xl animate-glow-breathe">⛽</div>

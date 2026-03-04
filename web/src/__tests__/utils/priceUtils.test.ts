@@ -17,7 +17,7 @@ describe('priceUtils', () => {
     });
 
     it('returns mid for middle prices', () => {
-      expect(getPriceLevel(1.80, 1.73, 1.87)).toBe('mid');
+      expect(getPriceLevel(1.8, 1.73, 1.87)).toBe('mid');
     });
 
     it('returns expensive for high prices', () => {
@@ -25,7 +25,7 @@ describe('priceUtils', () => {
     });
 
     it('returns mid when min equals max', () => {
-      expect(getPriceLevel(1.80, 1.80, 1.80)).toBe('mid');
+      expect(getPriceLevel(1.8, 1.8, 1.8)).toBe('mid');
     });
   });
 

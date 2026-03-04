@@ -58,7 +58,9 @@ body {
   overflow-x: hidden;
   background-color: #f8fafc;
   color: #1a1a24;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
 }
 
 .dark body {
@@ -74,11 +76,14 @@ button:active {
 
 /* Price Pulse — pulsing glow for cheap stations */
 @keyframes price-pulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
   }
   50% {
-    box-shadow: 0 0 24px rgba(0, 255, 136, 0.7), 0 0 48px rgba(0, 255, 136, 0.3);
+    box-shadow:
+      0 0 24px rgba(0, 255, 136, 0.7),
+      0 0 48px rgba(0, 255, 136, 0.3);
   }
 }
 
@@ -88,7 +93,8 @@ button:active {
 
 /* Glow Breathe — ambient background glow */
 @keyframes glow-breathe {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.2;
   }
   50% {
@@ -145,7 +151,8 @@ button:active {
 
 /* Map marker pulse */
 @keyframes marker-pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.5;
   }
   50% {

@@ -39,13 +39,13 @@ describe('PriceGauge', () => {
   });
 
   it('shows cheap level for low prices', () => {
-    const props = { ...defaultProps, average: 1.740, min: 1.739, max: 1.869 };
+    const props = { ...defaultProps, average: 1.74, min: 1.739, max: 1.869 };
     render(React.createElement(PriceGauge, props));
     expect(screen.getByText('🟢 Cheap')).toBeInTheDocument();
   });
 
   it('shows expensive level for high prices', () => {
-    const props = { ...defaultProps, average: 1.860, min: 1.739, max: 1.869 };
+    const props = { ...defaultProps, average: 1.86, min: 1.739, max: 1.869 };
     render(React.createElement(PriceGauge, props));
     expect(screen.getByText('🔴 Expensive')).toBeInTheDocument();
   });

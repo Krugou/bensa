@@ -21,7 +21,9 @@ export const FuelTypeSelector = ({ selected, onChange }: FuelTypeSelectorProps) 
       {FUEL_TYPES.map((type) => (
         <button
           key={type}
-          onClick={() => { onChange(type); }}
+          onClick={() => {
+            onChange(type);
+          }}
           className={`
             px-4 py-2 md:px-6 md:py-2.5 rounded-lg font-mono text-sm font-semibold
             border transition-all duration-300 cursor-pointer

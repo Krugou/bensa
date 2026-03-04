@@ -21,10 +21,15 @@ export const NotificationPermission = () => {
         const registration = await navigator.serviceWorker?.ready;
         if (registration && 'periodicSync' in registration) {
           try {
-            await (registration as unknown as { periodicSync: { register: (tag: string, options: { minInterval: number }) => Promise<void> } })
-              .periodicSync.register('price-check', {
-                minInterval: 4 * 60 * 60 * 1000, // 4 hours
-              });
+            await (
+              registration as unknown as {
+                periodicSync: {
+                  register: (tag: string, options: { minInterval: number }) => Promise<void>;
+                };
+              }
+            ).periodicSync.register('price-check', {
+              minInterval: 4 * 60 * 60 * 1000, // 4 hours
+            });
           } catch {
             console.warn('[Notification] Periodic sync registration failed');
           }
@@ -78,7 +83,10 @@ export const NotificationPermission = () => {
             {t('notifications.prompt_title', 'Get price drop alerts')}
           </h3>
           <p className="text-[11px] text-white/40 font-mono mt-1">
-            {t('notifications.prompt_desc', 'Receive notifications when fuel prices drop below your threshold')}
+            {t(
+              'notifications.prompt_desc',
+              'Receive notifications when fuel prices drop below your threshold',
+            )}
           </p>
           <button
             onClick={requestPermission}

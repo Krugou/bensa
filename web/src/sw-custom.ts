@@ -32,7 +32,11 @@ const PRICE_ALERT_THRESHOLD = 1.75;
 /**
  * Check if any station has prices below the alert threshold
  */
-async function checkPriceDrop(): Promise<{ hasDrop: boolean; cheapestPrice: number; stationName: string }> {
+async function checkPriceDrop(): Promise<{
+  hasDrop: boolean;
+  cheapestPrice: number;
+  stationName: string;
+}> {
   try {
     const response = await fetch(`${PRICE_DATA_PATH}?t=${Date.now()}`);
     if (!response.ok) return { hasDrop: false, cheapestPrice: 0, stationName: '' };
