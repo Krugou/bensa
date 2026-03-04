@@ -1,0 +1,59 @@
+{
+  "name": "bensa-root",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "bot",
+    "web"
+  ],
+  "overrides": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "scripts": {
+    "dev:bot": "npm run dev -w bensa-bot",
+    "start:bot": "npm run start -w bensa-bot",
+    "build:bot": "npm run build -w bensa-bot",
+    "dev:web": "npm run dev -w bensa-web",
+    "build:web": "npm run build -w bensa-web",
+    "build": "npm run build --workspaces",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:yaml": "npx yaml-lint .github/workflows/*.yml",
+    "lint:actions": "node devtools/run-actionlint.js .github/workflows/*.yml",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "web/**/*.{ts,tsx}": [
+      "npm run lint:fix -w bensa-web",
+      "npm run format -w bensa-web",
+      "node -e \"require('child_process').execSync('npx tsc -p web/tsconfig.json --noEmit', {stdio: 'inherit'})\"",
+      "node -e \"require('child_process').execSync('npm test -w bensa-web -- --run', {stdio: 'inherit'})\""
+    ],
+    "bot/**/*.ts": [
+      "node -e \"require('child_process').execSync('npx tsc -p bot/tsconfig.json --noEmit', {stdio: 'inherit'})\""
+    ],
+    "**/*.{json,md}": [
+      "prettier --write"
+    ],
+    ".github/workflows/*.yml": [
+      "node devtools/run-actionlint.js",
+      "prettier --write"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Krugou/bensa.git"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@playwright/test": "^1.58.2",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "actionlint": "^2.0.6",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "semantic-release": "^25.0.3",
+    "yaml-lint": "^1.7.0"
+  }
+}

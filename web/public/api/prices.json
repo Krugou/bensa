@@ -1,0 +1,395 @@
+{
+  "lastUpdated": "2026-03-04T16:00:00Z",
+  "stations": [
+    {
+      "id": "neste-001",
+      "name": "Neste Mannerheimintie",
+      "brand": "Neste",
+      "address": "Mannerheimintie 12",
+      "city": "Helsinki",
+      "lat": 60.1699,
+      "lon": 24.9384,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.829,
+          "updatedAt": "2026-03-04T15:30:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.939,
+          "updatedAt": "2026-03-04T15:30:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.719,
+          "updatedAt": "2026-03-04T15:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "shell-002",
+      "name": "Shell Sörnäinen",
+      "brand": "Shell",
+      "address": "Hämeentie 42",
+      "city": "Helsinki",
+      "lat": 60.1857,
+      "lon": 24.9613,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.799,
+          "updatedAt": "2026-03-04T14:00:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.919,
+          "updatedAt": "2026-03-04T14:00:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.689,
+          "updatedAt": "2026-03-04T14:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "abc-003",
+      "name": "ABC Pitäjänmäki",
+      "brand": "ABC",
+      "address": "Kutomotie 4",
+      "city": "Helsinki",
+      "lat": 60.2231,
+      "lon": 24.8743,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.779,
+          "updatedAt": "2026-03-04T13:00:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.889,
+          "updatedAt": "2026-03-04T13:00:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.669,
+          "updatedAt": "2026-03-04T13:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "teboil-004",
+      "name": "Teboil Pasila",
+      "brand": "Teboil",
+      "address": "Ratapihantie 11",
+      "city": "Helsinki",
+      "lat": 60.1988,
+      "lon": 24.9322,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.849,
+          "updatedAt": "2026-03-04T12:00:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.959,
+          "updatedAt": "2026-03-04T12:00:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.739,
+          "updatedAt": "2026-03-04T12:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "neste-005",
+      "name": "Neste Espoo Leppävaara",
+      "brand": "Neste",
+      "address": "Leppävaarankatu 3",
+      "city": "Espoo",
+      "lat": 60.2192,
+      "lon": 24.8128,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.789,
+          "updatedAt": "2026-03-04T15:00:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.899,
+          "updatedAt": "2026-03-04T15:00:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.679,
+          "updatedAt": "2026-03-04T15:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "shell-006",
+      "name": "Shell Vantaa Tikkurila",
+      "brand": "Shell",
+      "address": "Tikkurilantie 8",
+      "city": "Vantaa",
+      "lat": 60.2921,
+      "lon": 25.0438,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.759,
+          "updatedAt": "2026-03-04T11:00:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.869,
+          "updatedAt": "2026-03-04T11:00:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.649,
+          "updatedAt": "2026-03-04T11:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "abc-007",
+      "name": "ABC Tampere Lielahti",
+      "brand": "ABC",
+      "address": "Lielahdenkatu 15",
+      "city": "Tampere",
+      "lat": 61.5105,
+      "lon": 23.7075,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.769,
+          "updatedAt": "2026-03-04T10:00:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.879,
+          "updatedAt": "2026-03-04T10:00:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.659,
+          "updatedAt": "2026-03-04T10:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "neste-008",
+      "name": "Neste Turku Keskusta",
+      "brand": "Neste",
+      "address": "Aninkaistenkatu 18",
+      "city": "Turku",
+      "lat": 60.4518,
+      "lon": 22.2666,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.819,
+          "updatedAt": "2026-03-04T14:30:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.929,
+          "updatedAt": "2026-03-04T14:30:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.709,
+          "updatedAt": "2026-03-04T14:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "teboil-009",
+      "name": "Teboil Oulu Keskusta",
+      "brand": "Teboil",
+      "address": "Torikatu 10",
+      "city": "Oulu",
+      "lat": 65.0121,
+      "lon": 25.4651,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.839,
+          "updatedAt": "2026-03-04T09:00:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.949,
+          "updatedAt": "2026-03-04T09:00:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.729,
+          "updatedAt": "2026-03-04T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "shell-010",
+      "name": "Shell Jyväskylä",
+      "brand": "Shell",
+      "address": "Kauppakatu 20",
+      "city": "Jyväskylä",
+      "lat": 62.2426,
+      "lon": 25.7473,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.799,
+          "updatedAt": "2026-03-04T12:30:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.909,
+          "updatedAt": "2026-03-04T12:30:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.699,
+          "updatedAt": "2026-03-04T12:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "abc-011",
+      "name": "ABC Kuopio",
+      "brand": "ABC",
+      "address": "Puijonkatu 8",
+      "city": "Kuopio",
+      "lat": 62.8924,
+      "lon": 27.6783,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.809,
+          "updatedAt": "2026-03-04T11:30:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.919,
+          "updatedAt": "2026-03-04T11:30:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.699,
+          "updatedAt": "2026-03-04T11:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "neste-012",
+      "name": "Neste Lahti",
+      "brand": "Neste",
+      "address": "Aleksanterinkatu 5",
+      "city": "Lahti",
+      "lat": 60.9827,
+      "lon": 25.6612,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.749,
+          "updatedAt": "2026-03-04T13:45:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.859,
+          "updatedAt": "2026-03-04T13:45:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.639,
+          "updatedAt": "2026-03-04T13:45:00Z"
+        }
+      ]
+    },
+    {
+      "id": "teboil-013",
+      "name": "Teboil Rovaniemi",
+      "brand": "Teboil",
+      "address": "Koskikatu 14",
+      "city": "Rovaniemi",
+      "lat": 66.5039,
+      "lon": 25.7294,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.869,
+          "updatedAt": "2026-03-04T08:00:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.979,
+          "updatedAt": "2026-03-04T08:00:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.759,
+          "updatedAt": "2026-03-04T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "shell-014",
+      "name": "Shell Hämeenlinna",
+      "brand": "Shell",
+      "address": "Palokunnankatu 12",
+      "city": "Hämeenlinna",
+      "lat": 60.9945,
+      "lon": 24.4644,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.739,
+          "updatedAt": "2026-03-04T15:15:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.849,
+          "updatedAt": "2026-03-04T15:15:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.629,
+          "updatedAt": "2026-03-04T15:15:00Z"
+        }
+      ]
+    },
+    {
+      "id": "abc-015",
+      "name": "ABC Seinäjoki",
+      "brand": "ABC",
+      "address": "Kauppakatu 6",
+      "city": "Seinäjoki",
+      "lat": 62.7876,
+      "lon": 22.8402,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.779,
+          "updatedAt": "2026-03-04T10:45:00Z"
+        },
+        {
+          "type": "98",
+          "price": 1.889,
+          "updatedAt": "2026-03-04T10:45:00Z"
+        },
+        {
+          "type": "diesel",
+          "price": 1.659,
+          "updatedAt": "2026-03-04T10:45:00Z"
+        }
+      ]
+    }
+  ]
+}

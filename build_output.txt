@@ -1,0 +1,20 @@
+
+> bensa-web@1.0.0 build
+> tsc -b && vite build
+
+cypress.config.ts(1,30): error TS2307: Cannot find module 'cypress' or its corresponding type declarations.
+cypress/e2e/basic.cy.ts(3,5): error TS2304: Cannot find name 'cy'.
+cypress/e2e/basic.cy.ts(7,5): error TS2304: Cannot find name 'cy'.
+cypress/e2e/basic.cy.ts(16,5): error TS2304: Cannot find name 'cy'.
+cypress/e2e/basic.cy.ts(21,5): error TS2304: Cannot find name 'cy'.
+cypress/e2e/basic.cy.ts(24,5): error TS2304: Cannot find name 'cy'.
+cypress/e2e/basic.cy.ts(25,5): error TS2304: Cannot find name 'cy'.
+cypress/e2e/basic.cy.ts(28,5): error TS2304: Cannot find name 'cy'.
+cypress/e2e/basic.cy.ts(29,5): error TS2304: Cannot find name 'cy'.
+npm error Lifecycle script `build` failed with error:
+npm error code 2
+npm error path C:\Users\moxch\Documents\GitHub\bensa\web
+npm error workspace bensa-web@1.0.0
+npm error location C:\Users\moxch\Documents\GitHub\bensa\web
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c tsc -b && vite build

@@ -1,0 +1,73 @@
+{
+  "app": {
+    "title": "Bensa"
+  },
+  "header": {
+    "subtitle": "Real-time fuel price tracker",
+    "ticker": {
+      "live": "LIVE PRICES",
+      "finland": "FINLAND",
+      "types": "95E10 · 98E5 · DIESEL",
+      "nearby": "FIND CHEAPEST NEAR YOU",
+      "alerts": "PRICE DROP ALERTS"
+    }
+  },
+  "common": {
+    "liter": "L",
+    "build_time": "Build",
+    "notifications": "Notifications",
+    "price_drop": "💰 Price Drop!"
+  },
+  "gauge": {
+    "average": "AVG"
+  },
+  "level": {
+    "cheap": "🟢 Cheap",
+    "mid": "🟡 Average",
+    "expensive": "🔴 Expensive"
+  },
+  "fuel": {
+    "select": "FUEL"
+  },
+  "map": {
+    "title": "🗺️ Station Heatmap",
+    "your_location": "📍 Your Location",
+    "cheap": "Cheap",
+    "mid": "Mid",
+    "expensive": "High"
+  },
+  "stations": {
+    "title": "⛽ Stations by Price",
+    "count": "{{count}} stations",
+    "sorted": "Sorted by price",
+    "empty": "No stations found"
+  },
+  "station": {
+    "updated": "Updated"
+  },
+  "chart": {
+    "section_title": "📈 Price History",
+    "title": "14-Day Price Trend",
+    "loading": "Loading history..."
+  },
+  "notifications": {
+    "title": "🔔 Alerts",
+    "enabled": "Price drop alerts enabled",
+    "enabled_desc": "You'll be notified when prices drop significantly",
+    "denied": "Notifications blocked",
+    "denied_desc": "Enable in browser settings to receive price alerts",
+    "prompt_title": "Get price drop alerts",
+    "prompt_desc": "Receive notifications when fuel prices drop below your threshold",
+    "enable": "Enable Alerts",
+    "loading": "Requesting..."
+  },
+  "alert": {
+    "price_drop": "💰 Fuel prices have dropped!"
+  },
+  "loading": {
+    "text": "Fetching fuel prices..."
+  },
+  "footer": {
+    "copyright": "© {{year}} Bensa"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "app": {
+    "title": "Bensa"
+  },
+  "header": {
+    "subtitle": "Reaaliaikainen polttoainehintaseuranta",
+    "ticker": {
+      "live": "LIVE-HINNAT",
+      "finland": "SUOMI",
+      "types": "95E10 · 98E5 · DIESEL",
+      "nearby": "LÖYDÄ HALVIN LÄHELLÄ",
+      "alerts": "HINTAHÄLYTYKSET"
+    }
+  },
+  "common": {
+    "liter": "L",
+    "build_time": "Versio",
+    "notifications": "Ilmoitukset",
+    "price_drop": "💰 Hinta laski!"
+  },
+  "gauge": {
+    "average": "KA"
+  },
+  "level": {
+    "cheap": "🟢 Halpa",
+    "mid": "🟡 Keskitaso",
+    "expensive": "🔴 Kallis"
+  },
+  "fuel": {
+    "select": "POLTTOAINE"
+  },
+  "map": {
+    "title": "🗺️ Asema­kartta",
+    "your_location": "📍 Sijaintisi",
+    "cheap": "Halpa",
+    "mid": "Keski",
+    "expensive": "Kallis"
+  },
+  "stations": {
+    "title": "⛽ Asemat hinnan mukaan",
+    "count": "{{count}} asemaa",
+    "sorted": "Järjestetty hinnan mukaan",
+    "empty": "Asemia ei löytynyt"
+  },
+  "station": {
+    "updated": "Päivitetty"
+  },
+  "chart": {
+    "section_title": "📈 Hintahistoria",
+    "title": "14 päivän hintatrendi",
+    "loading": "Ladataan historiaa..."
+  },
+  "notifications": {
+    "title": "🔔 Hälytykset",
+    "enabled": "Hintahälytykset käytössä",
+    "enabled_desc": "Saat ilmoituksen kun hinnat laskevat merkittävästi",
+    "denied": "Ilmoitukset estetty",
+    "denied_desc": "Ota käyttöön selaimen asetuksista saadaksesi hintahälytyksiä",
+    "prompt_title": "Tilaa hintahälytykset",
+    "prompt_desc": "Saat ilmoituksen kun polttoaineen hinta laskee kynnysarvon alle",
+    "enable": "Ota käyttöön",
+    "loading": "Pyydetään..."
+  },
+  "alert": {
+    "price_drop": "💰 Polttoaineiden hinnat ovat laskeneet!"
+  },
+  "loading": {
+    "text": "Haetaan polttoainehintoja..."
+  },
+  "footer": {
+    "copyright": "© {{year}} Bensa"
+  }
+}
