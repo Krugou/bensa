@@ -1,3 +1,5 @@
+import { formatDistanceToNow } from 'date-fns';
+import { enUS, fi } from 'date-fns/locale';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -20,7 +22,7 @@ interface StationCardProps {
 }
 
 export const StationCard = ({ station, fuelType, min, max, rank }: StationCardProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isDirectionsOpen, setIsDirectionsOpen] = useState(false);
   const fuelPrice = station.prices.find((p) => p.type === fuelType);
   const price = fuelPrice?.price ?? 0;
@@ -33,6 +35,17 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
   const handleDirectionsClick = () => {
     setIsDirectionsOpen(true);
     Analytics.trackButtonClick('directions_open_card');
+  };
+
+  const getRelativeTime = (dateStr: string) => {
+    try {
+      const date = new Date(dateStr);
+      const locale = i18n.language === 'fi' ? fi : enUS;
+      return formatDistanceToNow(date, { addSuffix: true, locale });
+    } catch (e) {
+      console.error('Error formatting date:', e);
+      return dateStr;
+    }
   };
 
   return (
@@ -126,7 +139,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
       {/* Last updated */}
       {fuelPrice?.updatedAt && (
         <p className="mt-2 text-[9px] text-white/20 font-mono">
-          {t('station.updated', 'Updated')}: {new Date(fuelPrice.updatedAt).toLocaleTimeString()}
+          {t('station.updated', 'Updated')}: {getRelativeTime(fuelPrice.updatedAt)}
         </p>
       )}
     </div>
