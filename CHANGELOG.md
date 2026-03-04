@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/Krugou/bensa/compare/v1.0.1...v1.0.2) (2026-03-04)
+
+### Bug Fixes
+
+- resolve asset loading errors and downgrade ESLint to v9 for compatibility ([8102fc4](https://github.com/Krugou/bensa/commit/8102fc4a0b55bc47102d4f58880c95a980ba1722))
+
 ## [1.0.1](https://github.com/Krugou/bensa/compare/v1.0.0...v1.0.1) (2026-03-04)
 
 ### Bug Fixes
