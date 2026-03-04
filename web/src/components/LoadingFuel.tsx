@@ -7,16 +7,26 @@ export const LoadingFuel = () => {
   const loadingQuotes = useMemo(
     () => [
       t('loading.funny_1', 'If this gets killed, my free plan is toast... 🍞'),
-      t('loading.funny_2', "I'll be back... with cheaper prices. 🤖"),
-      t('loading.funny_3', "Frankly, my dear, I don't give a... wait, gas is how much?! 😱"),
-      t('loading.funny_4', 'May the fuel be with you. ✨'),
-      t('loading.funny_5', "I'm going to make him an offer he can't refuse... 1.50€/L. 🤌"),
-      t('loading.funny_6', "Toto, I've a feeling we're not in the cheap zone anymore. 🌪️"),
-      t('loading.funny_7', 'Fasten your seatbelts. It’s going to be a bumpy price ride. 🎢'),
-      t('loading.funny_8', 'Show me the money! (Or just the cheap diesel). 💸'),
-      t('loading.funny_9', 'You’re gonna need a bigger tank. 🦈'),
-      t('loading.funny_10', 'Keep your friends close, but your gas stations closer. ⛽'),
-      t('loading.funny_11', 'Great Scott! This price is heavy, Marty! 🏎️💨'),
+      t('loading.funny_2', 'Houston, we have a problem... the free tier is at 99%. 🚀'),
+      t('loading.funny_3', 'One does not simply fetch prices without hitting the daily limit. 🏔️'),
+      t('loading.funny_4', "Help me, Firebase Admin... you're my only hope (to stay free). 💫"),
+      t(
+        'loading.funny_5',
+        "I'm going to make him an offer he can't refuse... 50,000 free reads. 🤌",
+      ),
+      t('loading.funny_6', 'I feel the need... the need for more free quota! 🏎️'),
+      t(
+        'loading.funny_7',
+        'Mama always said Firebase was like a box of chocolates... you never know when you run out. 🍬',
+      ),
+      t('loading.funny_8', "You can't handle the truth! (And neither can our daily limit). ⚖️"),
+      t(
+        'loading.funny_9',
+        "I've seen things you people wouldn't believe... like our usage bills. 🌌",
+      ),
+      t('loading.funny_10', 'Are you not entertained?! Is this not why we are out of quota?! ⚔️'),
+      t('loading.funny_11', 'Great Scott! The user count is over 1.21 gigawatts! 🏎️💨'),
+      t('loading.funny_12', "Frankly, my dear, I don't give a... wait, we hit the read limit?! 😱"),
     ],
     [t],
   );
