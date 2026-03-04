@@ -40,7 +40,10 @@ const MapUpdater = ({
         .sort((a, b) => (a.distance ?? 999) - (b.distance ?? 999))
         .slice(0, 5);
 
-      const bounds = L.latLngBounds([lat, lon] as L.LatLngExpression);
+      const bounds = L.latLngBounds(
+        [lat, lon] as L.LatLngExpression,
+        [lat, lon] as L.LatLngExpression,
+      );
       nearest.forEach((s) => bounds.extend([s.lat, s.lon] as L.LatLngExpression));
 
       // Fit map to show user and the nearest cheap options
