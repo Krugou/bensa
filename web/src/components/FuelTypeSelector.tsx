@@ -15,7 +15,7 @@ export const FuelTypeSelector = ({ selected, onChange }: FuelTypeSelectorProps) 
 
   return (
     <div className="flex items-center justify-center gap-2 md:gap-3" id="fuel-type-selector">
-      <span className="text-xs font-mono text-white/30 mr-2 hidden md:inline">
+      <span className="text-xs font-mono text-slate-500 dark:text-white/30 mr-2 hidden md:inline">
         {t('fuel.select', 'FUEL')}
       </span>
       {FUEL_TYPES.map((type) => (
@@ -30,7 +30,7 @@ export const FuelTypeSelector = ({ selected, onChange }: FuelTypeSelectorProps) 
             ${
               selected === type
                 ? 'fuel-toggle-active'
-                : 'bg-white/[0.03] border-white/[0.08] text-white/50 hover:bg-white/[0.06] hover:text-white/70 hover:border-white/[0.15]'
+                : 'bg-slate-200/50 dark:bg-white/[0.03] border-slate-300/50 dark:border-white/[0.08] text-slate-600 dark:text-white/50 hover:bg-slate-300/50 dark:hover:bg-white/[0.06] hover:text-black dark:hover:text-white hover:border-slate-400 dark:hover:border-white/[0.15]'
             }
           `}
           title={getFuelTypeLabel(type)}

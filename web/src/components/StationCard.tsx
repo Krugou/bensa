@@ -145,7 +145,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
 
       {/* Last updated */}
       {fuelPrice?.updatedAt && (
-        <p className="mt-2 text-[9px] text-slate-400 dark:text-white/20 font-mono">
+        <p className="mt-2 text-[9px] text-slate-500 dark:text-white/20 font-mono">
           {t('station.updated', 'Updated')}: {getRelativeTime(fuelPrice.updatedAt)}
         </p>
       )}

@@ -139,16 +139,16 @@ export const StationMap = ({
                       </span>
                     )}
                   </div>
-                  <p className="font-bold text-base leading-tight text-white mb-0.5">
+                  <p className="font-bold text-base leading-tight text-black dark:text-white mb-0.5">
                     {station.name}
                   </p>
-                  <p className="text-white/40 text-[11px] font-mono">
+                  <p className="text-slate-500 dark:text-white/40 text-[11px] font-mono">
                     {station.address}, {station.city}
                   </p>
 
-                  <div className="mt-3 pt-2 border-t border-white/10 flex items-end justify-between">
+                  <div className="mt-3 pt-2 border-t border-slate-200 dark:border-white/10 flex items-end justify-between">
                     <div>
-                      <p className="text-[10px] uppercase text-white/30 font-bold tracking-widest mb-0.5">
+                      <p className="text-[10px] uppercase text-slate-400 dark:text-white/30 font-bold tracking-widest mb-0.5">
                         Price
                       </p>
                       <p className="text-xl font-mono font-black" style={{ color }}>
@@ -157,7 +157,7 @@ export const StationMap = ({
                       </p>
                     </div>
                     {station.distance && (
-                      <p className="text-[11px] font-mono text-white/40 mb-1">
+                      <p className="text-[11px] font-mono text-slate-500 dark:text-white/40 mb-1">
                         📍 {station.distance} km
                       </p>
                     )}
@@ -193,7 +193,7 @@ export const StationMap = ({
       )}
 
       {/* Legend overlay */}
-      <div className="absolute bottom-4 left-4 glass-card px-3 py-2 flex items-center gap-3 text-[10px] font-mono text-white/60 z-[1000]">
+      <div className="absolute bottom-4 left-4 glass-card px-3 py-2 flex items-center gap-3 text-[10px] font-mono text-slate-600 dark:text-white/60 z-[1000]">
         <span className="flex items-center gap-1">
           <span className="w-2.5 h-2.5 rounded-full bg-fuel-green shadow-glow-green" />
           {t('map.cheap', 'Cheap')}

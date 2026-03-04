@@ -15,7 +15,7 @@ export const ThemeToggle = () => {
   return (
     <button
       onClick={handleToggle}
-      className="flex items-center justify-center h-10 w-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/70 hover:text-white hover:bg-[var(--color-fuel-green)]/20 hover:border-[var(--color-fuel-green)]/30 hover:shadow-[0_0_15px_rgba(0,255,0,0.2)] transition-all duration-300 cursor-pointer"
+      className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-200/50 dark:bg-white/10 backdrop-blur-sm border border-slate-300/50 dark:border-white/20 text-slate-700 dark:text-white/70 hover:text-black dark:hover:text-white hover:bg-slate-300/50 dark:hover:bg-[var(--color-fuel-green)]/20 hover:border-slate-400 dark:hover:border-[var(--color-fuel-green)]/30 hover:shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_0_15px_rgba(0,255,0,0.2)] transition-all duration-300 cursor-pointer"
       aria-label={theme === 'dark' ? t('theme.switchToLight') : t('theme.switchToDark')}
     >
       {theme === 'dark' ? (
