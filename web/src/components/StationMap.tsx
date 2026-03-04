@@ -130,7 +130,7 @@ export const StationMap = ({
               <Popup className="station-popup">
                 <div className="text-sm min-w-[180px] p-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs px-1.5 py-0.5 rounded bg-white/10 text-white/60 font-mono">
+                    <span className="text-xs px-1.5 py-0.5 rounded bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-white/60 font-mono">
                       {station.brand}
                     </span>
                     {isCheap && (
@@ -142,13 +142,13 @@ export const StationMap = ({
                   <p className="font-bold text-base leading-tight text-black dark:text-white mb-0.5">
                     {station.name}
                   </p>
-                  <p className="text-slate-500 dark:text-white/40 text-[11px] font-mono">
+                  <p className="text-slate-600 dark:text-white/40 text-[11px] font-mono">
                     {station.address}, {station.city}
                   </p>
 
                   <div className="mt-3 pt-2 border-t border-slate-200 dark:border-white/10 flex items-end justify-between">
                     <div>
-                      <p className="text-[10px] uppercase text-slate-400 dark:text-white/30 font-bold tracking-widest mb-0.5">
+                      <p className="text-[10px] uppercase text-slate-500 dark:text-white/30 font-bold tracking-widest mb-0.5">
                         Price
                       </p>
                       <p className="text-xl font-mono font-black" style={{ color }}>
@@ -157,7 +157,7 @@ export const StationMap = ({
                       </p>
                     </div>
                     {station.distance && (
-                      <p className="text-[11px] font-mono text-slate-500 dark:text-white/40 mb-1">
+                      <p className="text-[11px] font-mono text-slate-700 dark:text-white/40 mb-1">
                         📍 {station.distance} km
                       </p>
                     )}
@@ -167,7 +167,7 @@ export const StationMap = ({
                       onClick={() => {
                         handleDirectionsClick(station);
                       }}
-                      className="text-[10px] font-bold uppercase tracking-widest text-bensa-teal hover:text-white transition-colors cursor-pointer focus:outline-none"
+                      className="text-[10px] font-bold uppercase tracking-widest text-bensa-blue dark:text-bensa-teal hover:text-black dark:hover:text-white transition-colors cursor-pointer focus:outline-none"
                     >
                       {t('station.directions')} →
                     </button>
