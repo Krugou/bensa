@@ -37,7 +37,7 @@ jobs:
             "VITE_FIREBASE_MESSAGING_SENDER_ID"
             "VITE_FIREBASE_APP_ID"
             "VITE_FIREBASE_MEASUREMENT_ID"
-            "FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA"
+            "FIREBASE_ADMIN_SDK"
           )
 
           for secret in "${SECRETS[@]}"; do
@@ -62,7 +62,7 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
           VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
-          FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}
+          FIREBASE_ADMIN_SDK: ${{ secrets.FIREBASE_ADMIN_SDK }}
 
       - name: Preparing the Station (Node.js)
         uses: actions/setup-node@v6
@@ -126,7 +126,7 @@ jobs:
       - name: Fuel Connectivity Test (Fetch from Firestore)
         run: node bot/dist/test-connection.js
         env:
-          FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}
+          FIREBASE_ADMIN_SDK: ${{ secrets.FIREBASE_ADMIN_SDK }}
           VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
 
       - name: Maintenance Log
@@ -154,7 +154,7 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_ADMIN_SDK }}
           projectId: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
           channelId: live
 
@@ -171,7 +171,7 @@ jobs:
         with:
           args: deploy --only firestore:rules
         env:
-          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}
+          GCP_SA_KEY: ${{ secrets.FIREBASE_ADMIN_SDK }}
           PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
 
   deploying-to-pages:

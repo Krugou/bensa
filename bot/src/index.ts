@@ -8,8 +8,8 @@ import puppeteer from 'puppeteer';
 config();
 
 // Initialize Firebase Admin
-const saVarName = process.env['FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA'] ? 'FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA' : 'FIREBASE_SERVICE_ACCOUNT';
-const saVar = process.env['FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA'] ?? process.env['FIREBASE_SERVICE_ACCOUNT'];
+const saVarName = process.env['FIREBASE_ADMIN_SDK'] ? 'FIREBASE_ADMIN_SDK' : 'FIREBASE_SERVICE_ACCOUNT';
+const saVar = process.env['FIREBASE_ADMIN_SDK'] ?? process.env['FIREBASE_SERVICE_ACCOUNT'] ?? process.env['FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA'];
 const projectVar = process.env['VITE_FIREBASE_PROJECT_ID'] ?? process.env['FIREBASE_PROJECT_ID'];
 
 if (saVar) {

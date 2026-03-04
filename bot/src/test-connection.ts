@@ -5,12 +5,12 @@ config();
 
 async function testConnection() {
   console.log('🔍 Testing Firebase Connection...');
-  
-  const saVar = process.env['FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA'] ?? process.env['FIREBASE_SERVICE_ACCOUNT'];
+
+  const saVar = process.env['FIREBASE_ADMIN_SDK'] ?? process.env['FIREBASE_SERVICE_ACCOUNT'] ?? process.env['FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA'];
   const projectVar = process.env['VITE_FIREBASE_PROJECT_ID'] ?? process.env['FIREBASE_PROJECT_ID'];
 
   if (!saVar) {
-    console.error('❌ Error: No Service Account secret found.');
+    console.error('❌ Error: No Service Account secret found (checked FIREBASE_ADMIN_SDK).');
     process.exit(1);
   }
 

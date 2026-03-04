@@ -23,8 +23,8 @@ jobs:
           echo "🔎 Verifying required configuration for bot..."
           MISSING=0
 
-          if [ -z "$FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA" ]; then
-            echo "❌ Error: FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA is missing!"
+          if [ -z "$FIREBASE_ADMIN_SDK" ]; then
+            echo "❌ Error: FIREBASE_ADMIN_SDK is missing!"
             MISSING=$((MISSING + 1))
           fi
 
@@ -39,7 +39,7 @@ jobs:
           fi
           echo "🚀 Bot is gassed up and ready to go!"
         env:
-          FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}
+          FIREBASE_ADMIN_SDK: ${{ secrets.FIREBASE_ADMIN_SDK }}
           VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
 
       - name: Setup Node.js
@@ -57,7 +57,7 @@ jobs:
       - name: Run Scraper
         run: npm run start:bot
         env:
-          FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA }}
+          FIREBASE_ADMIN_SDK: ${{ secrets.FIREBASE_ADMIN_SDK }}
           VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
 
       - name: Commit and push updated prices

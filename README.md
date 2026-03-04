@@ -63,7 +63,7 @@ Prefix variables with `VITE_` for client-side access:
 
 #### Bot / Scraper (`bot/`)
 
-- `FIREBASE_SERVICE_ACCOUNT_KRUGOU_BENSA`: (Secret) The full JSON string of your Firebase Service Account key.
+- `FIREBASE_ADMIN_SDK`: (Secret) The full JSON string of your Firebase Service Account key.
 - `FIREBASE_PROJECT_ID`: (Optional if in SA) Your Firebase Project ID.
 
 ## 🤖 Scraping Bot
