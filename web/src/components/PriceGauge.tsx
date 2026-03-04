@@ -38,7 +38,7 @@ export const PriceGauge = ({ average, min, max, fuelTypeLabel }: PriceGaugeProps
       id="price-gauge"
     >
       {/* Fuel type badge */}
-      <div className="font-mono text-xs uppercase tracking-widest text-slate-600 dark:text-white/50 bg-slate-200/50 dark:bg-white/[0.04] px-4 py-1.5 rounded-full border border-slate-300/50 dark:border-white/[0.08]">
+      <div className="font-mono text-xs uppercase tracking-widest text-white/50 bg-white/[0.04] px-4 py-1.5 rounded-full border border-white/[0.08]">
         {fuelTypeLabel}
       </div>
 
@@ -53,8 +53,8 @@ export const PriceGauge = ({ average, min, max, fuelTypeLabel }: PriceGaugeProps
           <path
             d="M 20 100 A 70 70 0 0 1 180 100"
             fill="none"
-            stroke="currentColor"
-            className="text-slate-300 dark:text-white/[0.06]"
+            stroke="white"
+            opacity="0.06"
             strokeWidth="12"
             strokeLinecap="round"
           />
@@ -91,16 +91,16 @@ export const PriceGauge = ({ average, min, max, fuelTypeLabel }: PriceGaugeProps
           >
             {formatPrice(average)}
           </span>
-          <span className="text-[10px] md:text-xs font-mono text-slate-500 dark:text-white/40 mt-0.5">
+          <span className="text-[10px] md:text-xs font-mono text-white/40 mt-0.5">
             €/{t('common.liter', 'L')}
           </span>
         </div>
       </div>
 
       {/* Min/Max labels */}
-      <div className="flex justify-between w-48 md:w-64 text-[10px] md:text-xs font-mono text-slate-500 dark:text-white/30 -mt-2">
+      <div className="flex justify-between w-48 md:w-64 text-[10px] md:text-xs font-mono text-white/30 -mt-2">
         <span className="text-fuel-green">{formatPrice(min)}</span>
-        <span className="text-slate-400 dark:text-white/20">{t('gauge.average', 'AVG')}</span>
+        <span className="text-white/20">{t('gauge.average', 'AVG')}</span>
         <span className="text-fuel-red">{formatPrice(max)}</span>
       </div>
 

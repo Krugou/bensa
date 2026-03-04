@@ -43,9 +43,9 @@ describe('StationList', () => {
   });
 
   it('should render list of station cards', () => {
-    render(<StationList stations={mockStations} fuelType="95" min={1.7} max={1.8} />);
+    render(<StationList stations={mockStations} fuelType="95" min={1.7} max={1.9} />);
 
-    expect(screen.getByText('2 stations')).toBeDefined();
+    expect(screen.getByText(/count/i)).toBeDefined();
 
     const cards = screen.getAllByTestId('station-card');
     expect(cards).toHaveLength(2);

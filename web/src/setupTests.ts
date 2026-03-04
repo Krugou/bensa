@@ -5,132 +5,108 @@ import { vi } from 'vitest';
 // ─── Mock react-i18next ───────────────────────────────────────────────────────
 const mockChangeLanguage = vi.fn().mockResolvedValue(undefined);
 const mockI18n = {
-  language: 'en',
   changeLanguage: mockChangeLanguage,
+  language: 'en',
+  on: vi.fn(),
+  off: vi.fn(),
+  t: vi.fn((key: string, defaultValueOrOptions?: string | Record<string, unknown>) => {
+    let result = key;
+    if (defaultValueOrOptions) {
+      if (typeof defaultValueOrOptions === 'string') {
+        result = defaultValueOrOptions;
+      } else if (
+        typeof defaultValueOrOptions === 'object' &&
+        defaultValueOrOptions['defaultValue'] != null
+      ) {
+        result = defaultValueOrOptions['defaultValue'] as string;
+      }
+
+      // Handle interpolation like {{count}} or {{year}}
+      const finalOptions =
+        typeof defaultValueOrOptions === 'object' ? defaultValueOrOptions : undefined;
+      if (finalOptions) {
+        for (const [k, v] of Object.entries(finalOptions)) {
+          result = result.replace(`{{${k}}}`, String(v));
+        }
+      }
+    }
+    return result;
+  }),
 };
 
-vi.mock('react-i18next', async () => {
-  const React = await import('react');
-  return {
-    useTranslation: () => ({
-      t: (
-        key: string,
-        defaultValueOrOptions?: string | Record<string, unknown>,
-        options?: Record<string, unknown>,
-      ) => {
-        let result = key;
-        const finalOptions =
-          typeof defaultValueOrOptions === 'object' ? defaultValueOrOptions : options;
-
-        if (typeof defaultValueOrOptions === 'string') {
-          result = defaultValueOrOptions;
-        } else if (
-          typeof defaultValueOrOptions === 'object' &&
-          defaultValueOrOptions['defaultValue'] != null
-        ) {
-          result = defaultValueOrOptions['defaultValue'] as string;
-        }
-
-        // Handle interpolation like {{count}} or {{year}}
-        if (finalOptions && typeof finalOptions === 'object') {
-          for (const [k, v] of Object.entries(finalOptions)) {
-            result = result.replace(`{{${k}}}`, String(v));
-          }
-        }
-
-        return result;
-      },
-      i18n: mockI18n,
-    }),
-    Trans: ({ children }: { children: React.ReactNode }) =>
-      React.createElement(React.Fragment, null, children),
-    initReactI18next: { type: '3rdParty', init: vi.fn() },
-  };
-});
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: mockI18n.t,
+    i18n: mockI18n,
+  }),
+  initReactI18next: {
+    type: '3rdParty',
+    init: vi.fn(),
+  },
+}));
 
 // ─── Mock Firebase ────────────────────────────────────────────────────────────
-vi.mock('./firebase', () => ({
-  app: {},
-  analytics: null,
+vi.mock('firebase/app', () => ({
+  initializeApp: vi.fn(() => ({})),
 }));
 
-// ─── Mock Firebase/analytics ──────────────────────────────────────────────────
+vi.mock('firebase/auth', () => ({
+  getAuth: vi.fn(() => ({})),
+  GoogleAuthProvider: vi.fn().mockImplementation(function (this: unknown) {
+    return this;
+  }),
+  EmailAuthProvider: { PROVIDER_ID: 'password' },
+}));
+
+vi.mock('firebase/firestore', () => ({
+  getFirestore: vi.fn(() => ({})),
+  collection: vi.fn(),
+  getDocs: vi.fn(),
+  query: vi.fn(),
+  orderBy: vi.fn(),
+  limit: vi.fn(),
+  Timestamp: {
+    now: () => ({ toDate: () => new Date() }),
+    fromDate: (d: Date) => ({ toDate: () => d }),
+  },
+}));
+
 vi.mock('firebase/analytics', () => ({
+  getAnalytics: vi.fn(() => ({})),
   logEvent: vi.fn(),
-  getAnalytics: vi.fn(),
 }));
 
-// ─── Mock Analytics utility ───────────────────────────────────────────────────
+// ─── Mock Analytics Utility ──────────────────────────────────────────────────
 vi.mock('./utils/analytics', () => ({
   Analytics: {
     trackButtonClick: vi.fn(),
-    trackNavigation: vi.fn(),
-    trackSectionToggle: vi.fn(),
-    trackThemeChange: vi.fn(),
-    trackLanguageChange: vi.fn(),
-    trackFuelTypeChange: vi.fn(),
-    trackStationView: vi.fn(),
-    trackLocationRequest: vi.fn(),
-    trackNotificationPermission: vi.fn(),
     trackExternalLink: vi.fn(),
-    trackMapInteraction: vi.fn(),
+    trackLanguageChange: vi.fn(),
+    trackThemeChange: vi.fn(),
+    trackLocationRequest: vi.fn(),
+    trackSectionToggle: vi.fn(),
   },
 }));
 
-// ─── Mock Leaflet (not available in jsdom) ────────────────────────────────────
-vi.mock('react-leaflet', () => ({
-  MapContainer: ({ children }: { children: React.ReactNode }) => children,
-  TileLayer: () => null,
-  CircleMarker: ({ children }: { children: React.ReactNode }) => children,
-  Popup: ({ children }: { children: React.ReactNode }) => children,
-  useMap: () => ({ setView: vi.fn(), getZoom: vi.fn(() => 7) }),
-}));
-
-vi.mock('leaflet', () => ({
-  default: {
-    icon: vi.fn(),
-    marker: vi.fn(),
-  },
-}));
-
-// ─── Mock localStorage ───────────────────────────────────────────────────────
+// ─── Mock Browser APIs ────────────────────────────────────────────────────────
 const localStorageMock = (() => {
   let store: Record<string, string> = {};
   return {
-    getItem: vi.fn((key: string) => store[key] ?? null),
+    getItem: vi.fn((key: string) => store[key] || null),
     setItem: vi.fn((key: string, value: string) => {
       store[key] = value;
-    }),
-    removeItem: vi.fn((key: string) => {
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete store[key];
     }),
     clear: vi.fn(() => {
       store = {};
     }),
-    get length() {
-      return Object.keys(store).length;
-    },
-    key: vi.fn((index: number) => Object.keys(store)[index] ?? null),
+    removeItem: vi.fn((key: string) => {
+      const { [key]: _, ...rest } = store;
+      store = rest;
+    }),
   };
 })();
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
-
-// ─── Mock matchMedia ─────────────────────────────────────────────────────────
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: vi.fn().mockImplementation((query: string) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(), // Deprecated
-    removeListener: vi.fn(), // Deprecated
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
-});
 
 // ─── Mock Geolocation ───────────────────────────────────────────────────────
 const mockGeolocation = {
@@ -146,6 +122,9 @@ Object.defineProperty(navigator, 'geolocation', {
 // ─── Reset mocks between tests ───────────────────────────────────────────────
 beforeEach(() => {
   vi.clearAllMocks();
-  localStorageMock.clear();
+  localStorageMock.getItem.mockClear();
+  localStorageMock.setItem.mockClear();
+  localStorageMock.clear.mockClear();
+  localStorageMock.removeItem.mockClear();
   mockGeolocation.getCurrentPosition.mockReset();
 });

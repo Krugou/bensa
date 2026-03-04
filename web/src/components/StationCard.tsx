@@ -59,7 +59,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
     >
       {/* Rank badge */}
       {rank !== undefined && (
-        <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-200/50 dark:bg-white/[0.06] border border-slate-300/50 dark:border-white/[0.1] flex items-center justify-center text-[10px] font-mono text-slate-500 dark:text-white/40 font-bold">
+        <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-[10px] font-mono text-white/40 font-bold">
           #{rank}
         </div>
       )}
@@ -74,14 +74,12 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
 
       {/* Brand & name */}
       <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-lg bg-slate-200/50 dark:bg-white/[0.06] border border-slate-300/50 dark:border-white/[0.1] flex items-center justify-center text-lg flex-shrink-0">
+        <div className="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-lg flex-shrink-0">
           ⛽
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-bold text-sm text-black dark:text-white/90 truncate">
-            {station.name}
-          </h3>
-          <p className="text-[11px] text-slate-600 dark:text-white/40 font-mono truncate">
+          <h3 className="font-bold text-sm text-white/90 truncate">{station.name}</h3>
+          <p className="text-[11px] text-white/40 font-mono truncate">
             {station.address}, {station.city}
           </p>
         </div>
@@ -95,16 +93,14 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
           >
             {formatPrice(price)}
           </span>
-          <span className="text-xs text-slate-600 dark:text-white/30 ml-1">€/L</span>
+          <span className="text-xs text-white/30 ml-1">€/L</span>
         </div>
 
         {/* Distance */}
         {station.distance !== undefined && (
           <div className="text-right">
-            <span className="text-sm font-mono text-slate-800 dark:text-white/50">
-              {station.distance}
-            </span>
-            <span className="text-[10px] text-slate-600 dark:text-white/30 ml-0.5">km</span>
+            <span className="text-sm font-mono text-white/50">{station.distance}</span>
+            <span className="text-[10px] text-white/30 ml-0.5">km</span>
           </div>
         )}
       </div>
@@ -112,12 +108,9 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
       <div className="flex-1" />
 
       {/* All fuel types row */}
-      <div className="mt-3 pt-3 border-t border-slate-200 dark:border-white/[0.06] flex justify-between text-[10px] font-mono text-slate-600 dark:text-white/35">
+      <div className="mt-3 pt-3 border-t border-white/[0.06] flex justify-between text-[10px] font-mono text-white/35">
         {station.prices.map((fp) => (
-          <span
-            key={fp.type}
-            className={fp.type === fuelType ? 'text-black dark:text-white/70 font-bold' : ''}
-          >
+          <span key={fp.type} className={fp.type === fuelType ? 'text-white/70 font-bold' : ''}>
             {fp.type === 'diesel' ? 'DSL' : fp.type}: {formatPrice(fp.price)}
           </span>
         ))}
@@ -126,7 +119,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
       <div className="mt-3 flex gap-2">
         <button
           onClick={handleDirectionsClick}
-          className="flex-1 bg-slate-200/50 dark:bg-white/5 hover:bg-slate-300/50 dark:hover:bg-white/10 border border-slate-300/50 dark:border-white/10 rounded-lg py-2 text-center text-[10px] font-bold uppercase tracking-wider text-slate-700 dark:text-white/60 hover:text-black dark:hover:text-white transition-all duration-300 cursor-pointer focus:outline-none"
+          className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 text-center text-[10px] font-bold uppercase tracking-wider text-white/60 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none"
         >
           📍 {t('station.directions')}
         </button>
@@ -145,7 +138,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
 
       {/* Last updated */}
       {fuelPrice?.updatedAt && (
-        <p className="mt-2 text-[9px] text-slate-500 dark:text-white/20 font-mono">
+        <p className="mt-2 text-[9px] text-white/20 font-mono">
           {t('station.updated', 'Updated')}: {getRelativeTime(fuelPrice.updatedAt)}
         </p>
       )}

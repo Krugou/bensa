@@ -14,13 +14,13 @@ export const Header = () => {
       </div>
 
       {/* Subtitle */}
-      <p className="text-slate-700 dark:text-white/50 font-mono text-sm md:text-base tracking-wider uppercase">
+      <p className="text-white/50 font-mono text-sm md:text-base tracking-wider uppercase">
         {t('header.subtitle', 'Real-time fuel price tracker')}
       </p>
 
       {/* Animated price ticker line */}
-      <div className="mt-6 relative overflow-hidden h-8 border-y border-slate-200 dark:border-white/[0.06]">
-        <div className="animate-marquee whitespace-nowrap flex items-center h-full gap-8 text-xs font-mono text-slate-600 dark:text-white/40">
+      <div className="mt-6 relative overflow-hidden h-8 border-y border-white/[0.06]">
+        <div className="animate-marquee whitespace-nowrap flex items-center h-full gap-8 text-xs font-mono text-white/40">
           <span>📊 {t('header.ticker.live', 'LIVE PRICES')}</span>
           <span>•</span>
           <span>🇫🇮 {t('header.ticker.finland', 'FINLAND')}</span>

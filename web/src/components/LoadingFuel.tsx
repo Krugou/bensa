@@ -53,7 +53,7 @@ export const LoadingFuel = () => {
       {/* Loading text */}
       <div className="space-y-4 text-center">
         <div className="space-y-2">
-          <p className="text-slate-700 dark:text-white/80 font-mono text-sm tracking-widest uppercase animate-pulse">
+          <p className="text-white/80 font-mono text-sm tracking-widest uppercase animate-pulse">
             {t('loading.text', 'Fetching fuel prices...')}
           </p>
           <p className="text-fuel-yellow max-w-xs mx-auto font-mono text-xs italic bg-bensa-violet/20 px-3 py-2 rounded-lg border border-bensa-violet/30 shadow-[0_0_15px_rgba(180,100,255,0.2)]">

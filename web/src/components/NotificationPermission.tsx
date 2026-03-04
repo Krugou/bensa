@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next';
 export const NotificationPermission = () => {
   const { t } = useTranslation();
   const [permission, setPermission] = useState<NotificationPermission>(
-    typeof Notification !== 'undefined' ? Notification.permission : 'default',
+    'Notification' in window ? Notification.permission : 'denied',
   );
   const [loading, setLoading] = useState(false);
 
   const requestPermission = async () => {
-    if (typeof Notification === 'undefined') return;
-    setLoading(true);
+    if (!('Notification' in window)) return;
 
+    setLoading(true);
     try {
       const result = await Notification.requestPermission();
       setPermission(result);
@@ -30,15 +30,15 @@ export const NotificationPermission = () => {
                 };
               }
             ).periodicSync.register('price-check', {
-              minInterval: 4 * 60 * 60 * 1000, // 4 hours
+              minInterval: 24 * 60 * 60 * 1000, // 24 hours
             });
-          } catch {
-            console.warn('[Notification] Periodic sync registration failed');
+          } catch (e) {
+            console.warn('Periodic background sync could not be registered:', e);
           }
         }
       }
     } catch (error) {
-      console.error('[Notification] Permission request failed:', error);
+      console.error('Error requesting notification permission:', error);
     } finally {
       setLoading(false);
     }
@@ -52,7 +52,7 @@ export const NotificationPermission = () => {
           <p className="text-sm font-semibold text-fuel-green">
             {t('notifications.enabled', 'Price drop alerts enabled')}
           </p>
-          <p className="text-[11px] text-slate-600 dark:text-white/40 font-mono">
+          <p className="text-[11px] text-white/40 font-mono">
             {t('notifications.enabled_desc', "You'll be notified when prices drop significantly")}
           </p>
         </div>
@@ -65,10 +65,10 @@ export const NotificationPermission = () => {
       <div className="glass-card p-4 flex items-center gap-3" id="notification-denied">
         <span className="text-2xl">🔕</span>
         <div>
-          <p className="text-sm font-semibold text-slate-600 dark:text-white/50">
+          <p className="text-sm font-semibold text-white/50">
             {t('notifications.denied', 'Notifications blocked')}
           </p>
-          <p className="text-[11px] text-slate-500 dark:text-white/30 font-mono">
+          <p className="text-[11px] text-white/30 font-mono">
             {t('notifications.denied_desc', 'Enable in browser settings to receive price alerts')}
           </p>
         </div>
@@ -81,10 +81,10 @@ export const NotificationPermission = () => {
       <div className="flex items-start gap-4">
         <span className="text-3xl">🔔</span>
         <div className="flex-1">
-          <h3 className="font-bold text-sm text-black dark:text-white/90">
+          <h3 className="font-bold text-sm text-white/90">
             {t('notifications.prompt_title', 'Get price drop alerts')}
           </h3>
-          <p className="text-[11px] text-slate-600 dark:text-white/40 font-mono mt-1">
+          <p className="text-[11px] text-white/40 font-mono mt-1">
             {t(
               'notifications.prompt_desc',
               'Receive notifications when fuel prices drop below your threshold',

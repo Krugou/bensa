@@ -16,10 +16,7 @@ import { PriceGauge } from './components/PriceGauge';
 import { PriceHistoryChart } from './components/PriceHistoryChart';
 import { StationList } from './components/StationList';
 import { StationMap } from './components/StationMap';
-import { ThemeToggle } from './components/ThemeToggle';
-import { ThemeProvider } from './context/ThemeProvider';
 import { usePriceAlert } from './hooks/usePriceAlert';
-import { useTheme } from './hooks/useTheme';
 import { useTitleFlasher } from './hooks/useTitleFlasher';
 import { DEFAULT_LOCATION, getCurrentPosition } from './services/locationService';
 import { fetchPrices, getPriceStats } from './services/priceService';
@@ -31,7 +28,6 @@ const AppContent = () => {
   const { t, i18n } = useTranslation();
   const { lng } = useParams<{ lng: string }>();
   const navigate = useNavigate();
-  const { theme } = useTheme();
 
   const [stations, setStations] = useState<GasStation[]>([]);
   const [fuelType, setFuelType] = useState<FuelType>('95');
@@ -44,7 +40,6 @@ const AppContent = () => {
     if (lng && (lng === 'fi' || lng === 'en') && i18n.language !== lng) {
       void i18n.changeLanguage(lng);
     } else if (!lng) {
-      // Fallback redirect if somehow reached without slug
       const detectedLng = i18n.language.startsWith('fi') ? 'fi' : 'en';
       void navigate(`/${detectedLng}`, { replace: true });
     }
@@ -76,7 +71,6 @@ const AppContent = () => {
   useEffect(() => {
     void loadPrices(true);
 
-    // Try to get user location
     getCurrentPosition()
       .then((pos) => {
         setUserLat(pos.lat);
@@ -86,7 +80,6 @@ const AppContent = () => {
         // Use default Helsinki location
       });
 
-    // Refresh prices every 5 minutes
     const interval = setInterval(() => {
       void loadPrices();
     }, 300000);
@@ -110,30 +103,29 @@ const AppContent = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-100 dark:bg-[#020617]">
+      <div className="min-h-screen bg-[#020617]">
         <LoadingFuel />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 dark:bg-[#020617] text-black dark:text-slate-200 font-sans flex flex-col items-center transition-colors duration-500">
+    <div className="min-h-screen bg-[#020617] text-slate-200 font-sans flex flex-col items-center">
       {/* Ambient background glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-fuel-green/5 dark:bg-fuel-green/2 rounded-full blur-[150px] animate-glow-breathe" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-fuel-green/2 rounded-full blur-[150px] animate-glow-breathe" />
         <div
-          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-bensa-violet/5 dark:bg-bensa-violet/2 rounded-full blur-[150px] animate-glow-breathe"
+          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-bensa-violet/2 rounded-full blur-[150px] animate-glow-breathe"
           style={{ animationDelay: '2s' }}
         />
         <div
-          className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-fuel-yellow/5 dark:bg-fuel-yellow/1.5 rounded-full blur-[120px] animate-glow-breathe"
+          className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-fuel-yellow/1.5 rounded-full blur-[120px] animate-glow-breathe"
           style={{ animationDelay: '3.5s' }}
         />
       </div>
 
       {/* Top Controls */}
       <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
-        <ThemeToggle />
         <LanguageSwitcher />
       </div>
 
@@ -200,7 +192,7 @@ const AppContent = () => {
         </CollapsibleSection>
 
         {/* Footer */}
-        <footer className="text-center py-12 text-slate-600 dark:text-white/20 font-mono text-xs uppercase tracking-widest">
+        <footer className="text-center py-12 text-white/20 font-mono text-xs uppercase tracking-widest">
           <p title={`${t('common.build_time', 'Build')}: ${__BUILD_TIME__}`}>
             {t('footer.copyright', '© {{year}} Bensa', { year: new Date().getFullYear() })}
           </p>
@@ -209,7 +201,7 @@ const AppContent = () => {
 
       <ToastContainer
         position="top-right"
-        theme={theme}
+        theme="dark"
         aria-label={t('common.notifications', 'Notifications')}
       />
     </div>
@@ -227,7 +219,6 @@ const getInitialLang = () => {
 };
 
 const App = () => {
-  // Determine basename: use /bensa for GitHub Pages, / for root deployments
   const basename =
     import.meta.env.BASE_URL === './' || import.meta.env.BASE_URL === ''
       ? window.location.pathname.includes('/bensa')
@@ -238,23 +229,14 @@ const App = () => {
   const initialLng = getInitialLang();
 
   return (
-    <ThemeProvider>
-      <BrowserRouter basename={basename}>
-        <Routes>
-          {/* Redirect root to locale slug */}
-          <Route path="/" element={<Navigate to={`/${initialLng}`} replace />} />
-
-          {/* App with language slug */}
-          <Route path="/:lng" element={<AppContent />} />
-
-          {/* Admin remains at /admin but could be localized too if needed */}
-          <Route path="/admin" element={<AdminDashboard />} />
-
-          {/* Fallback for everything else */}
-          <Route path="*" element={<Navigate to={`/${initialLng}`} replace />} />
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+    <BrowserRouter basename={basename}>
+      <Routes>
+        <Route path="/" element={<Navigate to={`/${initialLng}`} replace />} />
+        <Route path="/:lng" element={<AppContent />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="*" element={<Navigate to={`/${initialLng}`} replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
