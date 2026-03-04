@@ -2,7 +2,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 import { AdminDashboard } from './components/AdminDashboard';
@@ -28,13 +28,27 @@ import { FuelType, GasStation } from './types';
 import { getFuelTypeLabel } from './utils/priceUtils';
 
 const AppContent = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { lng } = useParams<{ lng: string }>();
+  const navigate = useNavigate();
   const { theme } = useTheme();
+
   const [stations, setStations] = useState<GasStation[]>([]);
   const [fuelType, setFuelType] = useState<FuelType>('95');
   const [loading, setLoading] = useState(true);
   const [userLat, setUserLat] = useState(DEFAULT_LOCATION.lat);
   const [userLon, setUserLon] = useState(DEFAULT_LOCATION.lon);
+
+  // Sync i18n with URL slug
+  useEffect(() => {
+    if (lng && (lng === 'fi' || lng === 'en') && i18n.language !== lng) {
+      void i18n.changeLanguage(lng);
+    } else if (!lng) {
+      // Fallback redirect if somehow reached without slug
+      const detectedLng = i18n.language.startsWith('fi') ? 'fi' : 'en';
+      void navigate(`/${detectedLng}`, { replace: true });
+    }
+  }, [lng, i18n, navigate]);
 
   // Price alert logic
   const isPriceAlert = usePriceAlert(stations, fuelType);
@@ -202,6 +216,16 @@ const AppContent = () => {
   );
 };
 
+// Simple helper to detect best starting language
+const getInitialLang = () => {
+  const saved = localStorage.getItem('i18nextLng');
+  if (saved && (saved === 'fi' || saved === 'en')) return saved;
+
+  const browserLng = navigator.language.toLowerCase();
+  if (browserLng.startsWith('fi')) return 'fi';
+  return 'en';
+};
+
 const App = () => {
   // Determine basename: use /bensa for GitHub Pages, / for root deployments
   const basename =
@@ -211,12 +235,23 @@ const App = () => {
         : '/'
       : import.meta.env.BASE_URL;
 
+  const initialLng = getInitialLang();
+
   return (
     <ThemeProvider>
       <BrowserRouter basename={basename}>
         <Routes>
-          <Route path="/" element={<AppContent />} />
+          {/* Redirect root to locale slug */}
+          <Route path="/" element={<Navigate to={`/${initialLng}`} replace />} />
+
+          {/* App with language slug */}
+          <Route path="/:lng" element={<AppContent />} />
+
+          {/* Admin remains at /admin but could be localized too if needed */}
           <Route path="/admin" element={<AdminDashboard />} />
+
+          {/* Fallback for everything else */}
+          <Route path="*" element={<Navigate to={`/${initialLng}`} replace />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

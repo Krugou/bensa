@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { useTranslation } from 'react-i18next';
+import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 
 import { LanguageSwitcher } from '../../components/LanguageSwitcher';
@@ -9,7 +10,11 @@ describe('LanguageSwitcher', () => {
   it('should render and toggle language', () => {
     const { i18n } = useTranslation();
 
-    render(<LanguageSwitcher />);
+    render(
+      <MemoryRouter>
+        <LanguageSwitcher />
+      </MemoryRouter>,
+    );
 
     const button = screen.getByRole('button');
     expect(button).toBeDefined();
@@ -26,7 +31,11 @@ describe('LanguageSwitcher', () => {
     const { i18n } = useTranslation();
     (i18n as { language: string }).language = 'en';
 
-    render(<LanguageSwitcher />);
+    render(
+      <MemoryRouter>
+        <LanguageSwitcher />
+      </MemoryRouter>,
+    );
 
     expect(screen.getByText('FI')).toBeDefined();
   });
@@ -35,7 +44,11 @@ describe('LanguageSwitcher', () => {
     const { i18n } = useTranslation();
     (i18n as { language: string }).language = 'fi';
 
-    render(<LanguageSwitcher />);
+    render(
+      <MemoryRouter>
+        <LanguageSwitcher />
+      </MemoryRouter>,
+    );
 
     expect(screen.getByText('EN')).toBeDefined();
   });
