@@ -203,9 +203,17 @@ const AppContent = () => {
 };
 
 const App = () => {
+  // Determine basename: use /bensa for GitHub Pages, / for root deployments
+  const basename =
+    import.meta.env.BASE_URL === './' || import.meta.env.BASE_URL === ''
+      ? window.location.pathname.includes('/bensa')
+        ? '/bensa'
+        : '/'
+      : import.meta.env.BASE_URL;
+
   return (
     <ThemeProvider>
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <BrowserRouter basename={basename}>
         <Routes>
           <Route path="/" element={<AppContent />} />
           <Route path="/admin" element={<AdminDashboard />} />
