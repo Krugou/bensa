@@ -75,7 +75,9 @@ export default defineConfig(({ mode }) => ({
     port: 3005,
   },
   define: {
-    __BUILD_TIME__: JSON.stringify(new Date().toLocaleString()),
+    __BUILD_TIME__: JSON.stringify(
+      new Date().toLocaleString('fi-FI', { timeZone: 'Europe/Helsinki' }),
+    ),
   },
   esbuild: {
     drop: mode === 'production' ? ['debugger'] : [],
