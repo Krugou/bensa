@@ -15,25 +15,29 @@ console.warn(
 
 // Environment identification
 const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
-if (window.location.hostname.includes('github.io')) {
+const isGH = window.location.hostname.includes('github.io');
+const isFirebase =
+  window.location.hostname.includes('web.app') ||
+  window.location.hostname.includes('firebaseapp.com');
+
+if (isGH) {
   console.log(
-    `%c 🚀 GITHUB PAGES VERSION (${projectId}) `,
+    `%c 🚀 GITHUB PAGES VERSION `,
     'background: #24292e; color: #fff; font-weight: bold; padding: 2px 4px; border-radius: 2px;',
   );
-} else if (
-  window.location.hostname.includes('web.app') ||
-  window.location.hostname.includes('firebaseapp.com')
-) {
+} else if (isFirebase) {
   console.log(
-    `%c 🔥 FIREBASE HOSTING VERSION (${projectId}) `,
+    `%c 🔥 FIREBASE HOSTING VERSION `,
     'background: #ffca28; color: #000; font-weight: bold; padding: 2px 4px; border-radius: 2px;',
   );
 } else {
   console.log(
-    `%c 💻 LOCAL DEVELOPMENT (${projectId}) `,
+    `%c 💻 LOCAL DEVELOPMENT `,
     'background: #333; color: #fff; font-weight: bold; padding: 2px 4px; border-radius: 2px;',
   );
 }
+
+console.log(`%c 🆔 PROJECT ID: ${projectId || 'MISSING'} `, 'color: #00ff88; font-weight: bold;');
 
 // Env variable check
 console.groupCollapsed('🔒 Environment Configuration Status');

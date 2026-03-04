@@ -77,18 +77,6 @@ jobs:
         continue-on-error: true
       - name: Testing the Meters (Test Web)
         run: npm run test -w bensa-web -- --run
-
-      - name: Client Connectivity Check (Fetch from Firestore)
-        run: npx tsx web/src/test-firebase-client.ts
-        env:
-          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
-          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
-          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
-          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
-          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
-          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
-          VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
-
       - name: Processing the Fuel (Build Web)
         run: npm run build -w bensa-web
         env:
@@ -113,12 +101,6 @@ jobs:
         with:
           path: './web/dist'
 
-      - name: Maintenance Report
-        if: success()
-        run: |
-          echo "## ✅ Inspection Successful" >> $GITHUB_STEP_SUMMARY
-          echo "The tanks are full and the pumps are working! ⛽✨" >> $GITHUB_STEP_SUMMARY
-
   building-the-scraper:
     name: 🤖 Building-the-Scraper
     runs-on: ubuntu-latest
@@ -135,44 +117,15 @@ jobs:
       - name: Tuning the Engine (Build Bot)
         run: npm run build -w bensa-bot
 
-      - name: Fuel Connectivity Test (Fetch from Firestore)
-        run: node bot/dist/test-connection.js
-        env:
-          FIREBASE_ADMIN_SDK: ${{ secrets.FIREBASE_ADMIN_SDK }}
-          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
-
-      - name: Maintenance Log
-        if: success()
-        run: |
-          echo "## 🤖 Scraper Ready for Action" >> $GITHUB_STEP_SUMMARY
-          echo "Bot compiled and ready to crunch gas prices. 🧠⚡" >> $GITHUB_STEP_SUMMARY
-
-  deploying-to-firebase:
-    name: 🔥 Deploying-to-Firebase
-    needs: checking-the-pumps
-    if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v6
-
-      - name: Receiving the Fuel
-        uses: actions/download-artifact@v4
+      - name: Storing Scraper (Upload Artifact)
+        uses: actions/upload-artifact@v4
         with:
-          name: build-output
-          path: './web/dist'
-
-      - name: Ignite the Firebase
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_ADMIN_SDK }}
-          projectId: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
-          channelId: live
+          name: bot-dist
+          path: './bot/dist'
 
   deploying-firestore:
     name: 🔥 Deploying-Firestore
-    needs: checking-the-pumps
+    needs: [checking-the-pumps, building-the-scraper]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
@@ -185,6 +138,64 @@ jobs:
         env:
           GCP_SA_KEY: ${{ secrets.FIREBASE_ADMIN_SDK }}
           PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+
+  final-integration-test:
+    name: 🧪 Final-Integration-Test
+    needs: deploying-firestore
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+      - name: Download Bot
+        uses: actions/download-artifact@v4
+        with:
+          name: bot-dist
+          path: './bot/dist'
+      - name: Preparing the Station (Node.js)
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install Connectivity Dependencies
+        run: npm install firebase-admin firebase dotenv tsx
+
+      - name: Fuel Connectivity Test (Admin SDK)
+        run: npx tsx bot/src/test-connection.ts
+        env:
+          FIREBASE_ADMIN_SDK: ${{ secrets.FIREBASE_ADMIN_SDK }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+
+      - name: Client Connectivity Test (Client SDK)
+        run: npx tsx web/src/test-firebase-client.ts
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
+
+  deploying-to-firebase:
+    name: 🔥 Deploying-to-Firebase
+    needs: final-integration-test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+      - name: Receiving the Fuel
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: './web/dist'
+      - name: Ignite the Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_ADMIN_SDK }}
+          projectId: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          channelId: live
 
   deploying-to-pages:
     name: 🚀 Deploying-to-Pages
@@ -199,15 +210,9 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Deployment Manifest
-        if: success()
-        run: |
-          echo "## 🚀 Deployment Complete" >> $GITHUB_STEP_SUMMARY
-          echo "The web app is live! [View Site](${{ steps.deployment.outputs.page_url }}) 🌍" >> $GITHUB_STEP_SUMMARY
-
   semantic-release:
     name: 📢 Semantic-Release
-    needs: [checking-the-pumps, building-the-scraper, deploying-to-firebase]
+    needs: deploying-to-firebase
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
@@ -226,9 +231,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
-
-      - name: Release Network
-        if: success()
-        run: |
-          echo "## 🎉 Release Published" >> $GITHUB_STEP_SUMMARY
-          echo "A new version has been released to GitHub. ⛽📦" >> $GITHUB_STEP_SUMMARY
