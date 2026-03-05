@@ -40,10 +40,10 @@ export function getCurrentPosition(): Promise<UserLocation> {
 }
 
 /**
- * Default location (Helsinki city center) when geolocation is unavailable
+ * Default location (Espoo city center) when geolocation is unavailable
  */
 export const DEFAULT_LOCATION: UserLocation = {
-  lat: 60.1699,
-  lon: 24.9384,
+  lat: 60.2055,
+  lon: 24.6559,
   accuracy: 0,
 };

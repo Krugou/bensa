@@ -113,7 +113,7 @@ async function geocodeAddress(
     if (!response.ok) return null;
 
     const data = (await response.json()) as { lat: string; lon: string }[];
-    if (data && data.length > 0) {
+    if (data.length > 0) {
       return {
         lat: parseFloat(data[0].lat),
         lon: parseFloat(data[0].lon),
@@ -216,11 +216,11 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
       }, url);
 
       stations.forEach((s) => {
-        if (!allStationsMap.has(s.id)) {
+        const existing = allStationsMap.get(s.id);
+        if (!existing) {
           allStationsMap.set(s.id, s);
         } else {
           // Merge prices if we found the same station on multiple pages
-          const existing = allStationsMap.get(s.id)!;
           s.prices.forEach(newPrice => {
             const pIdx = existing.prices.findIndex(p => p.type === newPrice.type);
             if (pIdx === -1) {
@@ -250,7 +250,7 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
  */
 async function processStationsWithGeocoding(scrapedStations: GasStation[]): Promise<GasStation[]> {
   console.log('🔎 Loading existing stations from Firestore for coordinate cache...');
-  const cache: Record<string, { lat: number; lon: number }> = {};
+  const cache: Partial<Record<string, { lat: number; lon: number }>> = {};
 
   try {
     const snapshot = await db.collection('stations').get();

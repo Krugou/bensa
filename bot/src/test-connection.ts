@@ -1,5 +1,5 @@
-import admin, { ServiceAccount } from 'firebase-admin';
 import { config } from 'dotenv';
+import admin, { ServiceAccount } from 'firebase-admin';
 
 config();
 
@@ -26,6 +26,12 @@ async function testConnection() {
     const db = admin.firestore();
     console.log(`📡 Connecting to project: ${projectId}...`);
 
+    interface ScraperRun {
+      timestamp?: admin.firestore.Timestamp;
+      stationCount?: number;
+      status?: string;
+    }
+
     // Attempt to fetch the last run
     const snapshot = await db.collection('scraper_runs')
       .orderBy('timestamp', 'desc')
@@ -35,10 +41,10 @@ async function testConnection() {
     if (snapshot.empty) {
       console.log('⚠️ Connection successful, but no scraper runs found in collection.');
     } else {
-      const lastRun = snapshot.docs[0].data();
-      const time = lastRun['timestamp']?.toDate?.()?.toLocaleString() ?? 'unknown';
+      const lastRun = snapshot.docs[0].data() as ScraperRun;
+      const time = lastRun.timestamp?.toDate().toLocaleString() ?? 'unknown';
       console.log(`✅ Success! Last scraper run found from: ${time}`);
-      console.log(`📊 Stats: ${lastRun['stationCount']} stations processed.`);
+      console.log(`📊 Stats: ${lastRun.stationCount ?? 0} stations processed.`);
     }
     
     process.exit(0);
