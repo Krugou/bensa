@@ -38,6 +38,7 @@ const AppContent = () => {
   const [loading, setLoading] = useState(true);
   const [userLat, setUserLat] = useState(DEFAULT_LOCATION.lat);
   const [userLon, setUserLon] = useState(DEFAULT_LOCATION.lon);
+  const [hasGps, setHasGps] = useState(false);
   const [lastScraped, setLastScraped] = useState<string | null>(null);
   const [isQuickNavOpen, setIsQuickNavOpen] = useState(false);
 
@@ -97,9 +98,10 @@ const AppContent = () => {
       .then((pos) => {
         setUserLat(pos.lat);
         setUserLon(pos.lon);
+        setHasGps(true);
       })
       .catch(() => {
-        // Use default Helsinki location
+        // GPS unavailable; keep default Espoo center and hasGps=false
       });
 
     const interval = setInterval(() => {
@@ -232,6 +234,7 @@ const AppContent = () => {
             max={stats.max}
             userLat={userLat}
             userLon={userLon}
+            hasGps={hasGps}
           />
         </CollapsibleSection>
 

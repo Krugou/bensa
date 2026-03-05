@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CircleMarker, MapContainer, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
 
+import { DEFAULT_LOCATION } from '../services/locationService';
 import { FuelType, GasStation } from '../types';
 import { Analytics } from '../utils/analytics';
 import { formatPrice, getPriceLevel, getPriceLevelColor } from '../utils/priceUtils';
@@ -17,45 +18,60 @@ interface StationMapProps {
   max: number;
   userLat?: number;
   userLon?: number;
+  /** whether the lat/lon come from real GPS; if false we treat location as default */
+  hasGps?: boolean;
 }
 
 /**
  * Component to set map view and handle auto-fitting when location or stations change
  */
-const MapUpdater = ({
-  lat,
-  lon,
-  stations,
-}: {
+interface MapUpdaterProps {
   lat: number;
   lon: number;
   stations: GasStation[];
-}) => {
+  hasGps: boolean;
+}
+
+const MapUpdater = ({ lat, lon, stations, hasGps }: MapUpdaterProps) => {
   const map = useMap();
 
   useEffect(() => {
-    if (stations.length > 0) {
-      // Find the 5 nearest stations to the user to determine bounds
-      const nearest = [...stations]
-        .sort((a, b) => (a.distance ?? 999) - (b.distance ?? 999))
-        .slice(0, 5);
+    if (hasGps) {
+      if (stations.length > 0) {
+        // Find the 5 nearest stations to the user to determine bounds
+        const nearest = [...stations]
+          .sort((a, b) => (a.distance ?? 999) - (b.distance ?? 999))
+          .slice(0, 5);
 
-      const bounds = L.latLngBounds(
-        [lat, lon] as L.LatLngExpression,
-        [lat, lon] as L.LatLngExpression,
-      );
-      nearest.forEach((s) => bounds.extend([s.lat, s.lon] as L.LatLngExpression));
+        const bounds = L.latLngBounds(
+          [lat, lon] as L.LatLngExpression,
+          [lat, lon] as L.LatLngExpression,
+        );
+        nearest.forEach((s) => bounds.extend([s.lat, s.lon] as L.LatLngExpression));
 
-      // Fit map to show user and the nearest cheap options
-      map.fitBounds(bounds, {
-        padding: [50, 50],
-        maxZoom: 13, // Don't zoom in TOO much
-        animate: true,
-      });
+        // Fit map to show user and the nearest cheap options
+        map.fitBounds(bounds, {
+          padding: [50, 50],
+          maxZoom: 13, // Don't zoom in TOO much
+          animate: true,
+        });
+      } else {
+        map.setView([lat, lon] as L.LatLngExpression, 11);
+      }
     } else {
-      map.setView([lat, lon] as L.LatLngExpression, 11);
+      // no GPS: just show all stations if any, else default center
+      if (stations.length > 0) {
+        const bounds = L.latLngBounds(stations.map((s) => [s.lat, s.lon] as L.LatLngExpression));
+        map.fitBounds(bounds, {
+          padding: [50, 50],
+          maxZoom: 13,
+          animate: true,
+        });
+      } else {
+        map.setView([lat, lon] as L.LatLngExpression, 11);
+      }
     }
-  }, [map, lat, lon, stations]);
+  }, [map, lat, lon, stations, hasGps]);
 
   return null;
 };
@@ -65,8 +81,9 @@ export const StationMap = ({
   fuelType,
   min,
   max,
-  userLat = 60.1699,
-  userLon = 24.9384,
+  userLat = DEFAULT_LOCATION.lat,
+  userLon = DEFAULT_LOCATION.lon,
+  hasGps = false,
 }: StationMapProps) => {
   const { t } = useTranslation();
   const [selectedStation, setSelectedStation] = useState<GasStation | null>(null);
@@ -98,6 +115,9 @@ export const StationMap = ({
   // Always use dark tile layer
   const tileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
 
+  const showUserMarker = hasGps;
+  const showControls = hasGps;
+
   return (
     <div
       className="relative rounded-xl overflow-hidden border border-white/[0.06]"
@@ -107,30 +127,34 @@ export const StationMap = ({
         center={[userLat, userLon] as L.LatLngExpression}
         zoom={11}
         className="w-full h-[400px] md:h-[500px]"
-        zoomControl={true}
-        attributionControl={true}
+        zoomControl={showControls}
+        attributionControl={showControls}
       >
         <TileLayer attribution='&copy; <a href="https://carto.com/">CARTO</a>' url={tileUrl} />
 
-        <MapUpdater lat={userLat} lon={userLon} stations={stations} />
+        {showUserMarker && (
+          <MapUpdater lat={userLat} lon={userLon} stations={stations} hasGps={hasGps} />
+        )}
 
         {/* User location marker */}
-        <CircleMarker
-          center={[userLat, userLon] as L.LatLngExpression}
-          radius={6}
-          pathOptions={{
-            color: '#3b82f6',
-            fillColor: '#3b82f6',
-            fillOpacity: 0.9,
-            weight: 2,
-          }}
-        >
-          <Popup>
-            <span className="text-sm font-semibold">
-              {t('map.your_location', '📍 Your Location')}
-            </span>
-          </Popup>
-        </CircleMarker>
+        {showUserMarker && (
+          <CircleMarker
+            center={[userLat, userLon] as L.LatLngExpression}
+            radius={6}
+            pathOptions={{
+              color: '#3b82f6',
+              fillColor: '#3b82f6',
+              fillOpacity: 0.9,
+              weight: 2,
+            }}
+          >
+            <Popup>
+              <span className="text-sm font-semibold">
+                {t('map.your_location', '📍 Your Location')}
+              </span>
+            </Popup>
+          </CircleMarker>
+        )}
 
         {/* Station glow markers */}
         {stations.map((station) => {
