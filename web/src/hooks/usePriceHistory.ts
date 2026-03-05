@@ -3,6 +3,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { db } from '../firebase';
 
+export type PriceGranularity = 'daily' | 'hourly';
+
 interface PriceHistoryPoint {
   date: string;
   price95: number;
@@ -13,8 +15,12 @@ interface PriceHistoryPoint {
 /**
  * Generates and manages price history data for the chart.
  * Fetches from Firestore price_history collection.
+ * Supports daily and hourly granularity.
  */
-export function usePriceHistory(days = 14): {
+export function usePriceHistory(
+  days = 14,
+  granularity: PriceGranularity = 'daily',
+): {
   history: PriceHistoryPoint[];
   loading: boolean;
   refresh: () => void;
@@ -26,17 +32,15 @@ export function usePriceHistory(days = 14): {
     setLoading(true);
     try {
       // Query the price_history collection
+      // Each scraper run creates ~200+ records (one per station),
+      // so we need a much higher limit to cover multiple days.
       const historyCol = collection(db, 'price_history');
-      const q = query(
-        historyCol,
-        orderBy('timestamp', 'desc'),
-        limit(days * 10), // Fetch enough to cover many stations
-      );
+      const q = query(historyCol, orderBy('timestamp', 'desc'), limit(days * 300));
 
       const snapshot = await getDocs(q);
 
-      // Group by date and calculate averages
-      const dailyData: Record<
+      // Group by date key (daily: YYYY-MM-DD, hourly: YYYY-MM-DD HH:00)
+      const groupedData: Record<
         string,
         | {
             sum95: number;
@@ -54,10 +58,15 @@ export function usePriceHistory(days = 14): {
         const ts = data['timestamp'] as Timestamp | undefined;
         if (!ts) return;
 
-        const dateStr = ts.toDate().toISOString().split('T')[0];
-        let dayStats = dailyData[dateStr];
-        if (!dayStats) {
-          dayStats = {
+        const d = ts.toDate();
+        const dateKey =
+          granularity === 'hourly'
+            ? `${d.toISOString().split('T')[0]} ${String(d.getHours()).padStart(2, '0')}:00`
+            : d.toISOString().split('T')[0];
+
+        let stats = groupedData[dateKey];
+        if (!stats) {
+          stats = {
             sum95: 0,
             count95: 0,
             sum98: 0,
@@ -65,7 +74,7 @@ export function usePriceHistory(days = 14): {
             sumDiesel: 0,
             countDiesel: 0,
           };
-          dailyData[dateStr] = dayStats;
+          groupedData[dateKey] = stats;
         }
 
         const prices = data['prices'] as { type: string; price: number }[] | undefined;
@@ -73,20 +82,20 @@ export function usePriceHistory(days = 14): {
 
         prices.forEach((p) => {
           if (p.type === '95') {
-            dayStats.sum95 += p.price;
-            dayStats.count95++;
+            stats.sum95 += p.price;
+            stats.count95++;
           } else if (p.type === '98') {
-            dayStats.sum98 += p.price;
-            dayStats.count98++;
+            stats.sum98 += p.price;
+            stats.count98++;
           } else if (p.type === 'diesel') {
-            dayStats.sumDiesel += p.price;
-            dayStats.countDiesel++;
+            stats.sumDiesel += p.price;
+            stats.countDiesel++;
           }
         });
       });
 
-      const points: PriceHistoryPoint[] = Object.entries(dailyData)
-        .filter((entry): entry is [string, NonNullable<(typeof dailyData)[string]>] => !!entry[1])
+      const points: PriceHistoryPoint[] = Object.entries(groupedData)
+        .filter((entry): entry is [string, NonNullable<(typeof groupedData)[string]>] => !!entry[1])
         .map(([date, stats]) => ({
           date,
           price95: stats.count95 > 0 ? Math.round((stats.sum95 / stats.count95) * 1000) / 1000 : 0,
@@ -104,7 +113,7 @@ export function usePriceHistory(days = 14): {
     } finally {
       setLoading(false);
     }
-  }, [days]);
+  }, [days, granularity]);
 
   useEffect(() => {
     void fetchHistory();

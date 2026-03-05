@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Area,
@@ -9,11 +10,12 @@ import {
   YAxis,
 } from 'recharts';
 
-import { usePriceHistory } from '../hooks/usePriceHistory';
+import { PriceGranularity, usePriceHistory } from '../hooks/usePriceHistory';
 
 export const PriceHistoryChart = () => {
   const { t } = useTranslation();
-  const { history, loading } = usePriceHistory(14);
+  const [granularity, setGranularity] = useState<PriceGranularity>('daily');
+  const { history, loading } = usePriceHistory(7, granularity);
 
   if (loading) {
     return (
@@ -25,11 +27,42 @@ export const PriceHistoryChart = () => {
 
   return (
     <div id="price-history-chart">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-bold text-white/70 uppercase tracking-wider">
-          {t('chart.title', '14-Day Price Trend')}
-        </h3>
-        <span className="text-[10px] font-mono text-white/25">€/L</span>
+      <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
+        <div className="flex flex-col">
+          <h3 className="text-sm font-bold text-white/70 uppercase tracking-wider">
+            {granularity === 'daily'
+              ? t('chart.title_daily', '7-Day Price Trend')
+              : t('chart.title_hourly', 'Recent Hourly Trend')}
+          </h3>
+          <span className="text-[10px] font-mono text-white/25 mt-1">€/L</span>
+        </div>
+
+        <div className="flex bg-white/5 p-1 rounded-xl border border-white/10 self-end sm:self-auto">
+          <button
+            onClick={() => {
+              setGranularity('daily');
+            }}
+            className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+              granularity === 'daily'
+                ? 'bg-fuel-green text-black'
+                : 'text-white/40 hover:text-white/70'
+            }`}
+          >
+            {t('chart.daily', 'Daily')}
+          </button>
+          <button
+            onClick={() => {
+              setGranularity('hourly');
+            }}
+            className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+              granularity === 'hourly'
+                ? 'bg-fuel-green text-black'
+                : 'text-white/40 hover:text-white/70'
+            }`}
+          >
+            {t('chart.hourly', 'Hourly')}
+          </button>
+        </div>
       </div>
 
       <ResponsiveContainer width="100%" height={250}>
@@ -53,8 +86,11 @@ export const PriceHistoryChart = () => {
             dataKey="date"
             tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10 }}
             tickLine={false}
+            interval={granularity === 'hourly' ? 5 : 'preserveStartEnd'}
             axisLine={{ stroke: 'rgba(255,255,255,0.06)' }}
-            tickFormatter={(value: string) => value.slice(5)} // MM-DD
+            tickFormatter={(value: string) =>
+              granularity === 'hourly' ? value.split(' ')[1] : value.slice(5)
+            }
           />
           <YAxis
             domain={['auto', 'auto']}
