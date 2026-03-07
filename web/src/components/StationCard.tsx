@@ -21,6 +21,28 @@ interface StationCardProps {
   rank?: number;
 }
 
+const getBrandIcon = (brand: string) => {
+  const b = brand.toLowerCase();
+  if (b.includes('neste')) return '💧';
+  if (b.includes('st1')) return '🐚';
+  if (b.includes('shell')) return '🟡';
+  if (b.includes('abc')) return '🟢';
+  if (b.includes('seo')) return '🔵';
+  if (b.includes('teboil')) return '🔴';
+  if (b.includes('gulf')) return '🟠';
+  return '⛽';
+};
+
+const getBrandColor = (brand: string) => {
+  const b = brand.toLowerCase();
+  if (b.includes('neste')) return '#004fe0';
+  if (b.includes('st1')) return '#ff0000';
+  if (b.includes('shell')) return '#ff0000';
+  if (b.includes('abc')) return '#00a651';
+  if (b.includes('seo')) return '#0054a6';
+  return 'rgba(255,255,255,0.1)';
+};
+
 export const StationCard = ({ station, fuelType, min, max, rank }: StationCardProps) => {
   const { t, i18n } = useTranslation();
   const [isDirectionsOpen, setIsDirectionsOpen] = useState(false);
@@ -77,10 +99,18 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
 
       {/* Brand & name */}
       <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-lg flex-shrink-0">
-          ⛽
+        <div
+          className="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-lg flex-shrink-0"
+          style={{ borderBottom: `2px solid ${getBrandColor(station.brand)}` }}
+        >
+          {getBrandIcon(station.brand)}
         </div>
         <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="text-[9px] font-black uppercase tracking-tighter text-white/30 font-mono">
+              {station.brand}
+            </span>
+          </div>
           <h3 className="font-bold text-sm text-white/90 truncate">{station.name}</h3>
           <p className="text-[11px] text-white/40 font-mono truncate">
             {station.address}, {station.city}

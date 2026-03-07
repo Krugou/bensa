@@ -29,6 +29,7 @@ export const AdminDashboard = () => {
   const [loadingStations, setLoadingStations] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editAddress, setEditAddress] = useState('');
+  const [editBrand, setEditBrand] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
   const editInputRef = useRef<HTMLInputElement>(null);
@@ -74,22 +75,25 @@ export const AdminDashboard = () => {
     }
   }, [editingId]);
 
-  const handleUpdateAddress = async (id: string) => {
+  const handleUpdateStation = async (id: string) => {
     try {
       const stationRef = doc(db, 'stations', id);
       await updateDoc(stationRef, {
         address: editAddress,
-        userFixed: true, // Mark as fixed when address is manually edited
+        brand: editBrand,
+        userFixed: true, // Mark as fixed when manually edited
       });
 
       setStations(
-        stations.map((s) => (s.id === id ? { ...s, address: editAddress, userFixed: true } : s)),
+        stations.map((s) =>
+          s.id === id ? { ...s, address: editAddress, brand: editBrand, userFixed: true } : s,
+        ),
       );
       setEditingId(null);
-      toast.success('Address updated and locked');
+      toast.success('Station updated and locked');
     } catch (error) {
-      console.error('Failed to update address:', error);
-      toast.error('Failed to update address');
+      console.error('Failed to update station:', error);
+      toast.error('Failed to update station');
     }
   };
 
@@ -112,7 +116,8 @@ export const AdminDashboard = () => {
     (s) =>
       s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       s.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      s.address.toLowerCase().includes(searchQuery.toLowerCase()),
+      s.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.brand.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const handleGoogleLogin = async () => {
@@ -361,44 +366,77 @@ export const AdminDashboard = () => {
                       className="bg-black/30 border border-white/5 rounded-xl p-4 transition-all hover:border-white/20"
                     >
                       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-3">
-                            <h3 className="font-bold text-white">{station.name}</h3>
+                            <h3 className="font-bold text-white truncate">{station.name}</h3>
                             {station.userFixed && (
-                              <span className="bg-bensa-cyan/20 text-bensa-cyan border border-bensa-cyan/30 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-tighter">
+                              <span className="bg-bensa-cyan/20 text-bensa-cyan border border-bensa-cyan/30 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-tighter shrink-0">
                                 🔒 GPS Locked
                               </span>
                             )}
                           </div>
-                          <p className="text-xs text-white/40 font-mono mt-1">{station.city}</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-white/60 font-mono font-bold uppercase">
+                              {station.brand}
+                            </span>
+                            <span className="text-xs text-white/40 font-mono">{station.city}</span>
+                          </div>
 
                           {editingId === station.id ? (
-                            <div className="mt-3 flex gap-2">
-                              <input
-                                ref={editInputRef}
-                                type="text"
-                                value={editAddress}
-                                onChange={(e) => {
-                                  setEditAddress(e.target.value);
-                                }}
-                                className="flex-1 bg-black/60 border border-fuel-green/30 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-fuel-green"
-                              />
-                              <button
-                                onClick={() => {
-                                  void handleUpdateAddress(station.id);
-                                }}
-                                className="bg-fuel-green text-black px-4 py-1.5 rounded-lg text-xs font-bold"
-                              >
-                                Save & Lock
-                              </button>
-                              <button
-                                onClick={() => {
-                                  setEditingId(null);
-                                }}
-                                className="bg-white/10 text-white px-4 py-1.5 rounded-lg text-xs font-bold"
-                              >
-                                Cancel
-                              </button>
+                            <div className="mt-4 space-y-3 p-3 bg-white/5 rounded-lg border border-white/10">
+                              <div>
+                                <label
+                                  htmlFor={`edit-address-${station.id}`}
+                                  className="block text-[10px] uppercase font-bold text-white/40 mb-1"
+                                >
+                                  Address
+                                </label>
+                                <input
+                                  id={`edit-address-${station.id}`}
+                                  ref={editInputRef}
+                                  type="text"
+                                  value={editAddress}
+                                  onChange={(e) => {
+                                    setEditAddress(e.target.value);
+                                  }}
+                                  className="w-full bg-black/60 border border-white/10 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-fuel-green"
+                                />
+                              </div>
+                              <div>
+                                <label
+                                  htmlFor={`edit-brand-${station.id}`}
+                                  className="block text-[10px] uppercase font-bold text-white/40 mb-1"
+                                >
+                                  Brand
+                                </label>
+                                <input
+                                  id={`edit-brand-${station.id}`}
+                                  type="text"
+                                  value={editBrand}
+                                  onChange={(e) => {
+                                    setEditBrand(e.target.value);
+                                  }}
+                                  className="w-full bg-black/60 border border-white/10 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-fuel-green"
+                                />
+                              </div>
+                              <div className="flex gap-2">
+                                <button
+                                  onClick={() => {
+                                    void handleUpdateStation(station.id);
+                                  }}
+                                  className="flex-1 bg-fuel-green text-black py-2 rounded-lg text-xs font-bold"
+                                >
+                                  Save & Lock
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    setEditingId(null);
+                                  }}
+                                  className="px-4 bg-white/10 text-white py-2 rounded-lg text-xs font-bold"
+                                >
+                                  Cancel
+                                </button>
+                              </div>
                             </div>
                           ) : (
                             <p className="text-sm text-white/70 mt-2 flex items-center gap-2">
@@ -413,9 +451,7 @@ export const AdminDashboard = () => {
                             onClick={() => {
                               void toggleFixedStatus(station.id, !!station.userFixed);
                             }}
-                            title={
-                              station.userFixed ? 'Unlock GPS updates' : 'Lock GPS coordinates'
-                            }
+                            title={station.userFixed ? 'Unlock updates' : 'Lock station data'}
                             className={`p-2 rounded-lg border transition-all ${
                               station.userFixed
                                 ? 'bg-bensa-cyan/10 border-bensa-cyan/30 text-bensa-cyan'
@@ -429,10 +465,11 @@ export const AdminDashboard = () => {
                               onClick={() => {
                                 setEditingId(station.id);
                                 setEditAddress(station.address);
+                                setEditBrand(station.brand);
                               }}
-                              className="bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-lg text-xs font-bold transition-all"
+                              className="bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-lg text-xs font-bold transition-all whitespace-nowrap"
                             >
-                              Edit Address
+                              Edit Station
                             </button>
                           )}
                         </div>
@@ -451,7 +488,6 @@ export const AdminDashboard = () => {
           </div>
 
           <div className="space-y-6">
-            {/* Sidebar Area */}
             <section className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md">
               <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
                 <span className="text-2xl">📊</span> Stats

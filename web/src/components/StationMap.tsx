@@ -22,6 +22,28 @@ interface StationMapProps {
   hasGps?: boolean;
 }
 
+const getBrandIcon = (brand: string) => {
+  const b = brand.toLowerCase();
+  if (b.includes('neste')) return '💧';
+  if (b.includes('st1')) return '🐚';
+  if (b.includes('shell')) return '🟡';
+  if (b.includes('abc')) return '🟢';
+  if (b.includes('seo')) return '🔵';
+  if (b.includes('teboil')) return '🔴';
+  if (b.includes('gulf')) return '🟠';
+  return '⛽';
+};
+
+const getBrandColor = (brand: string) => {
+  const b = brand.toLowerCase();
+  if (b.includes('neste')) return '#004fe0';
+  if (b.includes('st1')) return '#ff0000';
+  if (b.includes('shell')) return '#ff0000';
+  if (b.includes('abc')) return '#00a651';
+  if (b.includes('seo')) return '#0054a6';
+  return 'rgba(255,255,255,0.1)';
+};
+
 /**
  * Component to set map view and handle auto-fitting when location or stations change
  */
@@ -188,8 +210,11 @@ export const StationMap = ({
               <Popup className="station-popup">
                 <div className="text-sm min-w-[180px] p-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs px-1.5 py-0.5 rounded bg-white/10 text-white/60 font-mono">
-                      {station.brand}
+                    <span
+                      className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-white/60 font-mono font-bold uppercase"
+                      style={{ borderLeft: `2px solid ${getBrandColor(station.brand)}` }}
+                    >
+                      {getBrandIcon(station.brand)} {station.brand}
                     </span>
                     {isCheap && (
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-fuel-green/20 text-fuel-green font-bold uppercase tracking-tight animate-pulse">
