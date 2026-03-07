@@ -4,12 +4,14 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
+import { collection, doc, getDocs, orderBy, query, updateDoc } from 'firebase/firestore';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { auth, googleProvider } from '../firebase';
+import { auth, db, googleProvider } from '../firebase';
+import { GasStation } from '../types';
 
 export const AdminDashboard = () => {
   const { t } = useTranslation();
@@ -19,14 +21,74 @@ export const AdminDashboard = () => {
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
 
+  // Station management state
+  const [stations, setStations] = useState<GasStation[]>([]);
+  const [loadingStations, setLoadingStations] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editAddress, setEditAddress] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const editInputRef = useRef<HTMLInputElement>(null);
+
+  const fetchStations = async () => {
+    setLoadingStations(true);
+    try {
+      const stationsCol = collection(db, 'stations');
+      const q = query(stationsCol, orderBy('name', 'asc'));
+      const snapshot = await getDocs(q);
+      const list = snapshot.docs.map((d) => ({
+        id: d.id,
+        ...(d.data() as Omit<GasStation, 'id'>),
+      })) as GasStation[];
+      setStations(list);
+    } catch (error) {
+      console.error('Failed to fetch stations:', error);
+      toast.error('Failed to load stations');
+    } finally {
+      setLoadingStations(false);
+    }
+  };
+
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
+    const unsubscribe = auth.onAuthStateChanged((u) => {
+      setUser(u);
+      if (u) {
+        void fetchStations();
+      }
     });
     return () => {
       unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    if (editingId && editInputRef.current) {
+      editInputRef.current.focus();
+    }
+  }, [editingId]);
+
+  const handleUpdateAddress = async (id: string) => {
+    try {
+      const stationRef = doc(db, 'stations', id);
+      await updateDoc(stationRef, {
+        address: editAddress,
+      });
+
+      setStations(stations.map((s) => (s.id === id ? { ...s, address: editAddress } : s)));
+      setEditingId(null);
+      toast.success('Address updated successfully');
+    } catch (error) {
+      console.error('Failed to update address:', error);
+      toast.error('Failed to update address');
+    }
+  };
+
+  const filteredStations = stations.filter(
+    (s) =>
+      s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.address.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   const handleGoogleLogin = async () => {
     try {
@@ -216,72 +278,136 @@ export const AdminDashboard = () => {
           </div>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="col-span-1 md:col-span-2 space-y-6">
-            {/* Main Admin Content Area */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="col-span-1 md:col-span-3 space-y-6">
+            {/* Station Management Area */}
             <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md">
-              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <span className="text-2xl">🤖</span> Scraper Status
-              </h2>
-              <div className="bg-black/40 rounded-xl p-4 font-mono text-sm border border-white/5">
-                <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
-                  <span className="text-white/60 uppercase tracking-widest text-xs">
-                    Bot Status
-                  </span>
-                  <span className="text-fuel-green flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-fuel-green animate-pulse" />
-                    Active (Cron)
-                  </span>
-                </div>
-                <div className="space-y-3">
-                  <p>
-                    <span className="text-white/40">Last Run:</span> a few minutes ago
-                  </p>
-                  <p>
-                    <span className="text-white/40">Stations:</span> 135
-                  </p>
-                  <p>
-                    <span className="text-white/40">Errors:</span>{' '}
-                    <span className="text-bensa-cyan">0</span>
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md">
-              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <span className="text-2xl">🌍</span> Geocoding API Traffic
-              </h2>
-              <div className="h-48 flex items-end justify-between gap-2 px-2 pb-4 pt-8 bg-black/40 rounded-xl border border-white/5 relative overflow-hidden">
-                <div className="absolute top-4 left-4 text-xs font-mono text-white/40 uppercase">
-                  Requests / hr
-                </div>
-                {/* Simulated mock graph data */}
-                {[20, 45, 10, 80, 120, 60, 40, 90, 75, 45, 10, 80, 150, 40].map((h, i) => (
-                  <div
-                    key={i}
-                    className="w-full bg-bensa-violet/50 hover:bg-bensa-violet transition-colors rounded-t-sm"
-                    style={{ height: `${h}px` }}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <h2 className="text-xl font-bold flex items-center gap-2">
+                  <span className="text-2xl">⛽</span> Manage Stations
+                </h2>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search stations..."
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                    }}
+                    className="bg-black/40 border border-white/10 rounded-xl px-4 py-2 pl-10 text-sm focus:outline-none focus:border-fuel-green/50 transition-colors w-full md:w-64"
                   />
-                ))}
+                  <span className="absolute left-3 top-2.5 opacity-30 text-xs">🔍</span>
+                </div>
               </div>
+
+              {loadingStations ? (
+                <div className="flex justify-center py-20">
+                  <div className="w-8 h-8 border-4 border-fuel-green/30 border-t-fuel-green rounded-full animate-spin" />
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {filteredStations.map((station) => (
+                    <div
+                      key={station.id}
+                      className="bg-black/30 border border-white/5 rounded-xl p-4 transition-all hover:border-white/20"
+                    >
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div className="flex-1">
+                          <h3 className="font-bold text-white">{station.name}</h3>
+                          <p className="text-xs text-white/40 font-mono mt-1">{station.city}</p>
+
+                          {editingId === station.id ? (
+                            <div className="mt-3 flex gap-2">
+                              <input
+                                ref={editInputRef}
+                                type="text"
+                                value={editAddress}
+                                onChange={(e) => {
+                                  setEditAddress(e.target.value);
+                                }}
+                                className="flex-1 bg-black/60 border border-fuel-green/30 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-fuel-green"
+                              />
+                              <button
+                                onClick={() => {
+                                  void handleUpdateAddress(station.id);
+                                }}
+                                className="bg-fuel-green text-black px-4 py-1.5 rounded-lg text-xs font-bold"
+                              >
+                                Save
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setEditingId(null);
+                                }}
+                                className="bg-white/10 text-white px-4 py-1.5 rounded-lg text-xs font-bold"
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          ) : (
+                            <p className="text-sm text-white/70 mt-2 flex items-center gap-2">
+                              <span className="opacity-40">📍</span>
+                              {station.address}
+                            </p>
+                          )}
+                        </div>
+
+                        {editingId !== station.id && (
+                          <button
+                            onClick={() => {
+                              setEditingId(station.id);
+                              setEditAddress(station.address);
+                            }}
+                            className="bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-lg text-xs font-bold transition-all"
+                          >
+                            Edit Address
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+
+                  {filteredStations.length === 0 && (
+                    <div className="text-center py-12 text-white/20 font-mono italic">
+                      No stations found matching your search.
+                    </div>
+                  )}
+                </div>
+              )}
             </section>
           </div>
 
           <div className="space-y-6">
             {/* Sidebar Area */}
-            <section className="bg-gradient-to-b from-fuel-yellow/20 to-transparent border border-fuel-yellow/20 rounded-2xl p-6 md:p-8 backdrop-blur-md">
+            <section className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md">
               <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
-                <span className="text-fuel-yellow text-2xl">⚡</span> Quick Actions
+                <span className="text-2xl">📊</span> Stats
+              </h2>
+              <div className="space-y-4 font-mono text-xs">
+                <div className="flex justify-between">
+                  <span className="text-white/40">Total Stations:</span>
+                  <span>{stations.length}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-white/40">Filtered:</span>
+                  <span>{filteredStations.length}</span>
+                </div>
+              </div>
+            </section>
+
+            <section className="bg-gradient-to-b from-fuel-yellow/20 to-transparent border border-fuel-yellow/20 rounded-2xl p-6 backdrop-blur-md">
+              <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+                <span className="text-fuel-yellow text-2xl">⚡</span> Actions
               </h2>
               <div className="space-y-3">
-                <button className="w-full bg-white/5 hover:bg-white/10 border border-white/10 p-3 rounded-xl text-left transition-colors text-sm font-medium flex justify-between items-center">
-                  Trigger Manual Scrape
-                  <span className="text-white/40">→</span>
-                </button>
-                <button className="w-full bg-white/5 hover:bg-white/10 border border-white/10 p-3 rounded-xl text-left transition-colors text-sm font-medium flex justify-between items-center">
-                  Clear Cache
-                  <span className="text-white/40">→</span>
+                <button
+                  onClick={() => {
+                    void fetchStations();
+                  }}
+                  className="w-full bg-white/5 hover:bg-white/10 border border-white/10 p-3 rounded-xl text-left transition-colors text-sm font-medium flex justify-between items-center"
+                >
+                  Refresh Stations
+                  <span className="text-white/40">⟳</span>
                 </button>
               </div>
             </section>
