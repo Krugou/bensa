@@ -75,7 +75,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
 
   return (
     <div
-      className={`glass-card p-4 relative overflow-hidden flex flex-col hover:animate-wiggle ${isDirtCheap ? 'animate-pulse-intense' : isCheap ? 'animate-price-pulse' : ''}`}
+      className={`glass-card p-4 xl:p-6 relative overflow-hidden flex flex-col hover:animate-wiggle ${isDirtCheap ? 'animate-pulse-intense' : isCheap ? 'animate-price-pulse' : ''}`}
       id={`station-${station.id}`}
       style={{
         borderColor: isDirtCheap ? '#00ff88' : isCheap ? `${levelColor}40` : undefined,
@@ -84,7 +84,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
     >
       {/* Rank badge */}
       {rank !== undefined && (
-        <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-[10px] font-mono text-white/40 font-bold">
+        <div className="absolute top-3 right-3 w-7 h-7 xl:w-9 xl:h-9 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-[10px] xl:text-xs font-mono text-white/40 font-bold">
           #{rank}
         </div>
       )}
@@ -92,38 +92,38 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
       {/* Glow effect for cheap stations */}
       {isCheap && (
         <div
-          className="absolute -top-10 -right-10 w-28 h-28 rounded-full blur-[50px] opacity-20 pointer-events-none"
+          className="absolute -top-10 -right-10 w-28 h-28 xl:w-40 xl:h-40 rounded-full blur-[50px] opacity-20 pointer-events-none"
           style={{ background: levelColor }}
         />
       )}
 
       {/* Brand & name */}
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-3 xl:gap-4">
         <div
-          className="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-lg flex-shrink-0"
+          className="w-10 h-10 xl:w-14 xl:h-14 rounded-lg xl:rounded-xl bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-lg xl:text-2xl flex-shrink-0"
           style={{ borderBottom: `2px solid ${getBrandColor(station.brand)}` }}
         >
           {getBrandIcon(station.brand)}
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <span className="text-[9px] font-black uppercase tracking-tighter text-white/30 font-mono">
+            <span className="text-[9px] xl:text-[11px] font-black uppercase tracking-tighter text-white/30 font-mono">
               {station.brand}
             </span>
           </div>
-          <h3 className="font-bold text-sm text-white/90 truncate">{station.name}</h3>
-          <p className="text-[11px] text-white/40 font-mono truncate">
+          <h3 className="font-bold text-sm xl:text-lg text-white/90 truncate">{station.name}</h3>
+          <p className="text-[11px] xl:text-sm text-white/40 font-mono truncate">
             {station.address}, {station.city}
           </p>
         </div>
       </div>
 
       {/* Price display */}
-      <div className="mt-4 flex items-end justify-between">
+      <div className="mt-4 xl:mt-6 flex items-end justify-between">
         <div>
           <div className="flex items-center gap-2">
             <span
-              className={`text-2xl md:text-3xl font-extrabold font-mono ${levelColorClass} transition-colors duration-300`}
+              className={`text-2xl md:text-3xl xl:text-4xl font-extrabold font-mono ${levelColorClass} transition-colors duration-300`}
             >
               {formatPrice(price)}
             </span>
@@ -147,6 +147,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="xl:w-5 xl:h-5"
                 >
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                   <polyline points="15 3 21 3 21 9"></polyline>
@@ -155,14 +156,14 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
               </a>
             )}
           </div>
-          <span className="text-xs text-white/30 ml-1">€/L</span>
+          <span className="text-xs xl:text-sm text-white/30 ml-1">€/L</span>
         </div>
 
         {/* Distance */}
         {station.distance !== undefined && hasCoords && (
           <div className="text-right">
-            <span className="text-sm font-mono text-white/50">{station.distance}</span>
-            <span className="text-[10px] text-white/30 ml-0.5">km</span>
+            <span className="text-sm xl:text-lg font-mono text-white/50">{station.distance}</span>
+            <span className="text-[10px] xl:text-xs text-white/30 ml-0.5">km</span>
           </div>
         )}
       </div>
@@ -170,7 +171,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
       <div className="flex-1" />
 
       {/* All fuel types row */}
-      <div className="mt-3 pt-3 border-t border-white/[0.06] flex justify-between text-[10px] font-mono text-white/35">
+      <div className="mt-3 xl:mt-5 pt-3 xl:pt-5 border-t border-white/[0.06] flex justify-between text-[10px] xl:text-xs font-mono text-white/35">
         {station.prices.map((fp) => (
           <span key={fp.type} className={fp.type === fuelType ? 'text-white/70 font-bold' : ''}>
             {fp.type === 'diesel' ? 'DSL' : fp.type}: {formatPrice(fp.price)}
@@ -179,10 +180,10 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
       </div>
 
       {hasCoords && (
-        <div className="mt-3 flex gap-2">
+        <div className="mt-3 xl:mt-5 flex gap-2">
           <button
             onClick={handleDirectionsClick}
-            className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 text-center text-[10px] font-bold uppercase tracking-wider text-white/60 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none"
+            className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg xl:rounded-xl py-2 xl:py-3 text-center text-[10px] xl:text-xs font-bold uppercase tracking-wider text-white/60 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none"
           >
             📍 {t('station.directions')}
           </button>
@@ -204,7 +205,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
 
       {/* Last updated */}
       {fuelPrice?.updatedAt && (
-        <p className="mt-2 text-[9px] text-white/20 font-mono">
+        <p className="mt-2 text-[9px] xl:text-[11px] text-white/20 font-mono">
           {t('station.updated', 'Updated')}: {getRelativeTime(fuelPrice.updatedAt)}
         </p>
       )}

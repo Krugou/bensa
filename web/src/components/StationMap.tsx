@@ -154,7 +154,7 @@ export const StationMap = ({
       <MapContainer
         center={[userLat, userLon] as L.LatLngExpression}
         zoom={11}
-        className="w-full h-[400px] md:h-[500px]"
+        className="w-full h-[400px] md:h-[500px] xl:h-[600px] 2xl:h-[700px]"
         zoomControl={showControls}
         attributionControl={showControls}
       >
@@ -202,45 +202,45 @@ export const StationMap = ({
                 direction="top"
                 offset={[0, -radius]}
                 opacity={0.9}
-                className="bg-black/80 border-none text-white font-mono font-bold text-xs rounded-md shadow-lg"
+                className="bg-black/80 border-none text-white font-mono font-bold text-xs xl:text-sm rounded-md shadow-lg"
               >
                 {formatPrice(price)}
               </Tooltip>
 
               <Popup className="station-popup">
-                <div className="text-sm min-w-[180px] p-1">
+                <div className="text-sm xl:text-base min-w-[180px] xl:min-w-[240px] p-1">
                   <div className="flex items-center gap-2 mb-1">
                     <span
-                      className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-white/60 font-mono font-bold uppercase"
+                      className="text-[10px] xl:text-xs px-1.5 py-0.5 rounded bg-white/10 text-white/60 font-mono font-bold uppercase"
                       style={{ borderLeft: `2px solid ${getBrandColor(station.brand)}` }}
                     >
                       {getBrandIcon(station.brand)} {station.brand}
                     </span>
                     {isCheap && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-fuel-green/20 text-fuel-green font-bold uppercase tracking-tight animate-pulse">
+                      <span className="text-[10px] xl:text-xs px-1.5 py-0.5 rounded bg-fuel-green/20 text-fuel-green font-bold uppercase tracking-tight animate-pulse">
                         {t('common.cheap', 'Cheap')}
                       </span>
                     )}
                   </div>
-                  <p className="font-bold text-base leading-tight text-white mb-0.5">
+                  <p className="font-bold text-base xl:text-lg leading-tight text-white mb-0.5">
                     {station.name}
                   </p>
-                  <p className="text-white/40 text-[11px] font-mono">
+                  <p className="text-white/40 text-[11px] xl:text-sm font-mono">
                     {station.address}, {station.city}
                   </p>
 
                   <div className="mt-3 pt-2 border-t border-white/10 flex items-end justify-between">
                     <div>
-                      <p className="text-[10px] uppercase text-white/30 font-bold tracking-widest mb-0.5">
+                      <p className="text-[10px] xl:text-xs uppercase text-white/30 font-bold tracking-widest mb-0.5">
                         Price
                       </p>
-                      <p className="text-xl font-mono font-black" style={{ color }}>
+                      <p className="text-xl xl:text-2xl font-mono font-black" style={{ color }}>
                         {formatPrice(price)}
-                        <span className="text-xs ml-0.5 opacity-60">€/L</span>
+                        <span className="text-xs xl:text-sm ml-0.5 opacity-60">€/L</span>
                       </p>
                     </div>
                     {station.distance && (
-                      <p className="text-[11px] font-mono text-white/40 mb-1">
+                      <p className="text-[11px] xl:text-sm font-mono text-white/40 mb-1">
                         📍 {station.distance} km
                       </p>
                     )}
@@ -250,7 +250,7 @@ export const StationMap = ({
                       onClick={() => {
                         handleDirectionsClick(station);
                       }}
-                      className="text-[10px] font-bold uppercase tracking-widest text-bensa-teal hover:text-white transition-colors cursor-pointer focus:outline-none"
+                      className="text-[10px] xl:text-xs font-bold uppercase tracking-widest text-bensa-teal hover:text-white transition-colors cursor-pointer focus:outline-none"
                     >
                       {t('station.directions')} →
                     </button>
@@ -276,17 +276,17 @@ export const StationMap = ({
       )}
 
       {/* Legend overlay */}
-      <div className="absolute bottom-4 left-4 glass-card px-3 py-2 flex items-center gap-3 text-[10px] font-mono text-white/60 z-[1000]">
+      <div className="absolute bottom-4 left-4 glass-card px-3 py-2 flex items-center gap-3 text-[10px] xl:text-xs font-mono text-white/60 z-[1000]">
         <span className="flex items-center gap-1">
-          <span className="w-2.5 h-2.5 rounded-full bg-fuel-green shadow-glow-green" />
+          <span className="w-2.5 h-2.5 xl:w-3.5 xl:h-3.5 rounded-full bg-fuel-green shadow-glow-green" />
           {t('map.cheap', 'Cheap')}
         </span>
         <span className="flex items-center gap-1">
-          <span className="w-2.5 h-2.5 rounded-full bg-fuel-yellow" />
+          <span className="w-2.5 h-2.5 xl:w-3.5 xl:h-3.5 rounded-full bg-fuel-yellow" />
           {t('map.mid', 'Mid')}
         </span>
         <span className="flex items-center gap-1">
-          <span className="w-2.5 h-2.5 rounded-full bg-fuel-red" />
+          <span className="w-2.5 h-2.5 xl:w-3.5 xl:h-3.5 rounded-full bg-fuel-red" />
           {t('map.expensive', 'High')}
         </span>
       </div>

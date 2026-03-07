@@ -210,19 +210,21 @@ const AppContent = () => {
         <LanguageSwitcher />
       </div>
 
-      <div className="w-full max-w-5xl px-4 md:px-8 space-y-8 md:space-y-12 relative z-10">
+      <div className="w-full max-w-[1600px] px-4 md:px-8 xl:px-12 space-y-8 md:space-y-12 relative z-10">
         {!isSimpleMode && <Header />}
 
         {/* Price Gauge Section */}
         {!isSimpleMode && (
-          <section className="flex flex-col items-center gap-6">
-            <PriceGauge
-              average={stats.average}
-              min={stats.min}
-              max={stats.max}
-              fuelTypeLabel={getFuelTypeLabel(fuelType)}
-            />
-            <div className="flex flex-col items-center gap-4">
+          <section className="flex flex-col items-center gap-6 lg:gap-10">
+            <div className="w-full scale-100 xl:scale-110 origin-top transition-transform duration-500">
+              <PriceGauge
+                average={stats.average}
+                min={stats.min}
+                max={stats.max}
+                fuelTypeLabel={getFuelTypeLabel(fuelType)}
+              />
+            </div>
+            <div className="flex flex-col items-center gap-4 lg:gap-6">
               <FuelTypeSelector selected={fuelType} onChange={setFuelType} />
               <BrandSelector
                 brands={availableBrands}
@@ -238,7 +240,7 @@ const AppContent = () => {
                   if (nearestCheapStation) scrollToStation(nearestCheapStation.id);
                 }}
                 disabled={!nearestCheapStation}
-                className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-fuel-green/50 text-sm font-bold transition-all duration-300 flex items-center gap-2 group disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                className="px-5 py-2.5 md:px-8 md:py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-fuel-green/50 text-sm md:text-base font-bold transition-all duration-300 flex items-center gap-2 group disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
               >
                 <span className="group-hover:scale-120 transition-transform">🎯</span>
                 {t('actions.show_nearest_cheap', 'Show Nearest Cheap')}
@@ -248,7 +250,7 @@ const AppContent = () => {
                   if (nearestCheapStation) setIsQuickNavOpen(true);
                 }}
                 disabled={!nearestCheapStation}
-                className="px-5 py-2.5 rounded-xl bg-fuel-green/10 border border-fuel-green/30 hover:bg-fuel-green/20 hover:border-fuel-green/60 text-fuel-green text-sm font-bold transition-all duration-300 flex items-center gap-2 group disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                className="px-5 py-2.5 md:px-8 md:py-3.5 rounded-xl bg-fuel-green/10 border border-fuel-green/30 hover:bg-fuel-green/20 hover:border-fuel-green/60 text-fuel-green text-sm md:text-base font-bold transition-all duration-300 flex items-center gap-2 group disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
               >
                 <span className="group-hover:translate-x-1 transition-transform">🚀</span>
                 {t('actions.nav_nearest_cheap', 'Navigate to Best Value')}
@@ -258,7 +260,7 @@ const AppContent = () => {
         )}
 
         {isSimpleMode && (
-          <div className="flex flex-col items-center gap-4 pt-8">
+          <div className="flex flex-col items-center gap-4 pt-8 md:pt-16">
             <FuelTypeSelector selected={fuelType} onChange={setFuelType} />
             <BrandSelector
               brands={availableBrands}
@@ -268,60 +270,74 @@ const AppContent = () => {
           </div>
         )}
 
-        {/* Map Section */}
-        <CollapsibleSection
-          title={t('map.title', '🗺️ Station Heatmap')}
-          headerColorClass="bg-fuel-green"
-          storageKey="bensa_map"
-          isOpen={isSimpleMode || undefined}
-        >
-          <StationMap
-            stations={filteredAndSortedStations}
-            fuelType={fuelType}
-            min={stats.min}
-            max={stats.max}
-            userLat={userLat}
-            userLon={userLon}
-            hasGps={hasGps}
-          />
-        </CollapsibleSection>
+        {/* Map and Station List Grid for Extra Wide Screens */}
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 md:gap-12 items-start">
+          {/* Map Section - Wider on desktop */}
+          <div className="xl:col-span-7 2xl:col-span-8 h-full">
+            <CollapsibleSection
+              title={t('map.title', '🗺️ Station Heatmap')}
+              headerColorClass="bg-fuel-green"
+              storageKey="bensa_map"
+              isOpen={isSimpleMode || undefined}
+              className="h-full"
+            >
+              <div className="h-[400px] md:h-[600px] xl:h-[700px] 2xl:h-[800px]">
+                <StationMap
+                  stations={filteredAndSortedStations}
+                  fuelType={fuelType}
+                  min={stats.min}
+                  max={stats.max}
+                  userLat={userLat}
+                  userLon={userLon}
+                  hasGps={hasGps}
+                />
+              </div>
+            </CollapsibleSection>
+          </div>
 
-        {/* Station List */}
-        <CollapsibleSection
-          title={t('stations.title', '⛽ Stations by Price')}
-          headerColorClass="bg-bensa-teal"
-          storageKey="bensa_stations"
-          isOpen={isSimpleMode || undefined}
-        >
-          <StationList
-            stations={filteredAndSortedStations}
-            fuelType={fuelType}
-            min={stats.min}
-            max={stats.max}
-          />
-        </CollapsibleSection>
+          {/* Station List - Side panel on desktop */}
+          <div className="xl:col-span-5 2xl:col-span-4 h-full">
+            <CollapsibleSection
+              title={t('stations.title', '⛽ Stations by Price')}
+              headerColorClass="bg-bensa-teal"
+              storageKey="bensa_stations"
+              isOpen={isSimpleMode || undefined}
+              className="h-full"
+            >
+              <div className="max-h-[600px] xl:max-h-[700px] 2xl:max-h-[800px] overflow-y-auto pr-2 custom-scrollbar">
+                <StationList
+                  stations={filteredAndSortedStations}
+                  fuelType={fuelType}
+                  min={stats.min}
+                  max={stats.max}
+                />
+              </div>
+            </CollapsibleSection>
+          </div>
+        </div>
 
-        {/* Price History */}
-        {!isSimpleMode && (
-          <CollapsibleSection
-            title={t('chart.section_title', '📈 Price History')}
-            headerColorClass="bg-bensa-cyan"
-            storageKey="bensa_chart"
-          >
-            <PriceHistoryChart />
-          </CollapsibleSection>
-        )}
+        {/* Price History and other bottom sections */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+          {!isSimpleMode && (
+            <CollapsibleSection
+              title={t('chart.section_title', '📈 Price History')}
+              headerColorClass="bg-bensa-cyan"
+              storageKey="bensa_chart"
+            >
+              <PriceHistoryChart />
+            </CollapsibleSection>
+          )}
 
-        {/* Notifications */}
-        {!isSimpleMode && (
-          <CollapsibleSection
-            title={t('notifications.title', '🔔 Alerts')}
-            headerColorClass="bg-bensa-violet"
-            storageKey="bensa_notifications"
-          >
-            <NotificationPermission />
-          </CollapsibleSection>
-        )}
+          {!isSimpleMode && (
+            <CollapsibleSection
+              title={t('notifications.title', '🔔 Alerts')}
+              headerColorClass="bg-bensa-violet"
+              storageKey="bensa_notifications"
+            >
+              <NotificationPermission />
+            </CollapsibleSection>
+          )}
+        </div>
 
         {/* Footer */}
         {!isSimpleMode && (

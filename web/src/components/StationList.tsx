@@ -46,7 +46,7 @@ export const StationList = ({ stations, fuelType, min, max }: StationListProps) 
 
   return (
     <div className="space-y-3" id="station-list">
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-4">
         <div className="flex flex-col">
           <span className="text-xs font-mono text-white/40 uppercase tracking-wider">
             {t('stations.count', '{{count}} stations', { count: filteredStations.length })}
@@ -108,19 +108,17 @@ export const StationList = ({ stations, fuelType, min, max }: StationListProps) 
           </button>
         </div>
       ) : (
-        <div className="max-h-[600px] overflow-y-auto pr-1">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {filteredStations.map((station, index) => (
-              <StationCard
-                key={station.id}
-                station={station}
-                fuelType={fuelType}
-                min={min}
-                max={max}
-                rank={index + 1}
-              />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-4">
+          {filteredStations.map((station, index) => (
+            <StationCard
+              key={station.id}
+              station={station}
+              fuelType={fuelType}
+              min={min}
+              max={max}
+              rank={index + 1}
+            />
+          ))}
         </div>
       )}
 
