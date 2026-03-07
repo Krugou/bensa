@@ -15,6 +15,7 @@ import {
 import { toast, ToastContainer } from 'react-toastify';
 
 import { AdminDashboard } from './components/AdminDashboard';
+import { BrandSelector } from './components/BrandSelector';
 import { CollapsibleSection } from './components/CollapsibleSection';
 import { CookieConsent } from './components/CookieConsent';
 import { DirectionsModal } from './components/DirectionsModal';
@@ -42,10 +43,12 @@ const AppContent = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const isSimpleMode = searchParams.get('simplemode') === 'true';
+  const isSimpleMode =
+    searchParams.get('simplemode') === 'true' || searchParams.get('yksinkertainentila') === 'true';
 
   const [stations, setStations] = useState<GasStation[]>([]);
   const [fuelType, setFuelType] = useState<FuelType>('95');
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [userLat, setUserLat] = useState(DEFAULT_LOCATION.lat);
   const [userLon, setUserLon] = useState(DEFAULT_LOCATION.lon);
@@ -132,19 +135,32 @@ const AppContent = () => {
     }
   }, [isPriceAlert, t]);
 
+  // Get available brands
+  const availableBrands = useMemo(() => {
+    const brands = new Set<string>();
+    stations.forEach((s) => {
+      if (s.brand) brands.add(s.brand);
+    });
+    return Array.from(brands).sort();
+  }, [stations]);
+
   // Compute sorted stations and stats
-  const sortedStations = useMemo(
-    () => sortByPrice(getNearbyStations(stations, userLat, userLon), fuelType),
-    [stations, userLat, userLon, fuelType],
-  );
+  const filteredAndSortedStations = useMemo(() => {
+    let list = getNearbyStations(stations, userLat, userLon);
+    if (selectedBrand) {
+      list = list.filter((s) => s.brand === selectedBrand);
+    }
+    return sortByPrice(list, fuelType);
+  }, [stations, userLat, userLon, fuelType, selectedBrand]);
+
   const stats = useMemo(() => getPriceStats(stations, fuelType), [stations, fuelType]);
 
   // Find nearest cheap option
   const nearestCheapStation = useMemo(() => {
-    if (sortedStations.length === 0) return null;
+    if (filteredAndSortedStations.length === 0) return null;
 
     // Find all stations within 2 cents of the absolute minimum AND within 50km
-    const cheapOptions = sortedStations.filter((s) => {
+    const cheapOptions = filteredAndSortedStations.filter((s) => {
       const p = s.prices.find((fp) => fp.type === fuelType)?.price;
       const isCheapEnough = p && p <= stats.min + 0.02;
       const isCloseEnough = (s.distance ?? 0) <= 50;
@@ -153,7 +169,7 @@ const AppContent = () => {
 
     // Return the closest one among the practical cheap options
     return [...cheapOptions].sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0))[0] || null;
-  }, [sortedStations, stats.min, fuelType]);
+  }, [filteredAndSortedStations, stats.min, fuelType]);
 
   const scrollToStation = (id: string) => {
     const element = document.getElementById(`station-${id}`);
@@ -206,7 +222,14 @@ const AppContent = () => {
               max={stats.max}
               fuelTypeLabel={getFuelTypeLabel(fuelType)}
             />
-            <FuelTypeSelector selected={fuelType} onChange={setFuelType} />
+            <div className="flex flex-col items-center gap-4">
+              <FuelTypeSelector selected={fuelType} onChange={setFuelType} />
+              <BrandSelector
+                brands={availableBrands}
+                selectedBrand={selectedBrand}
+                onChange={setSelectedBrand}
+              />
+            </div>
 
             {/* Quick Actions */}
             <div className="flex flex-wrap justify-center gap-3 mt-2">
@@ -237,6 +260,11 @@ const AppContent = () => {
         {isSimpleMode && (
           <div className="flex flex-col items-center gap-4 pt-8">
             <FuelTypeSelector selected={fuelType} onChange={setFuelType} />
+            <BrandSelector
+              brands={availableBrands}
+              selectedBrand={selectedBrand}
+              onChange={setSelectedBrand}
+            />
           </div>
         )}
 
@@ -248,7 +276,7 @@ const AppContent = () => {
           isOpen={isSimpleMode || undefined}
         >
           <StationMap
-            stations={sortedStations}
+            stations={filteredAndSortedStations}
             fuelType={fuelType}
             min={stats.min}
             max={stats.max}
@@ -266,7 +294,7 @@ const AppContent = () => {
           isOpen={isSimpleMode || undefined}
         >
           <StationList
-            stations={sortedStations}
+            stations={filteredAndSortedStations}
             fuelType={fuelType}
             min={stats.min}
             max={stats.max}
