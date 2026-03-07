@@ -11,6 +11,7 @@ interface CollapsibleSectionProps {
   className?: string;
   headerColorClass?: string;
   storageKey?: string;
+  isOpen?: boolean;
 }
 
 export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
@@ -22,8 +23,9 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
   className = '',
   headerColorClass = 'bg-[var(--color-fuel-green)]',
   storageKey,
+  isOpen,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(() => {
+  const [isExpandedInternal, setIsExpandedInternal] = useState(() => {
     if (storageKey) {
       const saved = localStorage.getItem(`section_${storageKey}`);
       if (saved !== null) {
@@ -33,9 +35,12 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
     return defaultExpanded;
   });
 
+  const isExpanded = isOpen ?? isExpandedInternal;
+
   const toggleExpanded = () => {
-    const nextValue = !isExpanded;
-    setIsExpanded(nextValue);
+    if (isOpen !== undefined) return; // Disable toggling if controlled via isOpen prop
+    const nextValue = !isExpandedInternal;
+    setIsExpandedInternal(nextValue);
     if (storageKey) {
       localStorage.setItem(`section_${storageKey}`, String(nextValue));
       Analytics.trackSectionToggle(storageKey || title, nextValue);

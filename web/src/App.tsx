@@ -3,7 +3,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { collection, getDocs, limit, orderBy, query, Timestamp } from 'firebase/firestore';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BrowserRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 import { AdminDashboard } from './components/AdminDashboard';
@@ -31,7 +39,10 @@ import { getFuelTypeLabel } from './utils/priceUtils';
 const AppContent = () => {
   const { t, i18n } = useTranslation();
   const { lng } = useParams<{ lng: string }>();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
+  const isSimpleMode = searchParams.get('simplemode') === 'true';
 
   const [stations, setStations] = useState<GasStation[]>([]);
   const [fuelType, setFuelType] = useState<FuelType>('95');
@@ -184,48 +195,57 @@ const AppContent = () => {
       </div>
 
       <div className="w-full max-w-5xl px-4 md:px-8 space-y-8 md:space-y-12 relative z-10">
-        <Header />
+        {!isSimpleMode && <Header />}
 
         {/* Price Gauge Section */}
-        <section className="flex flex-col items-center gap-6">
-          <PriceGauge
-            average={stats.average}
-            min={stats.min}
-            max={stats.max}
-            fuelTypeLabel={getFuelTypeLabel(fuelType)}
-          />
-          <FuelTypeSelector selected={fuelType} onChange={setFuelType} />
+        {!isSimpleMode && (
+          <section className="flex flex-col items-center gap-6">
+            <PriceGauge
+              average={stats.average}
+              min={stats.min}
+              max={stats.max}
+              fuelTypeLabel={getFuelTypeLabel(fuelType)}
+            />
+            <FuelTypeSelector selected={fuelType} onChange={setFuelType} />
 
-          {/* Quick Actions */}
-          <div className="flex flex-wrap justify-center gap-3 mt-2">
-            <button
-              onClick={() => {
-                if (nearestCheapStation) scrollToStation(nearestCheapStation.id);
-              }}
-              disabled={!nearestCheapStation}
-              className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-fuel-green/50 text-sm font-bold transition-all duration-300 flex items-center gap-2 group disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
-            >
-              <span className="group-hover:scale-120 transition-transform">🎯</span>
-              {t('actions.show_nearest_cheap', 'Show Nearest Cheap')}
-            </button>
-            <button
-              onClick={() => {
-                if (nearestCheapStation) setIsQuickNavOpen(true);
-              }}
-              disabled={!nearestCheapStation}
-              className="px-5 py-2.5 rounded-xl bg-fuel-green/10 border border-fuel-green/30 hover:bg-fuel-green/20 hover:border-fuel-green/60 text-fuel-green text-sm font-bold transition-all duration-300 flex items-center gap-2 group disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
-            >
-              <span className="group-hover:translate-x-1 transition-transform">🚀</span>
-              {t('actions.nav_nearest_cheap', 'Navigate to Best Value')}
-            </button>
+            {/* Quick Actions */}
+            <div className="flex flex-wrap justify-center gap-3 mt-2">
+              <button
+                onClick={() => {
+                  if (nearestCheapStation) scrollToStation(nearestCheapStation.id);
+                }}
+                disabled={!nearestCheapStation}
+                className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-fuel-green/50 text-sm font-bold transition-all duration-300 flex items-center gap-2 group disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+              >
+                <span className="group-hover:scale-120 transition-transform">🎯</span>
+                {t('actions.show_nearest_cheap', 'Show Nearest Cheap')}
+              </button>
+              <button
+                onClick={() => {
+                  if (nearestCheapStation) setIsQuickNavOpen(true);
+                }}
+                disabled={!nearestCheapStation}
+                className="px-5 py-2.5 rounded-xl bg-fuel-green/10 border border-fuel-green/30 hover:bg-fuel-green/20 hover:border-fuel-green/60 text-fuel-green text-sm font-bold transition-all duration-300 flex items-center gap-2 group disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+              >
+                <span className="group-hover:translate-x-1 transition-transform">🚀</span>
+                {t('actions.nav_nearest_cheap', 'Navigate to Best Value')}
+              </button>
+            </div>
+          </section>
+        )}
+
+        {isSimpleMode && (
+          <div className="flex flex-col items-center gap-4 pt-8">
+            <FuelTypeSelector selected={fuelType} onChange={setFuelType} />
           </div>
-        </section>
+        )}
 
         {/* Map Section */}
         <CollapsibleSection
           title={t('map.title', '🗺️ Station Heatmap')}
           headerColorClass="bg-fuel-green"
           storageKey="bensa_map"
+          isOpen={isSimpleMode || undefined}
         >
           <StationMap
             stations={sortedStations}
@@ -243,6 +263,7 @@ const AppContent = () => {
           title={t('stations.title', '⛽ Stations by Price')}
           headerColorClass="bg-bensa-teal"
           storageKey="bensa_stations"
+          isOpen={isSimpleMode || undefined}
         >
           <StationList
             stations={sortedStations}
@@ -253,34 +274,40 @@ const AppContent = () => {
         </CollapsibleSection>
 
         {/* Price History */}
-        <CollapsibleSection
-          title={t('chart.section_title', '📈 Price History')}
-          headerColorClass="bg-bensa-cyan"
-          storageKey="bensa_chart"
-        >
-          <PriceHistoryChart />
-        </CollapsibleSection>
+        {!isSimpleMode && (
+          <CollapsibleSection
+            title={t('chart.section_title', '📈 Price History')}
+            headerColorClass="bg-bensa-cyan"
+            storageKey="bensa_chart"
+          >
+            <PriceHistoryChart />
+          </CollapsibleSection>
+        )}
 
         {/* Notifications */}
-        <CollapsibleSection
-          title={t('notifications.title', '🔔 Alerts')}
-          headerColorClass="bg-bensa-violet"
-          storageKey="bensa_notifications"
-        >
-          <NotificationPermission />
-        </CollapsibleSection>
+        {!isSimpleMode && (
+          <CollapsibleSection
+            title={t('notifications.title', '🔔 Alerts')}
+            headerColorClass="bg-bensa-violet"
+            storageKey="bensa_notifications"
+          >
+            <NotificationPermission />
+          </CollapsibleSection>
+        )}
 
         {/* Footer */}
-        <footer className="text-center py-12 text-white/20 font-mono text-xs uppercase tracking-widest">
-          <p title={`${t('common.build_time', 'Build')}: ${__BUILD_TIME__}`}>
-            {t('footer.copyright', '© {{year}} Bensa', { year: new Date().getFullYear() })}
-          </p>
-          {lastScraped && (
-            <p className="mt-2 text-[10px] opacity-60">
-              {t('footer.last_updated', 'Last updated')}: {lastScraped}
+        {!isSimpleMode && (
+          <footer className="text-center py-12 text-white/20 font-mono text-xs uppercase tracking-widest">
+            <p title={`${t('common.build_time', 'Build')}: ${__BUILD_TIME__}`}>
+              {t('footer.copyright', '© {{year}} Bensa', { year: new Date().getFullYear() })}
             </p>
-          )}
-        </footer>
+            {lastScraped && (
+              <p className="mt-2 text-[10px] opacity-60">
+                {t('footer.last_updated', 'Last updated')}: {lastScraped}
+              </p>
+            )}
+          </footer>
+        )}
       </div>
 
       <ToastContainer
