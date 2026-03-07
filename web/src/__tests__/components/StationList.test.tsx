@@ -49,7 +49,8 @@ describe('StationList', () => {
 
     const cards = screen.getAllByTestId('station-card');
     expect(cards).toHaveLength(2);
-    expect(cards[0].textContent).toContain('1. Station 1');
-    expect(cards[1].textContent).toContain('2. Station 2');
+    // Station 2 has price 1.7, Station 1 has price 1.8. So Station 2 comes first when sorted by price.
+    expect(cards[0].textContent).toContain('1. Station 2');
+    expect(cards[1].textContent).toContain('2. Station 1');
   });
 });

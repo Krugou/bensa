@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { FuelType, GasStation } from '../types';
@@ -14,8 +14,26 @@ interface StationListProps {
 export const StationList = ({ stations, fuelType, min, max }: StationListProps) => {
   const { t } = useTranslation();
   const [showAll, setShowAll] = useState(false);
+  const [sortBy, setSortBy] = useState<'price' | 'distance'>('price');
 
-  const filteredStations = showAll ? stations : stations.filter((s) => (s.distance ?? 0) <= 50);
+  const processedStations = useMemo(() => {
+    let list = [...stations];
+    if (sortBy === 'price') {
+      list = list.sort((a, b) => {
+        const pA = a.prices.find((p) => p.type === fuelType)?.price ?? Infinity;
+        const pB = b.prices.find((p) => p.type === fuelType)?.price ?? Infinity;
+        if (pA === pB) return (a.distance ?? 0) - (b.distance ?? 0);
+        return pA - pB;
+      });
+    } else {
+      list = list.sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0));
+    }
+    return list;
+  }, [stations, sortBy, fuelType]);
+
+  const filteredStations = showAll
+    ? processedStations
+    : processedStations.filter((s) => (s.distance ?? 0) <= 50);
   const hiddenCount = stations.length - filteredStations.length;
 
   if (stations.length === 0) {
@@ -40,6 +58,30 @@ export const StationList = ({ stations, fuelType, min, max }: StationListProps) 
           )}
         </div>
         <div className="flex items-center gap-3">
+          <div className="flex bg-white/5 p-0.5 rounded-lg border border-white/10 overflow-hidden">
+            <button
+              onClick={() => {
+                setSortBy('price');
+              }}
+              className={`px-2 py-1 text-[9px] font-bold uppercase transition-all ${
+                sortBy === 'price' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'
+              }`}
+            >
+              {t('stations.sort_price', 'Price')}
+            </button>
+            <button
+              onClick={() => {
+                setSortBy('distance');
+              }}
+              className={`px-2 py-1 text-[9px] font-bold uppercase transition-all ${
+                sortBy === 'distance'
+                  ? 'bg-white/10 text-white'
+                  : 'text-white/30 hover:text-white/50'
+              }`}
+            >
+              {t('stations.sort_distance', 'Nearest')}
+            </button>
+          </div>
           <button
             onClick={() => {
               setShowAll(!showAll);
@@ -48,9 +90,6 @@ export const StationList = ({ stations, fuelType, min, max }: StationListProps) 
           >
             {showAll ? t('stations.show_nearby') : t('stations.show_all')}
           </button>
-          <span className="text-[10px] font-mono text-white/25">
-            {t('stations.sorted', 'Sorted by price')}
-          </span>
         </div>
       </div>
 
