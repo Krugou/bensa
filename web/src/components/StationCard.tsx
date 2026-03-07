@@ -32,7 +32,10 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
   const isCheap = level === 'cheap';
   const isDirtCheap = price <= min + (max - min) * 0.05;
 
+  const hasCoords = (station.lat !== 0 || station.lon !== 0) && !!station.lat && !!station.lon;
+
   const handleDirectionsClick = () => {
+    if (!hasCoords) return;
     setIsDirectionsOpen(true);
     Analytics.trackButtonClick('directions_open_card');
   };
@@ -126,7 +129,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
         </div>
 
         {/* Distance */}
-        {station.distance !== undefined && (
+        {station.distance !== undefined && hasCoords && (
           <div className="text-right">
             <span className="text-sm font-mono text-white/50">{station.distance}</span>
             <span className="text-[10px] text-white/30 ml-0.5">km</span>
@@ -145,25 +148,29 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
         ))}
       </div>
 
-      <div className="mt-3 flex gap-2">
-        <button
-          onClick={handleDirectionsClick}
-          className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 text-center text-[10px] font-bold uppercase tracking-wider text-white/60 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none"
-        >
-          📍 {t('station.directions')}
-        </button>
-      </div>
+      {hasCoords && (
+        <div className="mt-3 flex gap-2">
+          <button
+            onClick={handleDirectionsClick}
+            className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 text-center text-[10px] font-bold uppercase tracking-wider text-white/60 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none"
+          >
+            📍 {t('station.directions')}
+          </button>
+        </div>
+      )}
 
       {/* Directions Modal */}
-      <DirectionsModal
-        isOpen={isDirectionsOpen}
-        onClose={() => {
-          setIsDirectionsOpen(false);
-        }}
-        lat={station.lat}
-        lon={station.lon}
-        stationName={station.name}
-      />
+      {hasCoords && (
+        <DirectionsModal
+          isOpen={isDirectionsOpen}
+          onClose={() => {
+            setIsDirectionsOpen(false);
+          }}
+          lat={station.lat}
+          lon={station.lon}
+          stationName={station.name}
+        />
+      )}
 
       {/* Last updated */}
       {fuelPrice?.updatedAt && (

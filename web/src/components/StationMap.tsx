@@ -1,7 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 
 import L from 'leaflet';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CircleMarker, MapContainer, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
 
@@ -88,6 +88,12 @@ export const StationMap = ({
   const { t } = useTranslation();
   const [selectedStation, setSelectedStation] = useState<GasStation | null>(null);
 
+  // Filter out stations with invalid or zero coordinates
+  const validStations = useMemo(
+    () => stations.filter((s) => (s.lat !== 0 || s.lon !== 0) && !!s.lat && !!s.lon),
+    [stations],
+  );
+
   const getMarkerProps = useCallback(
     (station: GasStation) => {
       const fuelPrice = station.prices.find((p) => p.type === fuelType);
@@ -132,9 +138,7 @@ export const StationMap = ({
       >
         <TileLayer attribution='&copy; <a href="https://carto.com/">CARTO</a>' url={tileUrl} />
 
-        {showUserMarker && (
-          <MapUpdater lat={userLat} lon={userLon} stations={stations} hasGps={hasGps} />
-        )}
+        <MapUpdater lat={userLat} lon={userLon} stations={validStations} hasGps={hasGps} />
 
         {/* User location marker */}
         {showUserMarker && (
@@ -157,7 +161,7 @@ export const StationMap = ({
         )}
 
         {/* Station glow markers */}
-        {stations.map((station) => {
+        {validStations.map((station) => {
           const { color, radius, price, isCheap } = getMarkerProps(station);
           return (
             <CircleMarker
