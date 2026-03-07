@@ -72,38 +72,58 @@ const AppContent = () => {
   useTitleFlasher(isPriceAlert, [t('common.price_drop', '💰 Price Drop!')]);
 
   // Load prices
-  const loadPrices = useCallback(async (isInitial = false) => {
-    const startTime = Date.now();
-    const data = await fetchPrices();
-    if (data.length > 0) {
-      setStations(data);
-    }
-
-    // Fetch last scraper run from Firestore
-    try {
-      const runsCol = collection(db, 'scraper_runs');
-      const q = query(runsCol, orderBy('timestamp', 'desc'), limit(1));
-      const snapshot = await getDocs(q);
-      if (!snapshot.empty) {
-        const runData = snapshot.docs[0].data();
-        const ts = runData['timestamp'] as Timestamp | undefined;
-        if (ts) {
-          setLastScraped(ts.toDate().toLocaleString('fi-FI', { timeZone: 'Europe/Helsinki' }));
+  const loadPrices = useCallback(
+    async (isInitial = false) => {
+      const startTime = Date.now();
+      try {
+        const data = await fetchPrices();
+        if (data.length > 0) {
+          setStations(data);
+        }
+      } catch (error: unknown) {
+        const err = error as Error;
+        if (err.message === 'QUOTA_EXCEEDED') {
+          toast.error(t('alert.quota_exceeded'), {
+            autoClose: false,
+            toastId: 'quota-error',
+          });
         }
       }
-    } catch (e) {
-      console.warn('Failed to fetch last scraper run:', e);
-    }
 
-    if (isInitial && !import.meta.env.DEV) {
-      const elapsed = Date.now() - startTime;
-      if (elapsed < 3000) {
-        await new Promise((resolve) => setTimeout(resolve, 3000 - elapsed));
+      // Fetch last scraper run from Firestore
+      try {
+        const runsCol = collection(db, 'scraper_runs');
+        const q = query(runsCol, orderBy('timestamp', 'desc'), limit(1));
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          const runData = snapshot.docs[0].data();
+          const ts = runData['timestamp'] as Timestamp | undefined;
+          if (ts) {
+            setLastScraped(ts.toDate().toLocaleString('fi-FI', { timeZone: 'Europe/Helsinki' }));
+          }
+        }
+      } catch (e: unknown) {
+        console.warn('Failed to fetch last scraper run:', e);
+        const err = e as { code?: string };
+        if (err.code === 'resource-exhausted') {
+          toast.error(t('alert.quota_exceeded'), {
+            autoClose: false,
+            toastId: 'quota-error-run',
+          });
+        }
       }
-    }
 
-    setLoading(false);
-  }, []);
+      if (isInitial && !import.meta.env.DEV) {
+        const elapsed = Date.now() - startTime;
+        if (elapsed < 3000) {
+          await new Promise((resolve) => setTimeout(resolve, 3000 - elapsed));
+        }
+      }
+
+      setLoading(false);
+    },
+    [t],
+  );
 
   // Initial load + geolocation
   useEffect(() => {
@@ -251,7 +271,7 @@ const AppContent = () => {
                   if (nearestCheapStation) setIsQuickNavOpen(true);
                 }}
                 disabled={!nearestCheapStation}
-                className="px-5 py-2.5 md:px-8 md:py-3.5 rounded-xl bg-fuel-green/10 border border-fuel-green/30 hover:bg-fuel-green/20 hover:border-fuel-green/60 text-fuel-green text-sm md:text-base font-bold transition-all duration-300 flex items-center gap-2 group disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                className="px-5 py-2.5 md:px-8 md:py-3.5 rounded-xl bg-fuel-green/10 border border-fuel-green/30 hover:bg-fuel-green/20 hover:border-fuel-green/60 text-fuel-green text-sm font-bold transition-all duration-300 flex items-center gap-2 group disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
               >
                 <span className="group-hover:translate-x-1 transition-transform">🚀</span>
                 {t('actions.nav_nearest_cheap', 'Navigate to Best Value')}

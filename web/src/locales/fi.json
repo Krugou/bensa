@@ -98,7 +98,9 @@
     "loading": "Pyydetään..."
   },
   "alert": {
-    "price_drop": "💰 Polttoaineiden hinnat ovat laskeneet!"
+    "price_drop": "💰 Polttoaineiden hinnat ovat laskeneet!",
+    "quota_exceeded": "Firebase-lukuraja tuli täyteen tältä päivältä. Kokeile uudelleen huomenna!",
+    "quota_exceeded_desc": "Haemme hintoja välimuistista jos mahdollista, mutta uusia päivityksiä ei voida ladata juuri nyt."
   },
   "loading": {
     "text": "Haetaan polttoainehintoja...",
