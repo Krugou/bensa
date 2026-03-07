@@ -80,7 +80,10 @@ export function usePriceHistory(
       // If price_averages is empty or has very few results (new collection), fall back to price_history
       if (points.length < Math.min(days, 5) && granularity !== 'monthly') {
         const historyCol = collection(db, 'price_history');
-        const q = query(historyCol, orderBy('timestamp', 'desc'), limit(days * 300));
+        // Increase limit to cover enough days. 200 stations * 6 runs/day * 7 days = 8400.
+        // We use 10000 to be safe for 7 days, and even more for longer ranges if possible.
+        const fetchLimit = Math.max(days * 1200, 2000); 
+        const q = query(historyCol, orderBy('timestamp', 'desc'), limit(fetchLimit));
         const snapshot = await getDocs(q);
 
         const groupedData: Record<
