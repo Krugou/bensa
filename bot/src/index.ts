@@ -249,19 +249,21 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
  * Uses Firestore as a cache to avoid redundant geocoding.
  */
 async function processStationsWithGeocoding(scrapedStations: GasStation[]): Promise<GasStation[]> {
-  console.log('🔎 Loading existing stations from Firestore for coordinate cache...');
-  const cache: Partial<Record<string, { lat: number; lon: number }>> = {};
+  console.log('🔎 Loading existing stations from Firestore for coordinate cache and userFixed check...');
+  const cache: Partial<Record<string, { lat: number; lon: number; userFixed?: boolean }>> = {};
 
   try {
     const snapshot = await db.collection('stations').get();
     snapshot.forEach((doc) => {
       const data = doc.data();
-      if (data['lat'] && data['lon']) {
-        const key = `${String(data['name']).trim()}-${String(data['city']).trim()}`.toLowerCase();
-        cache[key] = { lat: Number(data['lat']), lon: Number(data['lon']) };
-      }
+      const key = `${String(data['name']).trim()}-${String(data['city']).trim()}`.toLowerCase();
+      cache[key] = { 
+        lat: Number(data['lat']), 
+        lon: Number(data['lon']),
+        userFixed: data['userFixed'] === true
+      };
     });
-    console.log(`✅ Cached coordinates for ${Object.keys(cache).length} stations.`);
+    console.log(`✅ Cached data for ${Object.keys(cache).length} stations.`);
   } catch (err) {
     console.warn('⚠️ Could not load cache from Firestore, will geocode everything:', err);
   }
@@ -274,10 +276,16 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
   for (let i = 0; i < scrapedStations.length; i++) {
     const station = scrapedStations[i];
     const cacheKey = `${station.name.trim()}-${station.city.trim()}`.toLowerCase();
+    const cachedEntry = cache[cacheKey];
 
-    if (cache[cacheKey]) {
-      station.lat = cache[cacheKey].lat;
-      station.lon = cache[cacheKey].lon;
+    if (cachedEntry?.userFixed) {
+      // Use fixed coordinates and skip geocoding
+      station.lat = cachedEntry.lat;
+      station.lon = cachedEntry.lon;
+      console.log(`[${i + 1}/${scrapedStations.length}] 📌 Keeping fixed GPS: ${station.name}`);
+    } else if (cachedEntry) {
+      station.lat = cachedEntry.lat;
+      station.lon = cachedEntry.lon;
     } else {
       const rawAddress = station.address;
       console.log(`[${i + 1}/${scrapedStations.length}] 🛰️  Geocoding: ${rawAddress}, ${station.city}`);
@@ -286,7 +294,6 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
       if (coords) {
         station.lat = coords.lat;
         station.lon = coords.lon;
-        // Update cache so we don't geocode same station if it appears multiple times in this run
         cache[cacheKey] = coords;
       }
       await delay(1200);

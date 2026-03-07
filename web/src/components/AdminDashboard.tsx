@@ -13,6 +13,9 @@ import { toast } from 'react-toastify';
 import { auth, db, googleProvider } from '../firebase';
 import { GasStation } from '../types';
 
+/**
+ * Admin Dashboard - Restricted to Local Development Only
+ */
 export const AdminDashboard = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -22,13 +25,17 @@ export const AdminDashboard = () => {
   const [isRegistering, setIsRegistering] = useState(false);
 
   // Station management state
-  const [stations, setStations] = useState<GasStation[]>([]);
+  const [stations, setStations] = useState<(GasStation & { userFixed?: boolean })[]>([]);
   const [loadingStations, setLoadingStations] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editAddress, setEditAddress] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
   const editInputRef = useRef<HTMLInputElement>(null);
+
+  // Restriction check: Only allow access if localhost
+  const isLocal =
+    window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
   const fetchStations = async () => {
     setLoadingStations(true);
@@ -38,8 +45,8 @@ export const AdminDashboard = () => {
       const snapshot = await getDocs(q);
       const list = snapshot.docs.map((d) => ({
         id: d.id,
-        ...(d.data() as Omit<GasStation, 'id'>),
-      })) as GasStation[];
+        ...(d.data() as Omit<GasStation & { userFixed?: boolean }, 'id'>),
+      })) as (GasStation & { userFixed?: boolean })[];
       setStations(list);
     } catch (error) {
       console.error('Failed to fetch stations:', error);
@@ -52,14 +59,14 @@ export const AdminDashboard = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((u) => {
       setUser(u);
-      if (u) {
+      if (u && isLocal) {
         void fetchStations();
       }
     });
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [isLocal]);
 
   useEffect(() => {
     if (editingId && editInputRef.current) {
@@ -72,14 +79,32 @@ export const AdminDashboard = () => {
       const stationRef = doc(db, 'stations', id);
       await updateDoc(stationRef, {
         address: editAddress,
+        userFixed: true, // Mark as fixed when address is manually edited
       });
 
-      setStations(stations.map((s) => (s.id === id ? { ...s, address: editAddress } : s)));
+      setStations(
+        stations.map((s) => (s.id === id ? { ...s, address: editAddress, userFixed: true } : s)),
+      );
       setEditingId(null);
-      toast.success('Address updated successfully');
+      toast.success('Address updated and locked');
     } catch (error) {
       console.error('Failed to update address:', error);
       toast.error('Failed to update address');
+    }
+  };
+
+  const toggleFixedStatus = async (id: string, currentStatus: boolean) => {
+    try {
+      const stationRef = doc(db, 'stations', id);
+      await updateDoc(stationRef, {
+        userFixed: !currentStatus,
+      });
+
+      setStations(stations.map((s) => (s.id === id ? { ...s, userFixed: !currentStatus } : s)));
+      toast.info(`GPS Lock: ${!currentStatus ? 'ON' : 'OFF'}`);
+    } catch (error) {
+      console.error('Failed to toggle status:', error);
+      toast.error('Operation failed');
     }
   };
 
@@ -126,15 +151,40 @@ export const AdminDashboard = () => {
     }
   };
 
+  // Restriction Screen
+  if (!isLocal) {
+    return (
+      <div className="min-h-screen bg-[#060610] text-white flex flex-col items-center justify-center p-8 font-mono">
+        <div className="text-fuel-red text-6xl mb-4">🚫</div>
+        <h1 className="text-2xl font-bold mb-2">Access Denied</h1>
+        <p className="text-white/40 text-center max-w-md">
+          The Administrator Dashboard is only accessible during local development (localhost).
+        </p>
+        <button
+          onClick={() => {
+            void navigate('/');
+          }}
+          className="mt-8 px-6 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all"
+        >
+          Return to Tracker
+        </button>
+      </div>
+    );
+  }
+
   if (!user) {
     return (
       <div className="min-h-screen bg-[#060610] text-white/90 font-sans flex flex-col items-center justify-center p-4">
-        {/* Ambient glow */}
         <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
           <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-bensa-violet/2 rounded-full blur-[150px] animate-glow-breathe" />
         </div>
 
         <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-xl max-w-md w-full relative z-10 shadow-2xl">
+          <div className="flex justify-center mb-4">
+            <span className="bg-white/10 text-white/60 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest border border-white/10">
+              Dev Mode Only
+            </span>
+          </div>
           <h1 className="text-3xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-bensa-teal to-fuel-green mb-8 text-center uppercase tracking-tight">
             Administrator
           </h1>
@@ -280,7 +330,6 @@ export const AdminDashboard = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="col-span-1 md:col-span-3 space-y-6">
-            {/* Station Management Area */}
             <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <h2 className="text-xl font-bold flex items-center gap-2">
@@ -313,7 +362,14 @@ export const AdminDashboard = () => {
                     >
                       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div className="flex-1">
-                          <h3 className="font-bold text-white">{station.name}</h3>
+                          <div className="flex items-center gap-3">
+                            <h3 className="font-bold text-white">{station.name}</h3>
+                            {station.userFixed && (
+                              <span className="bg-bensa-cyan/20 text-bensa-cyan border border-bensa-cyan/30 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-tighter">
+                                🔒 GPS Locked
+                              </span>
+                            )}
+                          </div>
                           <p className="text-xs text-white/40 font-mono mt-1">{station.city}</p>
 
                           {editingId === station.id ? (
@@ -333,7 +389,7 @@ export const AdminDashboard = () => {
                                 }}
                                 className="bg-fuel-green text-black px-4 py-1.5 rounded-lg text-xs font-bold"
                               >
-                                Save
+                                Save & Lock
                               </button>
                               <button
                                 onClick={() => {
@@ -352,17 +408,34 @@ export const AdminDashboard = () => {
                           )}
                         </div>
 
-                        {editingId !== station.id && (
+                        <div className="flex items-center gap-2">
                           <button
                             onClick={() => {
-                              setEditingId(station.id);
-                              setEditAddress(station.address);
+                              void toggleFixedStatus(station.id, !!station.userFixed);
                             }}
-                            className="bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-lg text-xs font-bold transition-all"
+                            title={
+                              station.userFixed ? 'Unlock GPS updates' : 'Lock GPS coordinates'
+                            }
+                            className={`p-2 rounded-lg border transition-all ${
+                              station.userFixed
+                                ? 'bg-bensa-cyan/10 border-bensa-cyan/30 text-bensa-cyan'
+                                : 'bg-white/5 border-white/10 text-white/30 hover:text-white/60'
+                            }`}
                           >
-                            Edit Address
+                            {station.userFixed ? '🔓' : '🔒'}
                           </button>
-                        )}
+                          {editingId !== station.id && (
+                            <button
+                              onClick={() => {
+                                setEditingId(station.id);
+                                setEditAddress(station.address);
+                              }}
+                              className="bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-lg text-xs font-bold transition-all"
+                            >
+                              Edit Address
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -389,8 +462,10 @@ export const AdminDashboard = () => {
                   <span>{stations.length}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/40">Filtered:</span>
-                  <span>{filteredStations.length}</span>
+                  <span className="text-white/40">Fixed/Locked:</span>
+                  <span className="text-bensa-cyan">
+                    {stations.filter((s) => s.userFixed).length}
+                  </span>
                 </div>
               </div>
             </section>
