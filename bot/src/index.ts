@@ -338,6 +338,35 @@ async function saveToFirestore(stations: GasStation[]): Promise<void> {
     await batch.commit();
     console.log(`   ✅ Committed batch ${Math.floor(i / batchSize) + 1}`);
   }
+
+  // Save aggregate averages for the entire run
+  console.log('📊 Saving run aggregates to price_averages...');
+  const stats = {
+    sum95: 0, count95: 0,
+    sum98: 0, count98: 0,
+    sumDiesel: 0, countDiesel: 0
+  };
+
+  stations.forEach(s => {
+    s.prices.forEach(p => {
+      if (p.type === '95') { stats.sum95 += p.price; stats.count95++; }
+      else if (p.type === '98') { stats.sum98 += p.price; stats.count98++; }
+      else { stats.sumDiesel += p.price; stats.countDiesel++; }
+    });
+  });
+
+  const avg95 = stats.count95 > 0 ? stats.sum95 / stats.count95 : 0;
+  const avg98 = stats.count98 > 0 ? stats.sum98 / stats.count98 : 0;
+  const avgDiesel = stats.countDiesel > 0 ? stats.sumDiesel / stats.countDiesel : 0;
+
+  await db.collection('price_averages').add({
+    timestamp,
+    avg95: Math.round(avg95 * 1000) / 1000,
+    avg98: Math.round(avg98 * 1000) / 1000,
+    avgDiesel: Math.round(avgDiesel * 1000) / 1000,
+    stationCount: stations.length,
+    date: new Date().toISOString().split('T')[0]
+  });
 }
 
 /**

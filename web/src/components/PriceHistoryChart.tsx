@@ -15,7 +15,8 @@ import { PriceGranularity, usePriceHistory } from '../hooks/usePriceHistory';
 export const PriceHistoryChart = () => {
   const { t } = useTranslation();
   const [granularity, setGranularity] = useState<PriceGranularity>('daily');
-  const { history, loading } = usePriceHistory(7, granularity);
+  const [days, setDays] = useState(7);
+  const { history, loading } = usePriceHistory(days, granularity);
 
   if (loading) {
     return (
@@ -25,44 +26,90 @@ export const PriceHistoryChart = () => {
     );
   }
 
+  const getRangeLabel = () => {
+    if (granularity === 'hourly') return t('chart.title_hourly', 'Recent Hourly Trend');
+    if (days === 7) return t('chart.title_7d', '7-Day Price Trend');
+    if (days === 30) return t('chart.title_30d', '30-Day Price Trend');
+    if (days === 90) return t('chart.title_90d', '90-Day Price Trend');
+    if (days === 365) return t('chart.title_1y', 'Yearly Price Trend');
+    if (days === 1095) return t('chart.title_3y', '3-Year Price Trend');
+    if (days === 3650) return t('chart.title_all', 'All-Time Price Trend');
+    return t('chart.title_daily', 'Price Trend');
+  };
+
   return (
     <div id="price-history-chart">
-      <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
-        <div className="flex flex-col">
-          <h3 className="text-sm font-bold text-white/70 uppercase tracking-wider">
-            {granularity === 'daily'
-              ? t('chart.title_daily', '7-Day Price Trend')
-              : t('chart.title_hourly', 'Recent Hourly Trend')}
-          </h3>
-          <span className="text-[10px] font-mono text-white/25 mt-1">€/L</span>
+      <div className="flex flex-col mb-6 gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col">
+            <h3 className="text-sm font-bold text-white/70 uppercase tracking-wider">
+              {getRangeLabel()}
+            </h3>
+            <span className="text-[10px] font-mono text-white/25 mt-1">€/L</span>
+          </div>
+
+          <div className="flex bg-white/5 p-1 rounded-xl border border-white/10 self-end sm:self-auto">
+            <button
+              onClick={() => {
+                setGranularity('daily');
+              }}
+              className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                granularity === 'daily'
+                  ? 'bg-fuel-green text-black'
+                  : 'text-white/40 hover:text-white/70'
+              }`}
+            >
+              {t('chart.daily', 'Daily')}
+            </button>
+            {days >= 90 && (
+              <button
+                onClick={() => {
+                  setGranularity('monthly');
+                }}
+                className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                  granularity === 'monthly'
+                    ? 'bg-fuel-green text-black'
+                    : 'text-white/40 hover:text-white/70'
+                }`}
+              >
+                {t('chart.monthly', 'Monthly')}
+              </button>
+            )}
+            <button
+              onClick={() => {
+                setGranularity('hourly');
+              }}
+              className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                granularity === 'hourly'
+                  ? 'bg-fuel-green text-black'
+                  : 'text-white/40 hover:text-white/70'
+              }`}
+            >
+              {t('chart.hourly', 'Hourly')}
+            </button>
+          </div>
         </div>
 
-        <div className="flex bg-white/5 p-1 rounded-xl border border-white/10 self-end sm:self-auto">
-          <button
-            onClick={() => {
-              setGranularity('daily');
-            }}
-            className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
-              granularity === 'daily'
-                ? 'bg-fuel-green text-black'
-                : 'text-white/40 hover:text-white/70'
-            }`}
-          >
-            {t('chart.daily', 'Daily')}
-          </button>
-          <button
-            onClick={() => {
-              setGranularity('hourly');
-            }}
-            className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
-              granularity === 'hourly'
-                ? 'bg-fuel-green text-black'
-                : 'text-white/40 hover:text-white/70'
-            }`}
-          >
-            {t('chart.hourly', 'Hourly')}
-          </button>
-        </div>
+        {granularity !== 'hourly' && (
+          <div className="flex bg-white/5 p-1 rounded-xl border border-white/10 self-start">
+            {[7, 30, 90, 365, 1095, 3650].map((d) => (
+              <button
+                key={d}
+                onClick={() => {
+                  setDays(d);
+                  if (d < 90 && granularity === 'monthly') {
+                    setGranularity('daily');
+                  }
+                }}
+                className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                  days === d ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/70'
+                }`}
+              >
+                {d === 365 ? '1y' : d === 1095 ? '3y' : d === 3650 ? 'All' : `${d}d`}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <ResponsiveContainer width="100%" height={250}>
@@ -88,9 +135,11 @@ export const PriceHistoryChart = () => {
             tickLine={false}
             interval={granularity === 'hourly' ? 5 : 'preserveStartEnd'}
             axisLine={{ stroke: 'rgba(255,255,255,0.06)' }}
-            tickFormatter={(value: string) =>
-              granularity === 'hourly' ? value.split(' ')[1] : value.slice(5)
-            }
+            tickFormatter={(value: string) => {
+              if (granularity === 'hourly') return value.split(' ')[1];
+              if (granularity === 'monthly') return value;
+              return value.slice(5);
+            }}
           />
           <YAxis
             domain={['auto', 'auto']}
