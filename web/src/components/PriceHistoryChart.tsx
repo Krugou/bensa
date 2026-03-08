@@ -11,6 +11,7 @@ import {
 } from 'recharts';
 
 import { PriceGranularity, usePriceHistory } from '../hooks/usePriceHistory';
+import { WeekdayAnalysis } from './WeekdayAnalysis';
 
 export const PriceHistoryChart = () => {
   const { t } = useTranslation();
@@ -203,6 +204,8 @@ export const PriceHistoryChart = () => {
           Diesel
         </span>
       </div>
+
+      <WeekdayAnalysis />
     </div>
   );
 };

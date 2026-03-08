@@ -125,8 +125,13 @@
   },
   "alert": {
     "price_drop": "💰 Fuel prices have dropped!",
+    "high_gap": "Large price difference in your area! Check the list for savings.",
     "quota_exceeded": "Firebase read limit reached for today. Try again tomorrow!",
     "quota_exceeded_desc": "We are fetching prices from cache if possible, but new updates cannot be loaded right now."
+  },
+  "analysis": {
+    "weekday_title": "Best Day to Fill Up",
+    "recommendation": "Historically, {{day}}s are the cheapest days to refuel."
   },
   "loading": {
     "text": "Fetching fuel prices...",

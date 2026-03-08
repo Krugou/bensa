@@ -125,8 +125,13 @@
   },
   "alert": {
     "price_drop": "💰 Polttoaineiden hinnat ovat laskeneet!",
+    "high_gap": "Lähistölläsi on suuria hintaeroja! Katso listalta halvin.",
     "quota_exceeded": "Firebase-lukuraja tuli täyteen tältä päivältä. Kokeile uudelleen huomenna!",
     "quota_exceeded_desc": "Haemme hintoja välimuistista jos mahdollista, mutta uusia päivityksiä ei voida ladata juuri nyt."
+  },
+  "analysis": {
+    "weekday_title": "Paras päivä tankata",
+    "recommendation": "Historiallisesti {{day}}t ovat olleet halvimpia päiviä tankata."
   },
   "loading": {
     "text": "Haetaan polttoainehintoja...",

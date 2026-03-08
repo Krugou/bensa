@@ -175,6 +175,17 @@ const AppContent = () => {
     };
   }, [loadPrices]);
 
+  // Compute sorted stations and stats
+  const stats = useMemo(() => getPriceStats(stations, fuelType), [stations, fuelType]);
+
+  const filteredAndSortedStations = useMemo(() => {
+    let list = getNearbyStations(stations, userLat, userLon);
+    if (selectedBrand) {
+      list = list.filter((s) => s.brand === selectedBrand);
+    }
+    return sortByPrice(list, fuelType);
+  }, [stations, userLat, userLon, fuelType, selectedBrand]);
+
   // Notify on price alerts
   useEffect(() => {
     if (isPriceAlert) {
@@ -184,6 +195,16 @@ const AppContent = () => {
     }
   }, [isPriceAlert, t]);
 
+  // Price Gap Alert
+  useEffect(() => {
+    if (stats.max - stats.min > 0.15) {
+      toast.info(t('alert.high_gap', 'Large price difference in your area! Check the list.'), {
+        autoClose: 10000,
+        toastId: 'price-gap-alert',
+      });
+    }
+  }, [stats.max, stats.min, t]);
+
   // Get available brands
   const availableBrands = useMemo(() => {
     const brands = new Set<string>();
@@ -192,17 +213,6 @@ const AppContent = () => {
     });
     return Array.from(brands).sort();
   }, [stations]);
-
-  // Compute sorted stations and stats
-  const filteredAndSortedStations = useMemo(() => {
-    let list = getNearbyStations(stations, userLat, userLon);
-    if (selectedBrand) {
-      list = list.filter((s) => s.brand === selectedBrand);
-    }
-    return sortByPrice(list, fuelType);
-  }, [stations, userLat, userLon, fuelType, selectedBrand]);
-
-  const stats = useMemo(() => getPriceStats(stations, fuelType), [stations, fuelType]);
 
   // Find nearest cheap option
   const nearestCheapStation = useMemo(() => {
