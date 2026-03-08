@@ -18,6 +18,7 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { BrandSelector } from './components/BrandSelector';
 import { CollapsibleSection } from './components/CollapsibleSection';
 import { CookieConsent } from './components/CookieConsent';
+import { CrowdsourceModal } from './components/CrowdsourceModal';
 import { DirectionsModal } from './components/DirectionsModal';
 import { FuelTypeSelector } from './components/FuelTypeSelector';
 import { Header } from './components/Header';
@@ -56,6 +57,9 @@ const AppContent = () => {
   const [hasGps, setHasGps] = useState(false);
   const [lastScraped, setLastScraped] = useState<string | null>(null);
   const [isQuickNavOpen, setIsQuickNavOpen] = useState(false);
+  const [isCrowdsourceOpen, setIsCrowdsourceOpen] = useState(false);
+
+  const enableCrowdsourcing = import.meta.env.VITE_ENABLE_CROWDSOURCING === 'true';
 
   // Sync i18n with URL slug
   useEffect(() => {
@@ -290,6 +294,17 @@ const AppContent = () => {
                 <span className="group-hover:translate-x-1 transition-transform">🚀</span>
                 {t('actions.nav_nearest_cheap', 'Navigate to Best Value')}
               </button>
+              {enableCrowdsourcing && (
+                <button
+                  onClick={() => {
+                    setIsCrowdsourceOpen(true);
+                  }}
+                  className="px-5 py-2.5 md:px-8 md:py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 text-white/70 text-sm font-bold transition-all duration-300 flex items-center gap-2 group cursor-pointer"
+                >
+                  <span className="group-hover:rotate-12 transition-transform">📢</span>
+                  {t('actions.report_price', 'Report Price')}
+                </button>
+              )}
             </div>
           </section>
         )}
@@ -302,6 +317,17 @@ const AppContent = () => {
               selectedBrand={selectedBrand}
               onChange={setSelectedBrand}
             />
+            {enableCrowdsourcing && (
+              <button
+                onClick={() => {
+                  setIsCrowdsourceOpen(true);
+                }}
+                className="px-5 py-2.5 md:px-8 md:py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white/70 text-sm font-bold transition-all duration-300 flex items-center gap-2 group cursor-pointer"
+              >
+                <span className="group-hover:rotate-12 transition-transform">📢</span>
+                {t('actions.report_price', 'Report Price')}
+              </button>
+            )}
           </div>
         )}
 
@@ -421,6 +447,13 @@ const AppContent = () => {
           stationName={nearestCheapStation.name}
         />
       )}
+
+      <CrowdsourceModal
+        isOpen={isCrowdsourceOpen}
+        onClose={() => {
+          setIsCrowdsourceOpen(false);
+        }}
+      />
 
       <CookieConsent />
     </div>
