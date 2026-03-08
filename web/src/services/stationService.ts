@@ -23,6 +23,7 @@ export function getNearbyStations(
   userLon: number,
 ): GasStation[] {
   return stations
+    .filter((s) => s.lat !== 0 && s.lon !== 0 && !!s.lat && !!s.lon)
     .map((station) => ({
       ...station,
       distance: calculateDistance(userLat, userLon, station.lat, station.lon),

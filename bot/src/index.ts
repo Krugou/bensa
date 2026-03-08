@@ -84,7 +84,10 @@ async function geocodeAddress(
   address: string,
   city: string,
 ): Promise<{ lat: number; lon: number } | null> {
+  // Strip brand names from the beginning of the address to improve geocoding accuracy
   let cleanStreet = address
+    .replace(/^(ABC|Neste|St1|Shell|SEO|Teboil|Gulf|ST1|NESTE|SHELL|TEBOIL|GULF)\s*/i, '')
+    .replace(/^(ABC Deli|ABC Automaatti|Neste K|Neste Express)\s*/i, '')
     .replace(/\([^)]+\)/g, '')
     .replace(/110-tie/gi, '')
     .replace(/Kehä\s*(I|II|III|\d+)/gi, '');
@@ -100,8 +103,9 @@ async function geocodeAddress(
     cleanStreet = (parts.find((p) => /\d/.test(p)) ?? parts[0]).trim();
   }
 
+  // Construct a very specific query
   const query = encodeURIComponent(`${cleanStreet}, ${city}, Finland`);
-  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=1`;
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=1&addressdetails=1`;
 
   try {
     const response = await fetch(url, {
@@ -112,11 +116,21 @@ async function geocodeAddress(
 
     if (!response.ok) return null;
 
-    const data = (await response.json()) as { lat: string; lon: string }[];
+    const data = (await response.json()) as any[];
     if (data.length > 0) {
+      const result = data[0];
+      
+      // Basic city verification if possible
+      const foundCity = result.address?.city || result.address?.town || result.address?.village || result.address?.municipality || '';
+      if (foundCity && city.toLowerCase() !== foundCity.toLowerCase()) {
+        console.warn(`[Geocode Warning] City mismatch for ${address} in ${city}: Found ${foundCity}`);
+        // We still accept it if it's close enough or if the query was specific, 
+        // but this log helps debug.
+      }
+
       return {
-        lat: parseFloat(data[0].lat),
-        lon: parseFloat(data[0].lon),
+        lat: parseFloat(result.lat),
+        lon: parseFloat(result.lon),
       };
     }
   } catch (err) {
