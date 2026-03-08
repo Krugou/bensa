@@ -3,7 +3,7 @@
     "title": "Bensa"
   },
   "header": {
-    "subtitle": "Real-time fuel price tracker",
+    "subtitle": "Real-time fuel price tracking",
     "ticker": {
       "live": "LIVE PRICES",
       "finland": "FINLAND",
@@ -16,7 +16,10 @@
     "liter": "L",
     "build_time": "Build",
     "notifications": "Notifications",
-    "price_drop": "💰 Price Drop!"
+    "price_drop": "💰 Price Drop!",
+    "close": "Close",
+    "light_mode": "Light Mode",
+    "dark_mode": "Dark Mode"
   },
   "gauge": {
     "average": "AVG"
@@ -27,7 +30,7 @@
     "expensive": "🔴 Expensive"
   },
   "fuel": {
-    "select": "FUEL"
+    "select": "FUEL TYPE"
   },
   "brand": {
     "select": "BRAND",
@@ -35,15 +38,16 @@
     "filter": "Filter by brand"
   },
   "cookies": {
-    "title": "Cookie settings",
-    "description": "We use Google Analytics to understand how our users find the cheapest gas. No personal data is stored.",
-    "accept": "Accept all",
-    "deny": "Decline"
+    "title": "Cookie Settings",
+    "description": "We use Google Analytics to understand how users find the best prices. No personal data is stored.",
+    "accept": "Accept All",
+    "deny": "Deny"
   },
   "actions": {
     "show_nearest_cheap": "Show Nearest Cheap",
     "nav_nearest_cheap": "Navigate to Best Value",
-    "report_price": "Report Price"
+    "report_price": "Report Price",
+    "calculator": "Savings Calculator"
   },
   "crowdsource": {
     "title": "Report Prices",
@@ -53,11 +57,11 @@
     "select_station": "Select a station..."
   },
   "map": {
-    "title": "🗺️ Station Heatmap",
+    "title": "🗺️ Station Map",
     "your_location": "📍 Your Location",
     "cheap": "Cheap",
     "mid": "Mid",
-    "expensive": "High"
+    "expensive": "Expensive"
   },
   "stations": {
     "title": "⛽ Stations by Price",
@@ -67,28 +71,42 @@
     "sorted": "Sorted by price",
     "empty": "No stations found",
     "hidden": "+{{count}} further away",
-    "none_nearby": "No stations found within 50km",
+    "none_nearby": "No stations within 50km",
     "show_all": "Show all stations",
-    "show_nearby": "Show nearby only (50km)"
+    "show_nearby": "Show only nearby (50km)"
   },
   "station": {
     "updated": "Updated",
     "directions": "Get Directions",
-    "directions_desc": "Choose your preferred navigation app",
+    "directions_desc": "Select navigation app",
     "google_maps": "Google Maps",
     "waze": "Waze",
     "apple_maps": "Apple Maps",
-    "source_link": "View data source"
+    "source_link": "View data source",
+    "add_favorite": "Add to favorites",
+    "remove_favorite": "Remove from favorites"
+  },
+  "calc": {
+    "title": "Savings Calculator",
+    "consumption": "Consumption (L/100km)",
+    "tank_size": "Tank (L)",
+    "distance": "Distance (km)",
+    "price_diff": "Price Difference",
+    "tank_savings": "Savings per Tank",
+    "driving_cost": "Cost to Drive",
+    "net_savings": "Net Savings",
+    "worth_it": "Worth the drive!",
+    "not_worth_it": "Stay local"
   },
   "chart": {
     "section_title": "📈 Price History",
-    "title_7d": "7-Day Price Trend",
-    "title_30d": "30-Day Price Trend",
-    "title_90d": "90-Day Price Trend",
-    "title_1y": "Yearly Price Trend",
-    "title_3y": "3-Year Price Trend",
-    "title_all": "All-Time Price Trend",
-    "title_hourly": "Recent Hourly Trend",
+    "title_7d": "7-day price trend",
+    "title_30d": "30-day price trend",
+    "title_90d": "90-day price trend",
+    "title_1y": "1-year price trend",
+    "title_3y": "3-year price trend",
+    "title_all": "All-time price trend",
+    "title_hourly": "Latest hourly trends",
     "daily": "Daily",
     "monthly": "Monthly",
     "hourly": "Hourly",
@@ -96,34 +114,38 @@
   },
   "notifications": {
     "title": "🔔 Alerts",
-    "enabled": "Price drop alerts enabled",
+    "enabled": "Price alerts enabled",
     "enabled_desc": "You'll be notified when prices drop significantly",
     "denied": "Notifications blocked",
-    "denied_desc": "Enable in browser settings to receive price alerts",
-    "prompt_title": "Get price drop alerts",
-    "prompt_desc": "Receive notifications when fuel prices drop below your threshold",
+    "denied_desc": "Enable in browser settings to get price alerts",
+    "prompt_title": "Subscribe to Price Alerts",
+    "prompt_desc": "Get a notification when fuel price drops below a threshold",
     "enable": "Enable Alerts",
     "loading": "Requesting..."
   },
   "alert": {
     "price_drop": "💰 Fuel prices have dropped!",
-    "quota_exceeded": "Firebase read limit reached for today. Come back tomorrow!",
-    "quota_exceeded_desc": "We are showing cached prices if available, but new updates cannot be loaded right now."
+    "quota_exceeded": "Firebase read limit reached for today. Try again tomorrow!",
+    "quota_exceeded_desc": "We are fetching prices from cache if possible, but new updates cannot be loaded right now."
   },
   "loading": {
     "text": "Fetching fuel prices...",
-    "funny_1": "If this gets killed, my free plan is toast... 🍞",
-    "funny_2": "Houston, we have a problem... the free tier is at 99%. 🚀",
-    "funny_3": "One does not simply fetch prices without hitting the daily limit. 🏔️",
+    "funny_1": "If this crashes, the free tier is gone... 🍞",
+    "funny_2": "Houston, we have a problem... free limit at 99%. 🚀",
+    "funny_3": "One does not simply fetch prices without hitting the limit. 🏔️",
     "funny_4": "Help me, Firebase Admin... you're my only hope (to stay free). 💫",
-    "funny_5": "I'm going to make him an offer he can't refuse... 50,000 free reads. 🤌",
-    "funny_6": "I feel the need... the need for more free quota! 🏎️",
-    "funny_7": "Mama always said Firebase was like a box of chocolates... you never know when you run out. 🍬",
-    "funny_8": "You can't handle the truth! (And neither can our daily limit). ⚖️",
-    "funny_9": "I've seen things you people wouldn't believe... like our usage bills. 🌌",
-    "funny_10": "Are you not entertained?! Is this not why we are out of quota?! ⚔️",
+    "funny_5": "I'm gonna make him an offer he can't refuse... 50,000 free reads. 🤌",
+    "funny_6": "I feel the need... the need for free quota! 🏎️",
+    "funny_7": "Mama always said Firebase was like a box of chocolates... you never know when it's gonna run out. 🍬",
+    "funny_8": "You can't handle the truth! (And our daily limit can't either). ⚖️",
+    "funny_9": "I've seen things you people wouldn't believe... like our usage bill. 🌌",
+    "funny_10": "Are you not entertained?! Is this not why our quota is gone?! ⚔️",
     "funny_11": "Great Scott! The user count is over 1.21 gigawatts! 🏎️💨",
     "funny_12": "Frankly, my dear, I don't give a... wait, we hit the read limit?! 😱"
+  },
+  "rich_list": {
+    "title": "💸 Rich List",
+    "desc": "The \"Avoid at all costs\" List (Top 5 Most Expensive)"
   },
   "footer": {
     "copyright": "© {{year}} Bensa"

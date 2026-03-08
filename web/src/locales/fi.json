@@ -16,7 +16,10 @@
     "liter": "L",
     "build_time": "Versio",
     "notifications": "Ilmoitukset",
-    "price_drop": "💰 Hinta laski!"
+    "price_drop": "💰 Hinta laski!",
+    "close": "Sulje",
+    "light_mode": "Vaalea tila",
+    "dark_mode": "Tumma tila"
   },
   "gauge": {
     "average": "KA"
@@ -43,7 +46,8 @@
   "actions": {
     "show_nearest_cheap": "Näytä lähin halpa",
     "nav_nearest_cheap": "Navigoi parhaalle asemalle",
-    "report_price": "Ilmoita hinta"
+    "report_price": "Ilmoita hinta",
+    "calculator": "Säästölaskuri"
   },
   "crowdsource": {
     "title": "Ilmoita hintoja",
@@ -78,7 +82,21 @@
     "google_maps": "Google Maps",
     "waze": "Waze",
     "apple_maps": "Apple Kartat",
-    "source_link": "Katso tietolähde"
+    "source_link": "Katso tietolähde",
+    "add_favorite": "Lisää suosikkeihin",
+    "remove_favorite": "Poista suosikeista"
+  },
+  "calc": {
+    "title": "Säästölaskuri",
+    "consumption": "Kulutus (L/100km)",
+    "tank_size": "Tankki (L)",
+    "distance": "Matka (km)",
+    "price_diff": "Hintaero",
+    "tank_savings": "Säästö per tankki",
+    "driving_cost": "Ajokustannus",
+    "net_savings": "Nettosäästö",
+    "worth_it": "Kannattaa ajaa!",
+    "not_worth_it": "Ota lähin asema"
   },
   "chart": {
     "section_title": "📈 Hintahistoria",
@@ -124,6 +142,10 @@
     "funny_10": "Ettekö ole viihdyttyneitä?! Eikö tästä syystä kiintiömme loppui?! ⚔️",
     "funny_11": "Voi hyvä luoja! Käyttäjämäärä on yli 1,21 gigawattia! 🏎️💨",
     "funny_12": "Suoraan sanottuna, rakkaani, en välitä... hetkinen, lukuraja tuli täyteen?! 😱"
+  },
+  "rich_list": {
+    "title": "💸 Kalleimmat",
+    "desc": "\"Vältä hinnalla millä hyvänsä\" -lista (Top 5 kalleinta)"
   },
   "footer": {
     "copyright": "© {{year}} Bensa"

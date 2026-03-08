@@ -8,7 +8,6 @@ import {
   Navigate,
   Route,
   Routes,
-  useNavigate,
   useParams,
   useSearchParams,
 } from 'react-router-dom';
@@ -17,6 +16,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { AdminDashboard } from './components/AdminDashboard';
 import { BrandSelector } from './components/BrandSelector';
 import { CollapsibleSection } from './components/CollapsibleSection';
+import { ConsumptionCalculator } from './components/ConsumptionCalculator';
 import { CookieConsent } from './components/CookieConsent';
 import { CrowdsourceModal } from './components/CrowdsourceModal';
 import { DirectionsModal } from './components/DirectionsModal';
@@ -27,6 +27,7 @@ import { LoadingFuel } from './components/LoadingFuel';
 import { NotificationPermission } from './components/NotificationPermission';
 import { PriceGauge } from './components/PriceGauge';
 import { PriceHistoryChart } from './components/PriceHistoryChart';
+import { RichList } from './components/RichList';
 import { StationList } from './components/StationList';
 import { StationMap } from './components/StationMap';
 import { db } from './firebase';
@@ -42,7 +43,6 @@ const AppContent = () => {
   const { t, i18n } = useTranslation();
   const { lng } = useParams<{ lng: string }>();
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
 
   const isSimpleMode =
     searchParams.get('simplemode') === 'true' || searchParams.get('yksinkertainentila') === 'true';
@@ -58,18 +58,42 @@ const AppContent = () => {
   const [lastScraped, setLastScraped] = useState<string | null>(null);
   const [isQuickNavOpen, setIsQuickNavOpen] = useState(false);
   const [isCrowdsourceOpen, setIsCrowdsourceOpen] = useState(false);
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    const saved = localStorage.getItem('bensa_theme');
+    return saved === 'light' ? 'light' : 'dark';
+  });
+
+  // Apply theme
+  useEffect(() => {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    localStorage.setItem('bensa_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  const [favorites, setFavorites] = useState<string[]>(() => {
+    const saved = localStorage.getItem('bensa_favorites');
+    return saved ? (JSON.parse(saved) as string[]) : [];
+  });
+
+  // Persist favorites
+  useEffect(() => {
+    localStorage.setItem('bensa_favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  const toggleFavorite = (id: string) => {
+    setFavorites((prev) => (prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]));
+  };
 
   const enableCrowdsourcing = import.meta.env.VITE_ENABLE_CROWDSOURCING === 'true';
 
   // Sync i18n with URL slug
   useEffect(() => {
-    if (lng && (lng === 'fi' || lng === 'en') && i18n.language !== lng) {
-      void i18n.changeLanguage(lng);
-    } else if (!lng) {
-      const detectedLng = i18n.language.startsWith('fi') ? 'fi' : 'en';
-      void navigate(`/${detectedLng}`, { replace: true });
-    }
-  }, [lng, i18n, navigate]);
+    void i18n.changeLanguage(lng);
+  }, [lng, i18n]);
 
   // Price alert logic
   const isPriceAlert = usePriceAlert(stations, fuelType);
@@ -246,6 +270,17 @@ const AppContent = () => {
 
       {/* Top Controls */}
       <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+        <button
+          onClick={toggleTheme}
+          className="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white/50 hover:text-white transition-all duration-300 cursor-pointer"
+          title={
+            theme === 'dark'
+              ? t('common.light_mode', 'Light Mode')
+              : t('common.dark_mode', 'Dark Mode')
+          }
+        >
+          {theme === 'dark' ? '☀️' : '🌙'}
+        </button>
         <LanguageSwitcher />
       </div>
 
@@ -294,6 +329,15 @@ const AppContent = () => {
                 <span className="group-hover:translate-x-1 transition-transform">🚀</span>
                 {t('actions.nav_nearest_cheap', 'Navigate to Best Value')}
               </button>
+              <button
+                onClick={() => {
+                  setIsCalculatorOpen(true);
+                }}
+                className="px-5 py-2.5 md:px-8 md:py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 text-white/70 text-sm font-bold transition-all duration-300 flex items-center gap-2 group cursor-pointer"
+              >
+                <span className="group-hover:rotate-12 transition-transform">🧮</span>
+                {t('actions.calculator', 'Savings Calculator')}
+              </button>
               {enableCrowdsourcing && (
                 <button
                   onClick={() => {
@@ -317,17 +361,28 @@ const AppContent = () => {
               selectedBrand={selectedBrand}
               onChange={setSelectedBrand}
             />
-            {enableCrowdsourcing && (
+            <div className="flex gap-2">
               <button
                 onClick={() => {
-                  setIsCrowdsourceOpen(true);
+                  setIsCalculatorOpen(true);
                 }}
                 className="px-5 py-2.5 md:px-8 md:py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white/70 text-sm font-bold transition-all duration-300 flex items-center gap-2 group cursor-pointer"
               >
-                <span className="group-hover:rotate-12 transition-transform">📢</span>
-                {t('actions.report_price', 'Report Price')}
+                <span className="group-hover:rotate-12 transition-transform">🧮</span>
+                {t('actions.calculator', 'Calculator')}
               </button>
-            )}
+              {enableCrowdsourcing && (
+                <button
+                  onClick={() => {
+                    setIsCrowdsourceOpen(true);
+                  }}
+                  className="px-5 py-2.5 md:px-8 md:py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white/70 text-sm font-bold transition-all duration-300 flex items-center gap-2 group cursor-pointer"
+                >
+                  <span className="group-hover:rotate-12 transition-transform">📢</span>
+                  {t('actions.report_price', 'Report Price')}
+                </button>
+              )}
+            </div>
           </div>
         )}
 
@@ -371,6 +426,8 @@ const AppContent = () => {
                   fuelType={fuelType}
                   min={stats.min}
                   max={stats.max}
+                  favorites={favorites}
+                  onToggleFavorite={toggleFavorite}
                 />
               </div>
             </CollapsibleSection>
@@ -378,7 +435,7 @@ const AppContent = () => {
         </div>
 
         {/* Price History and other bottom sections */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-12">
           {!isSimpleMode && (
             <CollapsibleSection
               title={t('chart.section_title', '📈 Price History')}
@@ -386,6 +443,16 @@ const AppContent = () => {
               storageKey="bensa_chart"
             >
               <PriceHistoryChart />
+            </CollapsibleSection>
+          )}
+
+          {!isSimpleMode && (
+            <CollapsibleSection
+              title={t('rich_list.title', '💸 Rich List')}
+              headerColorClass="bg-fuel-red"
+              storageKey="bensa_richlist"
+            >
+              <RichList stations={stations} fuelType={fuelType} />
             </CollapsibleSection>
           )}
 
@@ -455,15 +522,28 @@ const AppContent = () => {
         }}
       />
 
+      {filteredAndSortedStations.length > 0 && (
+        <ConsumptionCalculator
+          isOpen={isCalculatorOpen}
+          onClose={() => {
+            setIsCalculatorOpen(false);
+          }}
+          currentPrice={
+            filteredAndSortedStations[0].prices.find((p) => p.type === fuelType)?.price ?? 0
+          }
+          cheapestPrice={stats.min}
+        />
+      )}
+
       <CookieConsent />
     </div>
   );
 };
 
 // Simple helper to detect best starting language
-const getInitialLang = () => {
+const getInitialLang = (): 'fi' | 'en' => {
   const saved = localStorage.getItem('i18nextLng');
-  if (saved && (saved === 'fi' || saved === 'en')) return saved;
+  if (saved === 'fi' || saved === 'en') return saved;
 
   const browserLng = navigator.language.toLowerCase();
   if (browserLng.startsWith('fi')) return 'fi';

@@ -20,6 +20,8 @@ interface StationCardProps {
   min: number;
   max: number;
   rank?: number;
+  isFavorite?: boolean;
+  onToggleFavorite?: (id: string) => void;
 }
 
 const getBrandIcon = (brand: string) => {
@@ -27,7 +29,7 @@ const getBrandIcon = (brand: string) => {
   if (b.includes('neste')) return '💧';
   if (b.includes('st1')) return '🐚';
   if (b.includes('shell')) return '🟡';
-  if (b.includes('abc')) return '🟢';
+  if (b.includes('abc')) return '🍀';
   if (b.includes('seo')) return '🔵';
   if (b.includes('teboil')) return '🔴';
   if (b.includes('gulf')) return '🟠';
@@ -44,7 +46,15 @@ const getBrandColor = (brand: string) => {
   return 'rgba(255,255,255,0.1)';
 };
 
-export const StationCard = ({ station, fuelType, min, max, rank }: StationCardProps) => {
+export const StationCard = ({
+  station,
+  fuelType,
+  min,
+  max,
+  rank,
+  isFavorite,
+  onToggleFavorite,
+}: StationCardProps) => {
   const { t, i18n } = useTranslation();
   const [isDirectionsOpen, setIsDirectionsOpen] = useState(false);
   const fuelPrice = station.prices.find((p) => p.type === fuelType);
@@ -61,6 +71,11 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
     if (!hasCoords) return;
     setIsDirectionsOpen(true);
     Analytics.trackButtonClick('directions_open_card');
+  };
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onToggleFavorite) onToggleFavorite(station.id);
   };
 
   const getRelativeTime = (dateStr: string) => {
@@ -83,12 +98,42 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
         boxShadow: isDirtCheap ? '0 0 30px rgba(0, 255, 136, 0.4)' : undefined,
       }}
     >
-      {/* Rank badge */}
-      {rank !== undefined && (
-        <div className="absolute top-3 right-3 w-7 h-7 xl:w-9 xl:h-9 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-[10px] xl:text-xs font-mono text-white/40 font-bold">
-          #{rank}
-        </div>
-      )}
+      {/* Rank badge and Favorite Button */}
+      <div className="absolute top-3 right-3 flex items-center gap-2 z-20">
+        <button
+          onClick={handleFavoriteClick}
+          className={`w-7 h-7 xl:w-9 xl:h-9 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${
+            isFavorite
+              ? 'bg-fuel-yellow/20 border border-fuel-yellow/40 text-fuel-yellow scale-110 shadow-[0_0_10px_rgba(255,215,0,0.3)]'
+              : 'bg-white/[0.04] border border-white/[0.08] text-white/20 hover:text-white/50 hover:bg-white/[0.08]'
+          }`}
+          title={
+            isFavorite
+              ? t('station.remove_favorite', 'Remove from favorites')
+              : t('station.add_favorite', 'Add to favorites')
+          }
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill={isFavorite ? 'currentColor' : 'none'}
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="xl:w-5 xl:h-5"
+          >
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </button>
+
+        {rank !== undefined && (
+          <div className="w-7 h-7 xl:w-9 xl:h-9 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-[10px] xl:text-xs font-mono text-white/40 font-bold">
+            #{rank}
+          </div>
+        )}
+      </div>
 
       {/* Glow effect for cheap stations */}
       {isCheap && (

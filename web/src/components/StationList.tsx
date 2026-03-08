@@ -9,27 +9,45 @@ interface StationListProps {
   fuelType: FuelType;
   min: number;
   max: number;
+  favorites?: string[];
+  onToggleFavorite?: (id: string) => void;
 }
 
-export const StationList = ({ stations, fuelType, min, max }: StationListProps) => {
+export const StationList = ({
+  stations,
+  fuelType,
+  min,
+  max,
+  favorites = [],
+  onToggleFavorite,
+}: StationListProps) => {
   const { t } = useTranslation();
   const [showAll, setShowAll] = useState(false);
   const [sortBy, setSortBy] = useState<'price' | 'distance'>('price');
 
   const processedStations = useMemo(() => {
     let list = [...stations];
-    if (sortBy === 'price') {
-      list = list.sort((a, b) => {
+
+    // Sort: Favorites first, then by selected criteria
+    list = list.sort((a, b) => {
+      const isFavA = favorites.includes(a.id);
+      const isFavB = favorites.includes(b.id);
+
+      if (isFavA && !isFavB) return -1;
+      if (!isFavA && isFavB) return 1;
+
+      if (sortBy === 'price') {
         const pA = a.prices.find((p) => p.type === fuelType)?.price ?? Infinity;
         const pB = b.prices.find((p) => p.type === fuelType)?.price ?? Infinity;
         if (pA === pB) return (a.distance ?? 0) - (b.distance ?? 0);
         return pA - pB;
-      });
-    } else {
-      list = list.sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0));
-    }
+      } else {
+        return (a.distance ?? 0) - (b.distance ?? 0);
+      }
+    });
+
     return list;
-  }, [stations, sortBy, fuelType]);
+  }, [stations, sortBy, fuelType, favorites]);
 
   const filteredStations = showAll
     ? processedStations
@@ -117,6 +135,8 @@ export const StationList = ({ stations, fuelType, min, max }: StationListProps) 
               min={min}
               max={max}
               rank={index + 1}
+              isFavorite={favorites.includes(station.id)}
+              onToggleFavorite={onToggleFavorite}
             />
           ))}
         </div>

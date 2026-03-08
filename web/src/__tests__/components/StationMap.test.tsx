@@ -46,6 +46,11 @@ vi.mock('react-leaflet', () => {
         {children}
       </div>
     ),
+    Circle: ({ children, ...props }: SimpleChildrenProps) => (
+      <div data-testid="circle" {...props}>
+        {children}
+      </div>
+    ),
     Popup: ({ children }: SimpleChildrenProps) => <div data-testid="popup">{children}</div>,
     Tooltip: ({ children }: SimpleChildrenProps) => <div data-testid="tooltip">{children}</div>,
     TileLayer: () => null,

@@ -3,7 +3,15 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CircleMarker, MapContainer, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
+import {
+  Circle,
+  CircleMarker,
+  MapContainer,
+  Popup,
+  TileLayer,
+  Tooltip,
+  useMap,
+} from 'react-leaflet';
 
 import { DEFAULT_LOCATION } from '../services/locationService';
 import { FuelType, GasStation } from '../types';
@@ -162,24 +170,37 @@ export const StationMap = ({
 
         <MapUpdater lat={userLat} lon={userLon} stations={validStations} hasGps={hasGps} />
 
-        {/* User location marker */}
+        {/* User location marker and range circle */}
         {showUserMarker && (
-          <CircleMarker
-            center={[userLat, userLon] as L.LatLngExpression}
-            radius={6}
-            pathOptions={{
-              color: '#3b82f6',
-              fillColor: '#3b82f6',
-              fillOpacity: 0.9,
-              weight: 2,
-            }}
-          >
-            <Popup>
-              <span className="text-sm font-semibold">
-                {t('map.your_location', '📍 Your Location')}
-              </span>
-            </Popup>
-          </CircleMarker>
+          <>
+            <Circle
+              center={[userLat, userLon] as L.LatLngExpression}
+              radius={20000} // 20km range
+              pathOptions={{
+                color: '#3b82f6',
+                fillColor: '#3b82f6',
+                fillOpacity: 0.05,
+                weight: 1,
+                dashArray: '5, 10',
+              }}
+            />
+            <CircleMarker
+              center={[userLat, userLon] as L.LatLngExpression}
+              radius={6}
+              pathOptions={{
+                color: '#3b82f6',
+                fillColor: '#3b82f6',
+                fillOpacity: 0.9,
+                weight: 2,
+              }}
+            >
+              <Popup>
+                <span className="text-sm font-semibold">
+                  {t('map.your_location', '📍 Your Location')}
+                </span>
+              </Popup>
+            </CircleMarker>
+          </>
         )}
 
         {/* Station glow markers */}
