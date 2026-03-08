@@ -178,13 +178,17 @@ const AppContent = () => {
   // Compute sorted stations and stats
   const stats = useMemo(() => getPriceStats(stations, fuelType), [stations, fuelType]);
 
+  const stationsWithDistance = useMemo(() => {
+    return getNearbyStations(stations, userLat, userLon);
+  }, [stations, userLat, userLon]);
+
   const filteredAndSortedStations = useMemo(() => {
-    let list = getNearbyStations(stations, userLat, userLon);
+    let list = [...stationsWithDistance];
     if (selectedBrand) {
       list = list.filter((s) => s.brand === selectedBrand);
     }
     return sortByPrice(list, fuelType);
-  }, [stations, userLat, userLon, fuelType, selectedBrand]);
+  }, [stationsWithDistance, fuelType, selectedBrand]);
 
   // Notify on price alerts
   useEffect(() => {
@@ -463,7 +467,7 @@ const AppContent = () => {
               headerColorClass="bg-fuel-red"
               storageKey="bensa_richlist"
             >
-              <RichList stations={stations} fuelType={fuelType} />
+              <RichList stations={stationsWithDistance} fuelType={fuelType} />
             </CollapsibleSection>
           )}
 
