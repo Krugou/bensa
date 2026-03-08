@@ -55,10 +55,22 @@ export function getPriceLevelGlow(level: PriceLevel): string {
 }
 
 /**
+ * Constant for liters per US gallon
+ */
+export const LITERS_PER_GALLON = 3.78541;
+
+/**
  * Format price for display
  */
 export function formatPrice(price: number): string {
   return price.toFixed(3);
+}
+
+/**
+ * Format price per gallon for display
+ */
+export function formatPricePerGallon(pricePerLiter: number): string {
+  return (pricePerLiter * LITERS_PER_GALLON).toFixed(2);
 }
 
 /**

@@ -7,6 +7,7 @@ import { FuelType, GasStation } from '../types';
 import { Analytics } from '../utils/analytics';
 import {
   formatPrice,
+  formatPricePerGallon,
   getPriceLevel,
   getPriceLevelClass,
   getPriceLevelColor,
@@ -120,7 +121,7 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
 
       {/* Price display */}
       <div className="mt-4 xl:mt-6 flex items-end justify-between">
-        <div>
+        <div className="flex flex-col">
           <div className="flex items-center gap-2">
             <span
               className={`text-2xl md:text-3xl xl:text-4xl font-extrabold font-mono ${levelColorClass} transition-colors duration-300`}
@@ -156,7 +157,14 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
               </a>
             )}
           </div>
-          <span className="text-xs xl:text-sm text-white/30 ml-1">€/L</span>
+          <div className="flex items-baseline gap-1.5 -mt-1 xl:mt-0">
+            <span className="text-[10px] xl:text-xs text-white/30 font-mono">
+              €/{t('common.liter', 'L')}
+            </span>
+            <span className="text-[9px] xl:text-[10px] text-white/15 font-mono italic">
+              (${formatPricePerGallon(price)}/gal)
+            </span>
+          </div>
         </div>
 
         {/* Distance */}
@@ -173,9 +181,14 @@ export const StationCard = ({ station, fuelType, min, max, rank }: StationCardPr
       {/* All fuel types row */}
       <div className="mt-3 xl:mt-5 pt-3 xl:pt-5 border-t border-white/[0.06] flex justify-between text-[10px] xl:text-xs font-mono text-white/35">
         {station.prices.map((fp) => (
-          <span key={fp.type} className={fp.type === fuelType ? 'text-white/70 font-bold' : ''}>
-            {fp.type === 'diesel' ? 'DSL' : fp.type}: {formatPrice(fp.price)}
-          </span>
+          <div key={fp.type} className="flex flex-col items-center">
+            <span className={fp.type === fuelType ? 'text-white/70 font-bold' : ''}>
+              {fp.type === 'diesel' ? 'DSL' : fp.type}: {formatPrice(fp.price)}
+            </span>
+            <span className="text-[8px] opacity-40 italic">
+              (${formatPricePerGallon(fp.price)})
+            </span>
+          </div>
         ))}
       </div>
 

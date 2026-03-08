@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PriceLevel } from '../types';
 import {
   formatPrice,
+  formatPricePerGallon,
   getPriceLevel,
   getPriceLevelClass,
   getPriceLevelColor,
@@ -91,9 +92,14 @@ export const PriceGauge = ({ average, min, max, fuelTypeLabel }: PriceGaugeProps
           >
             {formatPrice(average)}
           </span>
-          <span className="text-[10px] md:text-xs font-mono text-white/40 mt-0.5">
-            €/{t('common.liter', 'L')}
-          </span>
+          <div className="flex flex-col items-center -mt-1 md:mt-0">
+            <span className="text-[10px] md:text-xs font-mono text-white/40">
+              €/{t('common.liter', 'L')}
+            </span>
+            <span className="text-[8px] md:text-[10px] font-mono text-white/15 italic">
+              (${formatPricePerGallon(average)}/gal)
+            </span>
+          </div>
         </div>
       </div>
 
