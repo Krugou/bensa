@@ -180,17 +180,31 @@ const AppContent = () => {
   const nearestCheapStation = useMemo(() => {
     if (filteredAndSortedStations.length === 0) return null;
 
-    // Find all stations within 2 cents of the absolute minimum AND within 50km
+    // Find the minimum price in the current filtered/nearby list
+    const pricesInList = filteredAndSortedStations
+      .map((s) => s.prices.find((fp) => fp.type === fuelType)?.price)
+      .filter((p): p is number => p !== undefined && p > 0);
+
+    if (pricesInList.length === 0) return null;
+    const localMin = Math.min(...pricesInList);
+
+    // Find all stations within 2 cents of the LOCAL minimum AND within 50km
+    // If we're using GPS, 50km is a good limit. If no GPS, it's relative to DEFAULT_LOCATION.
     const cheapOptions = filteredAndSortedStations.filter((s) => {
       const p = s.prices.find((fp) => fp.type === fuelType)?.price;
-      const isCheapEnough = p && p <= stats.min + 0.02;
+      const isCheapEnough = p && p <= localMin + 0.02;
       const isCloseEnough = (s.distance ?? 0) <= 50;
       return isCheapEnough && isCloseEnough;
     });
 
+    // If no stations within 50km are "cheap enough", just take the absolute cheapest in the list
+    if (cheapOptions.length === 0) {
+      return filteredAndSortedStations[0];
+    }
+
     // Return the closest one among the practical cheap options
     return [...cheapOptions].sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0))[0] || null;
-  }, [filteredAndSortedStations, stats.min, fuelType]);
+  }, [filteredAndSortedStations, fuelType]);
 
   const scrollToStation = (id: string) => {
     const element = document.getElementById(`station-${id}`);

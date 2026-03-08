@@ -24,16 +24,18 @@ export const BrandSelector = ({ brands, selectedBrand, onChange }: BrandSelector
           className="
             appearance-none
             px-4 py-2 md:px-6 md:py-2.5 rounded-lg font-mono text-sm font-semibold
-            bg-white/[0.03] border border-white/[0.08] text-white/70 
-            hover:bg-white/[0.06] hover:text-white/90 hover:border-white/[0.15]
+            bg-slate-900 border border-white/[0.08] text-white/70 
+            hover:bg-slate-800 hover:text-white/90 hover:border-white/[0.15]
             transition-all duration-300 cursor-pointer focus:outline-none focus:border-fuel-green/50
             pr-10
           "
           aria-label={t('brand.filter', 'Filter by brand')}
         >
-          <option value="all">{t('brand.all', 'All Brands')}</option>
+          <option value="all" className="bg-slate-900 text-white">
+            {t('brand.all', 'All Brands')}
+          </option>
           {brands.map((brand) => (
-            <option key={brand} value={brand}>
+            <option key={brand} value={brand} className="bg-slate-900 text-white">
               {brand}
             </option>
           ))}
