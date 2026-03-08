@@ -61,9 +61,11 @@ export const RichList: React.FC<RichListProps> = ({ stations, fuelType }) => {
               >
                 <div className="flex items-center gap-3">
                   <span className="text-lg font-black text-fuel-red/40 italic">#{index + 1}</span>
-                  <div className="min-w-0">
-                    <h4 className="text-sm font-bold text-text-main truncate">{station.name}</h4>
-                    <p className="text-[10px] text-text-muted truncate">
+                  <div className="min-w-0 flex-1">
+                    <h4 className="text-sm font-bold text-text-main break-all leading-tight">
+                      {station.name}
+                    </h4>
+                    <p className="text-[10px] text-text-muted break-all mt-0.5">
                       {station.city} {station.distance !== undefined && `(${station.distance}km)`}
                     </p>
                   </div>

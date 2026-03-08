@@ -157,10 +157,10 @@ export const StationCard = ({
               {station.brand}
             </span>
           </div>
-          <h3 className="font-bold text-sm xl:text-lg text-text-main truncate transition-colors group-hover:text-white dark:group-hover:text-white">
+          <h3 className="font-bold text-sm xl:text-lg text-text-main break-all leading-tight transition-colors group-hover:text-white dark:group-hover:text-white">
             {station.name}
           </h3>
-          <p className="text-[11px] xl:text-sm text-text-muted font-mono truncate">
+          <p className="text-[11px] xl:text-sm text-text-muted font-mono break-all mt-0.5">
             {station.address}, {station.city}
           </p>
         </div>
