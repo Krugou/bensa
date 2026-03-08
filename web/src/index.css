@@ -12,7 +12,7 @@
   --popup-bg: #0f172a;
   --popup-text: #ffffff;
   --glow-opacity: 0.02;
-  
+
   color-scheme: dark;
 }
 
@@ -85,7 +85,9 @@ body {
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -99,33 +101,67 @@ button:active {
 
 /* Price Pulse — pulsing glow for cheap stations */
 @keyframes price-pulse {
-  0%, 100% { box-shadow: 0 0 8px rgba(0, 255, 136, 0.3); }
-  50% { box-shadow: 0 0 24px rgba(0, 255, 136, 0.7), 0 0 48px rgba(0, 255, 136, 0.3); }
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 24px rgba(0, 255, 136, 0.7),
+      0 0 48px rgba(0, 255, 136, 0.3);
+  }
 }
-.animate-price-pulse { animation: price-pulse 2s ease-in-out infinite; }
+.animate-price-pulse {
+  animation: price-pulse 2s ease-in-out infinite;
+}
 
 /* Glow Breathe — ambient background glow */
 @keyframes glow-breathe {
-  0%, 100% { opacity: calc(var(--glow-opacity) * 0.8); }
-  50% { opacity: calc(var(--glow-opacity) * 1.5); }
+  0%,
+  100% {
+    opacity: calc(var(--glow-opacity) * 0.8);
+  }
+  50% {
+    opacity: calc(var(--glow-opacity) * 1.5);
+  }
 }
-.animate-glow-breathe { animation: glow-breathe 4s ease-in-out infinite; }
+.animate-glow-breathe {
+  animation: glow-breathe 4s ease-in-out infinite;
+}
 
 /* Gauge Sweep — for the price gauge animation */
-@keyframes gauge-sweep { from { stroke-dashoffset: 440; } }
-.animate-gauge-sweep { animation: gauge-sweep 1.5s ease-out forwards; }
+@keyframes gauge-sweep {
+  from {
+    stroke-dashoffset: 440;
+  }
+}
+.animate-gauge-sweep {
+  animation: gauge-sweep 1.5s ease-out forwards;
+}
 
 /* Smooth Fade In */
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.animate-fade-in { animation: fade-in 0.6s ease-out forwards; }
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
 
 /* Shimmer effect */
 @keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
 .animate-shimmer {
   animation: shimmer 3s ease-in-out infinite;
@@ -134,32 +170,62 @@ button:active {
 
 /* Map marker pulse */
 @keyframes marker-pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
 }
-.animate-marker-pulse { animation: marker-pulse 1.8s ease-in-out infinite; }
+.animate-marker-pulse {
+  animation: marker-pulse 1.8s ease-in-out infinite;
+}
 
 /* Wacky Animations */
 @keyframes wiggle {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
 }
-.animate-wiggle { animation: wiggle 0.3s ease-in-out infinite; }
+.animate-wiggle {
+  animation: wiggle 0.3s ease-in-out infinite;
+}
 
 @keyframes pulse-intense {
-  0% { transform: scale(1); filter: brightness(1); }
-  50% { transform: scale(1.05); filter: brightness(1.5); }
-  100% { transform: scale(1); filter: brightness(1); }
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.5);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
 }
-.animate-pulse-intense { animation: pulse-intense 1s ease-in-out infinite; }
+.animate-pulse-intense {
+  animation: pulse-intense 1s ease-in-out infinite;
+}
 
 /* Cinematic Scrollbar */
-::-webkit-scrollbar { width: 6px; background: transparent; }
+::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+}
 ::-webkit-scrollbar-thumb {
   background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
 
 /* Glass utility */
 .glass {
@@ -187,7 +253,9 @@ button:active {
 
 /* Text glow for important values */
 .text-glow {
-  text-shadow: 0 0 20px rgba(0, 255, 136, 0.5), 0 0 40px rgba(0, 255, 136, 0.2);
+  text-shadow:
+    0 0 20px rgba(0, 255, 136, 0.5),
+    0 0 40px rgba(0, 255, 136, 0.2);
 }
 
 /* Leaflet overrides */
