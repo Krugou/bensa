@@ -92,7 +92,7 @@ jobs:
           VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
 
       - name: Storing the Fuel (Upload Generic Artifact)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: build-output
           path: './web/dist'
@@ -120,7 +120,7 @@ jobs:
         run: npm run build -w bensa-bot
 
       - name: Storing Scraper (Upload Artifact)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: bot-dist
           path: './bot/dist'
@@ -150,7 +150,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v6
       - name: Download Bot
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: bot-dist
           path: './bot/dist'
@@ -187,7 +187,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v6
       - name: Receiving the Fuel
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: build-output
           path: './web/dist'
