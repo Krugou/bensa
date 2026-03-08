@@ -43,7 +43,7 @@ const getBrandColor = (brand: string) => {
   if (b.includes('shell')) return '#ff0000';
   if (b.includes('abc')) return '#00a651';
   if (b.includes('seo')) return '#0054a6';
-  return 'rgba(255,255,255,0.1)';
+  return 'var(--border-card)';
 };
 
 export const StationCard = ({
@@ -105,7 +105,7 @@ export const StationCard = ({
           className={`w-7 h-7 xl:w-9 xl:h-9 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${
             isFavorite
               ? 'bg-fuel-yellow/20 border border-fuel-yellow/40 text-fuel-yellow scale-110 shadow-[0_0_10px_rgba(255,215,0,0.3)]'
-              : 'bg-white/[0.04] border border-white/[0.08] text-white/20 hover:text-white/50 hover:bg-white/[0.08]'
+              : 'bg-card border border-border-card text-text-dim hover:text-text-muted hover:bg-card-hover'
           }`}
           title={
             isFavorite
@@ -129,7 +129,7 @@ export const StationCard = ({
         </button>
 
         {rank !== undefined && (
-          <div className="w-7 h-7 xl:w-9 xl:h-9 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-[10px] xl:text-xs font-mono text-white/40 font-bold">
+          <div className="w-7 h-7 xl:w-9 xl:h-9 rounded-full bg-card border border-border-card flex items-center justify-center text-[10px] xl:text-xs font-mono text-text-muted font-bold">
             #{rank}
           </div>
         )}
@@ -146,19 +146,21 @@ export const StationCard = ({
       {/* Brand & name */}
       <div className="flex items-start gap-3 xl:gap-4">
         <div
-          className="w-10 h-10 xl:w-14 xl:h-14 rounded-lg xl:rounded-xl bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-lg xl:text-2xl flex-shrink-0"
+          className="w-10 h-10 xl:w-14 xl:h-14 rounded-lg xl:rounded-xl bg-card border border-border-card flex items-center justify-center text-lg xl:text-2xl flex-shrink-0"
           style={{ borderBottom: `2px solid ${getBrandColor(station.brand)}` }}
         >
           {getBrandIcon(station.brand)}
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <span className="text-[9px] xl:text-[11px] font-black uppercase tracking-tighter text-white/30 font-mono">
+            <span className="text-[9px] xl:text-[11px] font-black uppercase tracking-tighter text-text-dim font-mono">
               {station.brand}
             </span>
           </div>
-          <h3 className="font-bold text-sm xl:text-lg text-white/90 truncate">{station.name}</h3>
-          <p className="text-[11px] xl:text-sm text-white/40 font-mono truncate">
+          <h3 className="font-bold text-sm xl:text-lg text-text-main truncate transition-colors group-hover:text-white dark:group-hover:text-white">
+            {station.name}
+          </h3>
+          <p className="text-[11px] xl:text-sm text-text-muted font-mono truncate">
             {station.address}, {station.city}
           </p>
         </div>
@@ -178,7 +180,7 @@ export const StationCard = ({
                 href={station.sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/20 hover:text-white/60 transition-colors p-1"
+                className="text-text-dim hover:text-text-muted transition-colors p-1"
                 title={t('station.source_link', 'View data source')}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -203,10 +205,10 @@ export const StationCard = ({
             )}
           </div>
           <div className="flex items-baseline gap-1.5 -mt-1 xl:mt-0">
-            <span className="text-[10px] xl:text-xs text-white/30 font-mono">
+            <span className="text-[10px] xl:text-xs text-text-muted font-mono">
               €/{t('common.liter', 'L')}
             </span>
-            <span className="text-[9px] xl:text-[10px] text-white/15 font-mono italic">
+            <span className="text-[9px] xl:text-[10px] text-text-dim font-mono italic">
               (${formatPricePerGallon(price)}/gal)
             </span>
           </div>
@@ -215,8 +217,8 @@ export const StationCard = ({
         {/* Distance */}
         {station.distance !== undefined && hasCoords && (
           <div className="text-right">
-            <span className="text-sm xl:text-lg font-mono text-white/50">{station.distance}</span>
-            <span className="text-[10px] xl:text-xs text-white/30 ml-0.5">km</span>
+            <span className="text-sm xl:text-lg font-mono text-text-muted">{station.distance}</span>
+            <span className="text-[10px] xl:text-xs text-text-dim ml-0.5">km</span>
           </div>
         )}
       </div>
@@ -224,10 +226,10 @@ export const StationCard = ({
       <div className="flex-1" />
 
       {/* All fuel types row */}
-      <div className="mt-3 xl:mt-5 pt-3 xl:pt-5 border-t border-white/[0.06] flex justify-between text-[10px] xl:text-xs font-mono text-white/35">
+      <div className="mt-3 xl:mt-5 pt-3 xl:pt-5 border-t border-border-card flex justify-between text-[10px] xl:text-xs font-mono text-text-muted">
         {station.prices.map((fp) => (
           <div key={fp.type} className="flex flex-col items-center">
-            <span className={fp.type === fuelType ? 'text-white/70 font-bold' : ''}>
+            <span className={fp.type === fuelType ? 'text-text-main font-bold' : ''}>
               {fp.type === 'diesel' ? 'DSL' : fp.type}: {formatPrice(fp.price)}
             </span>
             <span className="text-[8px] opacity-40 italic">
@@ -241,7 +243,7 @@ export const StationCard = ({
         <div className="mt-3 xl:mt-5 flex gap-2">
           <button
             onClick={handleDirectionsClick}
-            className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg xl:rounded-xl py-2 xl:py-3 text-center text-[10px] xl:text-xs font-bold uppercase tracking-wider text-white/60 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none"
+            className="flex-1 bg-card hover:bg-card-hover border border-border-card rounded-lg xl:rounded-xl py-2 xl:py-3 text-center text-[10px] xl:text-xs font-bold uppercase tracking-wider text-text-muted hover:text-text-main transition-all duration-300 cursor-pointer focus:outline-none"
           >
             📍 {t('station.directions')}
           </button>
@@ -263,7 +265,7 @@ export const StationCard = ({
 
       {/* Last updated */}
       {fuelPrice?.updatedAt && (
-        <p className="mt-2 text-[9px] xl:text-[11px] text-white/20 font-mono">
+        <p className="mt-2 text-[9px] xl:text-[11px] text-text-dim font-mono">
           {t('station.updated', 'Updated')}: {getRelativeTime(fuelPrice.updatedAt)}
         </p>
       )}

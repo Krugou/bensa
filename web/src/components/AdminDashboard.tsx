@@ -159,17 +159,17 @@ export const AdminDashboard = () => {
   // Restriction Screen
   if (!isLocal) {
     return (
-      <div className="min-h-screen bg-[#060610] text-white flex flex-col items-center justify-center p-8 font-mono">
+      <div className="min-h-screen bg-main text-text-main flex flex-col items-center justify-center p-8 font-mono">
         <div className="text-fuel-red text-6xl mb-4">🚫</div>
         <h1 className="text-2xl font-bold mb-2">Access Denied</h1>
-        <p className="text-white/40 text-center max-w-md">
+        <p className="text-text-muted text-center max-w-md">
           The Administrator Dashboard is only accessible during local development (localhost).
         </p>
         <button
           onClick={() => {
             void navigate('/');
           }}
-          className="mt-8 px-6 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all"
+          className="mt-8 px-6 py-2 bg-card hover:bg-card-hover border border-border-card rounded-xl transition-all"
         >
           Return to Tracker
         </button>
@@ -179,14 +179,14 @@ export const AdminDashboard = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#060610] text-white/90 font-sans flex flex-col items-center justify-center p-4">
+      <div className="min-h-screen bg-main text-text-main font-sans flex flex-col items-center justify-center p-4">
         <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
           <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-bensa-violet/2 rounded-full blur-[150px] animate-glow-breathe" />
         </div>
 
-        <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-xl max-w-md w-full relative z-10 shadow-2xl">
+        <div className="bg-card border border-border-card p-8 rounded-2xl backdrop-blur-xl max-w-md w-full relative z-10 shadow-2xl">
           <div className="flex justify-center mb-4">
-            <span className="bg-white/10 text-white/60 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest border border-white/10">
+            <span className="bg-card-hover text-text-muted px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest border border-border-card">
               Dev Mode Only
             </span>
           </div>
@@ -203,7 +203,7 @@ export const AdminDashboard = () => {
             <div>
               <label
                 htmlFor="admin-email"
-                className="block text-sm font-medium text-white/60 mb-1 uppercase tracking-wider"
+                className="block text-sm font-medium text-text-muted mb-1 uppercase tracking-wider"
               >
                 Email
               </label>
@@ -215,13 +215,13 @@ export const AdminDashboard = () => {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-fuel-green/50 transition-colors"
+                className="w-full bg-black/40 border border-border-card rounded-xl px-4 py-3 text-text-main focus:outline-none focus:border-fuel-green/50 transition-colors"
               />
             </div>
             <div>
               <label
                 htmlFor="admin-password"
-                className="block text-sm font-medium text-white/60 mb-1 uppercase tracking-wider"
+                className="block text-sm font-medium text-text-muted mb-1 uppercase tracking-wider"
               >
                 Password
               </label>
@@ -233,7 +233,7 @@ export const AdminDashboard = () => {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-fuel-green/50 transition-colors"
+                className="w-full bg-black/40 border border-border-card rounded-xl px-4 py-3 text-text-main focus:outline-none focus:border-fuel-green/50 transition-colors"
               />
             </div>
 
@@ -250,13 +250,13 @@ export const AdminDashboard = () => {
               onClick={() => {
                 setIsRegistering(!isRegistering);
               }}
-              className="text-sm text-bensa-cyan hover:text-white transition-colors"
+              className="text-sm text-bensa-cyan hover:text-text-main transition-colors"
             >
               {isRegistering ? 'Already have an account? Sign In' : 'Need an account? Register'}
             </button>
           </div>
 
-          <div className="my-6 flex items-center gap-4 before:h-px before:flex-1 before:bg-white/10 after:h-px after:flex-1 after:bg-white/10 text-white/40 uppercase text-sm tracking-widest">
+          <div className="my-6 flex items-center gap-4 before:h-px before:flex-1 before:bg-border-card after:h-px after:flex-1 after:bg-border-card text-text-muted uppercase text-sm tracking-widest">
             or
           </div>
 
@@ -264,7 +264,7 @@ export const AdminDashboard = () => {
             onClick={() => {
               void handleGoogleLogin();
             }}
-            className="w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium py-3 rounded-xl transition-all flex items-center justify-center gap-3"
+            className="w-full bg-card-hover hover:bg-card-hover border border-border-card text-text-main font-medium py-3 rounded-xl transition-all flex items-center justify-center gap-3"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -291,7 +291,7 @@ export const AdminDashboard = () => {
             onClick={() => {
               void navigate('/');
             }}
-            className="mt-8 text-white/40 hover:text-white transition-colors w-full text-center text-sm"
+            className="mt-8 text-text-muted hover:text-text-main transition-colors w-full text-center text-sm"
           >
             ← Back to Tracker
           </button>
@@ -301,9 +301,9 @@ export const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#060610] text-white/90 font-sans p-4 md:p-8">
+    <div className="min-h-screen bg-main text-text-main font-sans p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
-        <header className="flex flex-col md:flex-row items-center justify-between gap-4 mb-12 bg-white/5 border border-white/10 p-4 md:p-6 rounded-2xl backdrop-blur-md">
+        <header className="flex flex-col md:flex-row items-center justify-between gap-4 mb-12 bg-card border border-border-card p-4 md:p-6 rounded-2xl backdrop-blur-md">
           <div className="flex items-center gap-4">
             <h1 className="text-3xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-bensa-teal to-fuel-green uppercase tracking-tight">
               Admin Portal
@@ -318,7 +318,7 @@ export const AdminDashboard = () => {
               onClick={() => {
                 void navigate('/');
               }}
-              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium"
+              className="px-4 py-2 rounded-xl bg-card-hover hover:bg-card-hover transition-colors text-sm font-medium"
             >
               View Site
             </button>
@@ -335,7 +335,7 @@ export const AdminDashboard = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="col-span-1 md:col-span-3 space-y-6">
-            <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md">
+            <section className="bg-card border border-border-card rounded-2xl p-6 md:p-8 backdrop-blur-md">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <h2 className="text-xl font-bold flex items-center gap-2">
                   <span className="text-2xl">⛽</span> Manage Stations
@@ -348,7 +348,7 @@ export const AdminDashboard = () => {
                     onChange={(e) => {
                       setSearchQuery(e.target.value);
                     }}
-                    className="bg-black/40 border border-white/10 rounded-xl px-4 py-2 pl-10 text-sm focus:outline-none focus:border-fuel-green/50 transition-colors w-full md:w-64"
+                    className="bg-black/40 border border-border-card rounded-xl px-4 py-2 pl-10 text-sm focus:outline-none focus:border-fuel-green/50 transition-colors w-full md:w-64"
                   />
                   <span className="absolute left-3 top-2.5 opacity-30 text-xs">🔍</span>
                 </div>
@@ -363,12 +363,12 @@ export const AdminDashboard = () => {
                   {filteredStations.map((station) => (
                     <div
                       key={station.id}
-                      className="bg-black/30 border border-white/5 rounded-xl p-4 transition-all hover:border-white/20"
+                      className="bg-black/30 border border-border-card rounded-xl p-4 transition-all hover:border-border-card"
                     >
                       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-3">
-                            <h3 className="font-bold text-white truncate">{station.name}</h3>
+                            <h3 className="font-bold text-text-main truncate">{station.name}</h3>
                             {station.userFixed && (
                               <span className="bg-bensa-cyan/20 text-bensa-cyan border border-bensa-cyan/30 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-tighter shrink-0">
                                 🔒 GPS Locked
@@ -376,18 +376,20 @@ export const AdminDashboard = () => {
                             )}
                           </div>
                           <div className="flex items-center gap-2 mt-1">
-                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-white/60 font-mono font-bold uppercase">
+                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-card-hover text-text-muted font-mono font-bold uppercase">
                               {station.brand}
                             </span>
-                            <span className="text-xs text-white/40 font-mono">{station.city}</span>
+                            <span className="text-xs text-text-muted font-mono">
+                              {station.city}
+                            </span>
                           </div>
 
                           {editingId === station.id ? (
-                            <div className="mt-4 space-y-3 p-3 bg-white/5 rounded-lg border border-white/10">
+                            <div className="mt-4 space-y-3 p-3 bg-card rounded-lg border border-border-card">
                               <div>
                                 <label
                                   htmlFor={`edit-address-${station.id}`}
-                                  className="block text-[10px] uppercase font-bold text-white/40 mb-1"
+                                  className="block text-[10px] uppercase font-bold text-text-muted mb-1"
                                 >
                                   Address
                                 </label>
@@ -399,13 +401,13 @@ export const AdminDashboard = () => {
                                   onChange={(e) => {
                                     setEditAddress(e.target.value);
                                   }}
-                                  className="w-full bg-black/60 border border-white/10 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-fuel-green"
+                                  className="w-full bg-black/60 border border-border-card rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-fuel-green"
                                 />
                               </div>
                               <div>
                                 <label
                                   htmlFor={`edit-brand-${station.id}`}
-                                  className="block text-[10px] uppercase font-bold text-white/40 mb-1"
+                                  className="block text-[10px] uppercase font-bold text-text-muted mb-1"
                                 >
                                   Brand
                                 </label>
@@ -416,7 +418,7 @@ export const AdminDashboard = () => {
                                   onChange={(e) => {
                                     setEditBrand(e.target.value);
                                   }}
-                                  className="w-full bg-black/60 border border-white/10 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-fuel-green"
+                                  className="w-full bg-black/60 border border-border-card rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-fuel-green"
                                 />
                               </div>
                               <div className="flex gap-2">
@@ -432,14 +434,14 @@ export const AdminDashboard = () => {
                                   onClick={() => {
                                     setEditingId(null);
                                   }}
-                                  className="px-4 bg-white/10 text-white py-2 rounded-lg text-xs font-bold"
+                                  className="px-4 bg-card-hover text-text-main py-2 rounded-lg text-xs font-bold"
                                 >
                                   Cancel
                                 </button>
                               </div>
                             </div>
                           ) : (
-                            <p className="text-sm text-white/70 mt-2 flex items-center gap-2">
+                            <p className="text-sm text-text-muted mt-2 flex items-center gap-2">
                               <span className="opacity-40">📍</span>
                               {station.address}
                             </p>
@@ -455,7 +457,7 @@ export const AdminDashboard = () => {
                             className={`p-2 rounded-lg border transition-all ${
                               station.userFixed
                                 ? 'bg-bensa-cyan/10 border-bensa-cyan/30 text-bensa-cyan'
-                                : 'bg-white/5 border-white/10 text-white/30 hover:text-white/60'
+                                : 'bg-card border-border-card text-text-dim hover:text-text-muted'
                             }`}
                           >
                             {station.userFixed ? '🔓' : '🔒'}
@@ -467,7 +469,7 @@ export const AdminDashboard = () => {
                                 setEditAddress(station.address);
                                 setEditBrand(station.brand);
                               }}
-                              className="bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-lg text-xs font-bold transition-all whitespace-nowrap"
+                              className="bg-card hover:bg-card-hover border border-border-card px-4 py-2 rounded-lg text-xs font-bold transition-all whitespace-nowrap"
                             >
                               Edit Station
                             </button>
@@ -478,7 +480,7 @@ export const AdminDashboard = () => {
                   ))}
 
                   {filteredStations.length === 0 && (
-                    <div className="text-center py-12 text-white/20 font-mono italic">
+                    <div className="text-center py-12 text-text-dim font-mono italic">
                       No stations found matching your search.
                     </div>
                   )}
@@ -488,17 +490,17 @@ export const AdminDashboard = () => {
           </div>
 
           <div className="space-y-6">
-            <section className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md">
+            <section className="bg-card border border-border-card rounded-2xl p-6 backdrop-blur-md">
               <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
                 <span className="text-2xl">📊</span> Stats
               </h2>
               <div className="space-y-4 font-mono text-xs">
                 <div className="flex justify-between">
-                  <span className="text-white/40">Total Stations:</span>
+                  <span className="text-text-muted">Total Stations:</span>
                   <span>{stations.length}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/40">Fixed/Locked:</span>
+                  <span className="text-text-muted">Fixed/Locked:</span>
                   <span className="text-bensa-cyan">
                     {stations.filter((s) => s.userFixed).length}
                   </span>
@@ -515,10 +517,10 @@ export const AdminDashboard = () => {
                   onClick={() => {
                     void fetchStations();
                   }}
-                  className="w-full bg-white/5 hover:bg-white/10 border border-white/10 p-3 rounded-xl text-left transition-colors text-sm font-medium flex justify-between items-center"
+                  className="w-full bg-card hover:bg-card-hover border border-border-card p-3 rounded-xl text-left transition-colors text-sm font-medium flex justify-between items-center"
                 >
                   Refresh Stations
-                  <span className="text-white/40">⟳</span>
+                  <span className="text-text-muted">⟳</span>
                 </button>
               </div>
             </section>

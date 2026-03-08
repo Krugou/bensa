@@ -60,7 +60,7 @@ export const DirectionsModal: React.FC<DirectionsModalProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={t('station.directions')}>
       <div className="space-y-3">
-        <p className="text-[11px] text-white/40 font-mono uppercase tracking-widest mb-4">
+        <p className="text-[11px] text-text-muted font-mono uppercase tracking-widest mb-4">
           {t('station.directions_desc')}
         </p>
 
@@ -73,15 +73,15 @@ export const DirectionsModal: React.FC<DirectionsModalProps> = ({
             onClick={() => {
               handleAppClick(app.id, app.url);
             }}
-            className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 group cursor-pointer"
+            className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border-card hover:bg-card-hover hover:border-border-card transition-all duration-300 group cursor-pointer"
           >
             <span className="text-2xl group-hover:scale-110 transition-transform">{app.icon}</span>
             <div className="flex-1">
-              <p className="font-bold text-white/90 group-hover:text-white transition-colors">
+              <p className="font-bold text-text-main group-hover:text-text-main transition-colors">
                 {app.name}
               </p>
             </div>
-            <span className="text-white/20 group-hover:text-white/60 transition-colors">
+            <span className="text-text-dim group-hover:text-text-muted transition-colors">
               <svg
                 width="20"
                 height="20"

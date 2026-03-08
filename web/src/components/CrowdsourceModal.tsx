@@ -25,7 +25,7 @@ export const CrowdsourceModal: React.FC<CrowdsourceModalProps> = ({ isOpen, onCl
         </div>
 
         <div className="space-y-4">
-          <p className="text-white/60 text-sm italic">
+          <p className="text-text-muted text-sm italic">
             {t('crowdsource.placeholder', 'Crowdsourcing features are coming soon. Stay tuned!')}
           </p>
 
@@ -33,13 +33,13 @@ export const CrowdsourceModal: React.FC<CrowdsourceModalProps> = ({ isOpen, onCl
             <div className="space-y-1.5">
               <label
                 htmlFor="crowdsource-station"
-                className="text-[10px] uppercase font-mono tracking-widest text-white/40 ml-1"
+                className="text-[10px] uppercase font-mono tracking-widest text-text-muted ml-1"
               >
                 {t('crowdsource.station_name', 'Station Name')}
               </label>
               <div
                 id="crowdsource-station"
-                className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white/20"
+                className="w-full bg-card border border-border-card rounded-lg p-3 text-text-dim"
                 role="textbox"
                 aria-readonly="true"
               >
@@ -51,13 +51,13 @@ export const CrowdsourceModal: React.FC<CrowdsourceModalProps> = ({ isOpen, onCl
               <div className="space-y-1.5">
                 <label
                   htmlFor="crowdsource-95"
-                  className="text-[10px] uppercase font-mono tracking-widest text-white/40 ml-1"
+                  className="text-[10px] uppercase font-mono tracking-widest text-text-muted ml-1"
                 >
                   95E10
                 </label>
                 <div
                   id="crowdsource-95"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white/20"
+                  className="w-full bg-card border border-border-card rounded-lg p-3 text-text-dim"
                   role="textbox"
                   aria-readonly="true"
                 >
@@ -67,13 +67,13 @@ export const CrowdsourceModal: React.FC<CrowdsourceModalProps> = ({ isOpen, onCl
               <div className="space-y-1.5">
                 <label
                   htmlFor="crowdsource-diesel"
-                  className="text-[10px] uppercase font-mono tracking-widest text-white/40 ml-1"
+                  className="text-[10px] uppercase font-mono tracking-widest text-text-muted ml-1"
                 >
                   Diesel
                 </label>
                 <div
                   id="crowdsource-diesel"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white/20"
+                  className="w-full bg-card border border-border-card rounded-lg p-3 text-text-dim"
                   role="textbox"
                   aria-readonly="true"
                 >
@@ -86,7 +86,7 @@ export const CrowdsourceModal: React.FC<CrowdsourceModalProps> = ({ isOpen, onCl
 
         <button
           onClick={onClose}
-          className="w-full py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white/60 font-bold transition-all duration-300 uppercase tracking-widest text-xs"
+          className="w-full py-3.5 rounded-xl bg-card border border-border-card hover:bg-card-hover text-text-muted font-bold transition-all duration-300 uppercase tracking-widest text-xs"
         >
           {t('common.close', 'Close')}
         </button>

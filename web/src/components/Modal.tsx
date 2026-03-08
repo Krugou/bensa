@@ -45,7 +45,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }
     >
       <div
         ref={modalRef}
-        className="w-full max-w-sm glass-card border-white/10 shadow-2xl relative overflow-hidden animate-fade-in"
+        className="w-full max-w-sm glass-card border-border-card shadow-2xl relative overflow-hidden animate-fade-in"
         role="dialog"
         aria-modal="true"
       >
@@ -55,13 +55,13 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }
         <div className="p-6 relative z-10">
           <div className="flex items-center justify-between mb-6">
             {title && (
-              <h2 className="text-lg font-black italic text-white/90 uppercase tracking-tight">
+              <h2 className="text-lg font-black italic text-text-main uppercase tracking-tight">
                 {title}
               </h2>
             )}
             <button
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-white/10 text-white/40 hover:text-white transition-colors cursor-pointer"
+              className="p-2 rounded-full hover:bg-card-hover text-text-muted hover:text-text-main transition-colors cursor-pointer"
               aria-label="Close"
             >
               <svg

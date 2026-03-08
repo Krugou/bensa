@@ -1,23 +1,37 @@
 :root {
   --bg-main: #020617;
   --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.06);
   --border-card: rgba(255, 255, 255, 0.08);
   --text-main: #e2e8f0;
   --text-muted: rgba(255, 255, 255, 0.4);
+  --text-dim: rgba(255, 255, 255, 0.15);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.15);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.25);
+  --map-bg: #0a0a14;
+  --popup-bg: #0f172a;
+  --popup-text: #ffffff;
+  --glow-opacity: 0.02;
+  
+  color-scheme: dark;
 }
 
 :root.light {
   --bg-main: #f8fafc;
   --bg-card: rgba(0, 0, 0, 0.03);
+  --bg-card-hover: rgba(0, 0, 0, 0.05);
   --border-card: rgba(0, 0, 0, 0.08);
   --text-main: #0f172a;
   --text-muted: rgba(0, 0, 0, 0.5);
-}
+  --text-dim: rgba(0, 0, 0, 0.2);
+  --scrollbar-thumb: rgba(0, 0, 0, 0.1);
+  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.2);
+  --map-bg: #e2e8f0;
+  --popup-bg: #ffffff;
+  --popup-text: #0f172a;
+  --glow-opacity: 0.05;
 
-body {
-  background-color: var(--bg-main);
-  color: var(--text-main);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  color-scheme: light;
 }
 
 @import 'tailwindcss';
@@ -42,29 +56,23 @@ body {
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
 
+  /* Theme-aware colors */
+  --color-main: var(--bg-main);
+  --color-card: var(--bg-card);
+  --color-card-hover: var(--bg-card-hover);
+  --color-border-card: var(--border-card);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-text-dim: var(--text-dim);
+
   /* Shadows */
   --shadow-glow: 0 0 20px rgba(0, 255, 136, 0.15);
   --shadow-glow-lg: 0 0 40px rgba(0, 255, 136, 0.25);
   --shadow-glow-sm: 0 0 10px rgba(0, 255, 136, 0.1);
-  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.1);
   --shadow-glow-green: 0 0 30px rgba(0, 255, 136, 0.4);
   --shadow-glow-red: 0 0 30px rgba(255, 68, 68, 0.4);
   --shadow-glow-yellow: 0 0 30px rgba(255, 215, 0, 0.4);
-}
-
-:root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: dark;
-  color: #e2e8f0;
-  background-color: #020617;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -72,8 +80,15 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
-  background-color: #020617;
-  color: #e2e8f0;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Interactive elements */
@@ -84,73 +99,34 @@ button:active {
 
 /* Price Pulse — pulsing glow for cheap stations */
 @keyframes price-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
-  }
-  50% {
-    box-shadow:
-      0 0 24px rgba(0, 255, 136, 0.7),
-      0 0 48px rgba(0, 255, 136, 0.3);
-  }
+  0%, 100% { box-shadow: 0 0 8px rgba(0, 255, 136, 0.3); }
+  50% { box-shadow: 0 0 24px rgba(0, 255, 136, 0.7), 0 0 48px rgba(0, 255, 136, 0.3); }
 }
-
-.animate-price-pulse {
-  animation: price-pulse 2s ease-in-out infinite;
-}
+.animate-price-pulse { animation: price-pulse 2s ease-in-out infinite; }
 
 /* Glow Breathe — ambient background glow */
 @keyframes glow-breathe {
-  0%,
-  100% {
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.4;
-  }
+  0%, 100% { opacity: calc(var(--glow-opacity) * 0.8); }
+  50% { opacity: calc(var(--glow-opacity) * 1.5); }
 }
-
-.animate-glow-breathe {
-  animation: glow-breathe 4s ease-in-out infinite;
-}
+.animate-glow-breathe { animation: glow-breathe 4s ease-in-out infinite; }
 
 /* Gauge Sweep — for the price gauge animation */
-@keyframes gauge-sweep {
-  from {
-    stroke-dashoffset: 440;
-  }
-}
-
-.animate-gauge-sweep {
-  animation: gauge-sweep 1.5s ease-out forwards;
-}
+@keyframes gauge-sweep { from { stroke-dashoffset: 440; } }
+.animate-gauge-sweep { animation: gauge-sweep 1.5s ease-out forwards; }
 
 /* Smooth Fade In */
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-.animate-fade-in {
-  animation: fade-in 0.6s ease-out forwards;
-}
+.animate-fade-in { animation: fade-in 0.6s ease-out forwards; }
 
 /* Shimmer effect */
 @keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }
-
 .animate-shimmer {
   animation: shimmer 3s ease-in-out infinite;
   background-size: 200% auto;
@@ -158,221 +134,87 @@ button:active {
 
 /* Map marker pulse */
 @keyframes marker-pulse {
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
-
-.animate-marker-pulse {
-  animation: marker-pulse 1.8s ease-in-out infinite;
-}
+.animate-marker-pulse { animation: marker-pulse 1.8s ease-in-out infinite; }
 
 /* Wacky Animations */
-
 @keyframes wiggle {
-  0%,
-  100% {
-    transform: rotate(-3deg);
-  }
-  50% {
-    transform: rotate(3deg);
-  }
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
 }
-
-.animate-wiggle {
-  animation: wiggle 0.3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes rainbow-text {
-  0% {
-    color: #ff0000;
-  }
-  20% {
-    color: #ffff00;
-  }
-  40% {
-    color: #00ff00;
-  }
-  60% {
-    color: #00ffff;
-  }
-  80% {
-    color: #0000ff;
-  }
-  100% {
-    color: #ff00ff;
-  }
-}
-
-.animate-rainbow-text {
-  animation: rainbow-text 3s linear infinite;
-}
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 8s linear infinite;
-}
-
-@keyframes bounce-wacky {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-20px) rotate(10deg);
-  }
-  60% {
-    transform: translateY(-10px) rotate(-10deg);
-  }
-}
-
-.animate-bounce-wacky {
-  animation: bounce-wacky 2s infinite;
-}
+.animate-wiggle { animation: wiggle 0.3s ease-in-out infinite; }
 
 @keyframes pulse-intense {
-  0% {
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  50% {
-    transform: scale(1.05);
-    filter: brightness(1.5);
-  }
-  100% {
-    transform: scale(1);
-    filter: brightness(1);
-  }
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.05); filter: brightness(1.5); }
+  100% { transform: scale(1); filter: brightness(1); }
 }
-
-.animate-pulse-intense {
-  animation: pulse-intense 1s ease-in-out infinite;
-}
+.animate-pulse-intense { animation: pulse-intense 1s ease-in-out infinite; }
 
 /* Cinematic Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  background: transparent;
-}
-
+::-webkit-scrollbar { width: 6px; background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
 
 /* Glass utility */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--bg-card);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-card);
   border-radius: 16px;
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--bg-card);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-card);
   border-radius: 12px;
   transition: all 0.3s ease;
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--bg-card-hover);
+  border-color: var(--border-card);
   transform: translateY(-2px);
 }
 
 /* Text glow for important values */
 .text-glow {
-  text-shadow:
-    0 0 20px rgba(0, 255, 136, 0.5),
-    0 0 40px rgba(0, 255, 136, 0.2);
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.5), 0 0 40px rgba(0, 255, 136, 0.2);
 }
 
-.text-glow-red {
-  text-shadow:
-    0 0 20px rgba(255, 68, 68, 0.5),
-    0 0 40px rgba(255, 68, 68, 0.2);
-}
-
-.text-glow-yellow {
-  text-shadow:
-    0 0 20px rgba(255, 215, 0, 0.5),
-    0 0 40px rgba(255, 215, 0, 0.2);
-}
-
-/* Leaflet overrides for dark theme */
+/* Leaflet overrides */
 .leaflet-container {
-  background: #0a0a14 !important;
+  background: var(--map-bg) !important;
   border-radius: 12px;
 }
 
 .leaflet-control-zoom a {
-  background: rgba(255, 255, 255, 0.08) !important;
-  color: #e0e0e8 !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-.leaflet-control-zoom a:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
+  background: var(--bg-card) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-card) !important;
+  backdrop-filter: blur(10px);
 }
 
 .leaflet-control-attribution {
-  background: rgba(0, 0, 0, 0.6) !important;
-  color: rgba(255, 255, 255, 0.4) !important;
+  background: rgba(var(--bg-main), 0.6) !important;
+  color: var(--text-muted) !important;
   font-size: 10px !important;
-}
-
-.leaflet-control-attribution a {
-  color: rgba(255, 255, 255, 0.5) !important;
 }
 
 /* Leaflet Popup Theming */
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: #0f172a !important;
-  color: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5) !important;
-}
-
-.leaflet-popup-content {
-  margin: 12px 16px !important;
+  background: var(--popup-bg) !important;
+  color: var(--popup-text) !important;
+  border: 1px solid var(--border-card);
 }
 
 /* Fuel type toggle active state */

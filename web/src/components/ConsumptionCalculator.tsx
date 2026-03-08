@@ -31,7 +31,7 @@ export const ConsumptionCalculator: React.FC<ConsumptionCalculatorProps> = ({
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-1.5">
-            <label className="text-[10px] uppercase font-mono tracking-widest text-white/40 ml-1">
+            <label className="text-[10px] uppercase font-mono tracking-widest text-text-muted ml-1">
               {t('calc.consumption', 'L/100km')}
             </label>
             <input
@@ -40,11 +40,11 @@ export const ConsumptionCalculator: React.FC<ConsumptionCalculatorProps> = ({
               onChange={(e) => {
                 setConsumption(parseFloat(e.target.value) || 0);
               }}
-              className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-fuel-green/50 outline-none transition-colors font-mono"
+              className="w-full bg-card border border-border-card rounded-lg p-3 text-text-main focus:border-fuel-green/50 outline-none transition-colors font-mono"
             />
           </div>
           <div className="space-y-1.5">
-            <label className="text-[10px] uppercase font-mono tracking-widest text-white/40 ml-1">
+            <label className="text-[10px] uppercase font-mono tracking-widest text-text-muted ml-1">
               {t('calc.tank_size', 'Tank (L)')}
             </label>
             <input
@@ -53,11 +53,11 @@ export const ConsumptionCalculator: React.FC<ConsumptionCalculatorProps> = ({
               onChange={(e) => {
                 setTankSize(parseFloat(e.target.value) || 0);
               }}
-              className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-fuel-green/50 outline-none transition-colors font-mono"
+              className="w-full bg-card border border-border-card rounded-lg p-3 text-text-main focus:border-fuel-green/50 outline-none transition-colors font-mono"
             />
           </div>
           <div className="space-y-1.5">
-            <label className="text-[10px] uppercase font-mono tracking-widest text-white/40 ml-1">
+            <label className="text-[10px] uppercase font-mono tracking-widest text-text-muted ml-1">
               {t('calc.distance', 'Distance (km)')}
             </label>
             <input
@@ -66,14 +66,14 @@ export const ConsumptionCalculator: React.FC<ConsumptionCalculatorProps> = ({
               onChange={(e) => {
                 setDistance(parseFloat(e.target.value) || 0);
               }}
-              className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-fuel-green/50 outline-none transition-colors font-mono"
+              className="w-full bg-card border border-border-card rounded-lg p-3 text-text-main focus:border-fuel-green/50 outline-none transition-colors font-mono"
             />
           </div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-gradient-to-br from-white/[0.03] to-white/[0.01] border border-white/[0.06] space-y-4">
+        <div className="p-5 rounded-2xl bg-card border border-border-card space-y-4">
           <div className="flex justify-between items-center">
-            <span className="text-sm text-white/40">
+            <span className="text-sm text-text-muted">
               {t('calc.price_diff', 'Price Difference')}
             </span>
             <span className="text-lg font-mono text-fuel-green font-bold">
@@ -81,22 +81,24 @@ export const ConsumptionCalculator: React.FC<ConsumptionCalculatorProps> = ({
             </span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-sm text-white/40">
+            <span className="text-sm text-text-muted">
               {t('calc.tank_savings', 'Savings per Tank')}
             </span>
-            <span className="text-lg font-mono text-white/90 font-bold">
+            <span className="text-lg font-mono text-text-main font-bold">
               {savingsPerTank.toFixed(2)} €
             </span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-sm text-white/40">{t('calc.driving_cost', 'Cost to Drive')}</span>
+            <span className="text-sm text-text-muted">
+              {t('calc.driving_cost', 'Cost to Drive')}
+            </span>
             <span className="text-lg font-mono text-fuel-red/70 font-bold">
               -{costToDrive.toFixed(2)} €
             </span>
           </div>
 
-          <div className="pt-4 border-t border-white/5 flex justify-between items-center">
-            <span className="text-base font-bold text-white/80">
+          <div className="pt-4 border-t border-border-card flex justify-between items-center">
+            <span className="text-base font-bold text-text-main">
               {t('calc.net_savings', 'Net Savings')}
             </span>
             <div className="text-right">
@@ -105,7 +107,7 @@ export const ConsumptionCalculator: React.FC<ConsumptionCalculatorProps> = ({
               >
                 {netSavings.toFixed(2)} €
               </span>
-              <p className="text-[10px] text-white/20 uppercase tracking-tighter">
+              <p className="text-[10px] text-text-dim uppercase tracking-tighter">
                 {netSavings > 0
                   ? t('calc.worth_it', 'Worth the drive!')
                   : t('calc.not_worth_it', 'Stay local')}
@@ -116,7 +118,7 @@ export const ConsumptionCalculator: React.FC<ConsumptionCalculatorProps> = ({
 
         <button
           onClick={onClose}
-          className="w-full py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white/60 font-bold transition-all duration-300 uppercase tracking-widest text-xs"
+          className="w-full py-4 rounded-xl bg-card border border-border-card hover:bg-card-hover text-text-muted font-bold transition-all duration-300 uppercase tracking-widest text-xs cursor-pointer"
         >
           {t('common.close', 'Close')}
         </button>

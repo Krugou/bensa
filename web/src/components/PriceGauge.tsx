@@ -39,7 +39,7 @@ export const PriceGauge = ({ average, min, max, fuelTypeLabel }: PriceGaugeProps
       id="price-gauge"
     >
       {/* Fuel type badge */}
-      <div className="font-mono text-xs uppercase tracking-widest text-white/50 bg-white/[0.04] px-4 py-1.5 rounded-full border border-white/[0.08]">
+      <div className="font-mono text-xs uppercase tracking-widest text-text-muted bg-card px-4 py-1.5 rounded-full border border-border-card">
         {fuelTypeLabel}
       </div>
 
@@ -54,8 +54,8 @@ export const PriceGauge = ({ average, min, max, fuelTypeLabel }: PriceGaugeProps
           <path
             d="M 20 100 A 70 70 0 0 1 180 100"
             fill="none"
-            stroke="white"
-            opacity="0.06"
+            stroke="currentColor"
+            className="text-text-muted opacity-10"
             strokeWidth="12"
             strokeLinecap="round"
           />
@@ -93,10 +93,10 @@ export const PriceGauge = ({ average, min, max, fuelTypeLabel }: PriceGaugeProps
             {formatPrice(average)}
           </span>
           <div className="flex flex-col items-center -mt-1 md:mt-0">
-            <span className="text-[10px] md:text-xs font-mono text-white/40">
+            <span className="text-[10px] md:text-xs font-mono text-text-muted">
               €/{t('common.liter', 'L')}
             </span>
-            <span className="text-[8px] md:text-[10px] font-mono text-white/15 italic">
+            <span className="text-[8px] md:text-[10px] font-mono text-text-dim italic">
               (${formatPricePerGallon(average)}/gal)
             </span>
           </div>
@@ -104,9 +104,9 @@ export const PriceGauge = ({ average, min, max, fuelTypeLabel }: PriceGaugeProps
       </div>
 
       {/* Min/Max labels */}
-      <div className="flex justify-between w-48 md:w-64 text-[10px] md:text-xs font-mono text-white/30 -mt-2">
+      <div className="flex justify-between w-48 md:w-64 text-[10px] md:text-xs font-mono text-text-muted -mt-2">
         <span className="text-fuel-green">{formatPrice(min)}</span>
-        <span className="text-white/20">{t('gauge.average', 'AVG')}</span>
+        <span className="text-text-dim">{t('gauge.average', 'AVG')}</span>
         <span className="text-fuel-red">{formatPrice(max)}</span>
       </div>
 

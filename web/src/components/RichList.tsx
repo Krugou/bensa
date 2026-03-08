@@ -22,7 +22,7 @@ export const RichList: React.FC<RichListProps> = ({ stations, fuelType }) => {
 
   return (
     <div className="space-y-4">
-      <p className="text-white/40 text-xs font-mono uppercase tracking-widest px-1">
+      <p className="text-text-muted text-xs font-mono uppercase tracking-widest px-1">
         {t('rich_list.desc', 'The "Avoid at all costs" List (Top 5 Most Expensive)')}
       </p>
       <div className="space-y-2">
@@ -36,15 +36,15 @@ export const RichList: React.FC<RichListProps> = ({ stations, fuelType }) => {
               <div className="flex items-center gap-3">
                 <span className="text-lg font-black text-fuel-red/40 italic">#{index + 1}</span>
                 <div className="min-w-0">
-                  <h4 className="text-sm font-bold text-white/80 truncate">{station.name}</h4>
-                  <p className="text-[10px] text-white/30 truncate">{station.city}</p>
+                  <h4 className="text-sm font-bold text-text-main truncate">{station.name}</h4>
+                  <p className="text-[10px] text-text-muted truncate">{station.city}</p>
                 </div>
               </div>
               <div className="text-right">
                 <span className="text-lg font-mono font-bold text-fuel-red/80">
                   {formatPrice(price)}
                 </span>
-                <span className="text-[10px] text-white/20 ml-1">€/L</span>
+                <span className="text-[10px] text-text-dim ml-1">€/L</span>
               </div>
             </div>
           );

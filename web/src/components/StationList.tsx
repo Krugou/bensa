@@ -56,7 +56,7 @@ export const StationList = ({
 
   if (stations.length === 0) {
     return (
-      <div className="text-center py-12 text-white/30 font-mono text-sm" id="station-list-empty">
+      <div className="text-center py-12 text-text-dim font-mono text-sm" id="station-list-empty">
         {t('stations.empty', 'No stations found')}
       </div>
     );
@@ -66,7 +66,7 @@ export const StationList = ({
     <div className="space-y-3" id="station-list">
       <div className="flex items-center justify-between mb-4">
         <div className="flex flex-col">
-          <span className="text-xs font-mono text-white/40 uppercase tracking-wider">
+          <span className="text-xs font-mono text-text-muted uppercase tracking-wider">
             {t('stations.count', '{{count}} stations', { count: filteredStations.length })}
           </span>
           {hiddenCount > 0 && !showAll && (
@@ -76,13 +76,15 @@ export const StationList = ({
           )}
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex bg-white/5 p-0.5 rounded-lg border border-white/10 overflow-hidden">
+          <div className="flex bg-card p-0.5 rounded-lg border border-border-card overflow-hidden">
             <button
               onClick={() => {
                 setSortBy('price');
               }}
               className={`px-2 py-1 text-[9px] font-bold uppercase transition-all ${
-                sortBy === 'price' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'
+                sortBy === 'price'
+                  ? 'bg-card-hover text-text-main'
+                  : 'text-text-dim hover:text-text-muted'
               }`}
             >
               {t('stations.sort_price', 'Price')}
@@ -93,8 +95,8 @@ export const StationList = ({
               }}
               className={`px-2 py-1 text-[9px] font-bold uppercase transition-all ${
                 sortBy === 'distance'
-                  ? 'bg-white/10 text-white'
-                  : 'text-white/30 hover:text-white/50'
+                  ? 'bg-card-hover text-text-main'
+                  : 'text-text-dim hover:text-text-muted'
               }`}
             >
               {t('stations.sort_distance', 'Nearest')}
@@ -104,7 +106,7 @@ export const StationList = ({
             onClick={() => {
               setShowAll(!showAll);
             }}
-            className="text-[10px] font-mono px-2 py-1 rounded border border-white/10 hover:bg-white/5 transition-colors text-white/40 hover:text-white/60"
+            className="text-[10px] font-mono px-2 py-1 rounded border border-border-card hover:bg-card transition-colors text-text-muted hover:text-text-main"
           >
             {showAll ? t('stations.show_nearby') : t('stations.show_all')}
           </button>
@@ -112,15 +114,15 @@ export const StationList = ({
       </div>
 
       {filteredStations.length === 0 ? (
-        <div className="text-center py-12 bg-white/5 rounded-2xl border border-white/5 border-dashed">
-          <p className="text-white/40 font-mono text-sm mb-4">
+        <div className="text-center py-12 bg-card rounded-2xl border border-border-card border-dashed">
+          <p className="text-text-muted font-mono text-sm mb-4">
             {t('stations.none_nearby', 'No stations found within 50km')}
           </p>
           <button
             onClick={() => {
               setShowAll(true);
             }}
-            className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold transition-all"
+            className="px-4 py-2 bg-card-hover hover:bg-card-hover rounded-xl text-xs font-bold transition-all"
           >
             {t('stations.show_all')}
           </button>
@@ -148,7 +150,7 @@ export const StationList = ({
             onClick={() => {
               setShowAll(false);
             }}
-            className="text-[10px] font-mono px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white/40"
+            className="text-[10px] font-mono px-3 py-1.5 rounded-full bg-card border border-border-card hover:bg-card-hover transition-colors text-text-muted"
           >
             {t('stations.show_nearby')}
           </button>

@@ -42,14 +42,14 @@ export const WeekdayAnalysis: React.FC = () => {
   }, [history]);
 
   if (loading)
-    return <div className="text-white/20 text-xs animate-pulse">Analyzing trends...</div>;
+    return <div className="text-text-dim text-xs animate-pulse">Analyzing trends...</div>;
   if (!stats) return null;
 
   const names = i18n.language === 'fi' ? weekdayNamesFi : weekdayNames;
 
   return (
-    <div className="mt-6 p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
-      <h4 className="text-xs font-mono uppercase tracking-widest text-white/40 mb-4 flex items-center gap-2">
+    <div className="mt-6 p-4 rounded-xl bg-card border border-border-card">
+      <h4 className="text-xs font-mono uppercase tracking-widest text-text-muted mb-4 flex items-center gap-2">
         <span>📅</span> {t('analysis.weekday_title', 'Best Day to Fill Up')}
       </h4>
 
@@ -64,11 +64,11 @@ export const WeekdayAnalysis: React.FC = () => {
           return (
             <div key={d.day} className="flex-1 flex flex-col items-center gap-2">
               <div
-                className={`w-full rounded-t-sm transition-all duration-500 ${isCheapest ? 'bg-fuel-green shadow-[0_0_15px_rgba(0,255,136,0.3)]' : 'bg-white/10'}`}
+                className={`w-full rounded-t-sm transition-all duration-500 ${isCheapest ? 'bg-fuel-green shadow-[0_0_15px_rgba(0,255,136,0.3)]' : 'bg-card-hover'}`}
                 style={{ height: `${height}%` }}
               />
               <span
-                className={`text-[10px] font-bold ${isCheapest ? 'text-fuel-green' : 'text-white/20'}`}
+                className={`text-[10px] font-bold ${isCheapest ? 'text-fuel-green' : 'text-text-dim'}`}
               >
                 {names[d.day]}
               </span>
@@ -77,7 +77,7 @@ export const WeekdayAnalysis: React.FC = () => {
         })}
       </div>
 
-      <p className="mt-4 text-xs text-white/60 text-center italic">
+      <p className="mt-4 text-xs text-text-muted text-center italic">
         {t('analysis.recommendation', {
           day: names[stats.cheapestDay],
           defaultValue: `Historically, ${names[stats.cheapestDay]}s are the cheapest.`,

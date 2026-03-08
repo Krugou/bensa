@@ -155,10 +155,7 @@ export const StationMap = ({
   const showControls = hasGps;
 
   return (
-    <div
-      className="relative rounded-xl overflow-hidden border border-white/[0.06]"
-      id="station-map"
-    >
+    <div className="relative rounded-xl overflow-hidden border border-border-card" id="station-map">
       <MapContainer
         center={[userLat, userLon] as L.LatLngExpression}
         zoom={11}
@@ -232,7 +229,7 @@ export const StationMap = ({
                 <div className="text-sm xl:text-base min-w-[180px] xl:min-w-[240px] p-1">
                   <div className="flex items-center gap-2 mb-1">
                     <span
-                      className="text-[10px] xl:text-xs px-1.5 py-0.5 rounded bg-white/10 text-white/60 font-mono font-bold uppercase"
+                      className="text-[10px] xl:text-xs px-1.5 py-0.5 rounded bg-card-hover text-text-muted font-mono font-bold uppercase"
                       style={{ borderLeft: `2px solid ${getBrandColor(station.brand)}` }}
                     >
                       {getBrandIcon(station.brand)} {station.brand}
@@ -243,16 +240,16 @@ export const StationMap = ({
                       </span>
                     )}
                   </div>
-                  <p className="font-bold text-base xl:text-lg leading-tight text-white mb-0.5">
+                  <p className="font-bold text-base xl:text-lg leading-tight text-text-main mb-0.5">
                     {station.name}
                   </p>
-                  <p className="text-white/40 text-[11px] xl:text-sm font-mono">
+                  <p className="text-text-muted text-[11px] xl:text-sm font-mono">
                     {station.address}, {station.city}
                   </p>
 
-                  <div className="mt-3 pt-2 border-t border-white/10 flex items-end justify-between">
+                  <div className="mt-3 pt-2 border-t border-border-card flex items-end justify-between">
                     <div>
-                      <p className="text-[10px] xl:text-xs uppercase text-white/30 font-bold tracking-widest mb-0.5">
+                      <p className="text-[10px] xl:text-xs uppercase text-text-dim font-bold tracking-widest mb-0.5">
                         Price
                       </p>
                       <p className="text-xl xl:text-2xl font-mono font-black" style={{ color }}>
@@ -261,7 +258,7 @@ export const StationMap = ({
                       </p>
                     </div>
                     {station.distance && (
-                      <p className="text-[11px] xl:text-sm font-mono text-white/40 mb-1">
+                      <p className="text-[11px] xl:text-sm font-mono text-text-muted mb-1">
                         📍 {station.distance} km
                       </p>
                     )}
@@ -296,8 +293,8 @@ export const StationMap = ({
         />
       )}
 
-      {/* Legend overlay */}
-      <div className="absolute bottom-4 left-4 glass-card px-3 py-2 flex items-center gap-3 text-[10px] xl:text-xs font-mono text-white/60 z-[1000]">
+      {/* Map Legend */}
+      <div className="absolute bottom-4 left-4 glass-card px-3 py-2 flex items-center gap-3 text-[10px] xl:text-xs font-mono text-text-muted z-[1000]">
         <span className="flex items-center gap-1">
           <span className="w-2.5 h-2.5 xl:w-3.5 xl:h-3.5 rounded-full bg-fuel-green shadow-glow-green" />
           {t('map.cheap', 'Cheap')}

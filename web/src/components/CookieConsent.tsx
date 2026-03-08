@@ -31,14 +31,14 @@ export const CookieConsent = () => {
 
   return (
     <div className="fixed bottom-6 left-4 right-4 md:left-auto md:right-6 md:w-96 z-[9999] animate-fade-in">
-      <div className="glass-card p-6 shadow-2xl border-bensa-teal/30 bg-[#0a0a14]/95 backdrop-blur-xl">
+      <div className="glass-card p-6 shadow-2xl border-bensa-teal/30 bg-main/95 backdrop-blur-xl">
         <div className="flex items-start gap-4">
           <div className="text-3xl">🍪</div>
           <div className="space-y-3">
-            <h3 className="text-sm font-bold uppercase tracking-widest text-white/90">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-text-main">
               {t('cookies.title', 'Cookie settings')}
             </h3>
-            <p className="text-[11px] text-white/60 leading-relaxed font-mono">
+            <p className="text-[11px] text-text-muted leading-relaxed font-mono">
               {t(
                 'cookies.description',
                 'We use Google Analytics to understand how our users find the cheapest gas. No personal data is stored.',
@@ -57,7 +57,7 @@ export const CookieConsent = () => {
                 onClick={() => {
                   handleConsent(false);
                 }}
-                className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white/40 text-[10px] font-bold uppercase tracking-tighter hover:bg-white/10 transition-all cursor-pointer"
+                className="px-4 py-2 bg-card border border-border-card rounded-lg text-text-muted text-[10px] font-bold uppercase tracking-tighter hover:bg-card-hover transition-all cursor-pointer"
               >
                 {t('cookies.deny', 'Decline')}
               </button>
