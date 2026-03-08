@@ -10,6 +10,7 @@ interface PriceHistoryPoint {
   price95: number;
   price98: number;
   diesel: number;
+  re85: number;
 }
 
 /**
@@ -32,8 +33,9 @@ export function usePriceHistory(
     try {
       // Try to fetch from aggregated price_averages first (much faster)
       const averagesCol = collection(db, 'price_averages');
-      // For 365 days, we might have ~2190 records (6 runs/day)
-      const qAvg = query(averagesCol, orderBy('timestamp', 'desc'), limit(days * 10));
+      // Increase limit to be more robust. 24h/2h = 12 runs/day.
+      // 12 * days * 1.5 to have some buffer.
+      const qAvg = query(averagesCol, orderBy('timestamp', 'desc'), limit(days * 20));
       const avgSnapshot = await getDocs(qAvg);
 
       let points: PriceHistoryPoint[] = [];
@@ -41,7 +43,7 @@ export function usePriceHistory(
       if (!avgSnapshot.empty) {
         const groupedData: Record<
           string,
-          { sum95: number; sum98: number; sumDiesel: number; count: number }
+          { sum95: number; sum98: number; sumDiesel: number; sumRE85: number; count: number }
         > = {};
 
         avgSnapshot.docs.forEach((doc) => {
@@ -55,17 +57,18 @@ export function usePriceHistory(
           if (granularity === 'monthly') {
             dateKey = dateKey.slice(0, 7); // YYYY-MM
           } else if (granularity === 'hourly') {
-            dateKey = `${dateKey} ${String(d.getHours()).padStart(2, '0')}:00`;
+            dateKey = `${dateKey}T${String(d.getHours()).padStart(2, '0')}:00:00`;
           }
 
           if (!(dateKey in groupedData)) {
-            groupedData[dateKey] = { sum95: 0, sum98: 0, sumDiesel: 0, count: 0 };
+            groupedData[dateKey] = { sum95: 0, sum98: 0, sumDiesel: 0, sumRE85: 0, count: 0 };
           }
 
           const stats = groupedData[dateKey];
           stats.sum95 += (data['avg95'] as number | undefined) ?? 0;
           stats.sum98 += (data['avg98'] as number | undefined) ?? 0;
           stats.sumDiesel += (data['avgDiesel'] as number | undefined) ?? 0;
+          stats.sumRE85 += (data['avgRE85'] as number | undefined) ?? 0;
           stats.count++;
         });
 
@@ -74,15 +77,16 @@ export function usePriceHistory(
           price95: Math.round((stats.sum95 / stats.count) * 1000) / 1000,
           price98: Math.round((stats.sum98 / stats.count) * 1000) / 1000,
           diesel: Math.round((stats.sumDiesel / stats.count) * 1000) / 1000,
+          re85: Math.round((stats.sumRE85 / stats.count) * 1000) / 1000,
         }));
       }
 
       // If price_averages is empty or has very few results (new collection), fall back to price_history
       if (points.length < Math.min(days, 5) && granularity !== 'monthly') {
         const historyCol = collection(db, 'price_history');
-        // Increase limit to cover enough days. 200 stations * 6 runs/day * 7 days = 8400.
-        // We use 10000 to be safe for 7 days, and even more for longer ranges if possible.
-        const fetchLimit = Math.max(days * 1200, 2000);
+        // Increase limit substantially.
+        // 300 stations * 12 runs/day * days.
+        const fetchLimit = Math.max(days * 4000, 5000);
         const q = query(historyCol, orderBy('timestamp', 'desc'), limit(fetchLimit));
         const snapshot = await getDocs(q);
 
@@ -95,6 +99,8 @@ export function usePriceHistory(
             count98: number;
             sumDiesel: number;
             countDiesel: number;
+            sumRE85: number;
+            countRE85: number;
           }
         > = {};
 
@@ -106,7 +112,7 @@ export function usePriceHistory(
           const d = ts.toDate();
           const dateKey =
             granularity === 'hourly'
-              ? `${d.toISOString().split('T')[0]} ${String(d.getHours()).padStart(2, '0')}:00`
+              ? `${d.toISOString().split('T')[0]}T${String(d.getHours()).padStart(2, '0')}:00:00`
               : d.toISOString().split('T')[0];
 
           if (!(dateKey in groupedData)) {
@@ -117,6 +123,8 @@ export function usePriceHistory(
               count98: 0,
               sumDiesel: 0,
               countDiesel: 0,
+              sumRE85: 0,
+              countRE85: 0,
             };
           }
           const stats = groupedData[dateKey];
@@ -134,6 +142,9 @@ export function usePriceHistory(
             } else if (p.type === 'diesel') {
               stats.sumDiesel += p.price;
               stats.countDiesel++;
+            } else if (p.type === 're85') {
+              stats.sumRE85 += p.price;
+              stats.countRE85++;
             }
           });
         });
@@ -146,6 +157,8 @@ export function usePriceHistory(
             stats.countDiesel > 0
               ? Math.round((stats.sumDiesel / stats.countDiesel) * 1000) / 1000
               : 0,
+          re85:
+            stats.countRE85 > 0 ? Math.round((stats.sumRE85 / stats.countRE85) * 1000) / 1000 : 0,
         }));
       }
 

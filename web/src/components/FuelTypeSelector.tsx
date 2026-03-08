@@ -8,7 +8,7 @@ interface FuelTypeSelectorProps {
   onChange: (type: FuelType) => void;
 }
 
-const FUEL_TYPES: FuelType[] = ['95', '98', 'diesel'];
+const FUEL_TYPES: FuelType[] = ['95', '98', 'diesel', 're85'];
 
 export const FuelTypeSelector = ({ selected, onChange }: FuelTypeSelectorProps) => {
   const { t } = useTranslation();

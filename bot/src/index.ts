@@ -38,7 +38,7 @@ if (saVar) {
 const db = admin.firestore();
 
 interface FuelPrice {
-  type: '95' | '98' | 'diesel';
+  type: '95' | '98' | 'diesel' | 're85';
   price: number;
   updatedAt: string;
 }
@@ -211,6 +211,15 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
             if (price98 > 0) prices.push({ type: '98', price: price98, updatedAt: now });
             if (diesel > 0) prices.push({ type: 'diesel', price: diesel, updatedAt: now });
 
+            // Extra: Extract RE85 from name if present (e.g. "St1 ... (Re85 1.384)")
+            const re85Match = /\(Re85\s+([0-9,.]+)\)/i.exec(rawName);
+            if (re85Match) {
+              const re85Price = parseFloat(re85Match[1].replace(',', '.'));
+              if (re85Price > 0) {
+                prices.push({ type: 're85', price: re85Price, updatedAt: now });
+              }
+            }
+
             if (prices.length > 0) {
               results.push({
                 id: mapId ? `station-${mapId}` : `station-${index}-${currentCity}`,
@@ -365,26 +374,30 @@ async function saveToFirestore(stations: GasStation[]): Promise<void> {
   const stats = {
     sum95: 0, count95: 0,
     sum98: 0, count98: 0,
-    sumDiesel: 0, countDiesel: 0
+    sumDiesel: 0, countDiesel: 0,
+    sumRE85: 0, countRE85: 0,
   };
 
   stations.forEach(s => {
     s.prices.forEach(p => {
       if (p.type === '95') { stats.sum95 += p.price; stats.count95++; }
       else if (p.type === '98') { stats.sum98 += p.price; stats.count98++; }
-      else { stats.sumDiesel += p.price; stats.countDiesel++; }
+      else if (p.type === 'diesel') { stats.sumDiesel += p.price; stats.countDiesel++; }
+      else if (p.type === 're85') { stats.sumRE85 += p.price; stats.countRE85++; }
     });
   });
 
   const avg95 = stats.count95 > 0 ? stats.sum95 / stats.count95 : 0;
   const avg98 = stats.count98 > 0 ? stats.sum98 / stats.count98 : 0;
   const avgDiesel = stats.countDiesel > 0 ? stats.sumDiesel / stats.countDiesel : 0;
+  const avgRE85 = stats.countRE85 > 0 ? stats.sumRE85 / stats.countRE85 : 0;
 
   await db.collection('price_averages').add({
     timestamp,
     avg95: Math.round(avg95 * 1000) / 1000,
     avg98: Math.round(avg98 * 1000) / 1000,
     avgDiesel: Math.round(avgDiesel * 1000) / 1000,
+    avgRE85: Math.round(avgRE85 * 1000) / 1000,
     stationCount: stations.length,
     date: new Date().toISOString().split('T')[0]
   });

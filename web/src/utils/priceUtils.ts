@@ -84,6 +84,8 @@ export function getFuelTypeLabel(fuelType: FuelType): string {
       return '98E5';
     case 'diesel':
       return 'Diesel';
+    case 're85':
+      return 'RE85';
   }
 }
 
@@ -98,6 +100,8 @@ export function getFuelTypeEmoji(fuelType: FuelType): string {
       return '🏎️';
     case 'diesel':
       return '🚛';
+    case 're85':
+      return '🌽';
   }
 }
 

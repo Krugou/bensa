@@ -128,6 +128,10 @@ export const PriceHistoryChart = () => {
               <stop offset="0%" stopColor="#22d3ee" stopOpacity={0.3} />
               <stop offset="100%" stopColor="#22d3ee" stopOpacity={0} />
             </linearGradient>
+            <linearGradient id="gradRE85" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ffa500" stopOpacity={0.3} />
+              <stop offset="100%" stopColor="#ffa500" stopOpacity={0} />
+            </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
           <XAxis
@@ -137,9 +141,23 @@ export const PriceHistoryChart = () => {
             interval={granularity === 'hourly' ? 5 : 'preserveStartEnd'}
             axisLine={{ stroke: 'rgba(255,255,255,0.06)' }}
             tickFormatter={(value: string) => {
-              if (granularity === 'hourly') return value.split(' ')[1];
-              if (granularity === 'monthly') return value;
-              return value.slice(5);
+              try {
+                const date = new Date(value);
+                if (granularity === 'hourly') {
+                  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                }
+                if (granularity === 'monthly') {
+                  // value is YYYY-MM
+                  return new Date(`${value}-01`).toLocaleDateString([], {
+                    month: 'short',
+                    year: '2-digit',
+                  });
+                }
+                // Daily: YYYY-MM-DD
+                return date.toLocaleDateString([], { day: '2-digit', month: '2-digit' });
+              } catch {
+                return value;
+              }
             }}
           />
           <YAxis
@@ -158,6 +176,32 @@ export const PriceHistoryChart = () => {
               fontFamily: 'JetBrains Mono, monospace',
             }}
             labelStyle={{ color: 'rgba(255,255,255,0.5)' }}
+            labelFormatter={(value: string) => {
+              try {
+                const date = new Date(value);
+                if (granularity === 'hourly') {
+                  return date.toLocaleString([], {
+                    day: '2-digit',
+                    month: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  });
+                }
+                if (granularity === 'monthly') {
+                  return new Date(`${value}-01`).toLocaleDateString([], {
+                    month: 'long',
+                    year: 'numeric',
+                  });
+                }
+                return date.toLocaleDateString([], {
+                  weekday: 'short',
+                  day: '2-digit',
+                  month: '2-digit',
+                });
+              } catch {
+                return value;
+              }
+            }}
           />
           <Area
             type="monotone"
@@ -186,11 +230,20 @@ export const PriceHistoryChart = () => {
             name="Diesel"
             dot={false}
           />
+          <Area
+            type="monotone"
+            dataKey="re85"
+            stroke="#ffa500"
+            strokeWidth={2}
+            fill="url(#gradRE85)"
+            name="RE85"
+            dot={false}
+          />
         </AreaChart>
       </ResponsiveContainer>
 
       {/* Legend */}
-      <div className="flex justify-center gap-6 mt-3 text-[10px] font-mono text-white/40">
+      <div className="flex justify-center flex-wrap gap-x-6 gap-y-2 mt-3 text-[10px] font-mono text-white/40">
         <span className="flex items-center gap-1.5">
           <span className="w-3 h-0.5 bg-fuel-green rounded" />
           95E10
@@ -202,6 +255,10 @@ export const PriceHistoryChart = () => {
         <span className="flex items-center gap-1.5">
           <span className="w-3 h-0.5 bg-bensa-cyan rounded" />
           Diesel
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-3 h-0.5 bg-[#ffa500] rounded" />
+          RE85
         </span>
       </div>
 

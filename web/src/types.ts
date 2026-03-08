@@ -1,4 +1,4 @@
-export type FuelType = '95' | '98' | 'diesel';
+export type FuelType = '95' | '98' | 'diesel' | 're85';
 
 export type PriceLevel = 'cheap' | 'mid' | 'expensive';
 
