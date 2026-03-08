@@ -41,13 +41,33 @@ vi.mock('react-leaflet', () => {
         </div>
       );
     },
-    CircleMarker: ({ children, ...props }: SimpleChildrenProps) => (
-      <div data-testid="circle-marker" {...props}>
+    CircleMarker: ({
+      children,
+      center,
+      radius,
+      ...props
+    }: SimpleChildrenProps & { center?: unknown; radius?: number }) => (
+      <div
+        data-testid="circle-marker"
+        data-center={JSON.stringify(center)}
+        data-radius={radius}
+        {...props}
+      >
         {children}
       </div>
     ),
-    Circle: ({ children, ...props }: SimpleChildrenProps) => (
-      <div data-testid="circle" {...props}>
+    Circle: ({
+      children,
+      center,
+      radius,
+      ...props
+    }: SimpleChildrenProps & { center?: unknown; radius?: number }) => (
+      <div
+        data-testid="circle"
+        data-center={JSON.stringify(center)}
+        data-radius={radius}
+        {...props}
+      >
         {children}
       </div>
     ),

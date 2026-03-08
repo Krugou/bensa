@@ -416,6 +416,7 @@ const AppContent = () => {
                   userLat={userLat}
                   userLon={userLon}
                   hasGps={hasGps}
+                  theme={theme}
                 />
               </div>
             </CollapsibleSection>

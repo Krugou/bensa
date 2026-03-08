@@ -28,6 +28,7 @@ interface StationMapProps {
   userLon?: number;
   /** whether the lat/lon come from real GPS; if false we treat location as default */
   hasGps?: boolean;
+  theme?: 'dark' | 'light';
 }
 
 const getBrandIcon = (brand: string) => {
@@ -49,7 +50,7 @@ const getBrandColor = (brand: string) => {
   if (b.includes('shell')) return '#ff0000';
   if (b.includes('abc')) return '#00a651';
   if (b.includes('seo')) return '#0054a6';
-  return 'rgba(255,255,255,0.1)';
+  return 'var(--border-card)';
 };
 
 /**
@@ -114,6 +115,7 @@ export const StationMap = ({
   userLat = DEFAULT_LOCATION.lat,
   userLon = DEFAULT_LOCATION.lon,
   hasGps = false,
+  theme = 'dark',
 }: StationMapProps) => {
   const { t } = useTranslation();
   const [selectedStation, setSelectedStation] = useState<GasStation | null>(null);
@@ -148,8 +150,11 @@ export const StationMap = ({
     Analytics.trackButtonClick('directions_open_map');
   };
 
-  // Always use dark tile layer
-  const tileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+  // Switch tile layer based on theme
+  const tileUrl =
+    theme === 'light'
+      ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+      : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
 
   const showUserMarker = hasGps;
   const showControls = hasGps;
@@ -174,7 +179,7 @@ export const StationMap = ({
               center={[userLat, userLon] as L.LatLngExpression}
               radius={20000} // 20km range
               pathOptions={{
-                color: '#3b82f6',
+                color: theme === 'light' ? '#3b82f6' : '#60a5fa',
                 fillColor: '#3b82f6',
                 fillOpacity: 0.05,
                 weight: 1,
@@ -185,7 +190,7 @@ export const StationMap = ({
               center={[userLat, userLon] as L.LatLngExpression}
               radius={6}
               pathOptions={{
-                color: '#3b82f6',
+                color: theme === 'light' ? '#2563eb' : '#3b82f6',
                 fillColor: '#3b82f6',
                 fillOpacity: 0.9,
                 weight: 2,
@@ -220,7 +225,7 @@ export const StationMap = ({
                 direction="top"
                 offset={[0, -radius]}
                 opacity={0.9}
-                className="bg-black/80 border-none text-white font-mono font-bold text-xs xl:text-sm rounded-md shadow-lg"
+                className={`${theme === 'light' ? 'bg-white/90 text-slate-900 border border-slate-200' : 'bg-black/80 text-white border-none'} font-mono font-bold text-xs xl:text-sm rounded-md shadow-lg`}
               >
                 {formatPrice(price)}
               </Tooltip>
