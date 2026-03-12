@@ -196,6 +196,23 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
             const rawName = stationCell.textContent ? stationCell.textContent.trim() : 'Unknown Station';
             const brand = rawName.split(/[\s,]+/)[0];
 
+            // Parse a cleaner address from the raw name by stripping brand prefix and annotations
+            let cleanAddress = rawName;
+            // Remove brand prefix
+            const knownBrands = ['ABC Deli', 'ABC Automaatti', 'ABC', 'Neste Express', 'Neste K', 'Neste Oil', 'Neste', 'St1', 'Shell', 'SEO', 'Seo', 'Teboil', 'Gulf'];
+            for (const b of knownBrands) {
+              if (cleanAddress.startsWith(b)) {
+                cleanAddress = cleanAddress.slice(b.length);
+                break;
+              }
+            }
+            cleanAddress = cleanAddress.replace(/^[\s,;:]+/, '');
+            // Remove technical annotations like (*E99+), (Re85 1.384)
+            cleanAddress = cleanAddress.replace(/\(\*?[A-Za-z0-9+]+\)/g, '');
+            cleanAddress = cleanAddress.replace(/\(Re85\s+[0-9.,]+\)/gi, '');
+            cleanAddress = cleanAddress.replace(/\s{2,}/g, ' ').trim();
+            cleanAddress = cleanAddress.replace(/[,;]+$/, '').trim();
+
             const parsePrice = (cell: Element): number => {
               const text = cell.textContent ? cell.textContent.replace(/\*/g, '').trim() : '';
               return text === '-' || text === '' ? 0 : parseFloat(text.replace(',', '.'));
@@ -225,7 +242,7 @@ async function scrapeGasPrices(): Promise<GasStation[]> {
                 id: mapId ? `station-${mapId}` : `station-${index}-${currentCity}`,
                 name: rawName,
                 brand: brand,
-                address: rawName,
+                address: cleanAddress || rawName,
                 city: currentCity,
                 lat: 0,
                 lon: 0,

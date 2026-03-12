@@ -7,9 +7,9 @@ import { GasStation } from '../../types';
 
 const mockStation: GasStation = {
   id: 'test-001',
-  name: 'Test Station',
-  brand: 'Test',
-  address: 'Test Street 1',
+  name: 'Neste, Laajasalo Kuvernöörintie 6',
+  brand: 'Neste',
+  address: 'Neste, Laajasalo Kuvernöörintie 6',
   city: 'Helsinki',
   lat: 60.17,
   lon: 24.94,
@@ -30,14 +30,16 @@ describe('StationCard', () => {
     rank: 1,
   };
 
-  it('renders the station name', () => {
+  it('renders the cleaned station name (without brand prefix)', () => {
     render(React.createElement(StationCard, defaultProps));
-    expect(screen.getByText('Test Station')).toBeInTheDocument();
+    // Should show cleaned name without "Neste," prefix
+    expect(screen.getByText('Laajasalo Kuvernöörintie 6')).toBeInTheDocument();
   });
 
-  it('renders the station address and city', () => {
+  it('renders a non-redundant address when address duplicates name', () => {
     render(React.createElement(StationCard, defaultProps));
-    expect(screen.getByText('Test Street 1, Helsinki')).toBeInTheDocument();
+    // Address should be extracted street, not the full raw name
+    expect(screen.getByText(/Kuvernöörintie 6, Helsinki/)).toBeInTheDocument();
   });
 
   it('renders the fuel price', () => {
@@ -58,5 +60,21 @@ describe('StationCard', () => {
   it('has the correct card ID', () => {
     const { container } = render(React.createElement(StationCard, defaultProps));
     expect(container.querySelector('#station-test-001')).toBeInTheDocument();
+  });
+
+  it('strips technical annotations from station name', () => {
+    const stationWithAnnotation: GasStation = {
+      ...mockStation,
+      name: 'Shell, Leppävaara Vanha maantie 2 (*E99+)',
+      brand: 'Shell',
+      address: 'Shell, Leppävaara Vanha maantie 2 (*E99+)',
+    };
+    render(
+      React.createElement(StationCard, {
+        ...defaultProps,
+        station: stationWithAnnotation,
+      }),
+    );
+    expect(screen.getByText('Leppävaara Vanha maantie 2')).toBeInTheDocument();
   });
 });

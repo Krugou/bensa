@@ -218,12 +218,22 @@ const AppContent = () => {
     return Array.from(brands).sort();
   }, [stations]);
 
-  // Find nearest cheap option
+  // Find nearest cheap option (exclude stale data older than 7 days)
+  const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
   const nearestCheapStation = useMemo(() => {
     if (filteredAndSortedStations.length === 0) return null;
 
-    // Find the minimum price in the current filtered/nearby list
-    const pricesInList = filteredAndSortedStations
+    // Filter out stations with stale price data
+    const freshStations = filteredAndSortedStations.filter((s) => {
+      const fp = s.prices.find((p) => p.type === fuelType);
+      if (!fp?.updatedAt) return false;
+      return Date.now() - new Date(fp.updatedAt).getTime() <= SEVEN_DAYS_MS;
+    });
+
+    if (freshStations.length === 0) return null;
+
+    // Find the minimum price among fresh stations
+    const pricesInList = freshStations
       .map((s) => s.prices.find((fp) => fp.type === fuelType)?.price)
       .filter((p): p is number => p !== undefined && p > 0);
 
@@ -231,17 +241,16 @@ const AppContent = () => {
     const localMin = Math.min(...pricesInList);
 
     // Find all stations within 2 cents of the LOCAL minimum AND within 50km
-    // If we're using GPS, 50km is a good limit. If no GPS, it's relative to DEFAULT_LOCATION.
-    const cheapOptions = filteredAndSortedStations.filter((s) => {
+    const cheapOptions = freshStations.filter((s) => {
       const p = s.prices.find((fp) => fp.type === fuelType)?.price;
       const isCheapEnough = p && p <= localMin + 0.02;
       const isCloseEnough = (s.distance ?? 0) <= 50;
       return isCheapEnough && isCloseEnough;
     });
 
-    // If no stations within 50km are "cheap enough", just take the absolute cheapest in the list
+    // If no stations within 50km are "cheap enough", just take the absolute cheapest fresh station
     if (cheapOptions.length === 0) {
-      return filteredAndSortedStations[0];
+      return freshStations[0];
     }
 
     // Return the closest one among the practical cheap options
@@ -251,11 +260,23 @@ const AppContent = () => {
   const scrollToStation = (id: string) => {
     const element = document.getElementById(`station-${id}`);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      element.classList.add('animate-pulse-intense');
+      // Expand any collapsed parent containers (CollapsibleSection uses max-h-0)
+      let parent = element.parentElement;
+      while (parent) {
+        if (parent.classList.contains('max-h-0')) {
+          parent.classList.remove('max-h-0', 'opacity-0', 'pointer-events-none');
+          parent.classList.add('max-h-[2000px]', 'opacity-100');
+        }
+        parent = parent.parentElement;
+      }
+
       setTimeout(() => {
-        element.classList.remove('animate-pulse-intense');
-      }, 3000);
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        element.classList.add('animate-pulse-intense');
+        setTimeout(() => {
+          element.classList.remove('animate-pulse-intense');
+        }, 3000);
+      }, 100);
     }
   };
 

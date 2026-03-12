@@ -12,6 +12,7 @@ import {
   getPriceLevelClass,
   getPriceLevelColor,
 } from '../utils/priceUtils';
+import { cleanStationAddress, cleanStationName } from '../utils/stationUtils';
 import { DirectionsModal } from './DirectionsModal';
 
 interface StationCardProps {
@@ -59,11 +60,19 @@ export const StationCard = ({
   const [isDirectionsOpen, setIsDirectionsOpen] = useState(false);
   const fuelPrice = station.prices.find((p) => p.type === fuelType);
   const price = fuelPrice?.price ?? 0;
+
+  // Check if price data is stale (older than 7 days)
+  const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+  const isStale = fuelPrice?.updatedAt
+    ? Date.now() - new Date(fuelPrice.updatedAt).getTime() > SEVEN_DAYS_MS
+    : false;
+
   const level = getPriceLevel(price, min, max);
-  const levelColorClass = getPriceLevelClass(level);
-  const levelColor = getPriceLevelColor(level);
-  const isCheap = level === 'cheap';
-  const isDirtCheap = price <= min + (max - min) * 0.05;
+  const levelColorClass = isStale ? 'text-text-dim' : getPriceLevelClass(level);
+  const levelColor = isStale ? 'var(--text-dim)' : getPriceLevelColor(level);
+  // Suppress cheap styling for stale data
+  const isCheap = !isStale && level === 'cheap';
+  const isDirtCheap = !isStale && price <= min + (max - min) * 0.05;
 
   const hasCoords = (station.lat !== 0 || station.lon !== 0) && !!station.lat && !!station.lon;
 
@@ -91,7 +100,7 @@ export const StationCard = ({
 
   return (
     <div
-      className={`glass-card p-4 xl:p-6 relative overflow-hidden flex flex-col hover:animate-wiggle ${isDirtCheap ? 'animate-pulse-intense' : isCheap ? 'animate-price-pulse' : ''}`}
+      className={`glass-card p-4 xl:p-6 relative overflow-hidden flex flex-col hover:animate-wiggle ${isStale ? 'opacity-70' : ''} ${isDirtCheap ? 'animate-pulse-intense' : isCheap ? 'animate-price-pulse' : ''}`}
       id={`station-${station.id}`}
       style={{
         borderColor: isDirtCheap ? '#00ff88' : isCheap ? `${levelColor}40` : undefined,
@@ -158,10 +167,10 @@ export const StationCard = ({
             </span>
           </div>
           <h3 className="font-bold text-sm xl:text-lg text-text-main break-all leading-tight transition-colors group-hover:text-white dark:group-hover:text-white">
-            {station.name}
+            {cleanStationName(station.name, station.brand)}
           </h3>
           <p className="text-[11px] xl:text-sm text-text-muted font-mono break-all mt-0.5">
-            {station.address}, {station.city}
+            {cleanStationAddress(station.address, station.name, station.city)}, {station.city}
           </p>
         </div>
       </div>
@@ -265,7 +274,10 @@ export const StationCard = ({
 
       {/* Last updated */}
       {fuelPrice?.updatedAt && (
-        <p className="mt-2 text-[9px] xl:text-[11px] text-text-dim font-mono">
+        <p
+          className={`mt-2 text-[9px] xl:text-[11px] font-mono ${isStale ? 'text-fuel-yellow/60' : 'text-text-dim'}`}
+        >
+          {isStale && '⚠️ '}
           {t('station.updated', 'Updated')}: {getRelativeTime(fuelPrice.updatedAt)}
         </p>
       )}
