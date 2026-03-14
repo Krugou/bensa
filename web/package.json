@@ -9,8 +9,8 @@
     "start": "vite preview --port 3005",
     "test": "vitest run --passWithNoTests",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "npx oxlint .",
+    "lint:fix": "npx oxlint . --fix",
     "format": "prettier --write .",
     "preview": "vite preview"
   },
