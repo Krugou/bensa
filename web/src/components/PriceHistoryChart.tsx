@@ -176,7 +176,7 @@ export const PriceHistoryChart = () => {
               fontFamily: 'JetBrains Mono, monospace',
             }}
             labelStyle={{ color: 'rgba(255,255,255,0.5)' }}
-            labelFormatter={(value: string) => {
+            labelFormatter={(value: any) => {
               try {
                 const date = new Date(value);
                 if (granularity === 'hourly') {
