@@ -119,6 +119,7 @@ export const StationMap = ({
 }: StationMapProps) => {
   const { t } = useTranslation();
   const [selectedStation, setSelectedStation] = useState<GasStation | null>(null);
+  const [recenterCounter, setRecenterCounter] = useState(0);
 
   // Filter out stations with invalid or zero coordinates
   const validStations = useMemo(
@@ -159,8 +160,16 @@ export const StationMap = ({
   const showUserMarker = hasGps;
   const showControls = hasGps;
 
+  const nearestCheapStation = useMemo(() => {
+    if (validStations.length === 0) return null;
+    return [...validStations].sort((a, b) => (a.distance ?? 999) - (b.distance ?? 999))[0];
+  }, [validStations]);
+
   return (
-    <div className="relative rounded-xl overflow-hidden border border-border-card" id="station-map">
+    <div
+      className="relative rounded-xl overflow-hidden border border-border-card group"
+      id="station-map"
+    >
       <MapContainer
         center={[userLat, userLon] as L.LatLngExpression}
         zoom={11}
@@ -170,7 +179,13 @@ export const StationMap = ({
       >
         <TileLayer attribution='&copy; <a href="https://carto.com/">CARTO</a>' url={tileUrl} />
 
-        <MapUpdater lat={userLat} lon={userLon} stations={validStations} hasGps={hasGps} />
+        <MapUpdater
+          lat={userLat}
+          lon={userLon}
+          stations={validStations}
+          hasGps={hasGps}
+          key={recenterCounter}
+        />
 
         {/* User location marker and range circle */}
         {showUserMarker && (
@@ -184,6 +199,7 @@ export const StationMap = ({
                 fillOpacity: 0.05,
                 weight: 1,
                 dashArray: '5, 10',
+                interactive: false,
               }}
             />
             <CircleMarker
@@ -197,9 +213,32 @@ export const StationMap = ({
               }}
             >
               <Popup>
-                <span className="text-sm font-semibold">
-                  {t('map.your_location', '📍 Your Location')}
-                </span>
+                <div className="p-1 min-w-[150px]">
+                  <p className="text-sm font-bold mb-1 flex items-center gap-1">
+                    <span>📍</span> {t('map.your_location', 'Your Location')}
+                  </p>
+                  {nearestCheapStation && (
+                    <div className="mt-2 pt-2 border-t border-border-card/50">
+                      <p className="text-[10px] uppercase text-text-dim font-bold tracking-wider mb-1">
+                        Nearest Option
+                      </p>
+                      <p className="text-xs font-bold text-text-main truncate">
+                        {nearestCheapStation.name}
+                      </p>
+                      <div className="flex items-center justify-between mt-1">
+                        <p className="text-xs font-mono text-fuel-green font-bold">
+                          {formatPrice(
+                            nearestCheapStation.prices.find((p) => p.type === fuelType)?.price ?? 0,
+                          )}
+                          €
+                        </p>
+                        <p className="text-[10px] text-text-muted">
+                          {nearestCheapStation.distance} km
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </Popup>
             </CircleMarker>
           </>
@@ -225,7 +264,8 @@ export const StationMap = ({
                 direction="top"
                 offset={[0, -radius]}
                 opacity={0.9}
-                className={`${theme === 'light' ? 'bg-white/90 text-slate-900 border border-slate-200' : 'bg-black/80 text-white border-none'} font-mono font-bold text-xs xl:text-sm rounded-md shadow-lg`}
+                interactive={false}
+                className={`${theme === 'light' ? 'bg-white/90 text-slate-900 border border-slate-200' : 'bg-black/80 text-white border-none'} font-mono font-bold text-xs xl:text-sm rounded-md shadow-lg pointer-events-none`}
               >
                 {formatPrice(price)}
               </Tooltip>
@@ -284,6 +324,20 @@ export const StationMap = ({
           );
         })}
       </MapContainer>
+
+      {/* Recenter Button */}
+      {hasGps && (
+        <button
+          onClick={() => {
+            setRecenterCounter((prev) => prev + 1);
+            Analytics.trackButtonClick('map_recenter');
+          }}
+          className="absolute top-4 right-4 z-[1000] w-10 h-10 bg-surface-container border border-border-card rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors shadow-lg cursor-pointer"
+          title={t('map.recenter', 'Recenter Map')}
+        >
+          <span className="material-symbols-outlined text-xl">my_location</span>
+        </button>
+      )}
 
       {/* Directions Modal */}
       {selectedStation && (
