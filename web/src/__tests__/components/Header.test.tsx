@@ -7,12 +7,7 @@ import { Header } from '../../components/Header';
 describe('Header', () => {
   it('renders the app title', () => {
     render(React.createElement(Header));
-    expect(screen.getByText('Bensa')).toBeInTheDocument();
-  });
-
-  it('renders the subtitle', () => {
-    render(React.createElement(Header));
-    expect(screen.getByText('Real-time fuel price tracker')).toBeInTheDocument();
+    expect(screen.getByText('BENSA')).toBeInTheDocument();
   });
 
   it('renders a header element', () => {
@@ -26,8 +21,9 @@ describe('Header', () => {
     expect(h1).toBeInTheDocument();
   });
 
-  it('renders the fuel pump emoji', () => {
+  it('renders menu and account icons', () => {
     render(React.createElement(Header));
-    expect(screen.getByText('⛽')).toBeInTheDocument();
+    expect(screen.getByText('menu')).toBeInTheDocument();
+    expect(screen.getByText('account_circle')).toBeInTheDocument();
   });
 });

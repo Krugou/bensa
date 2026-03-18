@@ -52,6 +52,35 @@
   --color-bensa-violet: #8b5cf6;
   --color-bensa-rose: #f43f5e;
 
+  /* MD3 Dark Theme (Mockup) */
+  --color-primary: #6bfb9a;
+  --color-primary-container: #4ade80;
+  --color-on-primary: #003919;
+  --color-on-primary-container: #005e2d;
+  
+  --color-secondary: #ffb783;
+  --color-secondary-container: #d97722;
+  --color-on-secondary: #4f2500;
+  --color-on-secondary-container: #451f00;
+
+  --color-tertiary: #ffdd75;
+  --color-tertiary-container: #ebbf00;
+
+  --color-surface-container-lowest: #0b0e14;
+  --color-surface-container-low: #191c22;
+  --color-surface-container: #1d2026;
+  --color-surface-container-high: #272a31;
+  --color-surface-container-highest: #32353c;
+  
+  --color-surface: #10131a;
+  --color-on-surface: #e1e2eb;
+  --color-on-surface-variant: #bccabb;
+
+  --color-outline: #869486;
+  --color-outline-variant: #3d4a3e;
+  
+  --color-error: #ffb4ab;
+
   /* Typography */
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
@@ -236,20 +265,35 @@ button:active {
   border-radius: 16px;
 }
 
+.glass-panel {
+  background: linear-gradient(135deg, rgba(50, 53, 60, 0.4) 0%, rgba(29, 32, 38, 0.6) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glow-green {
+  box-shadow: 0 0 20px -5px rgba(107, 251, 154, 0.3);
+}
+
+.glow-orange {
+  box-shadow: 0 0 20px -5px rgba(255, 183, 131, 0.3);
+}
+
 .glass-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-card);
+  background: linear-gradient(135deg, rgba(50, 53, 60, 0.3) 0%, rgba(29, 32, 38, 0.5) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   transition: all 0.3s ease;
 }
 
 .glass-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-card);
+  background: linear-gradient(135deg, rgba(50, 53, 60, 0.4) 0%, rgba(29, 32, 38, 0.6) 100%);
+  border-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
 }
+
 
 /* Text glow for important values */
 .text-glow {

@@ -51,7 +51,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
 
   return (
     <section
-      className={`rounded-2xl bg-card backdrop-blur-xl border border-border-card overflow-hidden transition-all duration-500 ${className}`}
+      className={`rounded-2xl glass-panel border border-outline-variant/15 overflow-hidden transition-all duration-500 ${className}`}
     >
       <div
         role="button"

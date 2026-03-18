@@ -77,32 +77,41 @@ export const NotificationPermission = () => {
   }
 
   return (
-    <div className="glass-card p-5" id="notification-prompt">
-      <div className="flex items-start gap-4">
-        <span className="text-3xl">🔔</span>
-        <div className="flex-1">
-          <h3 className="font-bold text-sm text-text-main">
-            {t('notifications.prompt_title', 'Get price drop alerts')}
-          </h3>
-          <p className="text-[11px] text-text-muted font-mono mt-1">
-            {t(
-              'notifications.prompt_desc',
-              'Receive notifications when fuel prices drop below your threshold',
-            )}
-          </p>
-          <button
-            onClick={() => {
-              void requestPermission();
-            }}
-            disabled={loading}
-            className="mt-3 px-5 py-2 bg-fuel-green/20 border border-fuel-green/40 rounded-lg text-fuel-green text-sm font-semibold hover:bg-fuel-green/30 transition-all duration-300 cursor-pointer disabled:opacity-50 animate-bounce-wacky"
-          >
-            {loading
-              ? t('notifications.loading', 'Requesting...')
-              : t('notifications.enable', 'Enable Alerts')}
-          </button>
-        </div>
+    <div
+      className="glass-panel border border-outline-variant/15 rounded-xl p-8 text-center space-y-6 relative overflow-hidden glow-green"
+      id="notification-prompt"
+    >
+      <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-primary/10 rounded-full blur-[60px]"></div>
+      <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
+        <span
+          className="material-symbols-outlined text-primary text-3xl"
+          style={{ fontVariationSettings: "'FILL' 1" }}
+        >
+          notifications_active
+        </span>
       </div>
+      <div className="space-y-2">
+        <h3 className="text-xl font-headline font-bold">
+          {t('notifications.prompt_title', 'Get price drop alerts')}
+        </h3>
+        <p className="text-sm text-on-surface-variant max-w-xs mx-auto">
+          {t(
+            'notifications.prompt_desc',
+            'Receive notifications when fuel prices drop below your threshold',
+          )}
+        </p>
+      </div>
+      <button
+        onClick={() => {
+          void requestPermission();
+        }}
+        disabled={loading}
+        className="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary-container font-headline font-bold py-4 rounded-full text-sm uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/20 disabled:opacity-50 cursor-pointer"
+      >
+        {loading
+          ? t('notifications.loading', 'Loading...')
+          : t('notifications.enable', 'Enable Alerts')}
+      </button>
     </div>
   );
 };

@@ -289,7 +289,7 @@ const AppContent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-main text-text-main font-sans flex flex-col items-center">
+    <div className="min-h-screen bg-surface-container-lowest text-on-surface font-sans flex flex-col items-center">
       {/* Ambient background glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-fuel-green rounded-full blur-[150px] animate-glow-breathe" />
@@ -303,25 +303,24 @@ const AppContent = () => {
         />
       </div>
 
-      {/* Top Controls */}
-      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
-        <button
-          onClick={toggleTheme}
-          className="p-2.5 rounded-xl bg-card border border-border-card hover:bg-card-hover text-text-muted hover:text-text-main transition-all duration-300 cursor-pointer"
-          title={
-            theme === 'dark'
-              ? t('common.light_mode', 'Light Mode')
-              : t('common.dark_mode', 'Dark Mode')
-          }
-        >
-          {theme === 'dark' ? '☀️' : '🌙'}
-        </button>
-        <LanguageSwitcher />
-      </div>
+      {!isSimpleMode && (
+        <Header>
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-xl bg-surface-container border border-outline-variant/20 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-all duration-300 cursor-pointer text-sm"
+            title={
+              theme === 'dark'
+                ? t('common.light_mode', 'Light Mode')
+                : t('common.dark_mode', 'Dark Mode')
+            }
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+          <LanguageSwitcher />
+        </Header>
+      )}
 
-      <div className="w-full max-w-[1600px] min-[1920px]:max-w-[2560px] px-4 md:px-8 xl:px-12 space-y-8 md:space-y-12 relative z-10">
-        {!isSimpleMode && <Header />}
-
+      <div className="w-full max-w-[1600px] min-[1920px]:max-w-[2560px] px-4 md:px-8 xl:px-12 pt-24 space-y-8 md:space-y-12 relative z-10">
         {/* Price Gauge Section */}
         {!isSimpleMode && (
           <section className="flex flex-col items-center gap-6 lg:gap-10">
