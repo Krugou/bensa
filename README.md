@@ -104,7 +104,7 @@ npm run build
 ## 🛠️ Update Status
 
 - **Latest Dependency Update**: 2026-03-18
-- **Major Updates**: Vite 7 (Stable), Vitest 4, Oxlint 1.56.0, JSDOM 29, Tailwind 4.2.2, i18next 25.8.18.
+- **Major Updates**: Vite 8.0.0, Vitest 4, Oxlint 1.56.0, JSDOM 29, Tailwind 4.2.2, i18next 25.8.18.
 - **Verification**: All 19 test files (93 tests) passed. Build verified (Vite + PWA).
 - **CI/CD Pipeline**: [Check Latest Action Run](https://github.com/Krugou/bensa/actions)
 
