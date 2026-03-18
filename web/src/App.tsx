@@ -319,13 +319,13 @@ const AppContent = () => {
         <LanguageSwitcher />
       </div>
 
-      <div className="w-full max-w-[1600px] px-4 md:px-8 xl:px-12 space-y-8 md:space-y-12 relative z-10">
+      <div className="w-full max-w-[1600px] min-[1920px]:max-w-[2560px] px-4 md:px-8 xl:px-12 space-y-8 md:space-y-12 relative z-10">
         {!isSimpleMode && <Header />}
 
         {/* Price Gauge Section */}
         {!isSimpleMode && (
           <section className="flex flex-col items-center gap-6 lg:gap-10">
-            <div className="w-full scale-100 xl:scale-110 origin-top transition-transform duration-500">
+            <div className="w-full scale-100 xl:scale-110 min-[1920px]:scale-125 origin-top transition-transform duration-500">
               <PriceGauge
                 average={stats.average}
                 min={stats.min}
@@ -432,7 +432,7 @@ const AppContent = () => {
               isOpen={isSimpleMode || undefined}
               className="h-full"
             >
-              <div className="h-[400px] md:h-[600px] xl:h-[700px] 2xl:h-[800px]">
+              <div className="h-[400px] md:h-[600px] xl:h-[700px] 2xl:h-[800px] min-[1920px]:h-[1000px]">
                 <StationMap
                   stations={filteredAndSortedStations}
                   fuelType={fuelType}
@@ -456,7 +456,7 @@ const AppContent = () => {
               isOpen={isSimpleMode || undefined}
               className="h-full"
             >
-              <div className="max-h-[600px] xl:max-h-[700px] 2xl:max-h-[800px] overflow-y-auto pr-2 custom-scrollbar">
+              <div className="max-h-[600px] xl:max-h-[700px] 2xl:max-h-[800px] min-[1920px]:max-h-[1000px] overflow-y-auto pr-2 custom-scrollbar">
                 <StationList
                   stations={filteredAndSortedStations}
                   fuelType={fuelType}
