@@ -57,7 +57,7 @@
   --color-primary-container: #4ade80;
   --color-on-primary: #003919;
   --color-on-primary-container: #005e2d;
-  
+
   --color-secondary: #ffb783;
   --color-secondary-container: #d97722;
   --color-on-secondary: #4f2500;
@@ -71,14 +71,14 @@
   --color-surface-container: #1d2026;
   --color-surface-container-high: #272a31;
   --color-surface-container-highest: #32353c;
-  
+
   --color-surface: #10131a;
   --color-on-surface: #e1e2eb;
   --color-on-surface-variant: #bccabb;
 
   --color-outline: #869486;
   --color-outline-variant: #3d4a3e;
-  
+
   --color-error: #ffb4ab;
 
   /* Typography */
@@ -293,7 +293,6 @@ button:active {
   border-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
 }
-
 
 /* Text glow for important values */
 .text-glow {
