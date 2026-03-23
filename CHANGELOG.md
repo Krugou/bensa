@@ -1,3 +1,14 @@
+# [1.2.0](https://github.com/Krugou/bensa/compare/v1.1.0...v1.2.0) (2026-03-23)
+
+### Bug Fixes
+
+- **map:** enable marker interaction and enhance location details ([86beeb2](https://github.com/Krugou/bensa/commit/86beeb28f8453d3494e78a6fcfbe4220de1c1558))
+
+### Features
+
+- integrate glassmorphic mockup and fix Header tests ([79dd2c3](https://github.com/Krugou/bensa/commit/79dd2c3e289e1fad637dbe94a8d4155015e6e55a))
+- make UI wider for screens larger than 1920px ([88414f5](https://github.com/Krugou/bensa/commit/88414f532aaa32f7c4be6a2904b1e8fdcc7e2ef7))
+
 # [1.1.0](https://github.com/Krugou/bensa/compare/v1.0.3...v1.1.0) (2026-03-16)
 
 ### Bug Fixes
