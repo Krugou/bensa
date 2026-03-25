@@ -3,7 +3,36 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import L from 'leaflet';
 import { GasStation } from '../types';
+
+// Fix for default marker icons in React-Leaflet/Vite
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
+
+const LocationMarker = ({ position, setPosition }: { position: [number, number], setPosition: (pos: [number, number]) => void }) => {
+  useMapEvents({
+    click(e) {
+      setPosition([e.latlng.lat, e.latlng.lng]);
+    },
+  });
+  return position[0] !== 0 || position[1] !== 0 ? <Marker position={position} /> : null;
+};
+
+const MapUpdater = ({ lat, lon }: { lat: number, lon: number }) => {
+  const map = useMapEvents({});
+  React.useEffect(() => {
+    if (lat !== 0 && lon !== 0) {
+      map.flyTo([lat, lon], map.getZoom() < 13 ? 15 : map.getZoom());
+    }
+  }, [lat, lon, map]);
+  return null;
+};
 
 const ADMIN_API_BASE = import.meta.env.VITE_ADMIN_API_URL || 'http://localhost:3007';
 
@@ -322,6 +351,28 @@ export const StationManager = () => {
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 focus:border-fuel-green outline-none"
                   />
                 </Field>
+
+                <div className="col-span-1 md:col-span-2 mt-2 rounded-xl border border-slate-800 bg-slate-950 relative overflow-hidden" style={{ height: '350px' }}>
+                  <MapContainer 
+                    center={[editingStation.lat || 60.1699, editingStation.lon || 24.9384]} 
+                    zoom={editingStation.lat ? 15 : 6} 
+                    scrollWheelZoom={true} 
+                    className="h-full w-full z-10"
+                  >
+                    <TileLayer
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      attribution='&copy; OpenStreetMap contributors'
+                    />
+                    <LocationMarker 
+                      position={[editingStation.lat, editingStation.lon]} 
+                      setPosition={(pos) => setEditingStation({ ...editingStation, lat: pos[0], lon: pos[1] })} 
+                    />
+                    <MapUpdater lat={editingStation.lat} lon={editingStation.lon} />
+                  </MapContainer>
+                  <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold text-white shadow-xl z-20 pointer-events-none">
+                    {t('stations.mapInstruction') || 'Click on the map to set coordinates'}
+                  </div>
+                </div>
               </div>
 
               <div>
