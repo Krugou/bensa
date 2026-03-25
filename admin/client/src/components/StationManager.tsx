@@ -100,8 +100,8 @@ export const StationManager = () => {
     
     try {
       const query = encodeURIComponent(`${editingStation.address}, ${editingStation.city}, Finland`);
-      // Use OpenStreetMap Nominatim API 
-      const res = await axios.get(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${query}`);
+      // Use proxy backend instead of direct browser fetch 
+      const res = await axios.get(`${ADMIN_API_BASE}/api/geocode?q=${query}`);
       
       if (res.data && res.data.length > 0) {
         const lat = parseFloat(res.data[0].lat);

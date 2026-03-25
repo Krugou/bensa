@@ -115,6 +115,29 @@ app.get('/api/stations', async (req, res) => {
   }
 });
 
+app.get('/api/geocode', async (req, res) => {
+  const { q } = req.query;
+  console.log(`[API] GET /api/geocode?q=${q}`);
+  if (!q || typeof q !== 'string') {
+    return res.status(400).json({ error: 'Missing or invalid query parameter' });
+  }
+  try {
+    const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(q)}`, {
+      headers: {
+        'User-Agent': 'BensaAdminPanel/1.0 (krugou-bensa)',
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Nominatim API responded with status ${response.status}`);
+    }
+    const data = await response.json();
+    res.json(data);
+  } catch (err: any) {
+    console.error('[API] /api/geocode ERROR:', err);
+    res.status(500).json({ error: 'Failed to geocode', details: err.message });
+  }
+});
+
 app.put('/api/stations/:id', async (req, res) => {
   const { id } = req.params;
   console.log(`[API] PUT /api/stations/${id}`);
