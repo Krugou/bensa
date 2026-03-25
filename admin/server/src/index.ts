@@ -18,6 +18,12 @@ try {
   if (process.env['FIREBASE_SERVICE_ACCOUNT']) {
     console.log('🔑 Initializing Firebase with Service Account...');
     const sa = JSON.parse(process.env['FIREBASE_SERVICE_ACCOUNT']);
+    
+    // Fix private key newlines - common issue with env variables
+    if (sa.private_key && typeof sa.private_key === 'string') {
+      sa.private_key = sa.private_key.replace(/\\n/g, '\n');
+    }
+
     admin.initializeApp({
       credential: admin.credential.cert(sa),
     });
@@ -29,6 +35,9 @@ try {
   }
 } catch (e: any) {
   console.error('❌ FIREBASE INITIALIZATION ERROR:', e);
+  // Initialize with empty config to prevent "no-app" crashes later, 
+  // though Firestore calls will still fail.
+  try { admin.initializeApp(); } catch {}
 }
 
 const db = admin.firestore();
