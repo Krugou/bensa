@@ -53,6 +53,7 @@ interface GasStation {
   lon: number;
   prices: FuelPrice[];
   sourceUrl?: string;
+  userFixed?: boolean;
 }
 
 interface PriceData {
@@ -297,11 +298,13 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
     snapshot.forEach((doc) => {
       const data = doc.data();
       const key = `${String(data['name']).trim()}-${String(data['city']).trim()}`.toLowerCase();
-      cache[key] = { 
+      const cacheVal = { 
         lat: Number(data['lat']), 
         lon: Number(data['lon']),
         userFixed: data['userFixed'] === true
       };
+      cache[key] = cacheVal;
+      cache[doc.id] = cacheVal;
     });
     console.log(`✅ Cached data for ${Object.keys(cache).length} stations.`);
   } catch (err) {
@@ -316,13 +319,14 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
   for (let i = 0; i < scrapedStations.length; i++) {
     const station = scrapedStations[i];
     const cacheKey = `${station.name.trim()}-${station.city.trim()}`.toLowerCase();
-    const cachedEntry = cache[cacheKey];
+    const cachedEntry = cache[station.id] || cache[cacheKey];
 
     if (cachedEntry?.userFixed) {
-      // Use fixed coordinates and skip geocoding
+      // Use fixed coordinates and mark as userFixed to protect from future overwrites
       station.lat = cachedEntry.lat;
       station.lon = cachedEntry.lon;
-      console.log(`[${i + 1}/${scrapedStations.length}] 📌 Keeping fixed GPS: ${station.name}`);
+      station.userFixed = true;
+      console.log(`[${i + 1}/${scrapedStations.length}] 📌 Keeping fixed GPS and details: ${cachedEntry.userFixed ? 'LOCKED ' : ''}${station.name}`);
     } else if (cachedEntry) {
       station.lat = cachedEntry.lat;
       station.lon = cachedEntry.lon;
@@ -360,13 +364,27 @@ async function saveToFirestore(stations: GasStation[]): Promise<void> {
 
     currentBatch.forEach((station) => {
       const stationRef = db.collection('stations').doc(station.id);
+      
+      // Determine what to save based on userFixed status
+      const updateData: any = {
+        ...station,
+        lastUpdated: timestamp,
+        updatedAtStr: new Date().toISOString(),
+      };
+      
+      if (station.userFixed) {
+        // Omit overriding manually fixed metadata
+        delete updateData.name;
+        delete updateData.brand;
+        delete updateData.address;
+        delete updateData.city;
+        delete updateData.lat;
+        delete updateData.lon;
+      }
+      
       batch.set(
         stationRef,
-        {
-          ...station,
-          lastUpdated: timestamp,
-          updatedAtStr: new Date().toISOString(),
-        },
+        updateData,
         { merge: true },
       );
 

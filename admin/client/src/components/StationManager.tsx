@@ -12,6 +12,7 @@ export const StationManager = () => {
   const [stations, setStations] = useState<GasStation[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [filterMode, setFilterMode] = useState<'all' | 'locked' | 'unlocked'>('all');
   const [editingStation, setEditingStation] = useState<GasStation | null>(null);
 
   const fetchStations = async () => {
@@ -33,13 +34,18 @@ export const StationManager = () => {
     fetchStations();
   }, []);
 
-  const filteredStations = stations.filter(
-    (s) =>
+  const filteredStations = stations.filter((s) => {
+    const matchesSearch = 
       s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       s.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
       s.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      s.brand.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+      s.brand.toLowerCase().includes(searchQuery.toLowerCase());
+      
+    if (filterMode === 'locked' && !s.userFixed) return false;
+    if (filterMode === 'unlocked' && s.userFixed) return false;
+    
+    return matchesSearch;
+  });
 
   const handleToggleLock = async (station: GasStation) => {
     const newStatus = !station.userFixed;
@@ -121,15 +127,44 @@ export const StationManager = () => {
           <p className="text-slate-400 mt-1">{t('stations.subtitle')}</p>
         </div>
 
-        <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-          <input
-            type="text"
-            placeholder={t('stations.searchPlaceholder')}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full md:w-80 bg-slate-900 border border-slate-800 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:border-fuel-green transition-colors"
-          />
+        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4">
+          <div className="flex bg-slate-900 border border-slate-800 rounded-2xl p-1">
+            <button
+              onClick={() => setFilterMode('all')}
+              className={`flex-1 px-4 py-2 rounded-xl text-sm font-bold uppercase transition-colors ${
+                filterMode === 'all' ? 'bg-slate-800 text-white' : 'text-slate-500 hover:text-slate-300'
+              }`}
+            >
+              All
+            </button>
+            <button
+              onClick={() => setFilterMode('locked')}
+              className={`flex-1 px-4 py-2 rounded-xl text-sm font-bold uppercase flex items-center justify-center gap-1.5 transition-colors ${
+                filterMode === 'locked' ? 'bg-bensa-cyan/20 text-bensa-cyan' : 'text-slate-500 hover:text-slate-300'
+              }`}
+            >
+              <Lock size={14} /> {t('stations.locked')}
+            </button>
+            <button
+              onClick={() => setFilterMode('unlocked')}
+              className={`flex-1 px-4 py-2 rounded-xl text-sm font-bold uppercase flex items-center justify-center gap-1.5 transition-colors ${
+                filterMode === 'unlocked' ? 'bg-slate-800 text-white' : 'text-slate-500 hover:text-slate-300'
+              }`}
+            >
+              <Unlock size={14} /> {t('stations.unlock')}
+            </button>
+          </div>
+
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+            <input
+              type="text"
+              placeholder={t('stations.searchPlaceholder')}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full md:w-80 bg-slate-900 border border-slate-800 rounded-2xl pl-12 pr-4 py-3 focus:outline-none focus:border-fuel-green transition-colors"
+            />
+          </div>
         </div>
       </div>
 
