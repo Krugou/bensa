@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "stations": "Stations",
+    "settings": "Settings",
+    "signOut": "Sign Out"
+  },
+  "dashboard": {
+    "title": "System Overview",
+    "subtitle": "Real-time status of the Bensa Tracker ecosystem.",
+    "totalStations": "Total Stations",
+    "lockedStations": "Fixed Stations",
+    "lastScrape": "Last Scrape",
+    "healthySources": "Healthy Sources",
+    "activity": "Recent System Activity",
+    "dbHealth": "Database Health",
+    "success": "Success"
+  },
+  "stations": {
+    "title": "Station Manager",
+    "subtitle": "Direct API access for station data.",
+    "searchPlaceholder": "Search name, city, brand...",
+    "locked": "Locked",
+    "edit": "Edit",
+    "delete": "Delete",
+    "unlock": "Unlock",
+    "lock": "Lock",
+    "saveAndLock": "SAVE & LOCK STATION",
+    "cancel": "CANCEL",
+    "editStation": "Edit Station",
+    "fields": {
+      "name": "Name",
+      "brand": "Brand",
+      "address": "Address",
+      "city": "City",
+      "lat": "Latitude",
+      "lon": "Longitude",
+      "prices": "Prices"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "accessDenied": "Access Denied",
+    "localOnly": "The Administrator Dashboard is only accessible during local development (localhost)."
+  }
+}

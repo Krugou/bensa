@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "dashboard": "Ohjauspaneeli",
+    "stations": "Asemat",
+    "settings": "Asetukset",
+    "signOut": "Kirjaudu ulos"
+  },
+  "dashboard": {
+    "title": "Järjestelmän yleiskatsaus",
+    "subtitle": "Bensa-seurantajärjestelmän reaaliaikainen tila.",
+    "totalStations": "Asemia yhteensä",
+    "lockedStations": "Kiinnitetyt asemat",
+    "lastScrape": "Viimeisin haku",
+    "healthySources": "Terveet lähteet",
+    "activity": "Järjestelmän viimeisin toiminta",
+    "dbHealth": "Tietokannan tila",
+    "success": "Onnistui"
+  },
+  "stations": {
+    "title": "Asemien hallinta",
+    "subtitle": "Suora API-yhteys asematietoihin.",
+    "searchPlaceholder": "Hae nimeä, kaupunkia, ketjua...",
+    "locked": "Lukittu",
+    "edit": "Muokkaa",
+    "delete": "Poista",
+    "unlock": "Avaa lukitus",
+    "lock": "Lukitse",
+    "saveAndLock": "TALLENNA JA LUKITSE ASEMA",
+    "cancel": "PERUUTA",
+    "editStation": "Muokkaa asemaa",
+    "fields": {
+      "name": "Nimi",
+      "brand": "Ketju",
+      "address": "Osoite",
+      "city": "Kaupunki",
+      "lat": "Leveyspiiri",
+      "lon": "Pituuspiiri",
+      "prices": "Hinnat"
+    }
+  },
+  "common": {
+    "loading": "Ladataan...",
+    "error": "Virhe",
+    "success": "Onnistui",
+    "accessDenied": "Pääsy evätty",
+    "localOnly": "Ylläpitäjän ohjauspaneeli on käytettävissä vain paikallisessa kehitysympäristössä (localhost)."
+  }
+}

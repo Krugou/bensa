@@ -13,7 +13,6 @@ import {
 } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
-import { AdminDashboard } from './components/AdminDashboard';
 import { BrandSelector } from './components/BrandSelector';
 import { CollapsibleSection } from './components/CollapsibleSection';
 import { ConsumptionCalculator } from './components/ConsumptionCalculator';
@@ -600,7 +599,6 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Navigate to={`/${initialLng}`} replace />} />
         <Route path="/:lng" element={<AppContent />} />
-        <Route path="/admin" element={<AdminDashboard />} />
         <Route path="*" element={<Navigate to={`/${initialLng}`} replace />} />
       </Routes>
     </BrowserRouter>
