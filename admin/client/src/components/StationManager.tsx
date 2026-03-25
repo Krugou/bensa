@@ -95,26 +95,29 @@ export const StationManager = () => {
   const handleFetchCoordinates = async () => {
     if (!editingStation || !editingStation.address) return;
     
-    // Show loading toast or handle gracefully
-    const loadingToast = toast.loading(t('common.loading') || 'Fetching coordinates...');
+    console.log(`[STATIONS] Triggering fetchCoordinates for ${editingStation.id} (${editingStation.address}, ${editingStation.city})`);
+    const loadingToast = toast.loading(t('stations.fetchCoordinatesLoading'));
     
     try {
       const addressEncoded = encodeURIComponent(editingStation.address);
       const cityEncoded = encodeURIComponent(editingStation.city);
-      // Use proxy backend to clean the address and fetch coordinates
+      
+      console.log(`[STATIONS] calling /api/geocode?address=${addressEncoded}&city=${cityEncoded}`);
       const res = await axios.get(`${ADMIN_API_BASE}/api/geocode?address=${addressEncoded}&city=${cityEncoded}`);
       
       if (res.data && res.data.length > 0) {
         const lat = parseFloat(res.data[0].lat);
         const lon = parseFloat(res.data[0].lon);
+        console.log(`[STATIONS] Received coordinates: lat=${lat}, lon=${lon}`);
         setEditingStation({ ...editingStation, lat, lon });
-        toast.update(loadingToast, { render: t('common.success') || 'Coordinates found!', type: 'success', isLoading: false, autoClose: 3000 });
+        toast.update(loadingToast, { render: t('stations.fetchCoordinatesSuccess'), type: 'success', isLoading: false, autoClose: 3000 });
       } else {
-        toast.update(loadingToast, { render: t('common.error') || 'No coordinates found for this address.', type: 'error', isLoading: false, autoClose: 3000 });
+        console.warn(`[STATIONS] No coordinates found from Nominatim API for this address`);
+        toast.update(loadingToast, { render: t('stations.fetchCoordinatesNotFound'), type: 'error', isLoading: false, autoClose: 3000 });
       }
-    } catch (err) {
-      console.error('Failed to fetch coordinates', err);
-      toast.update(loadingToast, { render: t('common.error') || 'Error fetching coordinates.', type: 'error', isLoading: false, autoClose: 3000 });
+    } catch (err: any) {
+      console.error(`[STATIONS] Failed to fetch coordinates:`, err?.response?.data || err.message);
+      toast.update(loadingToast, { render: t('stations.fetchCoordinatesError'), type: 'error', isLoading: false, autoClose: 3000 });
     }
   };
 
