@@ -15,13 +15,15 @@ export const StationManager = () => {
   const [editingStation, setEditingStation] = useState<GasStation | null>(null);
 
   const fetchStations = async () => {
+    console.log(`[STATIONS] Fetching stations from ${ADMIN_API_BASE}/api/stations...`);
     setLoading(true);
     try {
       const response = await axios.get(`${ADMIN_API_BASE}/api/stations`);
+      console.log(`[STATIONS] Received ${response.data.length} stations`);
       setStations(response.data);
-    } catch (err) {
+    } catch (err: any) {
+      console.error('[STATIONS] Failed to fetch stations:', err.response?.data || err.message);
       toast.error(t('common.error'));
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -40,23 +42,29 @@ export const StationManager = () => {
   );
 
   const handleToggleLock = async (station: GasStation) => {
+    const newStatus = !station.userFixed;
+    console.log(`[STATIONS] Toggling lock for ${station.id} to ${newStatus}...`);
     try {
-      const newStatus = !station.userFixed;
       await axios.post(`${ADMIN_API_BASE}/api/stations/${station.id}/toggle-lock`, { locked: newStatus });
+      console.log(`[STATIONS] Lock toggled for ${station.id}`);
       setStations(stations.map(s => s.id === station.id ? { ...s, userFixed: newStatus } : s));
       toast.info(newStatus ? t('stations.locked') : t('stations.unlock'));
-    } catch (err) {
+    } catch (err: any) {
+      console.error(`[STATIONS] Failed to toggle lock for ${station.id}:`, err.response?.data || err.message);
       toast.error(t('common.error'));
     }
   };
 
   const handleDelete = async (id: string) => {
     if (!window.confirm('Are you sure you want to delete this station?')) return;
+    console.log(`[STATIONS] Deleting station ${id}...`);
     try {
       await axios.delete(`${ADMIN_API_BASE}/api/stations/${id}`);
+      console.log(`[STATIONS] Station ${id} deleted`);
       setStations(stations.filter(s => s.id !== id));
       toast.success(t('common.success'));
-    } catch (err) {
+    } catch (err: any) {
+      console.error(`[STATIONS] Failed to delete station ${id}:`, err.response?.data || err.message);
       toast.error(t('common.error'));
     }
   };
@@ -64,13 +72,16 @@ export const StationManager = () => {
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingStation) return;
+    console.log(`[STATIONS] Updating station ${editingStation.id}...`, editingStation);
     try {
       const { id, ...data } = editingStation;
       await axios.put(`${ADMIN_API_BASE}/api/stations/${id}`, data);
+      console.log(`[STATIONS] Station ${id} updated`);
       setStations(stations.map(s => s.id === id ? { ...editingStation, userFixed: true } : s));
       setEditingStation(null);
       toast.success(t('common.success'));
-    } catch (err) {
+    } catch (err: any) {
+      console.error(`[STATIONS] Failed to update station ${editingStation.id}:`, err.response?.data || err.message);
       toast.error(t('common.error'));
     }
   };

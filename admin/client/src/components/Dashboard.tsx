@@ -16,11 +16,13 @@ export const Dashboard = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
+      console.log(`[DASHBOARD] Fetching stats from ${ADMIN_API_BASE}/api/stats...`);
       try {
         const response = await axios.get(`${ADMIN_API_BASE}/api/stats`);
+        console.log('[DASHBOARD] Stats received:', response.data);
         setStats(response.data);
-      } catch (err) {
-        console.error(err);
+      } catch (err: any) {
+        console.error('[DASHBOARD] Failed to fetch stats:', err.response?.data || err.message);
       } finally {
         setLoading(false);
       }
