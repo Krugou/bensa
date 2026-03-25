@@ -99,9 +99,10 @@ export const StationManager = () => {
     const loadingToast = toast.loading(t('common.loading') || 'Fetching coordinates...');
     
     try {
-      const query = encodeURIComponent(`${editingStation.address}, ${editingStation.city}, Finland`);
-      // Use proxy backend instead of direct browser fetch 
-      const res = await axios.get(`${ADMIN_API_BASE}/api/geocode?q=${query}`);
+      const addressEncoded = encodeURIComponent(editingStation.address);
+      const cityEncoded = encodeURIComponent(editingStation.city);
+      // Use proxy backend to clean the address and fetch coordinates
+      const res = await axios.get(`${ADMIN_API_BASE}/api/geocode?address=${addressEncoded}&city=${cityEncoded}`);
       
       if (res.data && res.data.length > 0) {
         const lat = parseFloat(res.data[0].lat);

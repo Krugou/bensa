@@ -116,21 +116,58 @@ app.get('/api/stations', async (req, res) => {
 });
 
 app.get('/api/geocode', async (req, res) => {
-  const { q } = req.query;
-  console.log(`[API] GET /api/geocode?q=${q}`);
-  if (!q || typeof q !== 'string') {
-    return res.status(400).json({ error: 'Missing or invalid query parameter' });
+  const { address, city } = req.query;
+  console.log(`[API] GET /api/geocode?address=${address}&city=${city}`);
+  
+  if (!address || !city || typeof address !== 'string' || typeof city !== 'string') {
+    return res.status(400).json({ error: 'Missing address or city parameter' });
   }
+  
   try {
-    const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(q)}`, {
-      headers: {
-        'User-Agent': 'BensaAdminPanel/1.0 (krugou-bensa)',
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Nominatim API responded with status ${response.status}`);
+    // Strip brand names and extra info
+    let cleanStreet = address
+      .replace(/^(ABC|Neste|St1|Shell|SEO|Teboil|Gulf|ST1|NESTE|SHELL|TEBOIL|GULF)\s*/i, '')
+      .replace(/^(ABC Deli|ABC Automaatti|Neste K|Neste Express)\s*/i, '')
+      .replace(/\([^)]+\)/g, '')
+      .replace(/110-tie/gi, '')
+      .replace(/Kehä\s*(I|II|III|\d+)/gi, '');
+
+    const streetRegex =
+      /[A-Za-zäöåÄÖÅ-]+(?:tie|katu|kuja|väylä|kaari|polku|rinne|ranta|raitti|aukio|kallio|mäki|puisto|piha|portti|ahde|lehto|niitty|metsä|kuusi|männistö|kylä|lahti|niemi|luoma|saari|notko|penger)\s+\d+[a-zA-Z]?/i;
+    const streetMatch = streetRegex.exec(cleanStreet);
+
+    if (streetMatch) {
+      cleanStreet = streetMatch[0].trim();
+    } else {
+      const parts = cleanStreet.split(',');
+      cleanStreet = (parts.find((p) => /\d/.test(p)) ?? parts[0]).trim();
     }
-    const data = await response.json();
+
+    const query = encodeURIComponent(`${cleanStreet}, ${city}, Finland`);
+    console.log(`[API] Geocode requesting: ${query}`);
+
+    let response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${query}`, {
+      headers: { 'User-Agent': 'BensaAdminPanel/1.0 (krugou-bensa)' },
+    });
+    
+    if (!response.ok) throw new Error(`Nominatim API responded with status ${response.status}`);
+    let data = await response.json();
+    
+    // Fallback: If exact street with number wasn't found, try just the street name
+    if (data.length === 0 && /\d/.test(cleanStreet)) {
+      const streetOnly = cleanStreet.replace(/\s*\d+[a-zA-Z]?\s*/g, '').trim();
+      if (streetOnly.length > 2) {
+        const fbQuery = encodeURIComponent(`${streetOnly}, ${city}, Finland`);
+        console.log(`[API] Geocode fallback requesting: ${fbQuery}`);
+        response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${fbQuery}`, {
+          headers: { 'User-Agent': 'BensaAdminPanel/1.0 (krugou-bensa)' },
+        });
+        if (response.ok) {
+          data = await response.json();
+        }
+      }
+    }
+    
     res.json(data);
   } catch (err: any) {
     console.error('[API] /api/geocode ERROR:', err);
