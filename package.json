@@ -5,7 +5,9 @@
   "workspaces": [
     "bot",
     "web",
-    "admin"
+    "admin",
+    "admin/client",
+    "admin/server"
   ],
   "overrides": {
     "react": "^19.2.4",

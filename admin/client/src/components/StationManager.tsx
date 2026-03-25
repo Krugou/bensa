@@ -1,4 +1,4 @@
-import { Edit2, Lock, MapPin, Search, Trash2, Unlock, X } from 'lucide-react';
+import { Edit2, Lock, MapPin, Search, Trash2, Unlock, X, Locate } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -83,6 +83,31 @@ export const StationManager = () => {
     } catch (err: any) {
       console.error(`[STATIONS] Failed to update station ${editingStation.id}:`, err.response?.data || err.message);
       toast.error(t('common.error'));
+    }
+  };
+
+  const handleFetchCoordinates = async () => {
+    if (!editingStation || !editingStation.address) return;
+    
+    // Show loading toast or handle gracefully
+    const loadingToast = toast.loading(t('common.loading') || 'Fetching coordinates...');
+    
+    try {
+      const query = encodeURIComponent(`${editingStation.address}, ${editingStation.city}, Finland`);
+      // Use OpenStreetMap Nominatim API 
+      const res = await axios.get(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${query}`);
+      
+      if (res.data && res.data.length > 0) {
+        const lat = parseFloat(res.data[0].lat);
+        const lon = parseFloat(res.data[0].lon);
+        setEditingStation({ ...editingStation, lat, lon });
+        toast.update(loadingToast, { render: t('common.success') || 'Coordinates found!', type: 'success', isLoading: false, autoClose: 3000 });
+      } else {
+        toast.update(loadingToast, { render: t('common.error') || 'No coordinates found for this address.', type: 'error', isLoading: false, autoClose: 3000 });
+      }
+    } catch (err) {
+      console.error('Failed to fetch coordinates', err);
+      toast.update(loadingToast, { render: t('common.error') || 'Error fetching coordinates.', type: 'error', isLoading: false, autoClose: 3000 });
     }
   };
 
@@ -228,6 +253,18 @@ export const StationManager = () => {
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 focus:border-fuel-green outline-none"
                   />
                 </Field>
+                
+                <div className="col-span-1 md:col-span-2 flex justify-end -mt-2">
+                  <button 
+                    type="button" 
+                    onClick={() => void handleFetchCoordinates()}
+                    className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold uppercase px-4 py-2 rounded-xl transition-colors"
+                  >
+                    <Locate size={14} />
+                    {t('stations.fetchCoordinates') || 'Fetch Coordinates'}
+                  </button>
+                </div>
+
                 <Field label={t('stations.fields.lat')}>
                   <input
                     type="number"

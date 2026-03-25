@@ -21,7 +21,21 @@ try {
     
     // Fix private key newlines - common issue with env variables
     if (sa.private_key && typeof sa.private_key === 'string') {
-      sa.private_key = sa.private_key.replace(/\\n/g, '\n');
+      console.log(`[DEBUG] Private key length before: ${sa.private_key.length}`);
+      sa.private_key = sa.private_key.replace(/\r/g, '').replace(/\\n/g, '\n');
+      
+      // Auto-fix truncated keys (common copy-paste error)
+      if (!sa.private_key.includes('END PRIVATE KEY')) {
+        console.log('[DEBUG] 🔧 Appending missing END PRIVATE KEY footer...');
+        // ensure there is a newline before the footer if missing
+        sa.private_key = sa.private_key.trim() + '\n-----END PRIVATE KEY-----\n';
+      }
+
+      console.log(`[DEBUG] Private key length after FIX: ${sa.private_key.length}`);
+      
+      if (!sa.private_key.includes('\n')) {
+        console.warn('⚠️ WARNING: Private key does not contain any newlines after replacement!');
+      }
     }
 
     admin.initializeApp({
