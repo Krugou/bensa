@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "dashboard": "Översikt",
+    "stations": "Stationer",
+    "settings": "Inställningar",
+    "signOut": "Logga ut"
+  },
+  "dashboard": {
+    "title": "Systemöversikt",
+    "subtitle": "Realtidsstatus för Bensa Tracker-ekosystemet.",
+    "totalStations": "Totalt antal stationer",
+    "lockedStations": "Låsta stationer",
+    "lastScrape": "Senaste hämtning",
+    "healthySources": "Tillgängliga källor",
+    "activity": "Senaste systemaktivitet",
+    "dbHealth": "Databasens hälsa",
+    "success": "Framgång"
+  },
+  "stations": {
+    "title": "Stationshanterare",
+    "subtitle": "Direkt API-åtkomst för stationsdata.",
+    "searchPlaceholder": "Sök namn, stad, kedja...",
+    "locked": "Låst",
+    "edit": "Redigera",
+    "delete": "Ta bort",
+    "unlock": "Lås upp",
+    "lock": "Lås",
+    "saveAndLock": "SPARA OCH LÅS STATION",
+    "cancel": "AVBRYT",
+    "editStation": "Redigera station",
+    "fetchCoordinates": "Hämta koordinater",
+    "fetchCoordinatesLoading": "Hämtar koordinater...",
+    "fetchCoordinatesSuccess": "Koordinater hittade!",
+    "fetchCoordinatesNotFound": "Inga koordinater hittades för denna adress.",
+    "fetchCoordinatesError": "Fel vid hämtning av koordinater.",
+    "mapInstruction": "Klicka på kartan för att ställa in exakta koordinater",
+    "fields": {
+      "name": "Namn",
+      "brand": "Kedja",
+      "address": "Adress",
+      "city": "Stad",
+      "lat": "Latitud",
+      "lon": "Longitud",
+      "prices": "Priser"
+    }
+  },
+  "common": {
+    "loading": "Laddar...",
+    "error": "Fel",
+    "success": "Framgång",
+    "accessDenied": "Åtkomst nekad",
+    "localOnly": "Administratörsinstrumentpanelen är endast tillgänglig under lokal utveckling (localhost)."
+  }
+}

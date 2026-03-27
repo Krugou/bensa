@@ -4,6 +4,7 @@ import { initReactI18next } from 'react-i18next';
 
 import en from './locales/en.json';
 import fi from './locales/fi.json';
+import sv from './locales/sv.json';
 
 void i18n
   .use(LanguageDetector)
@@ -12,6 +13,7 @@ void i18n
     resources: {
       en: { translation: en },
       fi: { translation: fi },
+      sv: { translation: sv },
     },
     fallbackLng: 'fi', // Fallback to Finnish if language not detected
     interpolation: {

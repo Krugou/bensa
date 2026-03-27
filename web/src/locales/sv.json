@@ -1,0 +1,163 @@
+{
+  "app": {
+    "title": "Bensa"
+  },
+  "header": {
+    "subtitle": "Bränslepriser i realtid",
+    "ticker": {
+      "live": "LIVEPRISER",
+      "finland": "FINLAND",
+      "types": "95E10 · 98E5 · DIESEL",
+      "nearby": "HITTA BILLIGASTE NÄRA DIG",
+      "alerts": "PRISLARM"
+    }
+  },
+  "common": {
+    "liter": "L",
+    "build_time": "Version",
+    "notifications": "Notiser",
+    "price_drop": "💰 Prissänkning!",
+    "close": "Stäng",
+    "light_mode": "Ljust läge",
+    "dark_mode": "Mörkt läge"
+  },
+  "gauge": {
+    "average": "KA"
+  },
+  "level": {
+    "cheap": "🟢 Billigt",
+    "mid": "🟡 Keskitaso",
+    "expensive": "🔴 Dyrt"
+  },
+  "fuel": {
+    "select": "BRÄNSLE"
+  },
+  "brand": {
+    "select": "KEDJA",
+    "all": "Alla kedjor",
+    "filter": "Filtrera efter kedja"
+  },
+  "cookies": {
+    "title": "Cookieinställningar",
+    "description": "Vi använder Google Analytics för att förstå hur användare hittar de bästa priserna. Inga personuppgifter sparas.",
+    "accept": "Acceptera alla",
+    "deny": "Neka"
+  },
+  "actions": {
+    "show_nearest_cheap": "Visa närmaste billiga",
+    "nav_nearest_cheap": "Navigera till bästa pris",
+    "report_price": "Rapportera pris",
+    "calculator": "Besparingskalkylator"
+  },
+  "crowdsource": {
+    "title": "Rapportera priser",
+    "welcome": "Hjälp gemenskapen genom att rapportera bränslepriser i realtid från din lokala station!",
+    "placeholder": "Funktioner för crowdsourcing kommer snart. Håll utkik!",
+    "station_name": "Stationsnamn",
+    "select_station": "Välj en station..."
+  },
+  "map": {
+    "title": "🗺️ Stationskarta",
+    "your_location": "📍 Din plats",
+    "cheap": "Billigt",
+    "mid": "Mellan",
+    "expensive": "Dyrt"
+  },
+  "stations": {
+    "title": "⛽ Stationer efter pris",
+    "count": "{{count}} stationer",
+    "sort_price": "Pris",
+    "sort_distance": "Närmaste",
+    "sorted": "Sorterat efter pris",
+    "empty": "Inga stationer hittades",
+    "hidden": "+{{count}} längre bort",
+    "none_nearby": "Inga stationer inom 50km",
+    "show_all": "Visa alla stationer",
+    "show_nearby": "Visa endast i närheten (50km)"
+  },
+  "station": {
+    "updated": "Uppdaterad",
+    "directions": "Hämta vägbeskrivning",
+    "directions_desc": "Välj navigationssapp",
+    "google_maps": "Google Maps",
+    "waze": "Waze",
+    "apple_maps": "Apple Maps",
+    "source_link": "Visa datakälla",
+    "add_favorite": "Lägg till i favoriter",
+    "remove_favorite": "Ta bort från favoriter"
+  },
+  "calc": {
+    "title": "Besparingskalkylator",
+    "consumption": "Förbrukning (L/100km)",
+    "tank_size": "Tank (L)",
+    "distance": "Avstånd (km)",
+    "price_diff": "Prisskillnad",
+    "tank_savings": "Besparing per tank",
+    "driving_cost": "Körkostnad",
+    "net_savings": "Nettobesparing",
+    "worth_it": "Värt resan!",
+    "not_worth_it": "Tank i närheten"
+  },
+  "chart": {
+    "section_title": "📈 Prishistorik",
+    "title_7d": "7-dagars pristrend",
+    "title_30d": "30-dagars pristrend",
+    "title_90d": "90-dagars pristrend",
+    "title_1y": "1-års pristrend",
+    "title_3y": "3-års pristrend",
+    "title_all": "Total pristrend",
+    "title_hourly": "Senaste timtrenderna",
+    "daily": "Dagligen",
+    "monthly": "Månadsvis",
+    "hourly": "Per timme",
+    "loading": "Laddar historik..."
+  },
+  "notifications": {
+    "title": "🔔 Larm",
+    "enabled": "Prislarm aktiverat",
+    "enabled_desc": "Du får en notis när priserna sjunker avsevärt",
+    "denied": "Notiser blockade",
+    "denied_desc": "Aktivera i webbläsarens inställningar för att få prislarm",
+    "prompt_title": "Prenumerera på prislarm",
+    "prompt_desc": "Få en notis när bränslepriset sjunker under en viss gräns",
+    "enable": "Aktivera larm",
+    "loading": "Begär..."
+  },
+  "alert": {
+    "price_drop": "💰 Bränslepriserna har sjunkit!",
+    "high_gap": "Stor prisskillnad i ditt område! Kolla listan för att spara pengar.",
+    "quota_exceeded": "Firebases läsgräns är nådd för idag. Försök igen imorgon!",
+    "quota_exceeded_desc": "Vi hämtar priser från cacheminnet om möjligt, men nya uppdateringar kan inte laddas just nu."
+  },
+  "analysis": {
+    "weekday_title": "Bästa dagen att tanka",
+    "recommendation": "Historiskt sett är {{day}}ar de billigaste dagarna att tanka."
+  },
+  "loading": {
+    "text": "Hämtar bränslepriser...",
+    "funny_1": "Om detta kraschar är gratisnivån borta... 🍞",
+    "funny_2": "Houston, vi har ett problem... gratisgränsen på 99%. 🚀",
+    "funny_3": "Man hämtar inte priser utan att nå gränsen. 🏔️",
+    "funny_4": "Hjälp mig, Firebase Admin... du är mitt enda hopp (att förbli gratis). 💫",
+    "funny_5": "Jag ska ge honom ett erbjudande han inte kan tacka nej till... 50 000 gratis läsningar. 🤌",
+    "funny_6": "Jag känner ett behov... behov av gratis kvot! 🏎️",
+    "funny_7": "Mamma sa alltid att Firebase är som en chokladask... man vet aldrig när det tar slut. 🍬",
+    "funny_8": "Du klarar inte sanningen! (Och inte vår dagliga gräns heller). ⚖️",
+    "funny_9": "Jag har sett saker ni inte skulle tro... som vår räkning. 🌌",
+    "funny_10": "Är ni inte roade?! Är detta inte anledningen till att vår kvot är slut?! ⚔️",
+    "funny_11": "Milde tid! Antalet användare är över 1,21 gigawatt! 🏎️💨",
+    "funny_12": "Uppriktigt sagt, min kära, bryr jag mig inte... vänta, nådde vi läsgränsen?! 😱"
+  },
+  "rich_list": {
+    "title": "💸 Dyraste",
+    "desc": "\"Undvik till varje pris\"-listan",
+    "desc_nearby": "Topp 5 dyraste (Inom 50km)",
+    "desc_all": "Topp 5 dyraste (Hela Finland)",
+    "show_all": "Visa hela Finland",
+    "show_nearby": "Visa i närheten",
+    "none_nearby": "Inga dyra stationer hittades i närheten."
+  },
+  "footer": {
+    "copyright": "© {{year}} Bensa"
+  }
+}
