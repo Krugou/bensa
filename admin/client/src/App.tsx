@@ -31,8 +31,10 @@ const App = () => {
   };
 
   const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'fi' : 'en';
-    void i18n.changeLanguage(newLang);
+    const langs: ('en' | 'fi' | 'sv')[] = ['en', 'fi', 'sv'];
+    const currentIndex = langs.indexOf(i18n.language as any);
+    const nextIndex = (currentIndex + 1) % langs.length;
+    void i18n.changeLanguage(langs[nextIndex]);
   };
 
   return (
