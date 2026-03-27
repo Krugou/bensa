@@ -26,7 +26,16 @@ export const StationList = ({
   const [sortBy, setSortBy] = useState<'price' | 'distance'>('price');
 
   const processedStations = useMemo(() => {
-    let list = [...stations];
+    const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+    const now = Date.now();
+
+    let list = stations.filter((station) => {
+      const fuelPrice = station.prices.find((p) => p.type === fuelType);
+      const isStale = fuelPrice?.updatedAt
+        ? now - new Date(fuelPrice.updatedAt).getTime() > SEVEN_DAYS_MS
+        : false;
+      return !isStale;
+    });
 
     // Sort: Favorites first, then by selected criteria
     list = list.sort((a, b) => {
