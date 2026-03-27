@@ -82,7 +82,7 @@
   --color-error: #ffb4ab;
 
   /* Typography */
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-sans: 'Mona Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
 
   /* Theme-aware colors */
@@ -111,7 +111,7 @@ body {
   overflow-x: hidden;
   background-color: var(--bg-main);
   color: var(--text-main);
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Mona Sans', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   transition:

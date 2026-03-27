@@ -63,8 +63,12 @@ export const Dashboard = () => {
         <StatCard
           icon={<History className="text-bensa-violet" />}
           label={t('dashboard.lastScrape')}
-          value={stats.lastScraperRun ? new Date(stats.lastScraperRun).toLocaleTimeString() : 'Never'}
-          subValue={stats.lastScraperRun ? new Date(stats.lastScraperRun).toLocaleDateString() : 'N/A'}
+          value={
+            stats.lastScraperRun ? new Date(stats.lastScraperRun).toLocaleTimeString() : 'Never'
+          }
+          subValue={
+            stats.lastScraperRun ? new Date(stats.lastScraperRun).toLocaleDateString() : 'N/A'
+          }
         />
         <StatCard
           icon={<Fuel className="text-fuel-red" />}
@@ -81,16 +85,20 @@ export const Dashboard = () => {
             {t('dashboard.activity')}
           </h3>
           <div className="space-y-4">
-             <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-fuel-green animate-pulse"></div>
-                  <div>
-                    <p className="text-sm font-medium">Scraper completed successfully</p>
-                    <p className="text-xs text-slate-500">{stats.lastScraperRun ? new Date(stats.lastScraperRun).toLocaleString() : ''}</p>
-                  </div>
+            <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-fuel-green animate-pulse"></div>
+                <div>
+                  <p className="text-sm font-medium">Scraper completed successfully</p>
+                  <p className="text-xs text-slate-500">
+                    {stats.lastScraperRun ? new Date(stats.lastScraperRun).toLocaleString() : ''}
+                  </p>
                 </div>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-fuel-green/10 text-fuel-green uppercase border border-fuel-green/20">{t('dashboard.success')}</span>
-             </div>
+              </div>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-fuel-green/10 text-fuel-green uppercase border border-fuel-green/20">
+                {t('dashboard.success')}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -107,12 +115,20 @@ export const Dashboard = () => {
   );
 };
 
-const StatCard = ({ icon, label, value, subValue }: { icon: React.ReactNode, label: string, value: string | number, subValue: string }) => (
+const StatCard = ({
+  icon,
+  label,
+  value,
+  subValue,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string | number;
+  subValue: string;
+}) => (
   <div className="bg-slate-900 border border-slate-800 p-6 rounded-3xl hover:border-slate-700 transition-colors">
     <div className="flex items-center gap-3 mb-4">
-      <div className="p-2 bg-slate-950 rounded-xl border border-slate-800">
-        {icon}
-      </div>
+      <div className="p-2 bg-slate-950 rounded-xl border border-slate-800">{icon}</div>
       <span className="text-sm font-bold text-slate-400 uppercase tracking-wider">{label}</span>
     </div>
     <div className="text-3xl font-black italic">{value}</div>
@@ -120,7 +136,15 @@ const StatCard = ({ icon, label, value, subValue }: { icon: React.ReactNode, lab
   </div>
 );
 
-const HealthBar = ({ label, percent, color }: { label: string, percent: number, color: string }) => (
+const HealthBar = ({
+  label,
+  percent,
+  color,
+}: {
+  label: string;
+  percent: number;
+  color: string;
+}) => (
   <div className="space-y-2">
     <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-500">
       <span>{label}</span>

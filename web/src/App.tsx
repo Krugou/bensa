@@ -555,12 +555,13 @@ const AppContent = () => {
 };
 
 // Simple helper to detect best starting language
-const getInitialLang = (): 'fi' | 'en' => {
+const getInitialLang = (): 'fi' | 'en' | 'sv' => {
   const saved = localStorage.getItem('i18nextLng');
-  if (saved === 'fi' || saved === 'en') return saved;
+  if (saved === 'fi' || saved === 'en' || saved === 'sv') return saved as 'fi' | 'en' | 'sv';
 
   const browserLng = navigator.language.toLowerCase();
   if (browserLng.startsWith('fi')) return 'fi';
+  if (browserLng.startsWith('sv')) return 'sv';
   return 'en';
 };
 
