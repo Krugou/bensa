@@ -7,9 +7,7 @@ import { LanguageSwitcher } from '../../components/LanguageSwitcher';
 import { Analytics } from '../../utils/analytics';
 
 describe('LanguageSwitcher', () => {
-  it('should render and toggle language', () => {
-    const { i18n } = useTranslation();
-
+  it('should render and open dropdown on click', () => {
     render(
       <MemoryRouter>
         <LanguageSwitcher />
@@ -19,37 +17,42 @@ describe('LanguageSwitcher', () => {
     const button = screen.getByRole('button');
     expect(button).toBeDefined();
 
+    // Check if dropdown items are not visible initially
+    // We check for Svenska and English since Suomi might be the default label if lng=fi
+    expect(screen.queryByText('Svenska')).toBeNull();
+    expect(screen.queryByText('English')).toBeNull();
+
+    // Click to open
     fireEvent.click(button);
 
-    // Initial language in mock is 'en'
+    // Now it should show all languages
+    expect(screen.getByText('Suomi')).toBeDefined();
+    expect(screen.getByText('Svenska')).toBeDefined();
+    expect(screen.getByText('English')).toBeDefined();
+  });
+
+  it('should change language and close dropdown when an option is selected', () => {
+    const { i18n } = useTranslation();
+
+    render(
+      <MemoryRouter>
+        <LanguageSwitcher />
+      </MemoryRouter>,
+    );
+
+    // Open dropdown
+    fireEvent.click(screen.getByRole('button'));
+
+    // Select Swedish
+    const swedishBtn = screen.getByText('Svenska');
+    fireEvent.click(swedishBtn);
+
+    // Verify i18n call
     // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(i18n.changeLanguage).toHaveBeenCalledWith('fi');
-    expect(Analytics.trackLanguageChange).toHaveBeenCalledWith('fi');
-  });
+    expect(i18n.changeLanguage).toHaveBeenCalledWith('sv');
+    expect(Analytics.trackLanguageChange).toHaveBeenCalledWith('sv');
 
-  it('should display Finnish label when language is English', () => {
-    const { i18n } = useTranslation();
-    (i18n as { language: string }).language = 'en';
-
-    render(
-      <MemoryRouter>
-        <LanguageSwitcher />
-      </MemoryRouter>,
-    );
-
-    expect(screen.getByText('FI')).toBeDefined();
-  });
-
-  it('should display English label when language is Finnish', () => {
-    const { i18n } = useTranslation();
-    (i18n as { language: string }).language = 'fi';
-
-    render(
-      <MemoryRouter>
-        <LanguageSwitcher />
-      </MemoryRouter>,
-    );
-
-    expect(screen.getByText('EN')).toBeDefined();
+    // Dropdown should be closed - check that English (another option) is gone
+    expect(screen.queryByText('English')).toBeNull();
   });
 });
