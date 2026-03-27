@@ -210,7 +210,7 @@ jobs:
     steps:
       - name: Driving to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
   semantic-release:
     name: 📢 Semantic-Release
