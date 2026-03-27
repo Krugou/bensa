@@ -1,4 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import { formatDistanceToNow, type Locale } from 'date-fns';
+import { enUS, fi, sv } from 'date-fns/locale';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { FuelType, GasStation } from '../types';
@@ -10,8 +12,22 @@ interface RichListProps {
 }
 
 export const RichList: React.FC<RichListProps> = ({ stations, fuelType }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [showAllFinland, setShowAllFinland] = useState(false);
+
+  const getRelativeTime = useCallback(
+    (dateStr: string) => {
+      try {
+        const date = new Date(dateStr);
+        const localeMap: Record<string, Locale> = { fi, sv, en: enUS };
+        const locale = localeMap[i18n.language] ?? enUS;
+        return formatDistanceToNow(date, { addSuffix: true, locale });
+      } catch {
+        return dateStr;
+      }
+    },
+    [i18n.language],
+  );
 
   const expensiveStations = useMemo(() => {
     let list = [...stations];
@@ -68,6 +84,14 @@ export const RichList: React.FC<RichListProps> = ({ stations, fuelType }) => {
                     <p className="text-[10px] text-text-muted break-all mt-0.5">
                       {station.city} {station.distance !== undefined && `(${station.distance}km)`}
                     </p>
+                    {(() => {
+                      const fp = station.prices.find((p) => p.type === fuelType);
+                      return fp?.updatedAt ? (
+                        <p className="text-[9px] font-mono text-text-dim mt-0.5">
+                          {t('station.updated', 'Updated')}: {getRelativeTime(fp.updatedAt)}
+                        </p>
+                      ) : null;
+                    })()}
                   </div>
                 </div>
                 <div className="text-right">
