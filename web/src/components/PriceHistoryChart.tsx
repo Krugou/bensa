@@ -142,19 +142,22 @@ export const PriceHistoryChart = () => {
             axisLine={{ stroke: 'rgba(255,255,255,0.06)' }}
             tickFormatter={(value: string) => {
               try {
-                const date = new Date(value);
-                if (granularity === 'hourly') {
-                  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                }
                 if (granularity === 'monthly') {
-                  // value is YYYY-MM
-                  return new Date(`${value}-01`).toLocaleDateString([], {
+                  // value is YYYY-MM — parse manually to avoid cross-browser issues
+                  const [year, month] = value.split('-').map(Number);
+                  const date = new Date(year, month - 1, 1);
+                  return date.toLocaleDateString(undefined, {
                     month: 'short',
                     year: '2-digit',
                   });
                 }
+                const date = new Date(value);
+                if (isNaN(date.getTime())) return value;
+                if (granularity === 'hourly') {
+                  return date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+                }
                 // Daily: YYYY-MM-DD
-                return date.toLocaleDateString([], { day: '2-digit', month: '2-digit' });
+                return date.toLocaleDateString(undefined, { day: '2-digit', month: '2-digit' });
               } catch {
                 return value;
               }
@@ -178,28 +181,31 @@ export const PriceHistoryChart = () => {
             labelStyle={{ color: 'rgba(255,255,255,0.5)' }}
             labelFormatter={(value: any) => {
               try {
+                if (granularity === 'monthly') {
+                  const [year, month] = String(value).split('-').map(Number);
+                  const date = new Date(year, month - 1, 1);
+                  return date.toLocaleDateString(undefined, {
+                    month: 'long',
+                    year: 'numeric',
+                  });
+                }
                 const date = new Date(value);
+                if (isNaN(date.getTime())) return String(value);
                 if (granularity === 'hourly') {
-                  return date.toLocaleString([], {
+                  return date.toLocaleString(undefined, {
                     day: '2-digit',
                     month: '2-digit',
                     hour: '2-digit',
                     minute: '2-digit',
                   });
                 }
-                if (granularity === 'monthly') {
-                  return new Date(`${value}-01`).toLocaleDateString([], {
-                    month: 'long',
-                    year: 'numeric',
-                  });
-                }
-                return date.toLocaleDateString([], {
+                return date.toLocaleDateString(undefined, {
                   weekday: 'short',
                   day: '2-digit',
                   month: '2-digit',
                 });
               } catch {
-                return value;
+                return String(value);
               }
             }}
           />
