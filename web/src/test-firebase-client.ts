@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { initializeApp } from 'firebase/app';
 import { collection, getDocs, getFirestore, limit, query } from 'firebase/firestore';
 

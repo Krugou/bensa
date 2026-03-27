@@ -74,8 +74,8 @@ jobs:
           cache-dependency-path: package-lock.json
       - name: Filling the Tanks (Dependencies)
         run: npm ci
-      - name: Cleaning the Pumps (Lint Web)
-        run: npm run lint -w bensa-web --if-present
+      - name: Cleaning the Pumps (Lint All)
+        run: npm run lint --if-present
         continue-on-error: true
       - name: Testing the Meters (Test Web)
         run: npm run test -w bensa-web -- --run

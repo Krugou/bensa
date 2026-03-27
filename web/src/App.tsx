@@ -1,5 +1,3 @@
-import 'react-toastify/dist/ReactToastify.css';
-
 import { collection, getDocs, limit, orderBy, query, Timestamp } from 'firebase/firestore';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +9,6 @@ import {
   useParams,
   useSearchParams,
 } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
 
 import { BrandSelector } from './components/BrandSelector';
 import { CollapsibleSection } from './components/CollapsibleSection';
@@ -110,10 +107,7 @@ const AppContent = () => {
       } catch (error: unknown) {
         const err = error as Error;
         if (err.message === 'QUOTA_EXCEEDED') {
-          toast.error(t('alert.quota_exceeded'), {
-            autoClose: false,
-            toastId: 'quota-error',
-          });
+          console.error(t('alert.quota_exceeded'));
         }
       }
 
@@ -133,10 +127,7 @@ const AppContent = () => {
         console.warn('Failed to fetch last scraper run:', e);
         const err = e as { code?: string };
         if (err.code === 'resource-exhausted') {
-          toast.error(t('alert.quota_exceeded'), {
-            autoClose: false,
-            toastId: 'quota-error-run',
-          });
+          console.error(t('alert.quota_exceeded'));
         }
       }
 
@@ -192,19 +183,14 @@ const AppContent = () => {
   // Notify on price alerts
   useEffect(() => {
     if (isPriceAlert) {
-      toast.success(t('alert.price_drop', '💰 Fuel prices have dropped!'), {
-        autoClose: 8000,
-      });
+      console.log(t('alert.price_drop', '💰 Fuel prices have dropped!'));
     }
   }, [isPriceAlert, t]);
 
   // Price Gap Alert
   useEffect(() => {
     if (stats.max - stats.min > 0.15) {
-      toast.info(t('alert.high_gap', 'Large price difference in your area! Check the list.'), {
-        autoClose: 10000,
-        toastId: 'price-gap-alert',
-      });
+      console.log(t('alert.high_gap', 'Large price difference in your area! Check the list.'));
     }
   }, [stats.max, stats.min, t]);
 
@@ -530,12 +516,6 @@ const AppContent = () => {
           </footer>
         )}
       </div>
-
-      <ToastContainer
-        position="top-right"
-        theme="dark"
-        aria-label={t('common.notifications', 'Notifications')}
-      />
 
       {nearestCheapStation && (
         <DirectionsModal

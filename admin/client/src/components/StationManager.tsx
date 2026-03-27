@@ -1,6 +1,5 @@
 import { Edit2, Lock, MapPin, Search, Trash2, Unlock, X, Locate } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
@@ -15,7 +14,13 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-const LocationMarker = ({ position, setPosition }: { position: [number, number], setPosition: (pos: [number, number]) => void }) => {
+const LocationMarker = ({
+  position,
+  setPosition,
+}: {
+  position: [number, number];
+  setPosition: (pos: [number, number]) => void;
+}) => {
   useMapEvents({
     click(e) {
       setPosition([e.latlng.lat, e.latlng.lng]);
@@ -24,7 +29,7 @@ const LocationMarker = ({ position, setPosition }: { position: [number, number],
   return position[0] !== 0 || position[1] !== 0 ? <Marker position={position} /> : null;
 };
 
-const MapUpdater = ({ lat, lon }: { lat: number, lon: number }) => {
+const MapUpdater = ({ lat, lon }: { lat: number; lon: number }) => {
   const map = useMapEvents({});
   React.useEffect(() => {
     if (lat !== 0 && lon !== 0) {
@@ -53,7 +58,7 @@ export const StationManager = () => {
       setStations(response.data);
     } catch (err: any) {
       console.error('[STATIONS] Failed to fetch stations:', err.response?.data || err.message);
-      toast.error(t('common.error'));
+      console.error(t('common.error'));
     } finally {
       setLoading(false);
     }
@@ -64,15 +69,15 @@ export const StationManager = () => {
   }, []);
 
   const filteredStations = stations.filter((s) => {
-    const matchesSearch = 
+    const matchesSearch =
       s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       s.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
       s.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
       s.brand.toLowerCase().includes(searchQuery.toLowerCase());
-      
+
     if (filterMode === 'locked' && !s.userFixed) return false;
     if (filterMode === 'unlocked' && s.userFixed) return false;
-    
+
     return matchesSearch;
   });
 
@@ -80,13 +85,18 @@ export const StationManager = () => {
     const newStatus = !station.userFixed;
     console.log(`[STATIONS] Toggling lock for ${station.id} to ${newStatus}...`);
     try {
-      await axios.post(`${ADMIN_API_BASE}/api/stations/${station.id}/toggle-lock`, { locked: newStatus });
+      await axios.post(`${ADMIN_API_BASE}/api/stations/${station.id}/toggle-lock`, {
+        locked: newStatus,
+      });
       console.log(`[STATIONS] Lock toggled for ${station.id}`);
-      setStations(stations.map(s => s.id === station.id ? { ...s, userFixed: newStatus } : s));
-      toast.info(newStatus ? t('stations.locked') : t('stations.unlock'));
+      setStations(stations.map((s) => (s.id === station.id ? { ...s, userFixed: newStatus } : s)));
+      console.log(newStatus ? t('stations.locked') : t('stations.unlock'));
     } catch (err: any) {
-      console.error(`[STATIONS] Failed to toggle lock for ${station.id}:`, err.response?.data || err.message);
-      toast.error(t('common.error'));
+      console.error(
+        `[STATIONS] Failed to toggle lock for ${station.id}:`,
+        err.response?.data || err.message,
+      );
+      console.error(t('common.error'));
     }
   };
 
@@ -96,11 +106,14 @@ export const StationManager = () => {
     try {
       await axios.delete(`${ADMIN_API_BASE}/api/stations/${id}`);
       console.log(`[STATIONS] Station ${id} deleted`);
-      setStations(stations.filter(s => s.id !== id));
-      toast.success(t('common.success'));
+      setStations(stations.filter((s) => s.id !== id));
+      console.log(t('common.success'));
     } catch (err: any) {
-      console.error(`[STATIONS] Failed to delete station ${id}:`, err.response?.data || err.message);
-      toast.error(t('common.error'));
+      console.error(
+        `[STATIONS] Failed to delete station ${id}:`,
+        err.response?.data || err.message,
+      );
+      console.error(t('common.error'));
     }
   };
 
@@ -112,41 +125,48 @@ export const StationManager = () => {
       const { id, ...data } = editingStation;
       await axios.put(`${ADMIN_API_BASE}/api/stations/${id}`, data);
       console.log(`[STATIONS] Station ${id} updated`);
-      setStations(stations.map(s => s.id === id ? { ...editingStation, userFixed: true } : s));
+      setStations(stations.map((s) => (s.id === id ? { ...editingStation, userFixed: true } : s)));
       setEditingStation(null);
-      toast.success(t('common.success'));
+      console.log(t('common.success'));
     } catch (err: any) {
-      console.error(`[STATIONS] Failed to update station ${editingStation.id}:`, err.response?.data || err.message);
-      toast.error(t('common.error'));
+      console.error(
+        `[STATIONS] Failed to update station ${editingStation.id}:`,
+        err.response?.data || err.message,
+      );
+      console.error(t('common.error'));
     }
   };
 
   const handleFetchCoordinates = async () => {
     if (!editingStation || !editingStation.address) return;
-    
-    console.log(`[STATIONS] Triggering fetchCoordinates for ${editingStation.id} (${editingStation.address}, ${editingStation.city})`);
-    const loadingToast = toast.loading(t('stations.fetchCoordinatesLoading'));
-    
+
+    console.log(
+      `[STATIONS] Triggering fetchCoordinates for ${editingStation.id} (${editingStation.address}, ${editingStation.city})`,
+    );
+    console.log(t('stations.fetchCoordinatesLoading'));
+
     try {
       const addressEncoded = encodeURIComponent(editingStation.address);
       const cityEncoded = encodeURIComponent(editingStation.city);
-      
+
       console.log(`[STATIONS] calling /api/geocode?address=${addressEncoded}&city=${cityEncoded}`);
-      const res = await axios.get(`${ADMIN_API_BASE}/api/geocode?address=${addressEncoded}&city=${cityEncoded}`);
-      
+      const res = await axios.get(
+        `${ADMIN_API_BASE}/api/geocode?address=${addressEncoded}&city=${cityEncoded}`,
+      );
+
       if (res.data && res.data.length > 0) {
         const lat = parseFloat(res.data[0].lat);
         const lon = parseFloat(res.data[0].lon);
         console.log(`[STATIONS] Received coordinates: lat=${lat}, lon=${lon}`);
         setEditingStation({ ...editingStation, lat, lon });
-        toast.update(loadingToast, { render: t('stations.fetchCoordinatesSuccess'), type: 'success', isLoading: false, autoClose: 3000 });
+        console.log(t('stations.fetchCoordinatesSuccess'));
       } else {
         console.warn(`[STATIONS] No coordinates found from Nominatim API for this address`);
-        toast.update(loadingToast, { render: t('stations.fetchCoordinatesNotFound'), type: 'error', isLoading: false, autoClose: 3000 });
+        console.error(t('stations.fetchCoordinatesNotFound'));
       }
     } catch (err: any) {
       console.error(`[STATIONS] Failed to fetch coordinates:`, err?.response?.data || err.message);
-      toast.update(loadingToast, { render: t('stations.fetchCoordinatesError'), type: 'error', isLoading: false, autoClose: 3000 });
+      console.error(t('stations.fetchCoordinatesError'));
     }
   };
 
@@ -165,7 +185,9 @@ export const StationManager = () => {
             <button
               onClick={() => setFilterMode('all')}
               className={`flex-1 px-4 py-2 rounded-xl text-sm font-bold uppercase transition-colors ${
-                filterMode === 'all' ? 'bg-slate-800 text-white' : 'text-slate-500 hover:text-slate-300'
+                filterMode === 'all'
+                  ? 'bg-slate-800 text-white'
+                  : 'text-slate-500 hover:text-slate-300'
               }`}
             >
               All
@@ -173,7 +195,9 @@ export const StationManager = () => {
             <button
               onClick={() => setFilterMode('locked')}
               className={`flex-1 px-4 py-2 rounded-xl text-sm font-bold uppercase flex items-center justify-center gap-1.5 transition-colors ${
-                filterMode === 'locked' ? 'bg-bensa-cyan/20 text-bensa-cyan' : 'text-slate-500 hover:text-slate-300'
+                filterMode === 'locked'
+                  ? 'bg-bensa-cyan/20 text-bensa-cyan'
+                  : 'text-slate-500 hover:text-slate-300'
               }`}
             >
               <Lock size={14} /> {t('stations.locked')}
@@ -181,7 +205,9 @@ export const StationManager = () => {
             <button
               onClick={() => setFilterMode('unlocked')}
               className={`flex-1 px-4 py-2 rounded-xl text-sm font-bold uppercase flex items-center justify-center gap-1.5 transition-colors ${
-                filterMode === 'unlocked' ? 'bg-slate-800 text-white' : 'text-slate-500 hover:text-slate-300'
+                filterMode === 'unlocked'
+                  ? 'bg-slate-800 text-white'
+                  : 'text-slate-500 hover:text-slate-300'
               }`}
             >
               <Unlock size={14} /> {t('stations.unlock')}
@@ -265,9 +291,16 @@ export const StationManager = () => {
 
               <div className="mt-4 flex flex-wrap gap-2">
                 {station.prices.map((p) => (
-                  <div key={p.type} className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg flex items-center gap-2">
-                    <span className="text-[10px] font-black uppercase text-slate-600">{p.type}</span>
-                    <span className="text-sm font-mono font-bold text-fuel-green">{p.price.toFixed(3)}</span>
+                  <div
+                    key={p.type}
+                    className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg flex items-center gap-2"
+                  >
+                    <span className="text-[10px] font-black uppercase text-slate-600">
+                      {p.type}
+                    </span>
+                    <span className="text-sm font-mono font-bold text-fuel-green">
+                      {p.price.toFixed(3)}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -281,8 +314,13 @@ export const StationManager = () => {
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-3xl p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-8">
-              <h3 className="text-2xl font-black italic tracking-tight uppercase">{t('stations.editStation')}</h3>
-              <button onClick={() => setEditingStation(null)} className="p-2 hover:bg-slate-800 rounded-full transition-colors">
+              <h3 className="text-2xl font-black italic tracking-tight uppercase">
+                {t('stations.editStation')}
+              </h3>
+              <button
+                onClick={() => setEditingStation(null)}
+                className="p-2 hover:bg-slate-800 rounded-full transition-colors"
+              >
                 <X size={24} />
               </button>
             </div>
@@ -301,7 +339,9 @@ export const StationManager = () => {
                   <input
                     type="text"
                     value={editingStation.brand}
-                    onChange={(e) => setEditingStation({ ...editingStation, brand: e.target.value })}
+                    onChange={(e) =>
+                      setEditingStation({ ...editingStation, brand: e.target.value })
+                    }
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 focus:border-fuel-green outline-none"
                   />
                 </Field>
@@ -309,7 +349,9 @@ export const StationManager = () => {
                   <input
                     type="text"
                     value={editingStation.address}
-                    onChange={(e) => setEditingStation({ ...editingStation, address: e.target.value })}
+                    onChange={(e) =>
+                      setEditingStation({ ...editingStation, address: e.target.value })
+                    }
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 focus:border-fuel-green outline-none"
                   />
                 </Field>
@@ -321,10 +363,10 @@ export const StationManager = () => {
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 focus:border-fuel-green outline-none"
                   />
                 </Field>
-                
+
                 <div className="col-span-1 md:col-span-2 flex justify-end -mt-2">
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={() => void handleFetchCoordinates()}
                     className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold uppercase px-4 py-2 rounded-xl transition-colors"
                   >
@@ -338,7 +380,9 @@ export const StationManager = () => {
                     type="number"
                     step="any"
                     value={editingStation.lat}
-                    onChange={(e) => setEditingStation({ ...editingStation, lat: parseFloat(e.target.value) })}
+                    onChange={(e) =>
+                      setEditingStation({ ...editingStation, lat: parseFloat(e.target.value) })
+                    }
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 focus:border-fuel-green outline-none"
                   />
                 </Field>
@@ -347,25 +391,32 @@ export const StationManager = () => {
                     type="number"
                     step="any"
                     value={editingStation.lon}
-                    onChange={(e) => setEditingStation({ ...editingStation, lon: parseFloat(e.target.value) })}
+                    onChange={(e) =>
+                      setEditingStation({ ...editingStation, lon: parseFloat(e.target.value) })
+                    }
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 focus:border-fuel-green outline-none"
                   />
                 </Field>
 
-                <div className="col-span-1 md:col-span-2 mt-2 rounded-xl border border-slate-800 bg-slate-950 relative overflow-hidden" style={{ height: '350px' }}>
-                  <MapContainer 
-                    center={[editingStation.lat || 60.1699, editingStation.lon || 24.9384]} 
-                    zoom={editingStation.lat ? 15 : 6} 
-                    scrollWheelZoom={true} 
+                <div
+                  className="col-span-1 md:col-span-2 mt-2 rounded-xl border border-slate-800 bg-slate-950 relative overflow-hidden"
+                  style={{ height: '350px' }}
+                >
+                  <MapContainer
+                    center={[editingStation.lat || 60.1699, editingStation.lon || 24.9384]}
+                    zoom={editingStation.lat ? 15 : 6}
+                    scrollWheelZoom={true}
                     className="h-full w-full z-10"
                   >
                     <TileLayer
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      attribution='&copy; OpenStreetMap contributors'
+                      attribution="&copy; OpenStreetMap contributors"
                     />
-                    <LocationMarker 
-                      position={[editingStation.lat, editingStation.lon]} 
-                      setPosition={(pos) => setEditingStation({ ...editingStation, lat: pos[0], lon: pos[1] })} 
+                    <LocationMarker
+                      position={[editingStation.lat, editingStation.lon]}
+                      setPosition={(pos) =>
+                        setEditingStation({ ...editingStation, lat: pos[0], lon: pos[1] })
+                      }
                     />
                     <MapUpdater lat={editingStation.lat} lon={editingStation.lon} />
                   </MapContainer>
@@ -376,11 +427,18 @@ export const StationManager = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">{t('stations.fields.prices')}</label>
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">
+                  {t('stations.fields.prices')}
+                </label>
                 <div className="space-y-3">
                   {editingStation.prices.map((p, idx) => (
-                    <div key={p.type} className="flex items-center gap-4 bg-slate-950 p-3 rounded-2xl border border-slate-800">
-                      <span className="w-16 text-xs font-black uppercase text-slate-400">{p.type}</span>
+                    <div
+                      key={p.type}
+                      className="flex items-center gap-4 bg-slate-950 p-3 rounded-2xl border border-slate-800"
+                    >
+                      <span className="w-16 text-xs font-black uppercase text-slate-400">
+                        {p.type}
+                      </span>
                       <input
                         type="number"
                         step="0.001"
@@ -392,14 +450,19 @@ export const StationManager = () => {
                         }}
                         className="flex-1 bg-transparent border-b border-slate-800 focus:border-fuel-green outline-none px-2 py-1 font-mono text-fuel-green"
                       />
-                      <span className="text-slate-600 text-[10px] font-mono">{new Date(p.updatedAt).toLocaleDateString()}</span>
+                      <span className="text-slate-600 text-[10px] font-mono">
+                        {new Date(p.updatedAt).toLocaleDateString()}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
 
               <div className="pt-4 flex gap-4">
-                <button type="submit" className="flex-1 bg-fuel-green text-black font-black py-4 rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all">
+                <button
+                  type="submit"
+                  className="flex-1 bg-fuel-green text-black font-black py-4 rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all"
+                >
                   {t('stations.saveAndLock')}
                 </button>
                 <button
@@ -420,7 +483,9 @@ export const StationManager = () => {
 
 const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <div className="space-y-1.5">
-    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">{label}</label>
+    <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">
+      {label}
+    </label>
     {children}
   </div>
 );

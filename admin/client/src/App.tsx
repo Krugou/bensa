@@ -1,8 +1,7 @@
 import { LayoutDashboard, LogOut, MapPin, Settings, Globe, User as UserIcon } from 'lucide-react';
 import React from 'react';
 import { BrowserRouter, Link, Navigate, Route, Routes } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import { useTranslation } from 'react-i18next';
 
 import './i18n';
@@ -20,9 +19,7 @@ const App = () => {
       <div className="min-h-screen bg-slate-950 text-slate-50 flex flex-col items-center justify-center p-8 font-mono">
         <div className="text-fuel-red text-6xl mb-4">🚫</div>
         <h1 className="text-2xl font-bold mb-2">{t('common.accessDenied')}</h1>
-        <p className="text-slate-400 text-center max-w-md">
-          {t('common.localOnly')}
-        </p>
+        <p className="text-slate-400 text-center max-w-md">{t('common.localOnly')}</p>
       </div>
     );
   }
@@ -86,7 +83,6 @@ const App = () => {
           </Routes>
         </main>
       </div>
-      <ToastContainer position="bottom-right" theme="dark" />
     </BrowserRouter>
   );
 };
