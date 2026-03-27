@@ -137,10 +137,18 @@ export const StationMap = ({
     [i18n.language],
   );
 
-  // Filter out stations with invalid or zero coordinates
+  // Filter out stations with invalid coordinates or stale price data (>7 days)
+  const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
   const validStations = useMemo(
-    () => stations.filter((s) => (s.lat !== 0 || s.lon !== 0) && !!s.lat && !!s.lon),
-    [stations],
+    () =>
+      stations.filter((s) => {
+        const hasCoords = (s.lat !== 0 || s.lon !== 0) && !!s.lat && !!s.lon;
+        if (!hasCoords) return false;
+        const fp = s.prices.find((p) => p.type === fuelType);
+        if (!fp?.updatedAt) return false;
+        return Date.now() - new Date(fp.updatedAt).getTime() <= SEVEN_DAYS_MS;
+      }),
+    [stations, fuelType],
   );
 
   const getMarkerProps = useCallback(
