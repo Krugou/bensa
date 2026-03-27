@@ -1,5 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 
+import { formatDistanceToNow, type Locale } from 'date-fns';
+import { enUS, fi, sv } from 'date-fns/locale';
 import L from 'leaflet';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -117,9 +119,23 @@ export const StationMap = ({
   hasGps = false,
   theme = 'dark',
 }: StationMapProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedStation, setSelectedStation] = useState<GasStation | null>(null);
   const [recenterCounter, setRecenterCounter] = useState(0);
+
+  const getRelativeTime = useCallback(
+    (dateStr: string) => {
+      try {
+        const date = new Date(dateStr);
+        const localeMap: Record<string, Locale> = { fi, sv, en: enUS };
+        const locale = localeMap[i18n.language] ?? enUS;
+        return formatDistanceToNow(date, { addSuffix: true, locale });
+      } catch {
+        return dateStr;
+      }
+    },
+    [i18n.language],
+  );
 
   // Filter out stations with invalid or zero coordinates
   const validStations = useMemo(
@@ -308,6 +324,14 @@ export const StationMap = ({
                       </p>
                     )}
                   </div>
+                  {(() => {
+                    const fp = station.prices.find((p) => p.type === fuelType);
+                    return fp?.updatedAt ? (
+                      <p className="mt-1.5 text-[9px] xl:text-[11px] font-mono text-text-dim">
+                        {t('station.updated', 'Updated')}: {getRelativeTime(fp.updatedAt)}
+                      </p>
+                    ) : null;
+                  })()}
                   <div className="mt-2 text-right">
                     <button
                       onClick={() => {
@@ -332,7 +356,7 @@ export const StationMap = ({
             setRecenterCounter((prev) => prev + 1);
             Analytics.trackButtonClick('map_recenter');
           }}
-          className="absolute top-4 right-4 z-[1000] w-10 h-10 bg-surface-container border border-border-card rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors shadow-lg cursor-pointer"
+          className="absolute top-4 right-4 z-1000 w-10 h-10 bg-surface-container border border-border-card rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors shadow-lg cursor-pointer"
           title={t('map.recenter', 'Recenter Map')}
         >
           <span className="material-symbols-outlined text-xl">my_location</span>
@@ -353,7 +377,7 @@ export const StationMap = ({
       )}
 
       {/* Map Legend */}
-      <div className="absolute bottom-4 left-4 glass-card px-3 py-2 flex items-center gap-3 text-[10px] xl:text-xs font-mono text-text-muted z-[1000]">
+      <div className="absolute bottom-4 left-4 glass-card px-3 py-2 flex items-center gap-3 text-[10px] xl:text-xs font-mono text-text-muted z-1000">
         <span className="flex items-center gap-1">
           <span className="w-2.5 h-2.5 xl:w-3.5 xl:h-3.5 rounded-full bg-fuel-green shadow-glow-green" />
           {t('map.cheap', 'Cheap')}
