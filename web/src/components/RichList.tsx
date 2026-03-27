@@ -39,8 +39,8 @@ export const RichList: React.FC<RichListProps> = ({ stations, fuelType }) => {
 
     return list
       .sort((a, b) => {
-        const pA = a.prices.find((p) => p.type === fuelType)?.price ?? 0;
-        const pB = b.prices.find((p) => p.type === fuelType)?.price ?? 0;
+        const pA = a.prices?.find((p) => p.type === fuelType)?.price ?? 0;
+        const pB = b.prices?.find((p) => p.type === fuelType)?.price ?? 0;
         return pB - pA;
       })
       .slice(0, 5);
@@ -69,7 +69,7 @@ export const RichList: React.FC<RichListProps> = ({ stations, fuelType }) => {
       {expensiveStations.length > 0 ? (
         <div className="space-y-2">
           {expensiveStations.map((station, index) => {
-            const price = station.prices.find((p) => p.type === fuelType)?.price ?? 0;
+            const price = station.prices?.find((p) => p.type === fuelType)?.price ?? 0;
             return (
               <div
                 key={station.id}
@@ -85,7 +85,7 @@ export const RichList: React.FC<RichListProps> = ({ stations, fuelType }) => {
                       {station.city} {station.distance !== undefined && `(${station.distance}km)`}
                     </p>
                     {(() => {
-                      const fp = station.prices.find((p) => p.type === fuelType);
+                      const fp = station.prices?.find((p) => p.type === fuelType);
                       return fp?.updatedAt ? (
                         <p className="text-[9px] font-mono text-text-dim mt-0.5">
                           {t('station.updated', 'Updated')}: {getRelativeTime(fp.updatedAt)}

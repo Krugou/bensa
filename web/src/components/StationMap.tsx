@@ -144,7 +144,7 @@ export const StationMap = ({
       stations.filter((s) => {
         const hasCoords = (s.lat !== 0 || s.lon !== 0) && !!s.lat && !!s.lon;
         if (!hasCoords) return false;
-        const fp = s.prices.find((p) => p.type === fuelType);
+        const fp = s.prices?.find((p) => p.type === fuelType);
         if (!fp?.updatedAt) return false;
         return Date.now() - new Date(fp.updatedAt).getTime() <= SEVEN_DAYS_MS;
       }),
@@ -153,7 +153,7 @@ export const StationMap = ({
 
   const getMarkerProps = useCallback(
     (station: GasStation) => {
-      const fuelPrice = station.prices.find((p) => p.type === fuelType);
+      const fuelPrice = station.prices?.find((p) => p.type === fuelType);
       if (!fuelPrice) return { color: '#666', radius: 8, price: 0 };
 
       const level = getPriceLevel(fuelPrice.price, min, max);
@@ -252,7 +252,8 @@ export const StationMap = ({
                       <div className="flex items-center justify-between mt-1">
                         <p className="text-xs font-mono text-fuel-green font-bold">
                           {formatPrice(
-                            nearestCheapStation.prices.find((p) => p.type === fuelType)?.price ?? 0,
+                            nearestCheapStation.prices?.find((p) => p.type === fuelType)?.price ??
+                              0,
                           )}
                           €
                         </p>
@@ -333,7 +334,7 @@ export const StationMap = ({
                     )}
                   </div>
                   {(() => {
-                    const fp = station.prices.find((p) => p.type === fuelType);
+                    const fp = station.prices?.find((p) => p.type === fuelType);
                     return fp?.updatedAt ? (
                       <p className="mt-1.5 text-[9px] xl:text-[11px] font-mono text-text-dim">
                         {t('station.updated', 'Updated')}: {getRelativeTime(fp.updatedAt)}
@@ -364,7 +365,7 @@ export const StationMap = ({
             setRecenterCounter((prev) => prev + 1);
             Analytics.trackButtonClick('map_recenter');
           }}
-          className="absolute top-4 right-4 z-1000 w-10 h-10 bg-surface-container border border-border-card rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors shadow-lg cursor-pointer"
+          className="absolute top-4 right-4 z-[1000] w-10 h-10 bg-surface-container border border-border-card rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors shadow-lg cursor-pointer"
           title={t('map.recenter', 'Recenter Map')}
         >
           <span className="material-symbols-outlined text-xl">my_location</span>
@@ -385,7 +386,7 @@ export const StationMap = ({
       )}
 
       {/* Map Legend */}
-      <div className="absolute bottom-4 left-4 glass-card px-3 py-2 flex items-center gap-3 text-[10px] xl:text-xs font-mono text-text-muted z-1000">
+      <div className="absolute bottom-4 left-4 glass-card px-3 py-2 flex items-center gap-3 text-[10px] xl:text-xs font-mono text-text-muted z-[1000]">
         <span className="flex items-center gap-1">
           <span className="w-2.5 h-2.5 xl:w-3.5 xl:h-3.5 rounded-full bg-fuel-green shadow-glow-green" />
           {t('map.cheap', 'Cheap')}
