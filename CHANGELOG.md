@@ -1,3 +1,28 @@
+# [1.3.0](https://github.com/Krugou/bensa/compare/v1.2.0...v1.3.0) (2026-03-30)
+
+### Bug Fixes
+
+- **admin:** correctly parse firebase private key newlines ([812d640](https://github.com/Krugou/bensa/commit/812d64075c5ca05561a43245bf3da7a1d4fc1a64))
+- **admin:** improve geocode accuracy with address parsing and fallbacks ([b92c451](https://github.com/Krugou/bensa/commit/b92c4512ab664d11496d65b2ec87ffdcf9c244a9))
+- **admin:** use backend proxy for Nominatim to bypass browser CORS and header restrictions ([7da49ee](https://github.com/Krugou/bensa/commit/7da49ee3a3f2fd7170e7fde3d26dea2d52a950ef))
+- map and list crashes by adding optional chaining for station prices and improve monthly chart date parsing ([fe8bbdc](https://github.com/Krugou/bensa/commit/fe8bbdcc0491e8fe1dca6fa09c31e9219d6f732d))
+- monthly price history showing Invalid Date on x-axis ([f03248c](https://github.com/Krugou/bensa/commit/f03248ca6edf2f1e60b318b4e126de1a3d07886a))
+
+### Features
+
+- add last updated timestamp to map popup and rich list ([8f16d39](https://github.com/Krugou/bensa/commit/8f16d395ac34b37cd09d02a4b4b22b9b1b8eb70c))
+- add station filtering and preserve user edits in scraper ([817c332](https://github.com/Krugou/bensa/commit/817c332e03f864eb1e6df3324df7b91305c8c162))
+- add swedish language support ([ffbe38c](https://github.com/Krugou/bensa/commit/ffbe38c741e3a9a7fe4e3e4198cd9ab2c257a618))
+- **admin:** add functionality to fetch GPS coords from address ([ff92c94](https://github.com/Krugou/bensa/commit/ff92c94c83a77fb77d42b4aced18a07a7cb493ba))
+- **admin:** add i18n translations and verbose logging for fetching station coordinates ([cab5e34](https://github.com/Krugou/bensa/commit/cab5e34cd49a3122299419982c8a5299ad2e8dbe))
+- **admin:** add interactive Leaflet map for visual coordinate editing ([2e3c1d9](https://github.com/Krugou/bensa/commit/2e3c1d9b537cb09795e7b7365c05b97c96112b50))
+- **admin:** implement standalone full-stack admin portal with translations ([bf86eb0](https://github.com/Krugou/bensa/commit/bf86eb0dacc61b23871420642cc052e6a2080f11))
+- **admin:** make admin portal local-only and remove sign-in requirement ([dc002e8](https://github.com/Krugou/bensa/commit/dc002e8248b3d32742ed77cc6b16f7c080c3fdd7))
+- enhance language switcher with premium dropdown and swedish support ([0d1d24a](https://github.com/Krugou/bensa/commit/0d1d24a520fe0f8e22d68d2f1f1e77b1428b90f3))
+- hide stations with stale data (>7 days) from map ([30ebb38](https://github.com/Krugou/bensa/commit/30ebb38e8d21de4bbdcba923ee7bbf3cf91910b1))
+- polish language support and fix admin toggle ([0ee8293](https://github.com/Krugou/bensa/commit/0ee82936a2a23f5c619a395ce62937f0dc87d9ad))
+- **web:** hide stations with prices older than 7 days from the list ([36808c1](https://github.com/Krugou/bensa/commit/36808c140a7cfb60c51deebcc4746f049dbef193))
+
 # [1.2.0](https://github.com/Krugou/bensa/compare/v1.1.0...v1.2.0) (2026-03-23)
 
 ### Bug Fixes
