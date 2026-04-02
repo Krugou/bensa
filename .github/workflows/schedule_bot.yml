@@ -66,4 +66,4 @@ jobs:
           git config --global user.name "Bensa Bot"
           git config --global user.email "bot@bensa.fi"
           git add web/public/api/prices.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): sync latest gas prices [skip ci]" && git pull origin main --rebase && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): sync latest gas prices [skip ci]" && git pull origin main --rebase -Xtheirs && git push)
