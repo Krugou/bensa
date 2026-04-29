@@ -1,29 +1,29 @@
 {
-  "lastUpdated": "2026-04-29T12:43:19.383Z",
+  "lastUpdated": "2026-04-29T14:51:52.701Z",
   "stations": [
     {
-      "id": "station-2763",
-      "name": "Neste Oil Express, Lommila Espoontie 32",
-      "brand": "Neste",
-      "address": "Express, Lommila Espoontie 32",
+      "id": "station-1035",
+      "name": "St1, Bemböle Bellinmäki 2, 110-tie",
+      "brand": "St1",
+      "address": "Bemböle Bellinmäki 2, 110-tie",
       "city": "Espoo",
-      "lat": 60.221797,
-      "lon": 24.6646769,
+      "lat": 60.2224395,
+      "lon": 24.6734973,
       "prices": [
         {
           "type": "95",
-          "price": 1.994,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.149,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         },
         {
           "type": "98",
-          "price": 2.104,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.259,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         },
         {
           "type": "diesel",
-          "price": 2.249,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.399,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -39,18 +39,72 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.994,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.129,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         },
         {
           "type": "98",
-          "price": 2.104,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.239,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         },
         {
           "type": "diesel",
-          "price": 2.249,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.379,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-1760",
+      "name": "St1, Lähderanta Pitkäjärventie 1",
+      "brand": "St1",
+      "address": "Lähderanta Pitkäjärventie 1",
+      "city": "Espoo",
+      "lat": 60.2401007,
+      "lon": 24.7416661,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.149,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        },
+        {
+          "type": "98",
+          "price": 2.259,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.399,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-2811",
+      "name": "Neste Express, Laajalahti Turveradantie 13",
+      "brand": "Neste",
+      "address": "Laajalahti Turveradantie 13",
+      "city": "Espoo",
+      "lat": 60.202726,
+      "lon": 24.786112,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.124,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        },
+        {
+          "type": "98",
+          "price": 2.234,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.374,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -66,45 +120,18 @@
       "prices": [
         {
           "type": "95",
-          "price": 2.093,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.149,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         },
         {
           "type": "98",
-          "price": 2.203,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.259,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         },
         {
           "type": "diesel",
-          "price": 2.338,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
-    },
-    {
-      "id": "station-2750",
-      "name": "Neste Oil Express, Kauklahti Mänkimiehentie 3",
-      "brand": "Neste",
-      "address": "Express, Kauklahti Mänkimiehentie 3",
-      "city": "Espoo",
-      "lat": 60.1846534,
-      "lon": 24.6011506,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.062,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "98",
-          "price": 2.172,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.319,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.399,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -120,99 +147,45 @@
       "prices": [
         {
           "type": "95",
-          "price": 2.132,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.124,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         },
         {
           "type": "98",
-          "price": 2.222,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.214,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         },
         {
           "type": "diesel",
-          "price": 2.386,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.374,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
     },
     {
-      "id": "station-1034",
-      "name": "St1, Sepänkylä Palomiehentie 2   (*E99+)",
-      "brand": "St1",
-      "address": "Sepänkylä Palomiehentie 2",
-      "city": "Espoo",
-      "lat": 60.2085385,
-      "lon": 24.7440362,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.112,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "98",
-          "price": 2.222,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.366,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
-    },
-    {
-      "id": "station-2015",
-      "name": "Neste Oil Express, Kivenlahti Maininkitie 11",
+      "id": "station-1664",
+      "name": "Neste Oil, Viherlaakso Rajamännynahde 1",
       "brand": "Neste",
-      "address": "Express, Kivenlahti Maininkitie 11",
+      "address": "Viherlaakso Rajamännynahde 1",
       "city": "Espoo",
-      "lat": 60.1518235,
-      "lon": 24.6467379,
+      "lat": 60.2261847,
+      "lon": 24.7423575,
       "prices": [
         {
           "type": "95",
-          "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.159,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         },
         {
           "type": "98",
-          "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.269,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         },
         {
           "type": "diesel",
-          "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
-    },
-    {
-      "id": "station-1658",
-      "name": "Neste, Matinkylä Gräsanlaakso 2",
-      "brand": "Neste",
-      "address": "Matinkylä Gräsanlaakso 2",
-      "city": "Espoo",
-      "lat": 60.1633446,
-      "lon": 24.7528269,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.089,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "98",
-          "price": 2.199,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.349,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "price": 2.409,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -229,17 +202,179 @@
         {
           "type": "95",
           "price": 2.109,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         },
         {
           "type": "98",
           "price": 2.209,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.960Z"
         },
         {
           "type": "diesel",
           "price": 2.359,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-2763",
+      "name": "Neste Oil Express, Lommila Espoontie 32",
+      "brand": "Neste",
+      "address": "Express, Lommila Espoontie 32",
+      "city": "Espoo",
+      "lat": 60.221797,
+      "lon": 24.6646769,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.129,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        },
+        {
+          "type": "98",
+          "price": 2.239,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.379,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-1037",
+      "name": "St1, Lahnus Lahnuksentie 2",
+      "brand": "St1",
+      "address": "Lahnus Lahnuksentie 2",
+      "city": "Espoo",
+      "lat": 60.3171621,
+      "lon": 24.7146372,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.988,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        },
+        {
+          "type": "98",
+          "price": 2.098,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.229,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-2750",
+      "name": "Neste Oil Express, Kauklahti Mänkimiehentie 3",
+      "brand": "Neste",
+      "address": "Express, Kauklahti Mänkimiehentie 3",
+      "city": "Espoo",
+      "lat": 60.1846534,
+      "lon": 24.6011506,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.062,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        },
+        {
+          "type": "98",
+          "price": 2.172,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.319,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-1034",
+      "name": "St1, Sepänkylä Palomiehentie 2   (*E99+)",
+      "brand": "St1",
+      "address": "Sepänkylä Palomiehentie 2",
+      "city": "Espoo",
+      "lat": 60.2085385,
+      "lon": 24.7440362,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.112,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        },
+        {
+          "type": "98",
+          "price": 2.222,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.366,
+          "updatedAt": "2026-04-29T14:51:39.960Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-2015",
+      "name": "Neste Oil Express, Kivenlahti Maininkitie 11",
+      "brand": "Neste",
+      "address": "Express, Kivenlahti Maininkitie 11",
+      "city": "Espoo",
+      "lat": 60.1518235,
+      "lon": 24.6467379,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.149,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "98",
+          "price": 2.259,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.399,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-1658",
+      "name": "Neste, Matinkylä Gräsanlaakso 2",
+      "brand": "Neste",
+      "address": "Matinkylä Gräsanlaakso 2",
+      "city": "Espoo",
+      "lat": 60.1633446,
+      "lon": 24.7528269,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.089,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "98",
+          "price": 2.199,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.349,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -256,49 +391,22 @@
         {
           "type": "95",
           "price": 2.059,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.169,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.319,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "re85",
           "price": 1.45,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
-    },
-    {
-      "id": "station-2811",
-      "name": "Neste Express, Laajalahti Turveradantie 13",
-      "brand": "Neste",
-      "address": "Laajalahti Turveradantie 13",
-      "city": "Espoo",
-      "lat": 60.202726,
-      "lon": 24.786112,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.059,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "98",
-          "price": 2.159,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.319,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -315,17 +423,17 @@
         {
           "type": "95",
           "price": 1.972,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.062,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.274,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -342,44 +450,17 @@
         {
           "type": "95",
           "price": 2.023,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.113,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.304,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
-    },
-    {
-      "id": "station-1035",
-      "name": "St1, Bemböle Bellinmäki 2, 110-tie",
-      "brand": "St1",
-      "address": "Bemböle Bellinmäki 2, 110-tie",
-      "city": "Espoo",
-      "lat": 60.2224395,
-      "lon": 24.6734973,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.039,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "98",
-          "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.299,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -396,17 +477,17 @@
         {
           "type": "95",
           "price": 2.084,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.194,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.344,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -423,71 +504,17 @@
         {
           "type": "95",
           "price": 2.082,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.172,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.331,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
-    },
-    {
-      "id": "station-1664",
-      "name": "Neste Oil, Viherlaakso Rajamännynahde 1",
-      "brand": "Neste",
-      "address": "Viherlaakso Rajamännynahde 1",
-      "city": "Espoo",
-      "lat": 60.2261847,
-      "lon": 24.7423575,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.079,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "98",
-          "price": 2.189,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.339,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
-    },
-    {
-      "id": "station-1760",
-      "name": "St1, Lähderanta Pitkäjärventie 1",
-      "brand": "St1",
-      "address": "Lähderanta Pitkäjärventie 1",
-      "city": "Espoo",
-      "lat": 60.2401007,
-      "lon": 24.7416661,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.029,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "98",
-          "price": 2.139,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.302,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -504,17 +531,76 @@
         {
           "type": "95",
           "price": 2.074,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.184,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.334,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-2667",
+      "name": "St1, Sompasaari Kyläsaarenkatu 21 (Re85 1.399)",
+      "brand": "St1",
+      "address": "Sompasaari Kyläsaarenkatu 21",
+      "city": "Helsinki",
+      "lat": 60.1934068,
+      "lon": 24.9802485,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.988,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "98",
+          "price": 2.098,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.229,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "re85",
+          "price": 1.399,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-1677",
+      "name": "Neste Oil, Munkkiniemi Huopalahdentie 1",
+      "brand": "Neste",
+      "address": "Munkkiniemi Huopalahdentie 1",
+      "city": "Helsinki",
+      "lat": 60.196803,
+      "lon": 24.8859388,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.149,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "98",
+          "price": 2.259,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.399,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -531,17 +617,17 @@
         {
           "type": "95",
           "price": 1.999,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.109,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.269,
-          "updatedAt": "2026-04-29T12:43:04.903Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -558,17 +644,17 @@
         {
           "type": "95",
           "price": 2.009,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.119,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.279,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -585,17 +671,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -612,17 +698,17 @@
         {
           "type": "95",
           "price": 1.969,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.059,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.228,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -639,22 +725,22 @@
         {
           "type": "95",
           "price": 1.924,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.034,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.219,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "re85",
           "price": 1.345,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -671,17 +757,17 @@
         {
           "type": "95",
           "price": 1.924,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.034,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.219,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -698,44 +784,17 @@
         {
           "type": "95",
           "price": 1.924,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.034,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.219,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
-    },
-    {
-      "id": "station-1677",
-      "name": "Neste Oil, Munkkiniemi Huopalahdentie 1",
-      "brand": "Neste",
-      "address": "Munkkiniemi Huopalahdentie 1",
-      "city": "Helsinki",
-      "lat": 60.196803,
-      "lon": 24.8859388,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.096,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
-        },
-        {
-          "type": "98",
-          "price": 2.206,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.349,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -752,44 +811,44 @@
         {
           "type": "95",
           "price": 2.134,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.244,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.384,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
     },
     {
-      "id": "station-34-Helsinki",
+      "id": "station-36-Helsinki",
       "name": "Neste Express, Ruoholahti Energiakatu 10",
       "brand": "Neste",
       "address": "Ruoholahti Energiakatu 10",
       "city": "Helsinki",
-      "lat": 60.165802,
-      "lon": 24.9084962,
+      "lat": 60.2634087,
+      "lon": 25.0524672,
       "prices": [
         {
           "type": "95",
           "price": 2.129,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.239,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.379,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -806,17 +865,17 @@
         {
           "type": "95",
           "price": 2.129,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.239,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.379,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -833,17 +892,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -860,17 +919,17 @@
         {
           "type": "95",
           "price": 1.919,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.019,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.169,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -887,23 +946,23 @@
         {
           "type": "95",
           "price": 1.944,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.034,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.239,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
     },
     {
-      "id": "station-39-Helsinki",
+      "id": "station-41-Helsinki",
       "name": "Neste Express, Tattarisuo Rattitie 36",
       "brand": "Neste",
       "address": "Tattarisuo Rattitie 36",
@@ -914,17 +973,17 @@
         {
           "type": "95",
           "price": 2.013,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.113,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.278,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -941,98 +1000,17 @@
         {
           "type": "95",
           "price": 2.049,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.139,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.309,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
-    },
-    {
-      "id": "station-1666",
-      "name": "Neste Oil, Heikinlaakso Vanha Porvoontie 32",
-      "brand": "Neste",
-      "address": "Heikinlaakso Vanha Porvoontie 32",
-      "city": "Helsinki",
-      "lat": 60.2696683,
-      "lon": 25.0719998,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.084,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
-        },
-        {
-          "type": "98",
-          "price": 2.184,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.344,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
-    },
-    {
-      "id": "station-1776",
-      "name": "ABC, Pihlajisto Pihlajistontie 2 (E85 1.375)",
-      "brand": "ABC",
-      "address": "Pihlajisto Pihlajistontie 2 (E85 1.375)",
-      "city": "Helsinki",
-      "lat": 60.2298985,
-      "lon": 25.0095237,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.004,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
-        },
-        {
-          "type": "98",
-          "price": 2.094,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.282,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
-    },
-    {
-      "id": "station-93",
-      "name": "ABC, Jakomäki Huokotie 1",
-      "brand": "ABC",
-      "address": "Jakomäki Huokotie 1",
-      "city": "Helsinki",
-      "lat": 60.2614867,
-      "lon": 25.0758282,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.064,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
-        },
-        {
-          "type": "98",
-          "price": 2.154,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.356,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1049,17 +1027,98 @@
         {
           "type": "95",
           "price": 2.039,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.139,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.299,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-1776",
+      "name": "ABC, Pihlajisto Pihlajistontie 2 (E85 1.375)",
+      "brand": "ABC",
+      "address": "Pihlajisto Pihlajistontie 2 (E85 1.375)",
+      "city": "Helsinki",
+      "lat": 60.2298985,
+      "lon": 25.0095237,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.004,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "98",
+          "price": 2.094,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.282,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-1666",
+      "name": "Neste Oil, Heikinlaakso Vanha Porvoontie 32",
+      "brand": "Neste",
+      "address": "Heikinlaakso Vanha Porvoontie 32",
+      "city": "Helsinki",
+      "lat": 60.2696683,
+      "lon": 25.0719998,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.084,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "98",
+          "price": 2.184,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.344,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-93",
+      "name": "ABC, Jakomäki Huokotie 1",
+      "brand": "ABC",
+      "address": "Jakomäki Huokotie 1",
+      "city": "Helsinki",
+      "lat": 60.2614867,
+      "lon": 25.0758282,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.064,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "98",
+          "price": 2.154,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.356,
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1076,17 +1135,17 @@
         {
           "type": "95",
           "price": 1.984,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "98",
           "price": 2.094,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         },
         {
           "type": "diesel",
           "price": 2.262,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.961Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1103,17 +1162,17 @@
         {
           "type": "95",
           "price": 2.054,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.164,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.314,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1130,17 +1189,17 @@
         {
           "type": "95",
           "price": 2.041,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.131,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.305,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1157,17 +1216,17 @@
         {
           "type": "95",
           "price": 2.041,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.131,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.304,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1184,17 +1243,17 @@
         {
           "type": "95",
           "price": 2.064,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.174,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.324,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1211,28 +1270,136 @@
         {
           "type": "95",
           "price": 2.079,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.189,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.339,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "re85",
           "price": 1.583,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
     },
     {
-      "id": "station-56-Vantaa",
+      "id": "station-543",
+      "name": "St1, Rajatorppa Köysikuja 1",
+      "brand": "St1",
+      "address": "Rajatorppa Köysikuja 1",
+      "city": "Vantaa",
+      "lat": 60.2527396,
+      "lon": 24.8238863,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.149,
+          "updatedAt": "2026-04-29T14:51:39.962Z"
+        },
+        {
+          "type": "98",
+          "price": 2.259,
+          "updatedAt": "2026-04-29T14:51:39.962Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.399,
+          "updatedAt": "2026-04-29T14:51:39.962Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-1696",
+      "name": "Neste Oil, Rajatorppa Vapaalantie 1",
+      "brand": "Neste",
+      "address": "Rajatorppa Vapaalantie 1",
+      "city": "Vantaa",
+      "lat": 60.2560237,
+      "lon": 24.8264517,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.149,
+          "updatedAt": "2026-04-29T14:51:39.962Z"
+        },
+        {
+          "type": "98",
+          "price": 2.259,
+          "updatedAt": "2026-04-29T14:51:39.962Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.399,
+          "updatedAt": "2026-04-29T14:51:39.962Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-1030",
+      "name": "St1, Rajatorppa Torpantie 4",
+      "brand": "St1",
+      "address": "Rajatorppa Torpantie 4",
+      "city": "Vantaa",
+      "lat": 60.2551528,
+      "lon": 24.8274568,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.149,
+          "updatedAt": "2026-04-29T14:51:39.962Z"
+        },
+        {
+          "type": "98",
+          "price": 2.259,
+          "updatedAt": "2026-04-29T14:51:39.962Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.399,
+          "updatedAt": "2026-04-29T14:51:39.962Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-1700",
+      "name": "Neste Express, Varisto Ulkoniitynkuja 2",
+      "brand": "Neste",
+      "address": "Varisto Ulkoniitynkuja 2",
+      "city": "Vantaa",
+      "lat": 60.2646937,
+      "lon": 24.8107657,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.129,
+          "updatedAt": "2026-04-29T14:51:39.962Z"
+        },
+        {
+          "type": "98",
+          "price": 2.239,
+          "updatedAt": "2026-04-29T14:51:39.962Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.379,
+          "updatedAt": "2026-04-29T14:51:39.962Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
+    },
+    {
+      "id": "station-62-Vantaa",
       "name": "St1,  Malmarinpolku 2",
       "brand": "St1",
       "address": "Malmarinpolku 2",
@@ -1243,17 +1410,17 @@
         {
           "type": "95",
           "price": 2.052,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.162,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.324,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1270,17 +1437,17 @@
         {
           "type": "95",
           "price": 2.047,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.157,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.309,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1297,17 +1464,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1324,17 +1491,17 @@
         {
           "type": "95",
           "price": 1.954,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.064,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.189,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1351,17 +1518,17 @@
         {
           "type": "95",
           "price": 2.013,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.103,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.254,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1378,22 +1545,22 @@
         {
           "type": "95",
           "price": 2.022,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.132,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.282,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "re85",
           "price": 1.584,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1410,17 +1577,17 @@
         {
           "type": "95",
           "price": 2.034,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.144,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.294,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1437,17 +1604,17 @@
         {
           "type": "95",
           "price": 2.055,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.145,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.331,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1464,17 +1631,17 @@
         {
           "type": "95",
           "price": 1.978,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.088,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.256,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1491,17 +1658,17 @@
         {
           "type": "95",
           "price": 2.009,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.119,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.269,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1518,17 +1685,17 @@
         {
           "type": "95",
           "price": 2.035,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.125,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.305,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1545,12 +1712,12 @@
         {
           "type": "95",
           "price": 1.978,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.256,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1567,17 +1734,17 @@
         {
           "type": "95",
           "price": 2.027,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.137,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.304,
-          "updatedAt": "2026-04-29T12:43:04.904Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1594,17 +1761,17 @@
         {
           "type": "95",
           "price": 2.059,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.169,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.319,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1621,17 +1788,17 @@
         {
           "type": "95",
           "price": 2.074,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.184,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.334,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1648,17 +1815,17 @@
         {
           "type": "95",
           "price": 2.064,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.174,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.324,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1675,44 +1842,17 @@
         {
           "type": "95",
           "price": 2.054,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.164,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.314,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
-    },
-    {
-      "id": "station-543",
-      "name": "St1, Rajatorppa Köysikuja 1",
-      "brand": "St1",
-      "address": "Rajatorppa Köysikuja 1",
-      "city": "Vantaa",
-      "lat": 60.2527396,
-      "lon": 24.8238863,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.029,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
-        },
-        {
-          "type": "98",
-          "price": 2.139,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.289,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1729,17 +1869,17 @@
         {
           "type": "95",
           "price": 2.049,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "98",
           "price": 2.159,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         },
         {
           "type": "diesel",
           "price": 2.309,
-          "updatedAt": "2026-04-29T12:43:04.905Z"
+          "updatedAt": "2026-04-29T14:51:39.962Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=PK-Seutu"
@@ -1756,22 +1896,22 @@
         {
           "type": "95",
           "price": 1.924,
-          "updatedAt": "2026-04-29T12:43:07.756Z"
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
           "price": 2.034,
-          "updatedAt": "2026-04-29T12:43:07.756Z"
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
           "price": 2.219,
-          "updatedAt": "2026-04-29T12:43:07.756Z"
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "re85",
           "price": 1.345,
-          "updatedAt": "2026-04-29T12:43:07.756Z"
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
@@ -1788,22 +1928,22 @@
         {
           "type": "95",
           "price": 1.924,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
           "price": 2.034,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
           "price": 2.219,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "re85",
           "price": 1.409,
-          "updatedAt": "2026-04-29T12:43:06.382Z"
+          "updatedAt": "2026-04-29T14:51:41.315Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
@@ -1820,17 +1960,17 @@
         {
           "type": "95",
           "price": 1.924,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
           "price": 2.034,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
           "price": 2.219,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta",
@@ -1847,18 +1987,18 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.929,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.933,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.039,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.439,
+          "updatedAt": "2026-04-29T14:51:41.315Z"
         },
         {
           "type": "diesel",
-          "price": 2.189,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.522,
+          "updatedAt": "2026-04-29T14:51:41.315Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
@@ -1874,18 +2014,18 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.938,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.939,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.038,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.302,
+          "updatedAt": "2026-04-29T14:51:41.315Z"
         },
         {
           "type": "diesel",
-          "price": 2.138,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.542,
+          "updatedAt": "2026-04-29T14:51:41.315Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
@@ -1901,18 +2041,18 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.954,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.949,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.059,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.039,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
-          "price": 2.123,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.502,
+          "updatedAt": "2026-04-29T14:51:41.316Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
@@ -1928,18 +2068,18 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.959,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.954,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
           "price": 2.059,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
           "price": 2.123,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
@@ -1955,18 +2095,23 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.969,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.954,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.059,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.269,
+          "updatedAt": "2026-04-29T14:51:41.316Z"
         },
         {
           "type": "diesel",
-          "price": 2.228,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.399,
+          "updatedAt": "2026-04-29T14:51:41.316Z"
+        },
+        {
+          "type": "re85",
+          "price": 1.729,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
@@ -1982,18 +2127,18 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.988,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.958,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.098,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.058,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
-          "price": 2.209,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.166,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
@@ -2009,18 +2154,18 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.994,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.959,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
-          "price": 2.249,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.123,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.104,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.059,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
@@ -2036,18 +2181,18 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.994,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.961,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.104,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.071,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
-          "price": 2.249,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.337,
+          "updatedAt": "2026-04-29T14:51:41.316Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
@@ -2063,18 +2208,18 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.999,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.961,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.109,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.05,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
-          "price": 2.269,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.408,
+          "updatedAt": "2026-04-29T14:51:41.316Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
@@ -2090,24 +2235,51 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.999,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.969,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.109,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.059,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
-          "price": 2.249,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.228,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
     },
     {
       "id": "station-14-Unknown",
+      "name": ", Neste Oil, Viherlaakso Rajamännynahde 1",
+      "brand": "",
+      "address": "Neste Oil, Viherlaakso Rajamännynahde 1",
+      "city": "Unknown",
+      "lat": 0,
+      "lon": 0,
+      "prices": [
+        {
+          "type": "95",
+          "price": 1.969,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
+        },
+        {
+          "type": "98",
+          "price": 2.269,
+          "updatedAt": "2026-04-29T14:51:41.316Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.409,
+          "updatedAt": "2026-04-29T14:51:41.316Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
+    },
+    {
+      "id": "station-15-Unknown",
       "name": ", ABC, Prisma Lentola Mäkirinteentie 10 (E85 1.382)",
       "brand": "",
       "address": "ABC, Prisma Lentola Mäkirinteentie 10 (E85 1.382)",
@@ -2117,24 +2289,24 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.999,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.97,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.109,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.258,
+          "updatedAt": "2026-04-29T14:51:41.316Z"
         },
         {
           "type": "diesel",
-          "price": 2.249,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.397,
+          "updatedAt": "2026-04-29T14:51:41.316Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
     },
     {
-      "id": "station-15-Unknown",
+      "id": "station-16-Unknown",
       "name": ", ABC, Keskusta S-Market Tuulensuunkatu 12",
       "brand": "",
       "address": "ABC, Keskusta S-Market Tuulensuunkatu 12",
@@ -2144,24 +2316,29 @@
       "prices": [
         {
           "type": "95",
-          "price": 2.009,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.988,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.119,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.098,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
-          "price": 2.279,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.229,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
+        },
+        {
+          "type": "re85",
+          "price": 1.399,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
     },
     {
-      "id": "station-16-Unknown",
+      "id": "station-17-Unknown",
       "name": ", ABC, Amiraali Keltakallio Haminantie 1 (E85 1.356)",
       "brand": "",
       "address": "ABC, Amiraali Keltakallio Haminantie 1 (E85 1.356)",
@@ -2171,126 +2348,99 @@
       "prices": [
         {
           "type": "95",
-          "price": 2.009,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.988,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.119,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.098,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
-          "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
-        }
-      ],
-      "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
-    },
-    {
-      "id": "station-17-Unknown",
-      "name": ", Neste Oil Express, Nummela CM Tuusankaari 1",
-      "brand": "",
-      "address": "Neste Oil Express, Nummela CM Tuusankaari 1",
-      "city": "Unknown",
-      "lat": 0,
-      "lon": 0,
-      "prices": [
-        {
-          "type": "95",
-          "price": 2.029,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
-        },
-        {
-          "type": "98",
-          "price": 2.139,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.279,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.229,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
     },
     {
       "id": "station-18-Unknown",
-      "name": ", Neste Oil Express, Siippoo Vanha Porintie 1371",
+      "name": ", St1, Bemböle Bellinmäki 2",
       "brand": "",
-      "address": "Neste Oil Express, Siippoo Vanha Porintie 1371",
+      "address": "St1, Bemböle Bellinmäki 2",
       "city": "Unknown",
       "lat": 0,
       "lon": 0,
       "prices": [
         {
           "type": "95",
-          "price": 2.038,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.988,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.138,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.098,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "diesel",
-          "price": 2.318,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.209,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
     },
     {
       "id": "station-19-Unknown",
-      "name": ", St1, Nummela Härköiläntie",
+      "name": ", St1, Lähderanta Pitkäjärventie 1",
       "brand": "",
-      "address": "St1, Nummela Härköiläntie",
+      "address": "St1, Lähderanta Pitkäjärventie 1",
       "city": "Unknown",
       "lat": 0,
       "lon": 0,
       "prices": [
         {
           "type": "95",
-          "price": 2.047,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.998,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.157,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.259,
+          "updatedAt": "2026-04-29T14:51:41.316Z"
         },
         {
           "type": "diesel",
-          "price": 2.309,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.399,
+          "updatedAt": "2026-04-29T14:51:41.316Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
     },
     {
       "id": "station-20-Unknown",
-      "name": ", Neste Express, Tiiriö Katsastusmiehentie 6",
+      "name": ", ABC,  Oikotie 8",
       "brand": "",
-      "address": "Neste Express, Tiiriö Katsastusmiehentie 6",
+      "address": "ABC, Oikotie 8",
       "city": "Unknown",
       "lat": 0,
       "lon": 0,
       "prices": [
         {
           "type": "95",
-          "price": 2.052,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 1.999,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         },
         {
           "type": "98",
-          "price": 2.162,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "price": 2.259,
+          "updatedAt": "2026-04-29T14:51:41.316Z"
         },
         {
-          "type": "diesel",
-          "price": 2.324,
-          "updatedAt": "2026-04-29T12:43:07.757Z"
+          "type": "re85",
+          "price": 1.309,
+          "updatedAt": "2026-04-29T14:51:42.674Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?cmd=20kalleinta"
@@ -2307,7 +2457,7 @@
         {
           "type": "diesel",
           "price": 2.301,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.045Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Seina_joen_seutu"
@@ -2322,9 +2472,9 @@
       "lon": 23.0012912,
       "prices": [
         {
-          "type": "98",
-          "price": 2.234,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "type": "diesel",
+          "price": 2.396,
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Seina_joen_seutu"
@@ -2341,17 +2491,17 @@
         {
           "type": "95",
           "price": 2.107,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "98",
           "price": 2.216,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "diesel",
           "price": 2.354,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Seina_joen_seutu"
@@ -2368,17 +2518,17 @@
         {
           "type": "95",
           "price": 2.074,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "98",
           "price": 2.186,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "diesel",
           "price": 2.305,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Seina_joen_seutu"
@@ -2395,17 +2545,17 @@
         {
           "type": "95",
           "price": 2.054,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "98",
           "price": 2.164,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "diesel",
           "price": 2.319,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Seina_joen_seutu"
@@ -2422,17 +2572,17 @@
         {
           "type": "95",
           "price": 2.059,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "98",
           "price": 2.169,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "diesel",
           "price": 2.284,
-          "updatedAt": "2026-04-29T12:43:09.122Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Seina_joen_seutu"
@@ -2449,17 +2599,17 @@
         {
           "type": "95",
           "price": 2.084,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "98",
           "price": 2.195,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "diesel",
           "price": 2.31,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Seina_joen_seutu"
@@ -2476,17 +2626,17 @@
         {
           "type": "95",
           "price": 2.089,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "98",
           "price": 2.199,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "diesel",
           "price": 2.349,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Seina_joen_seutu"
@@ -2503,17 +2653,17 @@
         {
           "type": "95",
           "price": 2.112,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "98",
           "price": 2.223,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "diesel",
           "price": 2.375,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Seina_joen_seutu"
@@ -2530,17 +2680,17 @@
         {
           "type": "95",
           "price": 2.074,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "98",
           "price": 2.172,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "diesel",
           "price": 2.278,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Seina_joen_seutu"
@@ -2557,17 +2707,17 @@
         {
           "type": "95",
           "price": 2.059,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "98",
           "price": 2.169,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         },
         {
           "type": "diesel",
           "price": 2.279,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Seina_joen_seutu"
@@ -2584,7 +2734,7 @@
         {
           "type": "diesel",
           "price": 2.247,
-          "updatedAt": "2026-04-29T12:43:09.123Z"
+          "updatedAt": "2026-04-29T14:51:44.046Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Seina_joen_seutu"
@@ -2601,22 +2751,22 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:11.848Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:11.848Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:11.848Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "re85",
           "price": 1.199,
-          "updatedAt": "2026-04-29T12:43:11.848Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Jyva_skyla_n_seutu"
@@ -2633,17 +2783,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:11.848Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:11.848Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:11.848Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Jyva_skyla_n_seutu"
@@ -2660,17 +2810,17 @@
         {
           "type": "95",
           "price": 2.072,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "98",
           "price": 2.182,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "diesel",
           "price": 2.358,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Jyva_skyla_n_seutu"
@@ -2687,17 +2837,17 @@
         {
           "type": "95",
           "price": 1.998,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "98",
           "price": 2.108,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "diesel",
           "price": 2.268,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Jyva_skyla_n_seutu"
@@ -2714,17 +2864,17 @@
         {
           "type": "95",
           "price": 2.159,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "98",
           "price": 2.269,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "diesel",
           "price": 2.409,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Jyva_skyla_n_seutu"
@@ -2741,17 +2891,17 @@
         {
           "type": "95",
           "price": 2.11,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "98",
           "price": 2.22,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         },
         {
           "type": "diesel",
           "price": 2.366,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.769Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Jyva_skyla_n_seutu"
@@ -2768,17 +2918,17 @@
         {
           "type": "95",
           "price": 2.059,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.770Z"
         },
         {
           "type": "98",
           "price": 2.169,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.770Z"
         },
         {
           "type": "diesel",
           "price": 2.309,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.770Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Jyva_skyla_n_seutu"
@@ -2795,17 +2945,17 @@
         {
           "type": "95",
           "price": 2.091,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.770Z"
         },
         {
           "type": "98",
           "price": 2.201,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.770Z"
         },
         {
           "type": "diesel",
           "price": 2.352,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.770Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Jyva_skyla_n_seutu"
@@ -2822,17 +2972,17 @@
         {
           "type": "95",
           "price": 2.126,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.770Z"
         },
         {
           "type": "98",
           "price": 2.236,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.770Z"
         },
         {
           "type": "diesel",
           "price": 2.412,
-          "updatedAt": "2026-04-29T12:43:11.849Z"
+          "updatedAt": "2026-04-29T14:51:46.770Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Jyva_skyla_n_seutu"
@@ -2848,18 +2998,13 @@
       "prices": [
         {
           "type": "95",
-          "price": 1.929,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "price": 1.949,
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         },
         {
           "type": "98",
           "price": 2.039,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
-        },
-        {
-          "type": "diesel",
-          "price": 2.189,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -2876,17 +3021,17 @@
         {
           "type": "95",
           "price": 2.189,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         },
         {
           "type": "98",
           "price": 2.279,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         },
         {
           "type": "diesel",
           "price": 2.299,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -2903,12 +3048,12 @@
         {
           "type": "95",
           "price": 1.949,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         },
         {
           "type": "diesel",
           "price": 2.099,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -2925,17 +3070,17 @@
         {
           "type": "95",
           "price": 1.949,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         },
         {
           "type": "98",
           "price": 1.999,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         },
         {
           "type": "diesel",
           "price": 2.099,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -2952,17 +3097,17 @@
         {
           "type": "95",
           "price": 1.949,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         },
         {
           "type": "98",
           "price": 2.059,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         },
         {
           "type": "diesel",
           "price": 2.099,
-          "updatedAt": "2026-04-29T12:43:13.238Z"
+          "updatedAt": "2026-04-29T14:51:48.136Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -2979,22 +3124,22 @@
         {
           "type": "95",
           "price": 2.099,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.209,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.344,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "re85",
           "price": 1.328,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3011,17 +3156,17 @@
         {
           "type": "95",
           "price": 2.04,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.14,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.366,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3038,17 +3183,17 @@
         {
           "type": "95",
           "price": 2.019,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.129,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.346,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3065,12 +3210,12 @@
         {
           "type": "95",
           "price": 2.026,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.136,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3087,12 +3232,12 @@
         {
           "type": "95",
           "price": 1.984,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.094,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3109,7 +3254,7 @@
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3126,7 +3271,7 @@
         {
           "type": "diesel",
           "price": 2.389,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3143,7 +3288,7 @@
         {
           "type": "95",
           "price": 2.058,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3160,17 +3305,17 @@
         {
           "type": "95",
           "price": 2.129,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.239,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.372,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3187,17 +3332,17 @@
         {
           "type": "95",
           "price": 2.161,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.261,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.408,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3214,17 +3359,17 @@
         {
           "type": "95",
           "price": 2.136,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.236,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.381,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3241,17 +3386,17 @@
         {
           "type": "95",
           "price": 2.131,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.231,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.367,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3268,17 +3413,17 @@
         {
           "type": "95",
           "price": 2.138,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.248,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.389,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3295,17 +3440,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3322,17 +3467,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3349,17 +3494,17 @@
         {
           "type": "95",
           "price": 2.139,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.249,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.384,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3376,17 +3521,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.261,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.389,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3403,12 +3548,12 @@
         {
           "type": "95",
           "price": 2.169,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.409,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3425,17 +3570,17 @@
         {
           "type": "95",
           "price": 2.123,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.223,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.366,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3452,22 +3597,22 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "re85",
           "price": 1.318,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3484,17 +3629,17 @@
         {
           "type": "95",
           "price": 2.126,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.226,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.377,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3511,22 +3656,22 @@
         {
           "type": "95",
           "price": 2.144,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.254,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.379,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "re85",
           "price": 1.509,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3543,17 +3688,17 @@
         {
           "type": "95",
           "price": 2.138,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.248,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.383,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3570,17 +3715,17 @@
         {
           "type": "95",
           "price": 2.147,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.257,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.389,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3597,12 +3742,12 @@
         {
           "type": "95",
           "price": 2.139,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.362,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3619,17 +3764,17 @@
         {
           "type": "95",
           "price": 2.163,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "98",
           "price": 2.263,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         },
         {
           "type": "diesel",
           "price": 2.408,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.137Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3646,12 +3791,12 @@
         {
           "type": "95",
           "price": 2.055,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.333,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3668,17 +3813,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3695,17 +3840,17 @@
         {
           "type": "95",
           "price": 2.157,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.252,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3722,22 +3867,22 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "re85",
           "price": 1.327,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3754,17 +3899,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.459,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3781,17 +3926,17 @@
         {
           "type": "95",
           "price": 2.053,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.163,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.291,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3808,22 +3953,22 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "re85",
           "price": 1.335,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3840,17 +3985,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3867,17 +4012,17 @@
         {
           "type": "95",
           "price": 2.11,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.21,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.358,
-          "updatedAt": "2026-04-29T12:43:13.239Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3894,17 +4039,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3921,17 +4066,17 @@
         {
           "type": "95",
           "price": 2.029,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.139,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3948,17 +4093,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -3975,17 +4120,17 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -4002,17 +4147,17 @@
         {
           "type": "95",
           "price": 2.068,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "98",
           "price": 2.161,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         },
         {
           "type": "diesel",
           "price": 2.298,
-          "updatedAt": "2026-04-29T12:43:13.240Z"
+          "updatedAt": "2026-04-29T14:51:48.138Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Oulun_seutu"
@@ -4029,17 +4174,17 @@
         {
           "type": "95",
           "price": 2.089,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "98",
           "price": 2.199,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "diesel",
           "price": 2.329,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Tampereen_seutu"
@@ -4056,17 +4201,17 @@
         {
           "type": "95",
           "price": 2.099,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "98",
           "price": 2.199,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "diesel",
           "price": 2.339,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Tampereen_seutu"
@@ -4083,17 +4228,17 @@
         {
           "type": "95",
           "price": 2.158,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "98",
           "price": 2.258,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "diesel",
           "price": 2.397,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Tampereen_seutu"
@@ -4110,22 +4255,49 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "98",
           "price": 2.259,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "re85",
           "price": 1.379,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
+        }
+      ],
+      "sourceUrl": "https://polttoaine.net/index.php?t=Tampereen_seutu"
+    },
+    {
+      "id": "station-2227",
+      "name": "ABC, IdeaPark Ideaparkinkatu 4 (E85 1.217)",
+      "brand": "ABC",
+      "address": "IdeaPark Ideaparkinkatu 4 (E85 1.217)",
+      "city": "Lempäälä",
+      "lat": 61.3616366,
+      "lon": 23.7945664,
+      "prices": [
+        {
+          "type": "95",
+          "price": 2.069,
+          "updatedAt": "2026-04-29T14:51:49.477Z"
+        },
+        {
+          "type": "98",
+          "price": 2.169,
+          "updatedAt": "2026-04-29T14:51:49.477Z"
+        },
+        {
+          "type": "diesel",
+          "price": 2.306,
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Tampereen_seutu"
@@ -4142,17 +4314,17 @@
         {
           "type": "95",
           "price": 2.169,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "98",
           "price": 2.269,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:14.682Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Tampereen_seutu"
@@ -4169,17 +4341,17 @@
         {
           "type": "95",
           "price": 2.054,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "98",
           "price": 2.164,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "diesel",
           "price": 2.284,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Tampereen_seutu"
@@ -4196,17 +4368,17 @@
         {
           "type": "95",
           "price": 2.029,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "98",
           "price": 2.139,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "diesel",
           "price": 2.279,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Tampereen_seutu"
@@ -4223,17 +4395,17 @@
         {
           "type": "95",
           "price": 2.035,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "98",
           "price": 2.145,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         },
         {
           "type": "diesel",
           "price": 2.314,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Tampereen_seutu"
@@ -4250,7 +4422,7 @@
         {
           "type": "95",
           "price": 2.008,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.477Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Tampereen_seutu"
@@ -4267,7 +4439,7 @@
         {
           "type": "95",
           "price": 2.022,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.478Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Tampereen_seutu"
@@ -4284,17 +4456,17 @@
         {
           "type": "95",
           "price": 2.109,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.478Z"
         },
         {
           "type": "98",
           "price": 2.219,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.478Z"
         },
         {
           "type": "diesel",
           "price": 2.369,
-          "updatedAt": "2026-04-29T12:43:14.683Z"
+          "updatedAt": "2026-04-29T14:51:49.478Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Tampereen_seutu"
@@ -4311,7 +4483,7 @@
         {
           "type": "95",
           "price": 2.095,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.833Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4328,7 +4500,7 @@
         {
           "type": "95",
           "price": 2.179,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.833Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4345,17 +4517,17 @@
         {
           "type": "95",
           "price": 2.131,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.833Z"
         },
         {
           "type": "98",
           "price": 2.241,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.833Z"
         },
         {
           "type": "diesel",
           "price": 2.354,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.833Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4372,17 +4544,17 @@
         {
           "type": "95",
           "price": 2.156,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.833Z"
         },
         {
           "type": "98",
           "price": 2.266,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.833Z"
         },
         {
           "type": "diesel",
           "price": 2.379,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.833Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4399,7 +4571,7 @@
         {
           "type": "diesel",
           "price": 2.399,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.833Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4416,7 +4588,7 @@
         {
           "type": "diesel",
           "price": 2.374,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.833Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4433,7 +4605,7 @@
         {
           "type": "diesel",
           "price": 2.379,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.833Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4450,7 +4622,7 @@
         {
           "type": "95",
           "price": 2.112,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4467,12 +4639,12 @@
         {
           "type": "95",
           "price": 2.081,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         },
         {
           "type": "re85",
           "price": 1.349,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4489,7 +4661,7 @@
         {
           "type": "95",
           "price": 2.082,
-          "updatedAt": "2026-04-29T12:43:16.034Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4506,7 +4678,7 @@
         {
           "type": "95",
           "price": 2.095,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4523,22 +4695,22 @@
         {
           "type": "95",
           "price": 2.009,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         },
         {
           "type": "98",
           "price": 2.119,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         },
         {
           "type": "diesel",
           "price": 2.199,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         },
         {
           "type": "re85",
           "price": 1.347,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4555,7 +4727,7 @@
         {
           "type": "diesel",
           "price": 2.299,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4572,7 +4744,7 @@
         {
           "type": "95",
           "price": 2.075,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4589,7 +4761,7 @@
         {
           "type": "95",
           "price": 2.099,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4606,7 +4778,7 @@
         {
           "type": "95",
           "price": 2.109,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4623,7 +4795,7 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4640,7 +4812,7 @@
         {
           "type": "95",
           "price": 2.177,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4657,7 +4829,7 @@
         {
           "type": "95",
           "price": 2.149,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4674,17 +4846,17 @@
         {
           "type": "95",
           "price": 2.125,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         },
         {
           "type": "98",
           "price": 2.235,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         },
         {
           "type": "diesel",
           "price": 2.384,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4701,17 +4873,17 @@
         {
           "type": "95",
           "price": 1.979,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         },
         {
           "type": "98",
           "price": 2.089,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         },
         {
           "type": "diesel",
           "price": 2.254,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4728,12 +4900,12 @@
         {
           "type": "95",
           "price": 2.056,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         },
         {
           "type": "98",
           "price": 2.166,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
@@ -4750,17 +4922,17 @@
         {
           "type": "95",
           "price": 1.979,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         },
         {
           "type": "98",
           "price": 2.089,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         },
         {
           "type": "diesel",
           "price": 2.254,
-          "updatedAt": "2026-04-29T12:43:16.035Z"
+          "updatedAt": "2026-04-29T14:51:50.834Z"
         }
       ],
       "sourceUrl": "https://polttoaine.net/index.php?t=Turun_seutu"
