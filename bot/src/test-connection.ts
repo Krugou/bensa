@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
-import admin, { ServiceAccount } from 'firebase-admin';
+import { cert, initializeApp, type ServiceAccount } from 'firebase-admin/app';
+import { getFirestore, type Timestamp } from 'firebase-admin/firestore';
 
 config();
 
@@ -18,16 +19,16 @@ async function testConnection() {
     const saJson = JSON.parse(saVar) as ServiceAccount & { project_id?: string };
     const projectId = saJson.projectId ?? saJson.project_id ?? projectVar;
 
-    admin.initializeApp({
-      credential: admin.credential.cert(saJson),
+    initializeApp({
+      credential: cert(saJson),
       projectId: projectId,
     });
 
-    const db = admin.firestore();
+    const db = getFirestore();
     console.log(`📡 Connecting to project: ${projectId}...`);
 
     interface ScraperRun {
-      timestamp?: admin.firestore.Timestamp;
+      timestamp?: Timestamp;
       stationCount?: number;
       status?: string;
     }

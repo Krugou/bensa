@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
-import admin, { ServiceAccount } from 'firebase-admin';
+import { cert, initializeApp, type ServiceAccount } from 'firebase-admin/app';
+import { FieldValue, getFirestore } from 'firebase-admin/firestore';
 import { mkdirSync, writeFileSync } from 'fs';
 import { dirname, resolve } from 'path';
 import puppeteer from 'puppeteer';
@@ -19,23 +20,23 @@ if (saVar) {
     };
     const projectId = saJson.projectId ?? saJson.project_id ?? projectVar;
 
-    admin.initializeApp({
-      credential: admin.credential.cert(saJson),
+    initializeApp({
+      credential: cert(saJson),
       projectId: projectId,
     });
     console.log(`🔥 Firebase Admin initialized using ${saVarName} for project: ${projectId ?? 'unknown'}`);
   } catch (err) {
     console.error(`❌ Failed to parse ${saVarName}:`, err);
-    admin.initializeApp();
+    initializeApp();
   }
 } else {
   console.log(`⚠️ No service account variable found. Using default credentials and project: ${projectVar ?? 'detected'}`);
-  admin.initializeApp({
+  initializeApp({
     projectId: projectVar,
   });
 }
 
-const db = admin.firestore();
+const db = getFirestore();
 
 interface FuelPrice {
   type: '95' | '98' | 'diesel' | 're85';
@@ -356,7 +357,7 @@ async function saveToFirestore(stations: GasStation[]): Promise<void> {
   console.log(`🔥 Saving ${stations.length} stations to Firestore (with history)...`);
 
   const batchSize = 400;
-  const timestamp = admin.firestore.FieldValue.serverTimestamp();
+  const timestamp = FieldValue.serverTimestamp();
 
   for (let i = 0; i < stations.length; i += batchSize) {
     const batch = db.batch();
@@ -467,7 +468,7 @@ async function main(): Promise<void> {
     await saveToFirestore(finalStations);
 
     await db.collection('scraper_runs').add({
-      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+      timestamp: FieldValue.serverTimestamp(),
       stationCount: finalStations.length,
       status: 'success',
     });
