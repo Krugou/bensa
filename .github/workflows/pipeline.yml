@@ -25,7 +25,7 @@ jobs:
     name: ⛽ Checking-the-Pumps
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Fuel Quality Check (Validate Secrets)
         run: |
           echo "🔎 Verifying required configuration..."
@@ -107,7 +107,7 @@ jobs:
     name: 🤖 Building-the-Scraper
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Preparing the Garage
         uses: actions/setup-node@v6
         with:
@@ -132,7 +132,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Deploy Firestore Rules
         uses: w9jds/firebase-action@master
         with:
@@ -148,7 +148,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Download Bot
         uses: actions/download-artifact@v8
         with:
@@ -185,7 +185,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Receiving the Fuel
         uses: actions/download-artifact@v8
         with:
@@ -219,7 +219,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Setup Node.js
