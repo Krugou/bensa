@@ -67,7 +67,7 @@ jobs:
           FIREBASE_ADMIN_SDK: ${{ secrets.FIREBASE_ADMIN_SDK }}
 
       - name: Preparing the Station (Node.js)
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
           cache: 'npm'
@@ -109,7 +109,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Preparing the Garage
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
           cache: 'npm'
@@ -155,7 +155,7 @@ jobs:
           name: bot-dist
           path: './bot/dist'
       - name: Preparing the Station (Node.js)
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
       - name: Install Connectivity Dependencies
@@ -223,7 +223,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
           cache: 'npm'
