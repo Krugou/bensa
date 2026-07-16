@@ -2,24 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { Dashboard } from '../../src/components/Dashboard';
 import React from 'react';
+import axios from 'axios';
 
-// Mock Firebase
-vi.mock('../../src/firebase', () => ({
-  db: {},
-}));
-
-vi.mock('firebase/firestore', () => ({
-  getDocs: vi.fn(() =>
-    Promise.resolve({
-      size: 10,
-      docs: [{ data: () => ({ userFixed: true }) }],
-    }),
-  ),
-  collection: vi.fn(),
-  query: vi.fn(),
-  orderBy: vi.fn(),
-  limit: vi.fn(),
-}));
+vi.mock('axios');
 
 // Mock react-i18next
 vi.mock('react-i18next', () => ({
@@ -37,6 +22,14 @@ vi.mock('react-i18next', () => ({
 
 describe('Dashboard', () => {
   it('renders stats correctly', async () => {
+    vi.mocked(axios.get).mockResolvedValue({
+      data: {
+        totalStations: 10,
+        lockedStations: 1,
+        lastScraperRun: null,
+      },
+    });
+
     render(<Dashboard />);
 
     // Wait for loading to finish

@@ -3,7 +3,8 @@ import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import { config } from 'dotenv';
-import admin from 'firebase-admin';
+import { initializeApp, cert } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
 
 config();
 
@@ -38,23 +39,23 @@ try {
       }
     }
 
-    admin.initializeApp({
-      credential: admin.credential.cert(sa),
+    initializeApp({
+      credential: cert(sa),
     });
     console.log('✅ Firebase initialized with Service Account');
   } else {
     console.log('⚠️ No FIREBASE_SERVICE_ACCOUNT found, using default initialization (ADC)...');
-    admin.initializeApp();
+    initializeApp();
     console.log('✅ Firebase initialized (Default)');
   }
 } catch (e: any) {
   console.error('❌ FIREBASE INITIALIZATION ERROR:', e);
   // Initialize with empty config to prevent "no-app" crashes later, 
   // though Firestore calls will still fail.
-  try { admin.initializeApp(); } catch {}
+  try { initializeApp(); } catch {}
 }
 
-const db = admin.firestore();
+const db = getFirestore();
 const app = express();
 const PORT = process.env.PORT || 3007;
 
@@ -82,7 +83,7 @@ app.get('/api/stats', async (req, res) => {
     const stationsSnap = await db.collection('stations').get();
     console.log(`[API] Found ${stationsSnap.size} stations`);
     
-    const lockedCount = stationsSnap.docs.filter(d => d.data().userFixed).length;
+    const lockedCount = stationsSnap.docs.filter((d: any) => d.data().userFixed).length;
     
     const runsSnap = await db.collection('scraper_runs')
       .orderBy('timestamp', 'desc')
@@ -107,7 +108,7 @@ app.get('/api/stations', async (req, res) => {
   try {
     const snap = await db.collection('stations').orderBy('name', 'asc').get();
     console.log(`[API] Found ${snap.size} stations`);
-    const stations = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    const stations = snap.docs.map((d: any) => ({ id: d.id, ...d.data() }));
     res.json(stations);
   } catch (err: any) {
     console.error('[API] /api/stations ERROR:', err);
