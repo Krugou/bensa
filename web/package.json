@@ -31,12 +31,12 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^7.0.1",
-    "@testing-library/react": "^16.3.2",
+    "@testing-library/react": "^16.3.3",
     "@types/jest": "^30.0.0",
     "@types/leaflet": "^1.9.22",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
-    "@vitejs/plugin-react": "^6.1.0",
+    "@vitejs/plugin-react": "^6.1.1",
     "jsdom": "^30.0.1",
     "oxlint": "^1.80.0",
     "prettier": "^3.9.6",
@@ -46,7 +46,7 @@
     "vitest": "^4.1.11"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.62.5",
+    "@rollup/rollup-linux-x64-gnu": "^4.63.1",
     "@tailwindcss/oxide-linux-x64-gnu": "*",
     "lightningcss-linux-x64-gnu": "^1.33.0"
   }
