@@ -176,10 +176,8 @@ export const StationMap = ({
   };
 
   // Switch tile layer based on theme
-  const tileUrl =
-    theme === 'light'
-      ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
-      : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+  const tileStyle = theme === 'light' ? 'light_all' : 'dark_all';
+  const tileUrl = `https://{s}.basemaps.cartocdn.com/${tileStyle}/{z}/{x}/{y}{r}.png?key=${encodeURIComponent(import.meta.env['VITE_CARTO_BASEMAP_KEY'])}`;
 
   const showUserMarker = hasGps;
   const showControls = hasGps;
@@ -199,9 +197,12 @@ export const StationMap = ({
         zoom={11}
         className="w-full h-[400px] md:h-[500px] xl:h-[600px] 2xl:h-[700px]"
         zoomControl={showControls}
-        attributionControl={showControls}
+        attributionControl
       >
-        <TileLayer attribution='&copy; <a href="https://carto.com/">CARTO</a>' url={tileUrl} />
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> &copy; <a href="https://carto.com/">CARTO</a>'
+          url={tileUrl}
+        />
 
         <MapUpdater
           lat={userLat}
