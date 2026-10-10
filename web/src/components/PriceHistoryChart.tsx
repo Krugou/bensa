@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Area,
@@ -17,7 +17,20 @@ export const PriceHistoryChart = () => {
   const { t } = useTranslation();
   const [granularity, setGranularity] = useState<PriceGranularity>('daily');
   const [days, setDays] = useState(7);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const chartRef = useRef<HTMLDivElement>(null);
   const { history, loading } = usePriceHistory(days, granularity);
+
+  useEffect(() => {
+    const syncFullscreenState = () => {
+      setIsFullscreen(document.fullscreenElement === chartRef.current);
+    };
+
+    document.addEventListener('fullscreenchange', syncFullscreenState);
+    return () => {
+      document.removeEventListener('fullscreenchange', syncFullscreenState);
+    };
+  }, []);
 
   if (loading) {
     return (
@@ -38,61 +51,124 @@ export const PriceHistoryChart = () => {
     return t('chart.title_daily', 'Price Trend');
   };
 
-  return (
-    <div id="price-history-chart">
-      <div className="flex flex-col mb-6 gap-4">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex flex-col">
-            <h3 className="text-sm font-bold text-white/70 uppercase tracking-wider">
-              {getRangeLabel()}
-            </h3>
-            <span className="text-[10px] font-mono text-white/25 mt-1">€/L</span>
-          </div>
+  const chartContent = (
+    <div
+      id="price-history-chart"
+      ref={chartRef}
+      className={
+        isFullscreen
+          ? 'fixed inset-0 z-[100] overflow-y-auto bg-[#090c10] p-4 text-white md:p-8'
+          : ''
+      }
+    >
+      <div className={isFullscreen ? 'mx-auto min-h-full max-w-[1600px]' : ''}>
+        <div className="flex flex-col mb-6 gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex flex-col">
+              <h3 className="text-sm font-bold text-white/70 uppercase tracking-wider">
+                {getRangeLabel()}
+              </h3>
+              <span className="text-[10px] font-mono text-white/25 mt-1">€/L</span>
+            </div>
 
-          <div className="flex bg-white/5 p-1 rounded-xl border border-white/10 self-end sm:self-auto">
-            <button
-              onClick={() => {
-                setGranularity('daily');
-              }}
-              className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
-                granularity === 'daily'
-                  ? 'bg-fuel-green text-black'
-                  : 'text-white/40 hover:text-white/70'
-              }`}
-            >
-              {t('chart.daily', 'Daily')}
-            </button>
-            {days >= 90 && (
+            <div className="flex flex-wrap items-center justify-end gap-2 self-end sm:self-auto">
+              <div className="flex bg-white/5 p-1 rounded-xl border border-white/10">
+                <button
+                  onClick={() => {
+                    setGranularity('daily');
+                  }}
+                  className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                    granularity === 'daily'
+                      ? 'bg-fuel-green text-black'
+                      : 'text-white/40 hover:text-white/70'
+                  }`}
+                  aria-pressed={granularity === 'daily'}
+                  type="button"
+                >
+                  {t('chart.daily', 'Daily')}
+                </button>
+                {days >= 90 && (
+                  <button
+                    onClick={() => {
+                      setGranularity('monthly');
+                    }}
+                    className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                      granularity === 'monthly'
+                        ? 'bg-fuel-green text-black'
+                        : 'text-white/40 hover:text-white/70'
+                    }`}
+                    aria-pressed={granularity === 'monthly'}
+                    type="button"
+                  >
+                    {t('chart.monthly', 'Monthly')}
+                  </button>
+                )}
+                <button
+                  onClick={() => {
+                    setGranularity('hourly');
+                  }}
+                  className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                    granularity === 'hourly'
+                      ? 'bg-fuel-green text-black'
+                      : 'text-white/40 hover:text-white/70'
+                  }`}
+                  aria-pressed={granularity === 'hourly'}
+                  type="button"
+                >
+                  {t('chart.hourly', 'Hourly')}
+                </button>
+              </div>
               <button
+                type="button"
                 onClick={() => {
-                  setGranularity('monthly');
-                }}
-                className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
-                  granularity === 'monthly'
-                    ? 'bg-fuel-green text-black'
-                    : 'text-white/40 hover:text-white/70'
-                }`}
-              >
-                {t('chart.monthly', 'Monthly')}
-              </button>
-            )}
-            <button
-              onClick={() => {
-                setGranularity('hourly');
-              }}
-              className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
-                granularity === 'hourly'
-                  ? 'bg-fuel-green text-black'
-                  : 'text-white/40 hover:text-white/70'
-              }`}
-            >
-              {t('chart.hourly', 'Hourly')}
-            </button>
-          </div>
-        </div>
+                  const chartElement = chartRef.current;
+                  if (!chartElement) {
+                    console.error('[PriceHistoryChart] Chart element is unavailable.');
+                    return;
+                  }
 
-        {granularity !== 'hourly' && (
-          <div className="flex bg-white/5 p-1 rounded-xl border border-white/10 self-start">
+                  const fullscreenAction =
+                    document.fullscreenElement === chartElement
+                      ? document.exitFullscreen()
+                      : chartElement.requestFullscreen();
+                  void fullscreenAction.catch((error: unknown) => {
+                    console.error('[PriceHistoryChart] Fullscreen action failed:', error);
+                  });
+                }}
+                aria-label={
+                  isFullscreen
+                    ? t('chart.exit_fullscreen', 'Exit full screen')
+                    : t('chart.fullscreen', 'View chart full screen')
+                }
+                title={
+                  isFullscreen
+                    ? t('chart.exit_fullscreen', 'Exit full screen')
+                    : t('chart.fullscreen', 'View chart full screen')
+                }
+                className="p-2 rounded-xl border border-white/10 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                <svg
+                  aria-hidden="true"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  {isFullscreen ? (
+                    <path d="M8 3v5H3m13-5v5h5M3 16h5v5m13-5h-5v5" />
+                  ) : (
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3" />
+                  )}
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap bg-white/5 p-1 rounded-xl border border-white/10 self-start">
             {[7, 30, 90, 365, 1095, 3650].map((d) => (
               <button
                 key={d}
@@ -105,170 +181,184 @@ export const PriceHistoryChart = () => {
                 className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
                   days === d ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/70'
                 }`}
+                aria-pressed={days === d}
+                type="button"
               >
                 {d === 365 ? '1y' : d === 1095 ? '3y' : d === 3650 ? 'All' : `${d}d`}
               </button>
             ))}
           </div>
-        )}
+        </div>
+
+        <div
+          className={
+            isFullscreen
+              ? 'h-[62vh] min-h-[320px] max-h-[720px]'
+              : 'h-[360px] md:h-[440px] xl:h-[500px]'
+          }
+        >
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={history} margin={{ top: 5, right: 12, left: 0, bottom: 0 }}>
+              <defs>
+                <linearGradient id="grad95" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#00ff88" stopOpacity={0.3} />
+                  <stop offset="100%" stopColor="#00ff88" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="grad98" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#ffd700" stopOpacity={0.3} />
+                  <stop offset="100%" stopColor="#ffd700" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="gradDiesel" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#22d3ee" stopOpacity={0.3} />
+                  <stop offset="100%" stopColor="#22d3ee" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="gradRE85" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#ffa500" stopOpacity={0.3} />
+                  <stop offset="100%" stopColor="#ffa500" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+              <XAxis
+                dataKey="date"
+                tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10 }}
+                tickLine={false}
+                interval={granularity === 'hourly' ? 5 : 'preserveStartEnd'}
+                axisLine={{ stroke: 'rgba(255,255,255,0.06)' }}
+                tickFormatter={(value: string) => {
+                  try {
+                    if (granularity === 'monthly') {
+                      // value is YYYY-MM — parse manually to avoid cross-browser issues
+                      const [year, month] = value.split('-').map(Number);
+                      const date = new Date(year, month - 1, 1);
+                      return date.toLocaleDateString(undefined, {
+                        month: 'short',
+                        year: '2-digit',
+                      });
+                    }
+                    const date = new Date(value);
+                    if (isNaN(date.getTime())) return value;
+                    if (granularity === 'hourly') {
+                      return date.toLocaleTimeString(undefined, {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      });
+                    }
+                    // Daily: YYYY-MM-DD
+                    return date.toLocaleDateString(undefined, { day: '2-digit', month: '2-digit' });
+                  } catch {
+                    return value;
+                  }
+                }}
+              />
+              <YAxis
+                domain={['auto', 'auto']}
+                tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10 }}
+                tickLine={false}
+                axisLine={{ stroke: 'rgba(255,255,255,0.06)' }}
+                tickFormatter={(value: number) => value.toFixed(2)}
+              />
+              <Tooltip
+                contentStyle={{
+                  background: 'rgba(10, 10, 20, 0.9)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '8px',
+                  fontSize: '12px',
+                  fontFamily: 'JetBrains Mono, monospace',
+                }}
+                labelStyle={{ color: 'rgba(255,255,255,0.5)' }}
+                labelFormatter={(value: any) => {
+                  try {
+                    if (granularity === 'monthly') {
+                      const [year, month] = String(value).split('-').map(Number);
+                      const date = new Date(year, month - 1, 1);
+                      return date.toLocaleDateString(undefined, {
+                        month: 'long',
+                        year: 'numeric',
+                      });
+                    }
+                    const date = new Date(value);
+                    if (isNaN(date.getTime())) return String(value);
+                    if (granularity === 'hourly') {
+                      return date.toLocaleString(undefined, {
+                        day: '2-digit',
+                        month: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      });
+                    }
+                    return date.toLocaleDateString(undefined, {
+                      weekday: 'short',
+                      day: '2-digit',
+                      month: '2-digit',
+                    });
+                  } catch {
+                    return String(value);
+                  }
+                }}
+              />
+              <Area
+                type="monotone"
+                dataKey="price95"
+                stroke="#00ff88"
+                strokeWidth={2}
+                fill="url(#grad95)"
+                name="95E10"
+                dot={false}
+              />
+              <Area
+                type="monotone"
+                dataKey="price98"
+                stroke="#ffd700"
+                strokeWidth={2}
+                fill="url(#grad98)"
+                name="98E5"
+                dot={false}
+              />
+              <Area
+                type="monotone"
+                dataKey="diesel"
+                stroke="#22d3ee"
+                strokeWidth={2}
+                fill="url(#gradDiesel)"
+                name="Diesel"
+                dot={false}
+              />
+              <Area
+                type="monotone"
+                dataKey="re85"
+                stroke="#ffa500"
+                strokeWidth={2}
+                fill="url(#gradRE85)"
+                name="RE85"
+                dot={false}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Legend */}
+        <div className="flex justify-center flex-wrap gap-x-6 gap-y-2 mt-3 text-[10px] font-mono text-white/40">
+          <span className="flex items-center gap-1.5">
+            <span className="w-3 h-0.5 bg-fuel-green rounded" />
+            95E10
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-3 h-0.5 bg-fuel-yellow rounded" />
+            98E5
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-3 h-0.5 bg-bensa-cyan rounded" />
+            Diesel
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-3 h-0.5 bg-[#ffa500] rounded" />
+            RE85
+          </span>
+        </div>
+
+        <WeekdayAnalysis />
       </div>
-
-      <ResponsiveContainer width="100%" height={250}>
-        <AreaChart data={history} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
-          <defs>
-            <linearGradient id="grad95" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#00ff88" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#00ff88" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="grad98" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ffd700" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#ffd700" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="gradDiesel" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#22d3ee" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#22d3ee" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="gradRE85" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ffa500" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#ffa500" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
-          <XAxis
-            dataKey="date"
-            tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10 }}
-            tickLine={false}
-            interval={granularity === 'hourly' ? 5 : 'preserveStartEnd'}
-            axisLine={{ stroke: 'rgba(255,255,255,0.06)' }}
-            tickFormatter={(value: string) => {
-              try {
-                if (granularity === 'monthly') {
-                  // value is YYYY-MM — parse manually to avoid cross-browser issues
-                  const [year, month] = value.split('-').map(Number);
-                  const date = new Date(year, month - 1, 1);
-                  return date.toLocaleDateString(undefined, {
-                    month: 'short',
-                    year: '2-digit',
-                  });
-                }
-                const date = new Date(value);
-                if (isNaN(date.getTime())) return value;
-                if (granularity === 'hourly') {
-                  return date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
-                }
-                // Daily: YYYY-MM-DD
-                return date.toLocaleDateString(undefined, { day: '2-digit', month: '2-digit' });
-              } catch {
-                return value;
-              }
-            }}
-          />
-          <YAxis
-            domain={['auto', 'auto']}
-            tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10 }}
-            tickLine={false}
-            axisLine={{ stroke: 'rgba(255,255,255,0.06)' }}
-            tickFormatter={(value: number) => value.toFixed(2)}
-          />
-          <Tooltip
-            contentStyle={{
-              background: 'rgba(10, 10, 20, 0.9)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '8px',
-              fontSize: '12px',
-              fontFamily: 'JetBrains Mono, monospace',
-            }}
-            labelStyle={{ color: 'rgba(255,255,255,0.5)' }}
-            labelFormatter={(value: any) => {
-              try {
-                if (granularity === 'monthly') {
-                  const [year, month] = String(value).split('-').map(Number);
-                  const date = new Date(year, month - 1, 1);
-                  return date.toLocaleDateString(undefined, {
-                    month: 'long',
-                    year: 'numeric',
-                  });
-                }
-                const date = new Date(value);
-                if (isNaN(date.getTime())) return String(value);
-                if (granularity === 'hourly') {
-                  return date.toLocaleString(undefined, {
-                    day: '2-digit',
-                    month: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  });
-                }
-                return date.toLocaleDateString(undefined, {
-                  weekday: 'short',
-                  day: '2-digit',
-                  month: '2-digit',
-                });
-              } catch {
-                return String(value);
-              }
-            }}
-          />
-          <Area
-            type="monotone"
-            dataKey="price95"
-            stroke="#00ff88"
-            strokeWidth={2}
-            fill="url(#grad95)"
-            name="95E10"
-            dot={false}
-          />
-          <Area
-            type="monotone"
-            dataKey="price98"
-            stroke="#ffd700"
-            strokeWidth={2}
-            fill="url(#grad98)"
-            name="98E5"
-            dot={false}
-          />
-          <Area
-            type="monotone"
-            dataKey="diesel"
-            stroke="#22d3ee"
-            strokeWidth={2}
-            fill="url(#gradDiesel)"
-            name="Diesel"
-            dot={false}
-          />
-          <Area
-            type="monotone"
-            dataKey="re85"
-            stroke="#ffa500"
-            strokeWidth={2}
-            fill="url(#gradRE85)"
-            name="RE85"
-            dot={false}
-          />
-        </AreaChart>
-      </ResponsiveContainer>
-
-      {/* Legend */}
-      <div className="flex justify-center flex-wrap gap-x-6 gap-y-2 mt-3 text-[10px] font-mono text-white/40">
-        <span className="flex items-center gap-1.5">
-          <span className="w-3 h-0.5 bg-fuel-green rounded" />
-          95E10
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="w-3 h-0.5 bg-fuel-yellow rounded" />
-          98E5
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="w-3 h-0.5 bg-bensa-cyan rounded" />
-          Diesel
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="w-3 h-0.5 bg-[#ffa500] rounded" />
-          RE85
-        </span>
-      </div>
-
-      <WeekdayAnalysis />
     </div>
   );
+  return chartContent;
 };

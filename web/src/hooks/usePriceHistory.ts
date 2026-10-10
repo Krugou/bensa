@@ -1,4 +1,4 @@
-import { collection, getDocs, limit, orderBy, query, Timestamp } from 'firebase/firestore';
+import { collection, getDocs, limit, orderBy, query, Timestamp, where } from 'firebase/firestore';
 import { useCallback, useEffect, useState } from 'react';
 
 import { db } from '../firebase';
@@ -31,11 +31,18 @@ export function usePriceHistory(
   const fetchHistory = useCallback(async () => {
     setLoading(true);
     try {
+      const cutoff = Timestamp.fromDate(new Date(Date.now() - days * 24 * 60 * 60 * 1000));
+
       // Try to fetch from aggregated price_averages first (much faster)
       const averagesCol = collection(db, 'price_averages');
       // Increase limit to be more robust. 24h/2h = 12 runs/day.
       // 12 * days * 1.5 to have some buffer.
-      const qAvg = query(averagesCol, orderBy('timestamp', 'desc'), limit(days * 20));
+      const qAvg = query(
+        averagesCol,
+        where('timestamp', '>=', cutoff),
+        orderBy('timestamp', 'desc'),
+        limit(days * 20),
+      );
       const avgSnapshot = await getDocs(qAvg);
 
       let points: PriceHistoryPoint[] = [];
@@ -87,7 +94,12 @@ export function usePriceHistory(
         // Increase limit substantially.
         // 300 stations * 12 runs/day * days.
         const fetchLimit = Math.max(days * 4000, 5000);
-        const q = query(historyCol, orderBy('timestamp', 'desc'), limit(fetchLimit));
+        const q = query(
+          historyCol,
+          where('timestamp', '>=', cutoff),
+          orderBy('timestamp', 'desc'),
+          limit(fetchLimit),
+        );
         const snapshot = await getDocs(q);
 
         const groupedData: Record<

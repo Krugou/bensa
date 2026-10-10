@@ -454,9 +454,9 @@ const AppContent = () => {
           </div>
         </div>
 
-        {/* Price History and other bottom sections */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-12">
-          {!isSimpleMode && (
+        {/* Price history gets the full content width for easier reading. */}
+        {!isSimpleMode && (
+          <div className="mb-8 md:mb-12">
             <CollapsibleSection
               title={t('chart.section_title', '📈 Price History')}
               headerColorClass="bg-bensa-cyan"
@@ -464,8 +464,10 @@ const AppContent = () => {
             >
               <PriceHistoryChart />
             </CollapsibleSection>
-          )}
+          </div>
+        )}
 
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
           {!isSimpleMode && (
             <CollapsibleSection
               title={t('rich_list.title', '💸 Rich List')}
