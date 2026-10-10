@@ -24,7 +24,7 @@
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
     "strictBindCallApply": true,
-    "types": ["vitest/globals"],
+    "types": ["vitest/globals", "@testing-library/jest-dom/vitest"],
     "noPropertyAccessFromIndexSignature": true,
     "useUnknownInCatchVariables": true
   },
