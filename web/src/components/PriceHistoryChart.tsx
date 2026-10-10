@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Area,
@@ -10,16 +10,167 @@ import {
   YAxis,
 } from 'recharts';
 
-import { PriceGranularity, usePriceHistory } from '../hooks/usePriceHistory';
+import { usePriceHistory } from '../hooks/usePriceHistory';
+import type { PriceGranularity, PriceHistoryRange } from '../hooks/usePriceHistory';
 import { WeekdayAnalysis } from './WeekdayAnalysis';
+
+type RangePresetId =
+  | '7d'
+  | '30d'
+  | '90d'
+  | '6m'
+  | '9m'
+  | '1y'
+  | '18m'
+  | '2y'
+  | '3y'
+  | '5y'
+  | 'all'
+  | 'custom';
+
+interface RangePreset {
+  id: Exclude<RangePresetId, 'custom'>;
+  label: string;
+  days?: number;
+  months?: number;
+  titleKey: string;
+  defaultTitle: string;
+}
+
+const RANGE_PRESETS: RangePreset[] = [
+  { id: '7d', label: '7d', days: 7, titleKey: 'chart.title_7d', defaultTitle: '7-Day Price Trend' },
+  {
+    id: '30d',
+    label: '30d',
+    days: 30,
+    titleKey: 'chart.title_30d',
+    defaultTitle: '30-Day Price Trend',
+  },
+  {
+    id: '90d',
+    label: '90d',
+    days: 90,
+    titleKey: 'chart.title_90d',
+    defaultTitle: '90-Day Price Trend',
+  },
+  {
+    id: '6m',
+    label: '6m',
+    months: 6,
+    titleKey: 'chart.title_6m',
+    defaultTitle: '6-Month Price Trend',
+  },
+  {
+    id: '9m',
+    label: '9m',
+    months: 9,
+    titleKey: 'chart.title_9m',
+    defaultTitle: '9-Month Price Trend',
+  },
+  {
+    id: '1y',
+    label: '1y',
+    months: 12,
+    titleKey: 'chart.title_1y',
+    defaultTitle: 'Yearly Price Trend',
+  },
+  {
+    id: '18m',
+    label: '18m',
+    months: 18,
+    titleKey: 'chart.title_18m',
+    defaultTitle: '18-Month Price Trend',
+  },
+  {
+    id: '2y',
+    label: '2y',
+    months: 24,
+    titleKey: 'chart.title_2y',
+    defaultTitle: '2-Year Price Trend',
+  },
+  {
+    id: '3y',
+    label: '3y',
+    months: 36,
+    titleKey: 'chart.title_3y',
+    defaultTitle: '3-Year Price Trend',
+  },
+  {
+    id: '5y',
+    label: '5y',
+    months: 60,
+    titleKey: 'chart.title_5y',
+    defaultTitle: '5-Year Price Trend',
+  },
+  {
+    id: 'all',
+    label: 'All',
+    titleKey: 'chart.title_all',
+    defaultTitle: 'All-Time Price Trend',
+  },
+];
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+const formatDateInput = (date: Date) =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+const parseDateInput = (value: string, endOfDay = false) => {
+  const [year, month, day] = value.split('-').map(Number);
+  return endOfDay
+    ? new Date(year, month - 1, day, 23, 59, 59, 999)
+    : new Date(year, month - 1, day);
+};
+
+const getPresetRange = (presetId: Exclude<RangePresetId, 'custom'>): PriceHistoryRange => {
+  const endDate = new Date();
+  const preset = RANGE_PRESETS.find(({ id }) => id === presetId);
+  const startDate = presetId === 'all' ? new Date(0) : new Date(endDate);
+
+  if (preset?.months) {
+    const dayOfMonth = startDate.getDate();
+    startDate.setDate(1);
+    startDate.setMonth(startDate.getMonth() - preset.months);
+    startDate.setDate(
+      Math.min(
+        dayOfMonth,
+        new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0).getDate(),
+      ),
+    );
+  } else if (preset?.days) {
+    startDate.setDate(startDate.getDate() - preset.days);
+  }
+
+  return { startDate, endDate };
+};
 
 export const PriceHistoryChart = () => {
   const { t } = useTranslation();
   const [granularity, setGranularity] = useState<PriceGranularity>('daily');
-  const [days, setDays] = useState(7);
+  const [rangePreset, setRangePreset] = useState<RangePresetId>('7d');
+  const [customStartDate, setCustomStartDate] = useState(() =>
+    formatDateInput(new Date(Date.now() - 30 * DAY_MS)),
+  );
+  const [customEndDate, setCustomEndDate] = useState(() => formatDateInput(new Date()));
   const [isFullscreen, setIsFullscreen] = useState(false);
   const chartRef = useRef<HTMLDivElement>(null);
-  const { history, loading } = usePriceHistory(days, granularity);
+  const dateRange = useMemo(
+    () =>
+      rangePreset === 'custom'
+        ? {
+            startDate: parseDateInput(customStartDate),
+            endDate: parseDateInput(customEndDate, true),
+          }
+        : getPresetRange(rangePreset),
+    [customEndDate, customStartDate, rangePreset],
+  );
+  const days = Math.max(
+    1,
+    Math.ceil((dateRange.endDate.getTime() - dateRange.startDate.getTime()) / DAY_MS),
+  );
+  const { history, loading, error, refresh } = usePriceHistory(days, granularity, dateRange);
+  const monthlyAvailable = days >= 90;
+  const hourlyAvailable = days <= 30;
 
   useEffect(() => {
     const syncFullscreenState = () => {
@@ -32,29 +183,27 @@ export const PriceHistoryChart = () => {
     };
   }, []);
 
-  if (loading) {
-    return (
-      <div className="h-[250px] flex items-center justify-center text-white/30 font-mono text-sm">
-        {t('chart.loading', 'Loading history...')}
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (
+      (!monthlyAvailable && granularity === 'monthly') ||
+      (!hourlyAvailable && granularity === 'hourly')
+    ) {
+      setGranularity('daily');
+    }
+  }, [granularity, hourlyAvailable, monthlyAvailable]);
 
   const getRangeLabel = () => {
     if (granularity === 'hourly') return t('chart.title_hourly', 'Recent Hourly Trend');
-    if (days === 7) return t('chart.title_7d', '7-Day Price Trend');
-    if (days === 30) return t('chart.title_30d', '30-Day Price Trend');
-    if (days === 90) return t('chart.title_90d', '90-Day Price Trend');
-    if (days === 365) return t('chart.title_1y', 'Yearly Price Trend');
-    if (days === 1095) return t('chart.title_3y', '3-Year Price Trend');
-    if (days === 3650) return t('chart.title_all', 'All-Time Price Trend');
-    return t('chart.title_daily', 'Price Trend');
+    if (rangePreset === 'custom') return t('chart.title_custom', 'Custom price trend');
+    const preset = RANGE_PRESETS.find(({ id }) => id === rangePreset);
+    return preset ? t(preset.titleKey, preset.defaultTitle) : t('chart.title_daily', 'Price Trend');
   };
 
   const chartContent = (
     <div
       id="price-history-chart"
       ref={chartRef}
+      aria-busy={loading}
       className={
         isFullscreen
           ? 'fixed inset-0 z-[100] overflow-y-auto bg-[#090c10] p-4 text-white md:p-8'
@@ -103,20 +252,22 @@ export const PriceHistoryChart = () => {
                     {t('chart.monthly', 'Monthly')}
                   </button>
                 )}
-                <button
-                  onClick={() => {
-                    setGranularity('hourly');
-                  }}
-                  className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
-                    granularity === 'hourly'
-                      ? 'bg-fuel-green text-black'
-                      : 'text-white/40 hover:text-white/70'
-                  }`}
-                  aria-pressed={granularity === 'hourly'}
-                  type="button"
-                >
-                  {t('chart.hourly', 'Hourly')}
-                </button>
+                {hourlyAvailable && (
+                  <button
+                    onClick={() => {
+                      setGranularity('hourly');
+                    }}
+                    className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                      granularity === 'hourly'
+                        ? 'bg-fuel-green text-black'
+                        : 'text-white/40 hover:text-white/70'
+                    }`}
+                    aria-pressed={granularity === 'hourly'}
+                    type="button"
+                  >
+                    {t('chart.hourly', 'Hourly')}
+                  </button>
+                )}
               </div>
               <button
                 type="button"
@@ -168,26 +319,109 @@ export const PriceHistoryChart = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap bg-white/5 p-1 rounded-xl border border-white/10 self-start">
-            {[7, 30, 90, 365, 1095, 3650].map((d) => (
+          {loading && (
+            <p className="mb-3 text-center text-xs text-white/50" role="status">
+              {t('chart.loading', 'Loading history...')}
+            </p>
+          )}
+          {error && (
+            <div
+              className="mb-3 flex flex-wrap items-center justify-center gap-3 rounded-xl border border-red-400/20 bg-red-400/5 p-3 text-sm text-red-200"
+              role="alert"
+            >
+              <span>{t('chart.load_error', 'Price history could not be loaded.')}</span>
               <button
-                key={d}
+                type="button"
+                onClick={refresh}
+                className="rounded-lg border border-red-200/20 px-3 py-1.5 text-xs font-semibold hover:bg-red-200/10"
+              >
+                {t('chart.retry', 'Try again')}
+              </button>
+            </div>
+          )}
+          {!loading && !error && history.length === 0 && (
+            <p className="mb-3 text-center text-sm text-white/50" role="status">
+              {t('chart.no_data', 'No price history is available for this date range.')}
+            </p>
+          )}
+
+          <div
+            className="flex flex-wrap gap-1 bg-white/5 p-1 rounded-xl border border-white/10 self-start"
+            role="group"
+            aria-label={t('chart.date_range', 'Date range')}
+          >
+            {RANGE_PRESETS.map((preset) => (
+              <button
+                key={preset.id}
                 onClick={() => {
-                  setDays(d);
-                  if (d < 90 && granularity === 'monthly') {
-                    setGranularity('daily');
-                  }
+                  setRangePreset(preset.id);
                 }}
                 className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
-                  days === d ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/70'
+                  rangePreset === preset.id
+                    ? 'bg-white/10 text-white'
+                    : 'text-white/40 hover:text-white/70'
                 }`}
-                aria-pressed={days === d}
+                aria-pressed={rangePreset === preset.id}
                 type="button"
               >
-                {d === 365 ? '1y' : d === 1095 ? '3y' : d === 3650 ? 'All' : `${d}d`}
+                {preset.id === 'all' ? t('chart.range_all', 'All') : preset.label}
               </button>
             ))}
+            <button
+              type="button"
+              onClick={() => {
+                setRangePreset('custom');
+              }}
+              className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                rangePreset === 'custom'
+                  ? 'bg-white/10 text-white'
+                  : 'text-white/40 hover:text-white/70'
+              }`}
+              aria-pressed={rangePreset === 'custom'}
+            >
+              {t('chart.range_custom', 'Custom')}
+            </button>
           </div>
+
+          {rangePreset === 'custom' && (
+            <div className="flex flex-wrap items-end gap-3 rounded-xl border border-white/10 bg-white/5 p-3">
+              <label className="flex flex-col gap-1 text-[10px] font-bold uppercase tracking-wider text-white/50">
+                {t('chart.start_date', 'Start date')}
+                <input
+                  type="date"
+                  value={customStartDate}
+                  max={customEndDate}
+                  aria-label={t('chart.start_date', 'Start date')}
+                  onChange={(event) => {
+                    const value = event.currentTarget.value;
+                    if (!value) return;
+                    setCustomStartDate(value);
+                    if (value > customEndDate) setCustomEndDate(value);
+                    setRangePreset('custom');
+                  }}
+                  className="rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-sm text-white"
+                />
+              </label>
+              <label className="flex flex-col gap-1 text-[10px] font-bold uppercase tracking-wider text-white/50">
+                {t('chart.end_date', 'End date')}
+                <input
+                  type="date"
+                  value={customEndDate}
+                  min={customStartDate}
+                  max={formatDateInput(new Date())}
+                  aria-label={t('chart.end_date', 'End date')}
+                  onChange={(event) => {
+                    const value = event.currentTarget.value;
+                    if (!value) return;
+                    setCustomEndDate(value);
+                    if (value < customStartDate) setCustomStartDate(value);
+                    setRangePreset('custom');
+                  }}
+                  className="rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-sm text-white"
+                />
+              </label>
+            </div>
+          )}
         </div>
 
         <div
