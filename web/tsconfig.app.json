@@ -24,6 +24,7 @@
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
     "strictBindCallApply": true,
+    "types": ["vitest/globals"],
     "noPropertyAccessFromIndexSignature": true,
     "useUnknownInCatchVariables": true
   },
