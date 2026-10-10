@@ -3,6 +3,9 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [react() as any],
+  esbuild: {
+    jsx: 'automatic',
+  },
   resolve: {
     dedupe: ['react', 'react-dom'],
   },
