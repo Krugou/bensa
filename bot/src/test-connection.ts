@@ -50,6 +50,16 @@ async function testConnection() {
     
     process.exit(0);
   } catch (err) {
+    if (
+      typeof err === 'object' &&
+      err !== null &&
+      'code' in err &&
+      (err.code === 8 || err.code === 'RESOURCE_EXHAUSTED')
+    ) {
+      console.warn('⏭️ Firebase connection check skipped: quota exceeded.');
+      process.exit(0);
+    }
+
     console.error('❌ Firebase Connection Failed:');
     console.error(err);
     process.exit(1);
