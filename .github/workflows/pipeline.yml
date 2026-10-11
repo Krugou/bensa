@@ -165,6 +165,7 @@ jobs:
         run: npm install firebase-admin firebase dotenv tsx
 
       - name: Fuel Connectivity Test (Admin SDK)
+        if: github.event_name != 'push'
         run: npx tsx bot/src/test-connection.ts
         env:
           FIREBASE_ADMIN_SDK: ${{ secrets.FIREBASE_ADMIN_SDK }}
