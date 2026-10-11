@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/Krugou/bensa/compare/v1.3.1...v1.3.2) (2026-10-11)
+
+### Bug Fixes
+
+- **ci:** declare testing library DOM peer ([5e0d486](https://github.com/Krugou/bensa/commit/5e0d4861f11db568ac4374c55ba8bcee0d0915f6))
+- **deps:** sync standalone workspace locks ([d2d6841](https://github.com/Krugou/bensa/commit/d2d6841c9b2c6f444a8dbb6f001bd70919fc60c9))
+
 ## [1.3.1](https://github.com/Krugou/bensa/compare/v1.3.0...v1.3.1) (2026-04-06)
 
 ### Bug Fixes
