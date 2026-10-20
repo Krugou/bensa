@@ -17,7 +17,7 @@ permissions:
   pull-requests: write # for semantic-release
 
 concurrency:
-  group: 'pages'
+  group: '${{ github.workflow }}-${{ github.ref }}'
   cancel-in-progress: true
 
 jobs:
@@ -27,6 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Fuel Quality Check (Validate Secrets)
+        if: github.event_name != 'pull_request'
         run: |
           echo "🔎 Verifying required configuration..."
           MISSING=0
