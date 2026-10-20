@@ -19,10 +19,6 @@ updates:
           - 'minor'
           - 'patch'
 
-      major:
-        update-types:
-          - 'major'
-
   # ------------------------
   # GitHub Actions
   # ------------------------
@@ -38,7 +34,3 @@ updates:
         update-types:
           - 'minor'
           - 'patch'
-
-      major:
-        update-types:
-          - 'major'

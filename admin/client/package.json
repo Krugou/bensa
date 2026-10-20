@@ -11,6 +11,9 @@
     "format": "prettier --write .",
     "test": "vitest run"
   },
+  "overrides": {
+    "@grpc/grpc-js": "1.13.6"
+  },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "@types/leaflet": "^1.9.22",

@@ -14,6 +14,9 @@
     "format": "prettier --write .",
     "preview": "vite preview"
   },
+  "overrides": {
+    "@grpc/grpc-js": "1.13.6"
+  },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "date-fns": "^4.4.0",
