@@ -36,6 +36,11 @@
   "fuel": {
     "select": "BRÄNSLE"
   },
+  "city": {
+    "select": "STAD",
+    "all": "Alla städer",
+    "filter": "Filtrera efter stad"
+  },
   "brand": {
     "select": "KEDJA",
     "all": "Alla kedjor",
@@ -69,6 +74,9 @@
   },
   "stations": {
     "title": "⛽ Stationer efter pris",
+    "search_label": "Sök stationer",
+    "search_placeholder": "Sök efter station, kedja, adress eller stad",
+    "clear_search": "Rensa sökning",
     "count": "{{count}} stationer",
     "sort_price": "Pris",
     "sort_distance": "Närmaste",

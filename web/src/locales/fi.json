@@ -36,6 +36,11 @@
   "fuel": {
     "select": "POLTTOAINE"
   },
+  "city": {
+    "select": "KAUPUNKI",
+    "all": "Kaikki kaupungit",
+    "filter": "Suodata kaupungin mukaan"
+  },
   "brand": {
     "select": "KETJU",
     "all": "Kaikki ketjut",
@@ -69,6 +74,9 @@
   },
   "stations": {
     "title": "⛽ Asemat hinnan mukaan",
+    "search_label": "Hae asemia",
+    "search_placeholder": "Hae aseman, ketjun, osoitteen tai kaupungin mukaan",
+    "clear_search": "Tyhjennä haku",
     "count": "{{count}} asemaa",
     "sort_price": "Hinta",
     "sort_distance": "Lähin",

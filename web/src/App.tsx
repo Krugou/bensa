@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom';
 
 import { BrandSelector } from './components/BrandSelector';
+import { CitySelector } from './components/CitySelector';
 import { CollapsibleSection } from './components/CollapsibleSection';
 import { ConsumptionCalculator } from './components/ConsumptionCalculator';
 import { CookieConsent } from './components/CookieConsent';
@@ -24,6 +25,7 @@ import { NotificationPermission } from './components/NotificationPermission';
 import { PriceGauge } from './components/PriceGauge';
 import { PriceHistoryChart } from './components/PriceHistoryChart';
 import { RichList } from './components/RichList';
+import { StationSearch } from './components/StationSearch';
 import { StationList } from './components/StationList';
 import { StationMap } from './components/StationMap';
 import { db } from './firebase';
@@ -31,7 +33,13 @@ import { usePriceAlert } from './hooks/usePriceAlert';
 import { useTitleFlasher } from './hooks/useTitleFlasher';
 import { DEFAULT_LOCATION, getCurrentPosition } from './services/locationService';
 import { fetchPrices, getPriceStats } from './services/priceService';
-import { getNearbyStations, sortByPrice } from './services/stationService';
+import {
+  filterByCity,
+  getNearbyStations,
+  getUniqueCities,
+  searchStations,
+  sortByPrice,
+} from './services/stationService';
 import { FuelType, GasStation } from './types';
 import { getFuelTypeLabel } from './utils/priceUtils';
 
@@ -47,6 +55,8 @@ const AppContent = () => {
   const [stations, setStations] = useState<GasStation[]>([]);
   const [fuelType, setFuelType] = useState<FuelType>('95');
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+  const [stationQuery, setStationQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [userLat, setUserLat] = useState(DEFAULT_LOCATION.lat);
   const [userLon, setUserLon] = useState(DEFAULT_LOCATION.lon);
@@ -173,12 +183,12 @@ const AppContent = () => {
   }, [stations, userLat, userLon]);
 
   const filteredAndSortedStations = useMemo(() => {
-    let list = [...stationsWithDistance];
+    let list = searchStations(filterByCity(stationsWithDistance, selectedCity), stationQuery);
     if (selectedBrand) {
       list = list.filter((s) => s.brand === selectedBrand);
     }
     return sortByPrice(list, fuelType);
-  }, [stationsWithDistance, fuelType, selectedBrand]);
+  }, [stationsWithDistance, fuelType, selectedBrand, selectedCity, stationQuery]);
 
   // Notify on price alerts
   useEffect(() => {
@@ -202,6 +212,8 @@ const AppContent = () => {
     });
     return Array.from(brands).sort();
   }, [stations]);
+
+  const availableCities = useMemo(() => getUniqueCities(stations), [stations]);
 
   // Find nearest cheap option (exclude stale data older than 7 days)
   const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
@@ -319,6 +331,12 @@ const AppContent = () => {
             </div>
             <div className="flex flex-col items-center gap-4 lg:gap-6">
               <FuelTypeSelector selected={fuelType} onChange={setFuelType} />
+              <StationSearch query={stationQuery} onChange={setStationQuery} />
+              <CitySelector
+                cities={availableCities}
+                selectedCity={selectedCity}
+                onChange={setSelectedCity}
+              />
               <BrandSelector
                 brands={availableBrands}
                 selectedBrand={selectedBrand}
@@ -375,6 +393,12 @@ const AppContent = () => {
         {isSimpleMode && (
           <div className="flex flex-col items-center gap-4 pt-8 md:pt-16">
             <FuelTypeSelector selected={fuelType} onChange={setFuelType} />
+            <StationSearch query={stationQuery} onChange={setStationQuery} />
+            <CitySelector
+              cities={availableCities}
+              selectedCity={selectedCity}
+              onChange={setSelectedCity}
+            />
             <BrandSelector
               brands={availableBrands}
               selectedBrand={selectedBrand}

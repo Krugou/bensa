@@ -8,6 +8,7 @@ A modern, high-contrast fuel price tracker for Finland (PK-Seutu). Built with Re
 
 - **Real-Time Prices**: Live scraping of fuel prices from the Helsinki Metropolitan area.
 - **Station Heatmap**: Visual interactive map using Leaflet to find the cheapest fuel nearby.
+- **Station Search & City Filtering**: Find stations by name, brand, address, or city, then narrow the map and price list with city, fuel, and brand filters.
 - **Price Gauge**: Quick visual overview of current price levels (Cheapest vs. Average).
 - **Price History**: Historical trends visualized with Recharts.
 - **PWA Ready**: Install as a mobile app with offline support.

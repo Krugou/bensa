@@ -36,6 +36,11 @@
   "fuel": {
     "select": "FUEL TYPE"
   },
+  "city": {
+    "select": "CITY",
+    "all": "All Cities",
+    "filter": "Filter by city"
+  },
   "brand": {
     "select": "BRAND",
     "all": "All Brands",
@@ -69,6 +74,9 @@
   },
   "stations": {
     "title": "⛽ Stations by Price",
+    "search_label": "Search stations",
+    "search_placeholder": "Search by station, brand, address, or city",
+    "clear_search": "Clear search",
     "count": "{{count}} stations",
     "sort_price": "Price",
     "sort_distance": "Nearest",

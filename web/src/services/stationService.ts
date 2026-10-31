@@ -54,6 +54,34 @@ export function filterByFuelType(stations: GasStation[], fuelType: FuelType): Ga
 }
 
 /**
+ * Filter stations by city. A null city leaves the station list unchanged.
+ */
+export function filterByCity(stations: GasStation[], city: string | null): GasStation[] {
+  return city === null ? stations : stations.filter((station) => station.city === city);
+}
+
+/**
+ * Search station details without depending on case or diacritic differences.
+ */
+export function searchStations(stations: GasStation[], searchTerm: string): GasStation[] {
+  const normalize = (value: string) =>
+    value
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLocaleLowerCase();
+  const terms = normalize(searchTerm.trim()).split(/\s+/).filter(Boolean);
+
+  if (terms.length === 0) return stations;
+
+  return stations.filter((station) => {
+    const searchableText = normalize(
+      [station.name, station.brand, station.address, station.city].join(' '),
+    );
+    return terms.every((term) => searchableText.includes(term));
+  });
+}
+
+/**
  * Get unique cities from the station list
  */
 export function getUniqueCities(stations: GasStation[]): string[] {

@@ -2,9 +2,11 @@ import { describe, expect, it } from 'vitest';
 
 import {
   calculateDistance,
+  filterByCity,
   filterByFuelType,
   getNearbyStations,
   getUniqueCities,
+  searchStations,
   sortByPrice,
 } from '../../services/stationService';
 import { GasStation } from '../../types';
@@ -14,7 +16,7 @@ const mockStations: GasStation[] = [
     id: 'far',
     name: 'Far Station',
     brand: 'X',
-    address: '',
+    address: 'Addr A',
     city: 'Tampere',
     lat: 61.5,
     lon: 23.7,
@@ -27,7 +29,7 @@ const mockStations: GasStation[] = [
     id: 'near',
     name: 'Near Station',
     brand: 'Y',
-    address: '',
+    address: 'Addr B',
     city: 'Helsinki',
     lat: 60.18,
     lon: 24.95,
@@ -82,6 +84,36 @@ describe('stationService', () => {
     it('returns all stations that have the fuel type', () => {
       const filtered = filterByFuelType(mockStations, '95');
       expect(filtered).toHaveLength(2);
+    });
+  });
+
+  describe('filterByCity', () => {
+    it('filters stations by exact city name', () => {
+      expect(filterByCity(mockStations, 'Helsinki').map((station) => station.id)).toEqual(['near']);
+    });
+
+    it('returns all stations when no city is selected', () => {
+      expect(filterByCity(mockStations, null)).toEqual(mockStations);
+    });
+  });
+
+  describe('searchStations', () => {
+    it('matches station name, brand, address, and city without case sensitivity', () => {
+      expect(searchStations(mockStations, 'helsinki')).toEqual([mockStations[1]]);
+      expect(searchStations(mockStations, 'NEAR STATION')).toEqual([mockStations[1]]);
+      expect(searchStations(mockStations, 'Y')).toEqual([mockStations[1]]);
+      expect(searchStations(mockStations, 'addr b')).toEqual([mockStations[1]]);
+    });
+
+    it('matches accents and requires all search terms', () => {
+      const station = { ...mockStations[0], city: 'Seinäjoki' };
+      expect(searchStations([station], 'seinajoki')).toEqual([station]);
+      expect(searchStations([station], 'station seinajoki')).toEqual([station]);
+      expect(searchStations([station], 'station helsinki')).toEqual([]);
+    });
+
+    it('returns all stations for an empty search', () => {
+      expect(searchStations(mockStations, '   ')).toEqual(mockStations);
     });
   });
 
