@@ -15,7 +15,18 @@ import type { PriceGranularity, PriceHistoryRange } from '../hooks/usePriceHisto
 import { WeekdayAnalysis } from './WeekdayAnalysis';
 
 type RangePresetId =
-  '7d' | '30d' | '90d' | '6m' | '9m' | '1y' | '18m' | '2y' | '3y' | '5y' | 'all' | 'custom';
+  | '7d'
+  | '30d'
+  | '90d'
+  | '6m'
+  | '9m'
+  | '1y'
+  | '18m'
+  | '2y'
+  | '3y'
+  | '5y'
+  | 'all'
+  | 'custom';
 
 interface RangePreset {
   id: Exclude<RangePresetId, 'custom'>;
