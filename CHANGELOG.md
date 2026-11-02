@@ -1,3 +1,9 @@
+# [1.4.0](https://github.com/Krugou/bensa/compare/v1.3.2...v1.4.0) (2026-11-02)
+
+### Features
+
+- add city and station search filters ([695307f](https://github.com/Krugou/bensa/commit/695307f97e6c0fe841a5baba22be02d67cc63b0d))
+
 ## [1.3.2](https://github.com/Krugou/bensa/compare/v1.3.1...v1.3.2) (2026-10-11)
 
 ### Bug Fixes
