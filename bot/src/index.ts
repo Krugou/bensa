@@ -80,6 +80,22 @@ const TARGET_URLS = [
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 /**
+ * Generic city-centre point (Espoo). Geocoding that lands here means Nominatim
+ * matched only the city, not the station, so the coordinates are unusable.
+ */
+const CITY_CENTRE_FALLBACKS: ReadonlyArray<{ lat: number; lon: number }> = [
+  { lat: 60.2055, lon: 24.6559 }, // Espoo
+];
+
+function isUsableCoord(c: { lat: number; lon: number } | undefined | null): c is { lat: number; lon: number } {
+  if (!c || !Number.isFinite(c.lat) || !Number.isFinite(c.lon)) return false;
+  if (c.lat === 0 && c.lon === 0) return false;
+  return !CITY_CENTRE_FALLBACKS.some(
+    (f) => Math.abs(f.lat - c.lat) < 0.0005 && Math.abs(f.lon - c.lon) < 0.0005,
+  );
+}
+
+/**
  * Helper to fetch GPS coordinates using OpenStreetMap's Nominatim API.
  */
 async function geocodeAddress(
@@ -105,38 +121,52 @@ async function geocodeAddress(
     cleanStreet = (parts.find((p) => /\d/.test(p)) ?? parts[0]).trim();
   }
 
-  // Construct a very specific query
-  const query = encodeURIComponent(`${cleanStreet}, ${city}, Finland`);
-  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=1&addressdetails=1`;
+  // Postal code (e.g. "02270") helps Nominatim pick the right street when the city name alone does not
+  const postcode = address.match(/\b(\d{5})\b/)?.[1];
 
-  try {
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'BensaTrackerBot/1.0 (BensaTracker PWA)',
-      },
-    });
+  // Try the most specific query first, then a postcode-based one as a fallback
+  const queries = [
+    `${cleanStreet}, ${city}, Finland`,
+    postcode ? `${cleanStreet}, ${postcode} ${city}, Finland` : null,
+  ].filter((q): q is string => q !== null);
 
-    if (!response.ok) return null;
+  for (const q of queries) {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=1&addressdetails=1`;
 
-    const data = (await response.json()) as any[];
-    if (data.length > 0) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          'User-Agent': 'BensaTrackerBot/1.0 (BensaTracker PWA)',
+        },
+      });
+
+      if (!response.ok) continue;
+
+      const data = (await response.json()) as any[];
+      if (data.length === 0) continue;
+
       const result = data[0];
-      
+
+      // Reject city/boundary-level matches: they are not the station's location
+      const isCityLevel =
+        result.class === 'boundary' ||
+        ['city', 'town', 'village', 'municipality', 'county', 'state'].includes(result.addresstype);
+      if (isCityLevel) {
+        console.warn(`[Geocode Warning] City-level result for "${q}" (${result.addresstype}), trying next query`);
+        continue;
+      }
+
       // Basic city verification if possible
       const foundCity = result.address?.city || result.address?.town || result.address?.village || result.address?.municipality || '';
       if (foundCity && city.toLowerCase() !== foundCity.toLowerCase()) {
         console.warn(`[Geocode Warning] City mismatch for ${address} in ${city}: Found ${foundCity}`);
-        // We still accept it if it's close enough or if the query was specific, 
-        // but this log helps debug.
       }
 
-      return {
-        lat: parseFloat(result.lat),
-        lon: parseFloat(result.lon),
-      };
+      const coords = { lat: parseFloat(result.lat), lon: parseFloat(result.lon) };
+      if (isUsableCoord(coords)) return coords;
+    } catch (err) {
+      console.error(`[Geocode Error] for ${address}, ${city}:`, err);
     }
-  } catch (err) {
-    console.error(`[Geocode Error] for ${address}, ${city}:`, err);
   }
 
   return null;
@@ -328,10 +358,14 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
       station.lon = cachedEntry.lon;
       station.userFixed = true;
       console.log(`[${i + 1}/${scrapedStations.length}] 📌 Keeping fixed GPS and details: ${cachedEntry.userFixed ? 'LOCKED ' : ''}${station.name}`);
-    } else if (cachedEntry) {
+    } else if (cachedEntry && isUsableCoord(cachedEntry)) {
       station.lat = cachedEntry.lat;
       station.lon = cachedEntry.lon;
     } else {
+      // No cache, or cached coordinates are bad (city centre / 0,0): geocode again
+      if (cachedEntry) {
+        console.log(`[${i + 1}/${scrapedStations.length}] ♻️  Cached coords unusable for ${station.name}, re-geocoding`);
+      }
       const rawAddress = station.address;
       console.log(`[${i + 1}/${scrapedStations.length}] 🛰️  Geocoding: ${rawAddress}, ${station.city}`);
       const coords = await geocodeAddress(rawAddress, station.city);
@@ -340,6 +374,8 @@ async function processStationsWithGeocoding(scrapedStations: GasStation[]): Prom
         station.lat = coords.lat;
         station.lon = coords.lon;
         cache[cacheKey] = coords;
+      } else {
+        console.warn(`[Geocode] No usable coordinates found for ${station.name}`);
       }
       await delay(1200);
     }
