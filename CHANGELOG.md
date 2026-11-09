@@ -1,3 +1,9 @@
+## [1.4.1](https://github.com/Krugou/bensa/compare/v1.4.0...v1.4.1) (2026-11-09)
+
+### Bug Fixes
+
+- **bot:** stop stations snapping to Espoo city centre ([5139aea](https://github.com/Krugou/bensa/commit/5139aea44d3c4718704773e12d41d6237a02766e))
+
 # [1.4.0](https://github.com/Krugou/bensa/compare/v1.3.2...v1.4.0) (2026-11-02)
 
 ### Features
